@@ -4,6 +4,7 @@
 *.dta
 
 # Ignore data and output folders
+/data/
 /output/
 
 # Ignore operating system files

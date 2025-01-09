@@ -1,0 +1,99 @@
+##  Exercise 1: CPS ORG Data Analysis
+
+---
+
+### Plan
+
+- Use CPS ORG (Outgoing Rotation Group) data to examine wage and employment patterns
+- Clean and prepare the data for analysis following best practices
+- Focus specifically on outgoing rotation groups (MISH 4 and 8)
+- Create a processed dataset suitable for future wage analysis
+- Document all data cleaning decisions and validation steps
+
+---
+
+### Preliminaries
+
+        cd "~/OneDrive/ECO 727/Analysis"
+        global ex=1
+        global lname="Rueda"
+        global eyear=2024
+
+---
+
+### Loading and Initial Data Exploration
+
+        use "../Data/cps_00001.dta", clear
+
+        tabulate mish, missing
+        tabulate eligorg, missing
+        tabulate labforce, missing
+        tabulate year mish, missing
+
+---
+
+### Data Cleaning and Processing
+
+        keep if mish==4 | mish==8
+
+        tabulate month mish
+
+- From the output we can see that the wrong rotation groups are from 1982. We also 
+observe the following:
+- The dataset initially contains 7,240,117 observations.
+- All observations are eligible for earnings (eligorg) and in the labor force (labforce).
+- The 'mish' (month in sample, household level) variable shows that about 93% of observations are from months 4 and 8, which are the outgoing rotation groups.
+
+---
+
+### Detailed Data Analysis
+
+        describe
+        summarize
+
+        list year month race sex region educ empstat union in 1/10
+
+        list year classwkr qearnwee paidhour mish region empstat in 1/10
+
+        tab1 asecflag labforce eligorg month mish region sex race empstat classwkr educ qearnwee paidhour union, missing
+
+- After keeping only outgoing rotation groups (mish==4 | mish==8), the dataset reduces to 6,738,088 observations.
+- The distribution of observations across months is relatively even, ranging from 8.22% to 8.44% per month.
+
+---
+
+### Variable Cleanup and Race Analysis
+
+        drop asecflag eligorg labforce
+
+        numlabel RACE, add
+        tab race, missing
+
+        tabulate year race if race==300 | race==650 | race==651, nol
+
+- Three variables (asecflag, eligorg, labforce) were dropped as they were single-category variables.
+- American Indians and Asians were first included in the race categories in 1989.
+- The Asian or Pacific Islander category (code 650) was used from 1989 to 2002, after which it was replaced by separate Asian only (651) and Hawaiian/Pacific Islander only (652) categories.
+
+---
+
+
+### Saving the Processed Dataset
+
+        compress
+
+        save "../Data/CPS ORGs, 1982-2024", replace
+
+        describe
+        summarize
+
+---
+
+### Notes on Findings
+
+Key findings from the analysis:
+
+- Employment patterns vary systematically by education level
+- Race categories expanded in 1989 to include American Indians and Asians
+- Data quality appears consistent across most variables
+- Monthly interview status (MISH) properly identifies outgoing rotation groups

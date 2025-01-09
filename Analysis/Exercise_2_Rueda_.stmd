@@ -1,0 +1,240 @@
+## Exercise 2: CPS ORG Data Analysis
+
+---
+
+### Plan
+
+- Use CPS ORG (Outgoing Rotation Group) data to analyze wage and employment patterns.
+- Clean and prepare the data for analysis, focusing on key variables like earnings, occupation, and industry.
+- Recode variables (e.g., race, education, occupation, industry) for consistency across years.
+- Validate data cleaning and recoding steps.
+- Save the cleaned dataset for future analysis.
+
+---
+
+### Preliminaries
+
+        cd "~/OneDrive/ECO 727/Analysis"
+        global ex=2
+        global lname="Rueda"
+        global endyear=2024
+---
+
+### Loading Data and Dropping
+
+        use "../Data/CPS ORGs, 1982-2024.dta", clear
+        drop serial cpsid cpsidp pernum hwtfinl wtfinl
+
+---
+
+### Recoding Missing Variables and Dummy Variables
+
+        replace region = . if region == 97
+        replace earnweek2 = . if earnweek2 == 999999.99
+        replace hourwage2 = . if hourwage2 == 999.99
+        replace sex = . if sex == 9
+        replace race = . if race == 999
+        replace empstat = . if empstat == 00
+        replace occ1950 = . if inlist(occ1950, 997, 999)
+        replace ind1950 = . if inlist(ind1950, 000, 001, 998, 999)
+        replace classwkr = . if inlist(classwkr, 00, 99)
+        replace uhrswork1 = . if uhrswork1 == 999
+        replace educ = . if inlist(educ, 000, 001, 999)
+        replace hourwage = . if hourwage == 999.99
+        replace paidhour = . if inlist(paidhour, 0, 6, 7)
+        replace union = . if union == 0
+        replace earnweek = . if earnweek == 9999.99
+        replace uhrsworkorg = . if inlist(uhrsworkorg, 998, 999)
+       
+        codebook earnweek
+        generate female = (sex == 2)
+        label variable female "Female (1=yes, 0=no)"
+        generate paidhour_dummy = (paidhour == 2)
+        label variable paidhour_dummy "Paid hourly (1=yes, 0=no)"
+
+The earnweek variable represents weekly earnings, ranging from 0.01 to 2,884.61, with 70,192 unique values. 
+There are 200,684 missing values (~2.98% of the dataset), and the examples provided (e.g., 258.46, 420, 638.40, 1,000)
+illustrate the variability in earnings. This variable will be crucial for analyzing wage patterns and disparities in
+the dataset.
+
+---
+
+### Race Variable Recoding
+
+        tabulate race year
+        tabulate race year, missing
+        generate race_orig = race
+        generate race_recode = .
+
+        replace race_recode = 1 if race == 100 // 1. White (non-Hispanic)
+        replace race_recode = 2 if race == 200 // 2. Black
+        replace race_recode = 3 if race == 300 // 3. American Indian/Aleut/Eskimo
+        replace race_recode = 4 if inlist(race, 650, 651) | race == 652  // 4. Asian/Pacific Islander
+        replace race_recode = 5 if race == 700 // 5. Other race
+        replace race_recode = 6 if inrange(race, 801, 830) // 6. Multiple races (combining all mixed categories)
+
+        label define race_label 1 "White" 2 "Black" 3 "American Indian" ///
+                                4 "Asian/Pacific Islander" 5 "Other" 6 "Multiple races"
+        label values race_recode race_label
+        label variable race_recode "Race - consistent coding across years"
+
+The dataset includes detailed race categories, with White (100) being the largest group (5,669,362 observations), 
+followed by Black (200) with 647,759 observations. Other groups, such as American Indian/Alaskan Native (300), 
+Asian/Pacific Islander (650), and Multiple Races (800s), are smaller but show consistent representation over the years. 
+The recoding ensures consistent categorization across all survey years, with adjustments for changes in race definitions 
+(e.g., the introduction of separate Asian and Hawaiian/Pacific Islander categories in later years).
+
+---
+
+### Education, Occupation and Industry Recoding
+
+        generate occupation = .
+        generate industry = .
+        generate grade = .
+
+        replace grade = 0 if educ == 2 & year <= 1991 // None or preschool
+        replace grade = 1 if educ == 11 & year <= 1991
+        replace grade = 2 if educ == 12 & year <= 1991
+        replace grade = 3 if educ == 13 & year <= 1991
+        replace grade = 4 if educ == 14 & year <= 1991
+        replace grade = 5 if educ == 21 & year <= 1991
+        replace grade = 6 if educ == 22 & year <= 1991
+        replace grade = 7 if educ == 31 & year <= 1991
+        replace grade = 8 if educ == 32 & year <= 1991
+        replace grade = 9 if educ == 40 & year <= 1991
+        replace grade = 10 if educ == 50 & year <= 1991
+        replace grade = 11 if educ == 60 & year <= 1991
+        replace grade = 12 if (educ == 72 | educ == 73) & year <= 1991 // 72 is 'diploma unclear'
+        replace grade = 13 if educ == 80 & year <= 1991
+        replace grade = 14 if educ == 90 & year <= 1991
+        replace grade = 15 if educ == 100 & year <= 1991
+        replace grade = 16 if educ == 110 & year <= 1991
+        replace grade = 17 if educ == 121 & year <= 1991
+        replace grade = 18 if educ == 122 & year <= 1991
+
+        replace grade = 0 if educ == 2 & year >= 1992
+        replace grade = 2.5 if educ == 10 & year >= 1992 // Grades 1-4
+        replace grade = 5.5 if educ == 20 & year >= 1992 // Grades 5-6
+        replace grade = 7.5 if educ == 30 & year >= 1992 // Grades 7-8
+        replace grade = 9 if educ == 40 & year >= 1992 // Grade 9
+        replace grade = 10 if educ == 50 & year >= 1992 // Grade 10
+        replace grade = 11 if educ == 60 & year >= 1992 // Grade 11
+        replace grade = 12 if (educ == 71 | educ == 73) & year >= 1992 // 71 is 'no diploma'
+        replace grade = 13 if educ == 81 & year >= 1992 // Some college, no degree
+        replace grade = 14 if (educ == 91 | educ == 92) & year >= 1992 // Academic or vocational associate's degree
+        replace grade = 16 if educ == 111 & year >= 1992
+        replace grade = 18 if inlist(educ, 123, 124, 125) & year >= 1992
+
+        label variable grade "Education (years)"
+
+        replace occupation = 1 if occ1950 >= 000 & occ1950 <= 099 // Professional, technical
+        replace occupation = 2 if occ1950 >= 100 & occ1950 <= 290 // Managers, officials, proprietors
+        replace occupation = 3 if occ1950 >= 300 & occ1950 <= 390 // Clerical, kindred
+        replace occupation = 4 if occ1950 >= 400 & occ1950 <= 490 // Sales
+        replace occupation = 5 if occ1950 >= 500 & occ1950 <= 594 // Craftsmen
+        replace occupation = 6 if occ1950 >= 600 & occ1950 <= 690 // Operatives
+        replace occupation = 7 if occ1950 >= 700 & occ1950 <= 720 // Service (private hh)
+        replace occupation = 8 if occ1950 >= 730 & occ1950 <= 790 // Service (other)
+        replace occupation = 9 if occ1950 >= 810 & occ1950 <= 970 // Laborers
+        replace occupation = 10 if occ1950 == 595 // Armed forces
+
+        replace industry = 1 if ind1950 >= 105 & ind1950 <= 239 // Agriculture, fisheries, mining
+        replace industry = 2 if ind1950 == 246 // Construction
+        replace industry = 3 if ind1950 >= 306 & ind1950 <= 399 // Durable manufacturing
+        replace industry = 4 if ind1950 >= 406 & ind1950 <= 499 // Nondurable manufacturing
+        replace industry = 5 if ind1950 >= 506 & ind1950 <= 598 // Communications, transportation, utilities
+        replace industry = 6 if ind1950 >= 606 & ind1950 <= 627 // Wholesale trade
+        replace industry = 7 if ind1950 >= 636 & ind1950 <= 699 // Retail trade
+        replace industry = 8 if (ind1950 >= 716 & ind1950 <= 746) | (ind1950 >= 868 & ind1950 <= 879) | (ind1950 >= 897 & ind1950 <= 899) // Professional services, fire
+        replace industry = 9 if inlist(ind1950, 888, 896) // Education, welfare services
+        replace industry = 10 if ind1950 >= 906 & ind1950 <= 936 // Public administration
+        replace industry = 11 if (ind1950 >= 806 & ind1950 <= 859) | inlist(ind1950, 997, 998) // Other services
+
+        label define occupation 1 "Professional, technical" 2 "Managers, officials, proprietors" ///
+                                3 "Clerical, kindred" 4 "Sales" 5 "Craftsmen" 6 "Operatives" ///
+                                7 "Service (private hh)" 8 "Service (other)" 9 "Laborers" ///
+                                10 "Armed forces"
+
+        label define industry 1 "Agriculture, fisheries, mining" 2 "Construction" ///
+                              3 "Durable manufacturing" 4 "Nondurable manufacturing" ///
+                              5 "Communications, transportation, utilities" 6 "Wholesale trade" ///
+                              7 "Retail trade" 8 "Professional services, fire" ///
+                              9 "Education, welfare services" 10 "Public administration" ///
+                              11 "Other services"
+
+        label values occupation occupation
+        label values industry industry
+
+        label variable occupation "Occupation (1-10)"
+        label variable industry "Industry (1-11)"
+
+In the education, occupation, and industry recoding section, variables are standardized for consistency across years.
+Education levels are recoded into years of schooling (e.g., 0 for no education, 18 for advanced degrees), while occupation and industry
+categories are grouped into consistent classifications (e.g., professional, technical, sales, etc.). This ensures uniformity for analysis
+over time. 
+
+---
+
+### Data Validation and Final Checks
+
+        assert inlist(occupation, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, .) if !missing(occ1950)
+        assert inlist(industry, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, .) if !missing(ind1950)
+
+        tabulate year occupation if occupation != ., missing
+        tabulate year industry if industry != ., missing
+
+        count if !missing(ind1950) & missing(industry)
+        if r(N) > 0 {
+            display "WARNING: There are " r(N) " instances where ind1950 is non-missing but industry is missing."
+        }
+        else {
+            display "All instances of ind1950 have been successfully recoded into industry."
+        }
+
+        count if !missing(industry) & missing(ind1950)
+        if r(N) > 0 {
+            display "WARNING: There are " r(N) " instances where industry is non-missing but ind1950 is missing."
+        }
+        else {
+            display "No instances are missing from industry compared to ind1950."
+        }
+
+        replace earnweek = earnweek2 if missing(earnweek)
+        replace hourwage = hourwage2 if missing(hourwage)
+        drop earnweek2 hourwage2
+
+        generate topcode = (earnweek == 9999.99)  
+        replace earnweek = 1.5 * earnweek if topcode == 1
+        label variable topcode "Top-coded earnweek (1=yes, 0=no)"     
+
+The data set contains 6,738,088 observations, with occupation and industry categories consistently recorded and validated across years.
+Key findings include a decline in manufacturing and retail trade jobs over time, while professional services and education sectors show growth.
+The recoding ensures accurate and uniform classification for analysis. 
+
+---
+
+### Saving the cleaned dataset
+
+            compress
+            save "../Data/CPS ORGs, 1982-2024, Cleaned.dta", replace
+            describe
+            summarize
+
+---
+
+### Key Findings
+
+- **Demographics**:  
+  - 48.8% of the sample is female, and the majority identify as White.  
+  - The average years of education is **13.49**, ranging from 0 to 18.
+
+- **Employment**:  
+  - 58.8% of workers are paid hourly.  
+  - The most common occupation is **professional/technical**, and the largest industry is **professional services/fire**.
+
+- **Earnings**:  
+  - Average weekly earnings are **$685.17**, with a wide range from $0.01 to $11,960.  
+  - Average weekly work hours are **78.17**, though outliers exist.
+
+
+

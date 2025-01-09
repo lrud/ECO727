@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Exercise_1_Rueda_</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+<style>
+/* CSS for Markstat 2.0 using Pandoc 2.0 */
+body{padding:14px 28px; max-width:45em;}
+body, table {font-family: Helvetica, Arial, Sans-serif; font-size: 14px;}
+h1, h2, h3, h4 {font-weight: normal; color: #3366cc}
+h1 {font-size: 200%;}
+h2 {font-size: 150%;}
+h3 {font-size: 120%;}
+h4 {font-size: 100%; font-weight:bold}
+img.center {display:block; margin-left:auto; margin-right:auto}
+.small{font-size:8pt;}
+a {color: black;}
+a:visited {color: #808080;}
+a.plain {text-decoration:none;}
+a.plain:hover {text-decoration:underline;}
+.em {font-weight:bold;}
+pre, code {font-family: "lucida console", monospace;}
+pre.stata {font-size:13px; line-height:13px;}
+pre {padding:8px; border:1px solid #c0c0c0; border-radius:8px; background-color:#fdfdfd;}
+code {color:#3366cc; background-color:#fafafa;}
+pre code { color:black; background-color:white}
+/* Added for Pandoc */
+figure > img, div.figure > img {display:block; margin:auto}
+figcaption, p.caption {text-align:center; font-weight:bold; color:#3366cc;}
+h1.title {text-align:center; margin-bottom:0}
+p.author, h2.author {font-style:italic; text-align:center;margin-top:4px;margin-bottom:0}
+p.date, h3.date {text-align:center;margin-top:4px; margin-bottom:0}
+/* Tables*/
+table { margin:auto; border-collapse:collapse; }
+table caption { margin-bottom:1ex;}
+td {padding:0 0 0 0} /* override */
+table:not([class]) th { padding:4px 6px } 
+table:not([class]) td { padding:4px 6px } 
+table:not([class]) thead tr:first-child th {border-top:1px solid black; padding-top:6px}
+table:not([class]) thead tr:last-child  th {padding-bottom:6px}
+table:not([class]) tbody tr:first-child td {border-top:1px solid black; padding-top:6px}
+table:not([class]) tbody tr:last-child  td {padding-bottom:6px;}
+table:not([class]) tbody:last-child tr:last-child td {border-bottom:1px solid black;}
+</style>
+</head>
+<body>
+<h2 id="exercise-1-cps-org-data-analysis">Exercise 1: CPS ORG Data
+Analysis</h2>
+<hr />
+<h3 id="plan">Plan</h3>
+<ul>
+<li>Use CPS ORG (Outgoing Rotation Group) data to examine wage and
+employment patterns</li>
+<li>Clean and prepare the data for analysis following best
+practices</li>
+<li>Focus specifically on outgoing rotation groups (MISH 4 and 8)</li>
+<li>Create a processed dataset suitable for future wage analysis</li>
+<li>Document all data cleaning decisions and validation steps</li>
+</ul>
+<hr />
+<h3 id="preliminaries">Preliminaries</h3>
+<pre class='stata'>.     cd "~/OneDrive/ECO 727/Analysis"
+C:\Users\melin\OneDrive\ECO 727\Analysis
+
+.     global ex=1
+
+.     global lname="Rueda"
+
+.     global eyear=2024
+</pre>
+<hr />
+<h3 id="loading-and-initial-data-exploration">Loading and Initial Data
+Exploration</h3>
+<pre class='stata'>.     use "../Data/cps_00001.dta", clear
+</pre>
+<pre class='stata'>.     tabulate mish, missing
+
+   month in │
+    sample, │
+  household │
+      level │      Freq.     Percent        Cum.
+────────────┼───────────────────────────────────
+        one │     82,939        1.15        1.15
+        two │     83,727        1.16        2.30
+      three │     83,525        1.15        3.46
+       four │  3,363,104       46.45       49.91
+       five │     83,941        1.16       51.07
+        six │     84,009        1.16       52.23
+      seven │     83,888        1.16       53.38
+      eight │  3,374,984       46.62      100.00
+────────────┼───────────────────────────────────
+      Total │  7,240,117      100.00
+
+.     tabulate eligorg, missing
+
+  (earnings) │
+ eligibility │
+        flag │      Freq.     Percent        Cum.
+─────────────┼───────────────────────────────────
+    eligible │  7,240,117      100.00      100.00
+─────────────┼───────────────────────────────────
+       Total │  7,240,117      100.00
+
+.     tabulate labforce, missing
+
+        labor force status │      Freq.     Percent        Cum.
+───────────────────────────┼───────────────────────────────────
+   yes, in the labor force │  7,240,117      100.00      100.00
+───────────────────────────┼───────────────────────────────────
+                     Total │  7,240,117      100.00
+
+.     tabulate year mish, missing
+
+    survey │                            month in sample, household level
+      year │       one        two      three       four       five        six      seven      eight │     Total
+───────────┼────────────────────────────────────────────────────────────────────────────────────────┼──────────
+      1982 │    82,939     83,727     83,525     83,073     83,941     84,009     83,888     83,577 │   668,679 
+      1983 │         0          0          0     82,847          0          0          0     82,328 │   165,175 
+      1984 │         0          0          0     84,024          0          0          0     84,427 │   168,451 
+      1985 │         0          0          0     85,677          0          0          0     85,937 │   171,614 
+      1986 │         0          0          0     85,364          0          0          0     84,902 │   170,266 
+      1987 │         0          0          0     85,933          0          0          0     85,314 │   171,247 
+      1988 │         0          0          0     82,486          0          0          0     81,688 │   164,174 
+      1989 │         0          0          0     85,005          0          0          0     82,607 │   167,612 
+      1990 │         0          0          0     87,933          0          0          0     88,322 │   176,255 
+      1991 │         0          0          0     84,910          0          0          0     86,386 │   171,296 
+      1992 │         0          0          0     84,005          0          0          0     84,955 │   168,960 
+      1993 │         0          0          0     83,048          0          0          0     83,666 │   166,714 
+      1994 │         0          0          0     80,859          0          0          0     81,886 │   162,745 
+      1995 │         0          0          0     82,098          0          0          0     80,163 │   162,261 
+      1996 │         0          0          0     72,756          0          0          0     72,047 │   144,803 
+      1997 │         0          0          0     74,062          0          0          0     73,478 │   147,540 
+      1998 │         0          0          0     75,479          0          0          0     73,799 │   149,278 
+      1999 │         0          0          0     76,217          0          0          0     75,254 │   151,471 
+      2000 │         0          0          0     75,486          0          0          0     77,589 │   153,075 
+      2001 │         0          0          0     83,410          0          0          0     84,441 │   167,851 
+      2002 │         0          0          0     87,679          0          0          0     87,359 │   175,038 
+      2003 │         0          0          0     85,437          0          0          0     86,424 │   171,861 
+      2004 │         0          0          0     83,213          0          0          0     85,661 │   168,874 
+      2005 │         0          0          0     84,851          0          0          0     85,076 │   169,927 
+      2006 │         0          0          0     84,134          0          0          0     85,062 │   169,196 
+      2007 │         0          0          0     83,854          0          0          0     83,597 │   167,451 
+      2008 │         0          0          0     82,106          0          0          0     83,248 │   165,354 
+      2009 │         0          0          0     80,293          0          0          0     80,272 │   160,565 
+      2010 │         0          0          0     79,180          0          0          0     79,733 │   158,913 
+      2011 │         0          0          0     78,145          0          0          0     78,997 │   157,142 
+      2012 │         0          0          0     78,282          0          0          0     78,110 │   156,392 
+      2013 │         0          0          0     77,952          0          0          0     77,763 │   155,715 
+      2014 │         0          0          0     78,159          0          0          0     78,352 │   156,511 
+      2015 │         0          0          0     77,184          0          0          0     77,301 │   154,485 
+      2016 │         0          0          0     77,872          0          0          0     76,595 │   154,467 
+      2017 │         0          0          0     75,203          0          0          0     76,871 │   152,074 
+      2018 │         0          0          0     73,586          0          0          0     74,611 │   148,197 
+      2019 │         0          0          0     70,823          0          0          0     72,072 │   142,895 
+      2020 │         0          0          0     59,303          0          0          0     63,750 │   123,053 
+      2021 │         0          0          0     60,528          0          0          0     62,901 │   123,429 
+      2022 │         0          0          0     59,478          0          0          0     59,448 │   118,926 
+      2023 │         0          0          0     58,393          0          0          0     56,591 │   114,984 
+      2024 │         0          0          0     52,777          0          0          0     52,424 │   105,201 
+───────────┼────────────────────────────────────────────────────────────────────────────────────────┼──────────
+     Total │    82,939     83,727     83,525  3,363,104     83,941     84,009     83,888  3,374,984 │ 7,240,117 
+</pre>
+<hr />
+<h3 id="data-cleaning-and-processing">Data Cleaning and Processing</h3>
+<pre class='stata'>.     keep if mish==4 | mish==8
+(502,029 observations deleted)
+</pre>
+<pre class='stata'>.     tabulate month mish
+
+           │   month in sample,
+           │    household level
+     month │      four      eight │     Total
+───────────┼──────────────────────┼──────────
+   january │   280,233    281,580 │   561,813 
+  february │   281,379    281,195 │   562,574 
+     march │   278,366    278,404 │   556,770 
+     april │   279,376    278,929 │   558,305 
+       may │   278,246    277,937 │   556,183 
+      june │   281,616    281,554 │   563,170 
+      july │   280,926    283,511 │   564,437 
+    august │   280,667    282,891 │   563,558 
+ september │   279,948    282,115 │   562,063 
+   october │   283,463    285,375 │   568,838 
+  november │   282,701    283,948 │   566,649 
+  december │   276,183    277,545 │   553,728 
+───────────┼──────────────────────┼──────────
+     Total │ 3,363,104  3,374,984 │ 6,738,088 
+</pre>
+<ul>
+<li>From the output we can see that the wrong rotation groups are from
+1982. We also observe the following:</li>
+<li>The dataset initially contains 7,240,117 observations.</li>
+<li>All observations are eligible for earnings (eligorg) and in the
+labor force (labforce).</li>
+<li>The ‘mish’ (month in sample, household level) variable shows that
+about 93% of observations are from months 4 and 8, which are the
+outgoing rotation groups.</li>
+</ul>
+<hr />
+<h3 id="detailed-data-analysis">Detailed Data Analysis</h3>
+<pre class='stata'>.     describe
+
+Contains data from ../Data/cps_00001.dta
+ Observations:     6,738,088                  
+    Variables:            32                  04 JAN 2025 03:23
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+year            int     %8.0g                 survey year
+serial          long    %12.0g                household serial number
+month           byte    %8.0g      MONTH      month
+hwtfinl         double  %12.0g                household weight, basic monthly
+cpsid           double  %12.0g                cpsid, household record
+asecflag        byte    %8.0g      ASECFLAG   flag for asec
+mish            byte    %8.0g      MISH       month in sample, household level
+region          byte    %8.0g      REGION     region and division
+pernum          byte    %8.0g                 person number in sample unit
+wtfinl          double  %12.0g                final basic weight
+cpsidp          double  %12.0g                cpsid, person record
+cpsidv          double  %12.0g                validated longitudinal identifier
+earnweek2       double  %12.0g     EARNWEEK2
+                                              weekly earnings (rounded)
+hourwage2       double  %12.0g     HOURWAGE2
+                                              hourly wage (rounded)
+age             byte    %8.0g      AGE        age
+sex             byte    %8.0g      SEX        sex
+race            int     %8.0g      RACE       race
+empstat         byte    %8.0g      EMPSTAT    employment status
+labforce        byte    %8.0g      LABFORCE   labor force status
+occ1950         int     %8.0g      OCC1950    occupation, 1950 basis
+ind1950         int     %8.0g      IND1950    industry, 1950 basis
+classwkr        byte    %8.0g      CLASSWKR   class of worker
+uhrswork1       int     %8.0g      UHRSWORK1
+                                              hours usually worked per week at main job
+educ            int     %8.0g      EDUC       educational attainment recode
+earnwt          double  %12.0g                earnings weight
+qearnwee        byte    %8.0g      QEARNWEE   data quality flag for earnweek
+hourwage        double  %12.0g     HOURWAGE   hourly wage
+paidhour        byte    %8.0g      PAIDHOUR   paid by the hour
+union           byte    %8.0g      UNION      union membership
+earnweek        double  %12.0g     EARNWEEK   weekly earnings
+uhrsworkorg     int     %8.0g                 usual hours worked per week, outgoing rotation groups
+eligorg         byte    %8.0g      ELIGORG    (earnings) eligibility flag
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Sorted by: 
+     Note: Dataset has changed since last saved.
+
+.     summarize
+
+    Variable │        Obs        Mean    Std. dev.       Min        Max
+─────────────┼─────────────────────────────────────────────────────────
+        year │  6,738,088    2002.068    12.10799       1982       2024
+      serial │  6,738,088    34874.83    20278.18          1      74625
+       month │  6,738,088    6.505521    3.450084          1         12
+     hwtfinl │  5,560,511    2223.566    1277.181          0   34716.21
+       cpsid │  6,738,088    2.00e+13    1.21e+11   1.98e+13   2.02e+13
+─────────────┼─────────────────────────────────────────────────────────
+    asecflag │    556,770           2           0          2          2
+        mish │  6,738,088    6.003526    1.999997          4          8
+      region │  6,738,088    27.35454    10.74259         11         42
+      pernum │  6,738,088    1.679193    .9420621          1         22
+      wtfinl │  6,738,088    2164.166    1271.501      22.24   34716.21
+─────────────┼─────────────────────────────────────────────────────────
+      cpsidp │  6,738,088    2.00e+13    1.21e+11   1.98e+13   2.02e+13
+      cpsidv │  6,738,088    2.00e+14    1.21e+12   1.98e+14   2.02e+14
+   earnweek2 │  6,738,088    1958.853    35654.57          0    1000000
+   hourwage2 │  6,738,088    420.1412    485.9802        .05     999.99
+         age │  6,738,088    39.04488    12.23483         18         64
+─────────────┼─────────────────────────────────────────────────────────
+         sex │  6,738,088    1.487791    .4998509          1          2
+        race │  6,738,088    142.7038    133.6738        100        830
+     empstat │  6,738,088     10.0833    .3995664         10         12
+    labforce │  6,738,088           2           0          2          2
+     occ1950 │  6,738,088    421.1817    267.7166          0        970
+─────────────┼─────────────────────────────────────────────────────────
+     ind1950 │  6,738,088    676.7314     222.289        105        936
+    classwkr │  6,738,088    22.68014    2.121586         13         28
+   uhrswork1 │  6,738,088    78.16546     189.717          0        997
+        educ │  6,738,088    86.05168    23.06105          2        125
+      earnwt │  6,738,088    8652.169    5093.023      90.01   209103.1
+─────────────┼─────────────────────────────────────────────────────────
+    qearnwee │  4,437,930    1.275338    1.864099          0          4
+    hourwage │  6,545,976    418.8949     485.937        .01     999.99
+    paidhour │  6,738,088    1.587672    .4922536          1          2
+       union │  6,517,390     1.17223     .419873          0          3
+    earnweek │  6,545,976    676.4486    646.6187        .01    9999.99
+─────────────┼─────────────────────────────────────────────────────────
+ uhrsworkorg │  5,560,511    494.6838    480.6063          1        999
+     eligorg │  6,738,088           1           0          1          1
+</pre>
+<pre class='stata'>.     list year month race sex region educ empstat union in 1/10
+
+     ┌─────────────────────────────────────────────────────────────────────────┐
+     │ year     month    race      sex     region       educ   empstat   union │
+     ├─────────────────────────────────────────────────────────────────────────┤
+  1. │ 1982   january   white     male   west nor   6+ years   at work       . │
+  2. │ 1982   january   white   female   west nor   6+ years   at work       . │
+  3. │ 1982   january   white   female    pacific    5 years   at work       . │
+  4. │ 1982   january   white     male   south at   6+ years   at work       . │
+  5. │ 1982   january   white   female   south at    4 years   at work       . │
+     ├─────────────────────────────────────────────────────────────────────────┤
+  6. │ 1982   january   white     male   mountain   high sch   at work       . │
+  7. │ 1982   january   white   female   mountain   1 year o   at work       . │
+  8. │ 1982   january   white   female   east nor    4 years   at work       . │
+  9. │ 1982   january   white     male   new engl    2 years   at work       . │
+ 10. │ 1982   january   white   female   new engl    4 years   at work       . │
+     └─────────────────────────────────────────────────────────────────────────┘
+</pre>
+<pre class='stata'>.     list year classwkr qearnwee paidhour mish region empstat in 1/10
+
+     ┌────────────────────────────────────────────────────────────────────┐
+     │ year   classwkr   qearnwee   paidhour    mish     region   empstat │
+     ├────────────────────────────────────────────────────────────────────┤
+  1. │ 1982   wage/sal          .         no    four   west nor   at work │
+  2. │ 1982   wage/sal          .         no    four   west nor   at work │
+  3. │ 1982   wage/sal          .         no    four    pacific   at work │
+  4. │ 1982   wage/sal          .         no   eight   south at   at work │
+  5. │ 1982   wage/sal          .        yes   eight   south at   at work │
+     ├────────────────────────────────────────────────────────────────────┤
+  6. │ 1982   wage/sal          .        yes   eight   mountain   at work │
+  7. │ 1982   wage/sal          .        yes   eight   mountain   at work │
+  8. │ 1982   wage/sal          .        yes   eight   east nor   at work │
+  9. │ 1982   wage/sal          .        yes    four   new engl   at work │
+ 10. │ 1982   wage/sal          .        yes    four   new engl   at work │
+     └────────────────────────────────────────────────────────────────────┘
+</pre>
+<pre class='stata'>.     tab1 asecflag labforce eligorg month mish region sex race empstat classwkr educ qearnwee paidhour union, missing
+
+-> tabulation of asecflag  
+
+   flag for │
+       asec │      Freq.     Percent        Cum.
+────────────┼───────────────────────────────────
+march basic │    556,770        8.26        8.26
+          . │  6,181,318       91.74      100.00
+────────────┼───────────────────────────────────
+      Total │  6,738,088      100.00
+
+-> tabulation of labforce  
+
+        labor force status │      Freq.     Percent        Cum.
+───────────────────────────┼───────────────────────────────────
+   yes, in the labor force │  6,738,088      100.00      100.00
+───────────────────────────┼───────────────────────────────────
+                     Total │  6,738,088      100.00
+
+-> tabulation of eligorg  
+
+  (earnings) │
+ eligibility │
+        flag │      Freq.     Percent        Cum.
+─────────────┼───────────────────────────────────
+    eligible │  6,738,088      100.00      100.00
+─────────────┼───────────────────────────────────
+       Total │  6,738,088      100.00
+
+-> tabulation of month  
+
+      month │      Freq.     Percent        Cum.
+────────────┼───────────────────────────────────
+    january │    561,813        8.34        8.34
+   february │    562,574        8.35       16.69
+      march │    556,770        8.26       24.95
+      april │    558,305        8.29       33.24
+        may │    556,183        8.25       41.49
+       june │    563,170        8.36       49.85
+       july │    564,437        8.38       58.23
+     august │    563,558        8.36       66.59
+  september │    562,063        8.34       74.93
+    october │    568,838        8.44       83.37
+   november │    566,649        8.41       91.78
+   december │    553,728        8.22      100.00
+────────────┼───────────────────────────────────
+      Total │  6,738,088      100.00
+
+-> tabulation of mish  
+
+   month in │
+    sample, │
+  household │
+      level │      Freq.     Percent        Cum.
+────────────┼───────────────────────────────────
+       four │  3,363,104       49.91       49.91
+      eight │  3,374,984       50.09      100.00
+────────────┼───────────────────────────────────
+      Total │  6,738,088      100.00
+
+-> tabulation of region  
+
+        region and division │      Freq.     Percent        Cum.
+────────────────────────────┼───────────────────────────────────
+       new england division │    627,985        9.32        9.32
+   middle atlantic division │    791,935       11.75       21.07
+east north central division │    911,521       13.53       34.60
+west north central division │    701,947       10.42       45.02
+    south atlantic division │  1,162,911       17.26       62.28
+east south central division │    346,550        5.14       67.42
+west south central division │    589,807        8.75       76.17
+          mountain division │    710,165       10.54       86.71
+           pacific division │    895,267       13.29      100.00
+────────────────────────────┼───────────────────────────────────
+                      Total │  6,738,088      100.00
+
+-> tabulation of sex  
+
+        sex │      Freq.     Percent        Cum.
+────────────┼───────────────────────────────────
+       male │  3,451,312       51.22       51.22
+     female │  3,286,776       48.78      100.00
+────────────┼───────────────────────────────────
+      Total │  6,738,088      100.00
+
+-> tabulation of race  
+
+                                   race │      Freq.     Percent        Cum.
+────────────────────────────────────────┼───────────────────────────────────
+                                  white │  5,669,362       84.14       84.14
+                                  black │    647,759        9.61       93.75
+           american indian/aleut/eskimo │     56,015        0.83       94.58
+              asian or pacific islander │     80,330        1.19       95.78
+                             asian only │    168,441        2.50       98.28
+         hawaiian/pacific islander only │     14,635        0.22       98.49
+             other (single) race, n.e.c │     45,931        0.68       99.17
+                            white-black │     11,088        0.16       99.34
+                  white-american indian │     20,999        0.31       99.65
+                            white-asian │      9,442        0.14       99.79
+        white-hawaiian/pacific islander │      2,740        0.04       99.83
+                  black-american indian │      2,492        0.04       99.87
+                            black-asian │        758        0.01       99.88
+        black-hawaiian/pacific islander │        208        0.00       99.88
+                  american indian-asian │        190        0.00       99.89
+        asian-hawaiian/pacific islander │      2,667        0.04       99.93
+            white-black-american indian │      1,528        0.02       99.95
+                      white-black-asian │        213        0.00       99.95
+            white-american indian-asian │        252        0.00       99.95
+  white-asian-hawaiian/pacific islander │      2,209        0.03       99.99
+      white-black-american indian-asian │         74        0.00       99.99
+american indian-hawaiian/pacific island │         50        0.00       99.99
+ white-black--hawaiian/pacific islander │         50        0.00       99.99
+white-american indian-hawaiian/pacific  │         77        0.00       99.99
+            black-american indian-asian │         22        0.00       99.99
+white-american indian-asian-hawaiian/pa │         17        0.00       99.99
+        two or three races, unspecified │        356        0.01      100.00
+        four or five races, unspecified │        183        0.00      100.00
+────────────────────────────────────────┼───────────────────────────────────
+                                  Total │  6,738,088      100.00
+
+-> tabulation of empstat  
+
+             employment status │      Freq.     Percent        Cum.
+───────────────────────────────┼───────────────────────────────────
+                       at work │  6,457,461       95.84       95.84
+has job, not at work last week │    280,627        4.16      100.00
+───────────────────────────────┼───────────────────────────────────
+                         Total │  6,738,088      100.00
+
+-> tabulation of classwkr  
+
+                class of worker │      Freq.     Percent        Cum.
+────────────────────────────────┼───────────────────────────────────
+self-employed, not incorporated │          2        0.00        0.00
+           wage/salary, private │  1,656,623       24.59       24.59
+            private, for profit │  3,572,985       53.03       77.61
+             private, nonprofit │    335,125        4.97       82.59
+        wage/salary, government │     31,948        0.47       83.06
+    federal government employee │    220,507        3.27       86.33
+      state government employee │    346,419        5.14       91.47
+      local government employee │    574,479        8.53      100.00
+────────────────────────────────┼───────────────────────────────────
+                          Total │  6,738,088      100.00
+
+-> tabulation of educ  
+
+          educational attainment recode │      Freq.     Percent        Cum.
+────────────────────────────────────────┼───────────────────────────────────
+                      none or preschool │     11,922        0.18        0.18
+                   grades 1, 2, 3, or 4 │     21,107        0.31        0.49
+                                grade 1 │        827        0.01        0.50
+                                grade 2 │      2,023        0.03        0.53
+                                grade 3 │      3,228        0.05        0.58
+                                grade 4 │      4,010        0.06        0.64
+                          grades 5 or 6 │     49,851        0.74        1.38
+                                grade 5 │      5,261        0.08        1.46
+                                grade 6 │     13,252        0.20        1.65
+                          grades 7 or 8 │     50,759        0.75        2.41
+                                grade 7 │     11,324        0.17        2.58
+                                grade 8 │     37,861        0.56        3.14
+                                grade 9 │     94,694        1.41        4.54
+                               grade 10 │    129,426        1.92        6.46
+                               grade 11 │    172,375        2.56        9.02
+                 12th grade, no diploma │     54,751        0.81        9.83
+            12th grade, diploma unclear │    642,040        9.53       19.36
+      high school diploma or equivalent │  1,565,921       23.24       42.60
+                      1 year of college │    134,820        2.00       44.60
+             some college but no degree │    977,528       14.51       59.11
+                     2 years of college │    168,063        2.49       61.61
+associate's degree, occupational/vocati │    247,796        3.68       65.28
+   associate's degree, academic program │    262,290        3.89       69.18
+                     3 years of college │     63,319        0.94       70.12
+                     4 years of college │    229,636        3.41       73.52
+                      bachelor's degree │  1,072,281       15.91       89.44
+                     5 years of college │     45,334        0.67       90.11
+                    6+ years of college │    110,245        1.64       91.75
+                        master's degree │    412,572        6.12       97.87
+             professional school degree │     69,368        1.03       98.90
+                       doctorate degree │     74,204        1.10      100.00
+────────────────────────────────────────┼───────────────────────────────────
+                                  Total │  6,738,088      100.00
+
+-> tabulation of qearnwee  
+
+ data quality │
+     flag for │
+     earnweek │      Freq.     Percent        Cum.
+──────────────┼───────────────────────────────────
+not allocated │  3,022,965       44.86       44.86
+    allocated │  1,414,965       21.00       65.86
+            . │  2,300,158       34.14      100.00
+──────────────┼───────────────────────────────────
+        Total │  6,738,088      100.00
+
+-> tabulation of paidhour  
+
+paid by the │
+       hour │      Freq.     Percent        Cum.
+────────────┼───────────────────────────────────
+         no │  2,778,301       41.23       41.23
+        yes │  3,959,787       58.77      100.00
+────────────┼───────────────────────────────────
+      Total │  6,738,088      100.00
+
+-> tabulation of union  
+
+                 union membership │      Freq.     Percent        Cum.
+──────────────────────────────────┼───────────────────────────────────
+                              niu │         53        0.00        0.00
+                no union coverage │  5,504,648       81.69       81.70
+            member of labor union │    902,837       13.40       95.09
+covered by union but not a member │    109,852        1.63       96.72
+                                . │    220,698        3.28      100.00
+──────────────────────────────────┼───────────────────────────────────
+                            Total │  6,738,088      100.00
+</pre>
+<ul>
+<li>After keeping only outgoing rotation groups (mish==4 | mish==8), the
+dataset reduces to 6,738,088 observations.</li>
+<li>The distribution of observations across months is relatively even,
+ranging from 8.22% to 8.44% per month.</li>
+</ul>
+<hr />
+<h3 id="variable-cleanup-and-race-analysis">Variable Cleanup and Race
+Analysis</h3>
+<pre class='stata'>.     drop asecflag eligorg labforce
+</pre>
+<pre class='stata'>.     numlabel RACE, add
+
+.     tab race, missing
+
+                                   race │      Freq.     Percent        Cum.
+────────────────────────────────────────┼───────────────────────────────────
+                             100. white │  5,669,362       84.14       84.14
+                             200. black │    647,759        9.61       93.75
+      300. american indian/aleut/eskimo │     56,015        0.83       94.58
+         650. asian or pacific islander │     80,330        1.19       95.78
+                        651. asian only │    168,441        2.50       98.28
+    652. hawaiian/pacific islander only │     14,635        0.22       98.49
+        700. other (single) race, n.e.c │     45,931        0.68       99.17
+                       801. white-black │     11,088        0.16       99.34
+             802. white-american indian │     20,999        0.31       99.65
+                       803. white-asian │      9,442        0.14       99.79
+   804. white-hawaiian/pacific islander │      2,740        0.04       99.83
+             805. black-american indian │      2,492        0.04       99.87
+                       806. black-asian │        758        0.01       99.88
+   807. black-hawaiian/pacific islander │        208        0.00       99.88
+             808. american indian-asian │        190        0.00       99.89
+   809. asian-hawaiian/pacific islander │      2,667        0.04       99.93
+       810. white-black-american indian │      1,528        0.02       99.95
+                 811. white-black-asian │        213        0.00       99.95
+       812. white-american indian-asian │        252        0.00       99.95
+813. white-asian-hawaiian/pacific islan │      2,209        0.03       99.99
+ 814. white-black-american indian-asian │         74        0.00       99.99
+815. american indian-hawaiian/pacific i │         50        0.00       99.99
+816. white-black--hawaiian/pacific isla │         50        0.00       99.99
+817. white-american indian-hawaiian/pac │         77        0.00       99.99
+       818. black-american indian-asian │         22        0.00       99.99
+819. white-american indian-asian-hawaii │         17        0.00       99.99
+   820. two or three races, unspecified │        356        0.01      100.00
+   830. four or five races, unspecified │        183        0.00      100.00
+────────────────────────────────────────┼───────────────────────────────────
+                                  Total │  6,738,088      100.00
+</pre>
+<pre class='stata'>.     tabulate year race if race==300 | race==650 | race==651, nol
+
+    survey │               race
+      year │       300        650        651 │     Total
+───────────┼─────────────────────────────────┼──────────
+      1989 │     1,274      4,420          0 │     5,694 
+      1990 │     1,331      5,130          0 │     6,461 
+      1991 │     1,375      5,303          0 │     6,678 
+      1992 │     1,403      5,414          0 │     6,817 
+      1993 │     1,539      5,551          0 │     7,090 
+      1994 │     1,525      5,464          0 │     6,989 
+      1995 │     1,463      5,595          0 │     7,058 
+      1996 │     1,531      5,298          0 │     6,829 
+      1997 │     1,635      5,589          0 │     7,224 
+      1998 │     1,720      5,940          0 │     7,660 
+      1999 │     1,641      5,886          0 │     7,527 
+      2000 │     1,783      6,280          0 │     8,063 
+      2001 │     2,039      7,125          0 │     9,164 
+      2002 │     2,111      7,335          0 │     9,446 
+      2003 │     1,595          0      6,149 │     7,744 
+      2004 │     1,764          0      6,269 │     8,033 
+      2005 │     1,643          0      6,616 │     8,259 
+      2006 │     1,549          0      6,917 │     8,466 
+      2007 │     1,610          0      7,078 │     8,688 
+      2008 │     1,606          0      7,330 │     8,936 
+      2009 │     1,428          0      7,318 │     8,746 
+      2010 │     1,393          0      7,449 │     8,842 
+      2011 │     1,418          0      7,779 │     9,197 
+      2012 │     1,453          0      8,128 │     9,581 
+      2013 │     1,433          0      8,283 │     9,716 
+      2014 │     1,482          0      8,338 │     9,820 
+      2015 │     1,744          0      8,352 │    10,096 
+      2016 │     1,843          0      8,612 │    10,455 
+      2017 │     1,736          0      8,806 │    10,542 
+      2018 │     1,660          0      8,735 │    10,395 
+      2019 │     1,620          0      8,494 │    10,114 
+      2020 │     1,381          0      7,360 │     8,741 
+      2021 │     1,401          0      7,812 │     9,213 
+      2022 │     1,364          0      7,822 │     9,186 
+      2023 │     1,328          0      7,558 │     8,886 
+      2024 │     1,194          0      7,236 │     8,430 
+───────────┼─────────────────────────────────┼──────────
+     Total │    56,015     80,330    168,441 │   304,786 
+</pre>
+<ul>
+<li>Three variables (asecflag, eligorg, labforce) were dropped as they
+were single-category variables.</li>
+<li>American Indians and Asians were first included in the race
+categories in 1989.</li>
+<li>The Asian or Pacific Islander category (code 650) was used from 1989
+to 2002, after which it was replaced by separate Asian only (651) and
+Hawaiian/Pacific Islander only (652) categories.</li>
+</ul>
+<hr />
+<h3 id="saving-the-processed-dataset">Saving the Processed Dataset</h3>
+<pre class='stata'>.     compress
+  (0 bytes saved)
+</pre>
+<pre class='stata'>.     save "../Data/CPS ORGs, 1982-2024", replace
+file ../Data/CPS ORGs, 1982-2024.dta saved
+</pre>
+<pre class='stata'>.     describe
+
+Contains data from ../Data/CPS ORGs, 1982-2024.dta
+ Observations:     6,738,088                  
+    Variables:            29                  4 Jan 2025 17:37
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+year            int     %8.0g                 survey year
+serial          long    %12.0g                household serial number
+month           byte    %8.0g      MONTH      month
+hwtfinl         double  %12.0g                household weight, basic monthly
+cpsid           double  %12.0g                cpsid, household record
+mish            byte    %8.0g      MISH       month in sample, household level
+region          byte    %8.0g      REGION     region and division
+pernum          byte    %8.0g                 person number in sample unit
+wtfinl          double  %12.0g                final basic weight
+cpsidp          double  %12.0g                cpsid, person record
+cpsidv          double  %12.0g                validated longitudinal identifier
+earnweek2       double  %12.0g     EARNWEEK2
+                                              weekly earnings (rounded)
+hourwage2       double  %12.0g     HOURWAGE2
+                                              hourly wage (rounded)
+age             byte    %8.0g      AGE        age
+sex             byte    %8.0g      SEX        sex
+race            int     %58.0g     RACE       race
+empstat         byte    %8.0g      EMPSTAT    employment status
+occ1950         int     %8.0g      OCC1950    occupation, 1950 basis
+ind1950         int     %8.0g      IND1950    industry, 1950 basis
+classwkr        byte    %8.0g      CLASSWKR   class of worker
+uhrswork1       int     %8.0g      UHRSWORK1
+                                              hours usually worked per week at main job
+educ            int     %8.0g      EDUC       educational attainment recode
+earnwt          double  %12.0g                earnings weight
+qearnwee        byte    %8.0g      QEARNWEE   data quality flag for earnweek
+hourwage        double  %12.0g     HOURWAGE   hourly wage
+paidhour        byte    %8.0g      PAIDHOUR   paid by the hour
+union           byte    %8.0g      UNION      union membership
+earnweek        double  %12.0g     EARNWEEK   weekly earnings
+uhrsworkorg     int     %8.0g                 usual hours worked per week, outgoing rotation groups
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Sorted by: 
+
+.     summarize
+
+    Variable │        Obs        Mean    Std. dev.       Min        Max
+─────────────┼─────────────────────────────────────────────────────────
+        year │  6,738,088    2002.068    12.10799       1982       2024
+      serial │  6,738,088    34874.83    20278.18          1      74625
+       month │  6,738,088    6.505521    3.450084          1         12
+     hwtfinl │  5,560,511    2223.566    1277.181          0   34716.21
+       cpsid │  6,738,088    2.00e+13    1.21e+11   1.98e+13   2.02e+13
+─────────────┼─────────────────────────────────────────────────────────
+        mish │  6,738,088    6.003526    1.999997          4          8
+      region │  6,738,088    27.35454    10.74259         11         42
+      pernum │  6,738,088    1.679193    .9420621          1         22
+      wtfinl │  6,738,088    2164.166    1271.501      22.24   34716.21
+      cpsidp │  6,738,088    2.00e+13    1.21e+11   1.98e+13   2.02e+13
+─────────────┼─────────────────────────────────────────────────────────
+      cpsidv │  6,738,088    2.00e+14    1.21e+12   1.98e+14   2.02e+14
+   earnweek2 │  6,738,088    1958.853    35654.57          0    1000000
+   hourwage2 │  6,738,088    420.1412    485.9802        .05     999.99
+         age │  6,738,088    39.04488    12.23483         18         64
+         sex │  6,738,088    1.487791    .4998509          1          2
+─────────────┼─────────────────────────────────────────────────────────
+        race │  6,738,088    142.7038    133.6738        100        830
+     empstat │  6,738,088     10.0833    .3995664         10         12
+     occ1950 │  6,738,088    421.1817    267.7166          0        970
+     ind1950 │  6,738,088    676.7314     222.289        105        936
+    classwkr │  6,738,088    22.68014    2.121586         13         28
+─────────────┼─────────────────────────────────────────────────────────
+   uhrswork1 │  6,738,088    78.16546     189.717          0        997
+        educ │  6,738,088    86.05168    23.06105          2        125
+      earnwt │  6,738,088    8652.169    5093.023      90.01   209103.1
+    qearnwee │  4,437,930    1.275338    1.864099          0          4
+    hourwage │  6,545,976    418.8949     485.937        .01     999.99
+─────────────┼─────────────────────────────────────────────────────────
+    paidhour │  6,738,088    1.587672    .4922536          1          2
+       union │  6,517,390     1.17223     .419873          0          3
+    earnweek │  6,545,976    676.4486    646.6187        .01    9999.99
+ uhrsworkorg │  5,560,511    494.6838    480.6063          1        999
+</pre>
+<hr />
+<h3 id="notes-on-findings">Notes on Findings</h3>
+<p>Key findings from the analysis:</p>
+<ul>
+<li>Employment patterns vary systematically by education level</li>
+<li>Race categories expanded in 1989 to include American Indians and
+Asians</li>
+<li>Data quality appears consistent across most variables</li>
+<li>Monthly interview status (MISH) properly identifies outgoing
+rotation groups</li>
+</ul>
+</body>
+</html>

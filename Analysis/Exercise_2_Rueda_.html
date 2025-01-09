@@ -1,0 +1,1786 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Exercise_2_Rueda_</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+<style>
+/* CSS for Markstat 2.0 using Pandoc 2.0 */
+body{padding:14px 28px; max-width:45em;}
+body, table {font-family: Helvetica, Arial, Sans-serif; font-size: 14px;}
+h1, h2, h3, h4 {font-weight: normal; color: #3366cc}
+h1 {font-size: 200%;}
+h2 {font-size: 150%;}
+h3 {font-size: 120%;}
+h4 {font-size: 100%; font-weight:bold}
+img.center {display:block; margin-left:auto; margin-right:auto}
+.small{font-size:8pt;}
+a {color: black;}
+a:visited {color: #808080;}
+a.plain {text-decoration:none;}
+a.plain:hover {text-decoration:underline;}
+.em {font-weight:bold;}
+pre, code {font-family: "lucida console", monospace;}
+pre.stata {font-size:13px; line-height:13px;}
+pre {padding:8px; border:1px solid #c0c0c0; border-radius:8px; background-color:#fdfdfd;}
+code {color:#3366cc; background-color:#fafafa;}
+pre code { color:black; background-color:white}
+/* Added for Pandoc */
+figure > img, div.figure > img {display:block; margin:auto}
+figcaption, p.caption {text-align:center; font-weight:bold; color:#3366cc;}
+h1.title {text-align:center; margin-bottom:0}
+p.author, h2.author {font-style:italic; text-align:center;margin-top:4px;margin-bottom:0}
+p.date, h3.date {text-align:center;margin-top:4px; margin-bottom:0}
+/* Tables*/
+table { margin:auto; border-collapse:collapse; }
+table caption { margin-bottom:1ex;}
+td {padding:0 0 0 0} /* override */
+table:not([class]) th { padding:4px 6px } 
+table:not([class]) td { padding:4px 6px } 
+table:not([class]) thead tr:first-child th {border-top:1px solid black; padding-top:6px}
+table:not([class]) thead tr:last-child  th {padding-bottom:6px}
+table:not([class]) tbody tr:first-child td {border-top:1px solid black; padding-top:6px}
+table:not([class]) tbody tr:last-child  td {padding-bottom:6px;}
+table:not([class]) tbody:last-child tr:last-child td {border-bottom:1px solid black;}
+</style>
+</head>
+<body>
+<h2 id="exercise-2-cps-org-data-analysis">Exercise 2: CPS ORG Data
+Analysis</h2>
+<hr />
+<h3 id="plan">Plan</h3>
+<ul>
+<li>Use CPS ORG (Outgoing Rotation Group) data to analyze wage and
+employment patterns.</li>
+<li>Clean and prepare the data for analysis, focusing on key variables
+like earnings, occupation, and industry.</li>
+<li>Recode variables (e.g., race, education, occupation, industry) for
+consistency across years.</li>
+<li>Validate data cleaning and recoding steps.</li>
+<li>Save the cleaned dataset for future analysis.</li>
+</ul>
+<hr />
+<h3 id="preliminaries">Preliminaries</h3>
+<pre class='stata'>.     cd "~/OneDrive/ECO 727/Analysis"
+C:\Users\melin\OneDrive\ECO 727\Analysis
+
+.     global ex=2
+
+.     global lname="Rueda"
+
+.     global endyear=2024
+</pre>
+<hr />
+<h3 id="loading-data-and-dropping">Loading Data and Dropping</h3>
+<pre class='stata'>.     use "../Data/CPS ORGs, 1982-2024.dta", clear
+
+.     drop serial cpsid cpsidp pernum hwtfinl wtfinl
+</pre>
+<hr />
+<h3 id="recoding-missing-variables-and-dummy-variables">Recoding Missing
+Variables and Dummy Variables</h3>
+<pre class='stata'>.     replace region = . if region == 97
+(0 real changes made)
+
+.     replace earnweek2 = . if earnweek2 == 999999.99
+(8,586 real changes made, 8,586 to missing)
+
+.     replace hourwage2 = . if hourwage2 == 999.99
+(2,779,881 real changes made, 2,779,881 to missing)
+
+.     replace sex = . if sex == 9
+(0 real changes made)
+
+.     replace race = . if race == 999
+(0 real changes made)
+
+.     replace empstat = . if empstat == 00
+(0 real changes made)
+
+.     replace occ1950 = . if inlist(occ1950, 997, 999)
+(0 real changes made)
+
+.     replace ind1950 = . if inlist(ind1950, 000, 001, 998, 999)
+(0 real changes made)
+
+.     replace classwkr = . if inlist(classwkr, 00, 99)
+(0 real changes made)
+
+.     replace uhrswork1 = . if uhrswork1 == 999
+(0 real changes made)
+
+.     replace educ = . if inlist(educ, 000, 001, 999)
+(0 real changes made)
+
+.     replace hourwage = . if hourwage == 999.99
+(2,693,538 real changes made, 2,693,538 to missing)
+
+.     replace paidhour = . if inlist(paidhour, 0, 6, 7)
+(0 real changes made)
+
+.     replace union = . if union == 0
+(53 real changes made, 53 to missing)
+
+.     replace earnweek = . if earnweek == 9999.99
+(8,572 real changes made, 8,572 to missing)
+
+.     replace uhrsworkorg = . if inlist(uhrsworkorg, 998, 999)
+(2,646,162 real changes made, 2,646,162 to missing)
+</pre>
+<pre class='stata'>.     codebook earnweek
+
+─────────────────────────────────────────────────────────────────────────────────────────
+earnweek                                                                  weekly earnings
+─────────────────────────────────────────────────────────────────────────────────────────
+
+                  Type: Numeric (double)
+                 Label: EARNWEEK, but 70192 nonmissing values are not labeled
+
+                 Range: [.01,2884.61]                 Units: .01
+         Unique values: 70,192                    Missing .: 200,684/6,738,088
+
+              Examples: 258.46
+                        420   
+                        638.4 
+                        1000  
+
+.     generate female = (sex == 2)
+
+.     label variable female "Female (1=yes, 0=no)"
+
+.     generate paidhour_dummy = (paidhour == 2)
+
+.     label variable paidhour_dummy "Paid hourly (1=yes, 0=no)"
+</pre>
+<p>The earnweek variable represents weekly earnings, ranging from 0.01
+to 2,884.61, with 70,192 unique values. There are 200,684 missing values
+(~2.98% of the dataset), and the examples provided (e.g., 258.46, 420,
+638.40, 1,000) illustrate the variability in earnings. This variable
+will be crucial for analyzing wage patterns and disparities in the
+dataset.</p>
+<hr />
+<h3 id="race-variable-recoding">Race Variable Recoding</h3>
+<pre class='stata'>.     tabulate race year
+
+                      │                 survey year
+                 race │      1982       1983       1984       1985 │     Total
+──────────────────────┼────────────────────────────────────────────┼──────────
+           100. white │   146,627    145,099    147,612    150,014 │ 5,669,362 
+           200. black │    14,669     14,722     15,322     16,027 │   647,759 
+300. american indian/ │         0          0          0          0 │    56,015 
+650. asian or pacific │         0          0          0          0 │    80,330 
+      651. asian only │         0          0          0          0 │   168,441 
+652. hawaiian/pacific │         0          0          0          0 │    14,635 
+700. other (single) r │     5,354      5,354      5,517      5,573 │    45,931 
+     801. white-black │         0          0          0          0 │    11,088 
+802. white-american i │         0          0          0          0 │    20,999 
+     803. white-asian │         0          0          0          0 │     9,442 
+804. white-hawaiian/p │         0          0          0          0 │     2,740 
+805. black-american i │         0          0          0          0 │     2,492 
+     806. black-asian │         0          0          0          0 │       758 
+807. black-hawaiian/p │         0          0          0          0 │       208 
+808. american indian- │         0          0          0          0 │       190 
+809. asian-hawaiian/p │         0          0          0          0 │     2,667 
+810. white-black-amer │         0          0          0          0 │     1,528 
+811. white-black-asia │         0          0          0          0 │       213 
+812. white-american i │         0          0          0          0 │       252 
+813. white-asian-hawa │         0          0          0          0 │     2,209 
+814. white-black-amer │         0          0          0          0 │        74 
+815. american indian- │         0          0          0          0 │        50 
+816. white-black--haw │         0          0          0          0 │        50 
+817. white-american i │         0          0          0          0 │        77 
+818. black-american i │         0          0          0          0 │        22 
+819. white-american i │         0          0          0          0 │        17 
+820. two or three rac │         0          0          0          0 │       356 
+830. four or five rac │         0          0          0          0 │       183 
+──────────────────────┼────────────────────────────────────────────┼──────────
+                Total │   166,650    165,175    168,451    171,614 │ 6,738,088 
+
+
+                      │                 survey year
+                 race │      1986       1987       1988       1989 │     Total
+──────────────────────┼────────────────────────────────────────────┼──────────
+           100. white │   148,277    148,758    142,956    145,665 │ 5,669,362 
+           200. black │    16,274     16,685     15,764     15,917 │   647,759 
+300. american indian/ │         0          0          0      1,274 │    56,015 
+650. asian or pacific │         0          0          0      4,420 │    80,330 
+      651. asian only │         0          0          0          0 │   168,441 
+652. hawaiian/pacific │         0          0          0          0 │    14,635 
+700. other (single) r │     5,715      5,804      5,454        336 │    45,931 
+     801. white-black │         0          0          0          0 │    11,088 
+802. white-american i │         0          0          0          0 │    20,999 
+     803. white-asian │         0          0          0          0 │     9,442 
+804. white-hawaiian/p │         0          0          0          0 │     2,740 
+805. black-american i │         0          0          0          0 │     2,492 
+     806. black-asian │         0          0          0          0 │       758 
+807. black-hawaiian/p │         0          0          0          0 │       208 
+808. american indian- │         0          0          0          0 │       190 
+809. asian-hawaiian/p │         0          0          0          0 │     2,667 
+810. white-black-amer │         0          0          0          0 │     1,528 
+811. white-black-asia │         0          0          0          0 │       213 
+812. white-american i │         0          0          0          0 │       252 
+813. white-asian-hawa │         0          0          0          0 │     2,209 
+814. white-black-amer │         0          0          0          0 │        74 
+815. american indian- │         0          0          0          0 │        50 
+816. white-black--haw │         0          0          0          0 │        50 
+817. white-american i │         0          0          0          0 │        77 
+818. black-american i │         0          0          0          0 │        22 
+819. white-american i │         0          0          0          0 │        17 
+820. two or three rac │         0          0          0          0 │       356 
+830. four or five rac │         0          0          0          0 │       183 
+──────────────────────┼────────────────────────────────────────────┼──────────
+                Total │   170,266    171,247    164,174    167,612 │ 6,738,088 
+
+
+                      │                 survey year
+                 race │      1990       1991       1992       1993 │     Total
+──────────────────────┼────────────────────────────────────────────┼──────────
+           100. white │   152,628    148,002    145,775    142,959 │ 5,669,362 
+           200. black │    16,739     16,077     15,758     15,843 │   647,759 
+300. american indian/ │     1,331      1,375      1,403      1,539 │    56,015 
+650. asian or pacific │     5,130      5,303      5,414      5,551 │    80,330 
+      651. asian only │         0          0          0          0 │   168,441 
+652. hawaiian/pacific │         0          0          0          0 │    14,635 
+700. other (single) r │       427        539        610        822 │    45,931 
+     801. white-black │         0          0          0          0 │    11,088 
+802. white-american i │         0          0          0          0 │    20,999 
+     803. white-asian │         0          0          0          0 │     9,442 
+804. white-hawaiian/p │         0          0          0          0 │     2,740 
+805. black-american i │         0          0          0          0 │     2,492 
+     806. black-asian │         0          0          0          0 │       758 
+807. black-hawaiian/p │         0          0          0          0 │       208 
+808. american indian- │         0          0          0          0 │       190 
+809. asian-hawaiian/p │         0          0          0          0 │     2,667 
+810. white-black-amer │         0          0          0          0 │     1,528 
+811. white-black-asia │         0          0          0          0 │       213 
+812. white-american i │         0          0          0          0 │       252 
+813. white-asian-hawa │         0          0          0          0 │     2,209 
+814. white-black-amer │         0          0          0          0 │        74 
+815. american indian- │         0          0          0          0 │        50 
+816. white-black--haw │         0          0          0          0 │        50 
+817. white-american i │         0          0          0          0 │        77 
+818. black-american i │         0          0          0          0 │        22 
+819. white-american i │         0          0          0          0 │        17 
+820. two or three rac │         0          0          0          0 │       356 
+830. four or five rac │         0          0          0          0 │       183 
+──────────────────────┼────────────────────────────────────────────┼──────────
+                Total │   176,255    171,296    168,960    166,714 │ 6,738,088 
+
+
+                      │                 survey year
+                 race │      1994       1995       1996       1997 │     Total
+──────────────────────┼────────────────────────────────────────────┼──────────
+           100. white │   138,455    136,838    123,995    125,932 │ 5,669,362 
+           200. black │    15,509     15,731     13,979     14,384 │   647,759 
+300. american indian/ │     1,525      1,463      1,531      1,635 │    56,015 
+650. asian or pacific │     5,464      5,595      5,298      5,589 │    80,330 
+      651. asian only │         0          0          0          0 │   168,441 
+652. hawaiian/pacific │         0          0          0          0 │    14,635 
+700. other (single) r │     1,792      2,634          0          0 │    45,931 
+     801. white-black │         0          0          0          0 │    11,088 
+802. white-american i │         0          0          0          0 │    20,999 
+     803. white-asian │         0          0          0          0 │     9,442 
+804. white-hawaiian/p │         0          0          0          0 │     2,740 
+805. black-american i │         0          0          0          0 │     2,492 
+     806. black-asian │         0          0          0          0 │       758 
+807. black-hawaiian/p │         0          0          0          0 │       208 
+808. american indian- │         0          0          0          0 │       190 
+809. asian-hawaiian/p │         0          0          0          0 │     2,667 
+810. white-black-amer │         0          0          0          0 │     1,528 
+811. white-black-asia │         0          0          0          0 │       213 
+812. white-american i │         0          0          0          0 │       252 
+813. white-asian-hawa │         0          0          0          0 │     2,209 
+814. white-black-amer │         0          0          0          0 │        74 
+815. american indian- │         0          0          0          0 │        50 
+816. white-black--haw │         0          0          0          0 │        50 
+817. white-american i │         0          0          0          0 │        77 
+818. black-american i │         0          0          0          0 │        22 
+819. white-american i │         0          0          0          0 │        17 
+820. two or three rac │         0          0          0          0 │       356 
+830. four or five rac │         0          0          0          0 │       183 
+──────────────────────┼────────────────────────────────────────────┼──────────
+                Total │   162,745    162,261    144,803    147,540 │ 6,738,088 
+
+
+                      │                 survey year
+                 race │      1998       1999       2000       2001 │     Total
+──────────────────────┼────────────────────────────────────────────┼──────────
+           100. white │   126,956    128,952    129,688    142,204 │ 5,669,362 
+           200. black │    14,662     14,992     15,324     16,483 │   647,759 
+300. american indian/ │     1,720      1,641      1,783      2,039 │    56,015 
+650. asian or pacific │     5,940      5,886      6,280      7,125 │    80,330 
+      651. asian only │         0          0          0          0 │   168,441 
+652. hawaiian/pacific │         0          0          0          0 │    14,635 
+700. other (single) r │         0          0          0          0 │    45,931 
+     801. white-black │         0          0          0          0 │    11,088 
+802. white-american i │         0          0          0          0 │    20,999 
+     803. white-asian │         0          0          0          0 │     9,442 
+804. white-hawaiian/p │         0          0          0          0 │     2,740 
+805. black-american i │         0          0          0          0 │     2,492 
+     806. black-asian │         0          0          0          0 │       758 
+807. black-hawaiian/p │         0          0          0          0 │       208 
+808. american indian- │         0          0          0          0 │       190 
+809. asian-hawaiian/p │         0          0          0          0 │     2,667 
+810. white-black-amer │         0          0          0          0 │     1,528 
+811. white-black-asia │         0          0          0          0 │       213 
+812. white-american i │         0          0          0          0 │       252 
+813. white-asian-hawa │         0          0          0          0 │     2,209 
+814. white-black-amer │         0          0          0          0 │        74 
+815. american indian- │         0          0          0          0 │        50 
+816. white-black--haw │         0          0          0          0 │        50 
+817. white-american i │         0          0          0          0 │        77 
+818. black-american i │         0          0          0          0 │        22 
+819. white-american i │         0          0          0          0 │        17 
+820. two or three rac │         0          0          0          0 │       356 
+830. four or five rac │         0          0          0          0 │       183 
+──────────────────────┼────────────────────────────────────────────┼──────────
+                Total │   149,278    151,471    153,075    167,851 │ 6,738,088 
+
+
+                      │                 survey year
+                 race │      2002       2003       2004       2005 │     Total
+──────────────────────┼────────────────────────────────────────────┼──────────
+           100. white │   148,990    145,295    142,104    142,662 │ 5,669,362 
+           200. black │    16,602     15,683     15,286     15,269 │   647,759 
+300. american indian/ │     2,111      1,595      1,764      1,643 │    56,015 
+650. asian or pacific │     7,335          0          0          0 │    80,330 
+      651. asian only │         0      6,149      6,269      6,616 │   168,441 
+652. hawaiian/pacific │         0        562        608        605 │    14,635 
+700. other (single) r │         0          0          0          0 │    45,931 
+     801. white-black │         0        283        288        332 │    11,088 
+802. white-american i │         0      1,387      1,547      1,523 │    20,999 
+     803. white-asian │         0        277        318        406 │     9,442 
+804. white-hawaiian/p │         0        126        155        180 │     2,740 
+805. black-american i │         0        129        142        172 │     2,492 
+     806. black-asian │         0         18         14         23 │       758 
+807. black-hawaiian/p │         0          5          3          7 │       208 
+808. american indian- │         0         12         12          5 │       190 
+809. asian-hawaiian/p │         0        125        133        174 │     2,667 
+810. white-black-amer │         0         61         50         71 │     1,528 
+811. white-black-asia │         0          6          4          6 │       213 
+812. white-american i │         0          7         10         12 │       252 
+813. white-asian-hawa │         0          9         83        184 │     2,209 
+814. white-black-amer │         0          2          0          0 │        74 
+815. american indian- │         0          0          0          0 │        50 
+816. white-black--haw │         0          0          0          0 │        50 
+817. white-american i │         0          0          0          0 │        77 
+818. black-american i │         0          0          0          0 │        22 
+819. white-american i │         0          0          0          0 │        17 
+820. two or three rac │         0        123         70         23 │       356 
+830. four or five rac │         0          7         14         14 │       183 
+──────────────────────┼────────────────────────────────────────────┼──────────
+                Total │   175,038    171,861    168,874    169,927 │ 6,738,088 
+
+
+                      │                 survey year
+                 race │      2006       2007       2008       2009 │     Total
+──────────────────────┼────────────────────────────────────────────┼──────────
+           100. white │   141,472    139,499    137,551    133,797 │ 5,669,362 
+           200. black │    15,592     15,869     15,604     14,824 │   647,759 
+300. american indian/ │     1,549      1,610      1,606      1,428 │    56,015 
+650. asian or pacific │         0          0          0          0 │    80,330 
+      651. asian only │     6,917      7,078      7,330      7,318 │   168,441 
+652. hawaiian/pacific │       648        706        706        700 │    14,635 
+700. other (single) r │         0          0          0          0 │    45,931 
+     801. white-black │       348        336        390        418 │    11,088 
+802. white-american i │     1,407      1,209      1,078      1,019 │    20,999 
+     803. white-asian │       409        413        381        395 │     9,442 
+804. white-hawaiian/p │       185        143        133        130 │     2,740 
+805. black-american i │       153        109         95        100 │     2,492 
+     806. black-asian │        28         28         33         27 │       758 
+807. black-hawaiian/p │        16         10          3          5 │       208 
+808. american indian- │         3          8         13          2 │       190 
+809. asian-hawaiian/p │       191        177        183        142 │     2,667 
+810. white-black-amer │        67         74         73         81 │     1,528 
+811. white-black-asia │         4          2          1          7 │       213 
+812. white-american i │        10         20         19          9 │       252 
+813. white-asian-hawa │       158        122        132        141 │     2,209 
+814. white-black-amer │         7          4          1          1 │        74 
+815. american indian- │         0          0          0          0 │        50 
+816. white-black--haw │         0          0          0          0 │        50 
+817. white-american i │         0          0          0          0 │        77 
+818. black-american i │         0          0          0          0 │        22 
+819. white-american i │         0          0          0          0 │        17 
+820. two or three rac │        19         23         13         10 │       356 
+830. four or five rac │        13         11          9         11 │       183 
+──────────────────────┼────────────────────────────────────────────┼──────────
+                Total │   169,196    167,451    165,354    160,565 │ 6,738,088 
+
+
+                      │                 survey year
+                 race │      2010       2011       2012       2013 │     Total
+──────────────────────┼────────────────────────────────────────────┼──────────
+           100. white │   131,687    129,996    128,888    127,904 │ 5,669,362 
+           200. black │    15,195     14,776     14,837     14,918 │   647,759 
+300. american indian/ │     1,393      1,418      1,453      1,433 │    56,015 
+650. asian or pacific │         0          0          0          0 │    80,330 
+      651. asian only │     7,449      7,779      8,128      8,283 │   168,441 
+652. hawaiian/pacific │       661        672        687        753 │    14,635 
+700. other (single) r │         0          0          0          0 │    45,931 
+     801. white-black │       442        462        469        488 │    11,088 
+802. white-american i │     1,002        945        895        878 │    20,999 
+     803. white-asian │       416        397        421        445 │     9,442 
+804. white-hawaiian/p │       113        116        130        111 │     2,740 
+805. black-american i │       101        109        120        107 │     2,492 
+     806. black-asian │        37         31         41         43 │       758 
+807. black-hawaiian/p │        12         15         13          7 │       208 
+808. american indian- │         8         11          6          6 │       190 
+809. asian-hawaiian/p │       121        155         96        118 │     2,667 
+810. white-black-amer │        67         55         54         82 │     1,528 
+811. white-black-asia │         7          5          6          8 │       213 
+812. white-american i │        16         12          9         10 │       252 
+813. white-asian-hawa │       162        157        106         90 │     2,209 
+814. white-black-amer │         3          2          4          5 │        74 
+815. american indian- │         0          0          3          4 │        50 
+816. white-black--haw │         0          0          4          2 │        50 
+817. white-american i │         0          0          8          6 │        77 
+818. black-american i │         0          0          1          0 │        22 
+819. white-american i │         0          0          0          1 │        17 
+820. two or three rac │        11         21          7          3 │       356 
+830. four or five rac │        10          8          6         10 │       183 
+──────────────────────┼────────────────────────────────────────────┼──────────
+                Total │   158,913    157,142    156,392    155,715 │ 6,738,088 
+
+
+                      │                 survey year
+                 race │      2014       2015       2016       2017 │     Total
+──────────────────────┼────────────────────────────────────────────┼──────────
+           100. white │   128,025    125,029    124,596    122,430 │ 5,669,362 
+           200. black │    15,409     16,147     16,208     15,861 │   647,759 
+300. american indian/ │     1,482      1,744      1,843      1,736 │    56,015 
+650. asian or pacific │         0          0          0          0 │    80,330 
+      651. asian only │     8,338      8,352      8,612      8,806 │   168,441 
+652. hawaiian/pacific │       691        791        832        713 │    14,635 
+700. other (single) r │         0          0          0          0 │    45,931 
+     801. white-black │       557        537        560        604 │    11,088 
+802. white-american i │       870        812        768        863 │    20,999 
+     803. white-asian │       436        433        420        450 │     9,442 
+804. white-hawaiian/p │       130        122        130        133 │     2,740 
+805. black-american i │       142        147        101        130 │     2,492 
+     806. black-asian │        39         45         42         34 │       758 
+807. black-hawaiian/p │        11          9         11         10 │       208 
+808. american indian- │        12          7          6         11 │       190 
+809. asian-hawaiian/p │       128         92        115         96 │     2,667 
+810. white-black-amer │        73         87         93         92 │     1,528 
+811. white-black-asia │        13          7          7          9 │       213 
+812. white-american i │        12          7          8         10 │       252 
+813. white-asian-hawa │       110         86         90         69 │     2,209 
+814. white-black-amer │         6          5          5          0 │        74 
+815. american indian- │         8          2          0          1 │        50 
+816. white-black--haw │         3          0          2          3 │        50 
+817. white-american i │         3          7          6          4 │        77 
+818. black-american i │         2          3          3          0 │        22 
+819. white-american i │         3          1          0          1 │        17 
+820. two or three rac │         4          4          2          5 │       356 
+830. four or five rac │         4          9          7          3 │       183 
+──────────────────────┼────────────────────────────────────────────┼──────────
+                Total │   156,511    154,485    154,467    152,074 │ 6,738,088 
+
+
+                      │                 survey year
+                 race │      2018       2019       2020       2021 │     Total
+──────────────────────┼────────────────────────────────────────────┼──────────
+           100. white │   119,304    114,973     99,416     98,674 │ 5,669,362 
+           200. black │    15,161     14,539     12,234     12,671 │   647,759 
+300. american indian/ │     1,660      1,620      1,381      1,401 │    56,015 
+650. asian or pacific │         0          0          0          0 │    80,330 
+      651. asian only │     8,735      8,494      7,360      7,812 │   168,441 
+652. hawaiian/pacific │       684        683        564        589 │    14,635 
+700. other (single) r │         0          0          0          0 │    45,931 
+     801. white-black │       672        717        594        638 │    11,088 
+802. white-american i │       912        783        614        668 │    20,999 
+     803. white-asian │       481        512        437        470 │     9,442 
+804. white-hawaiian/p │       124        108         88         86 │     2,740 
+805. black-american i │       117        119         85         75 │     2,492 
+     806. black-asian │        38         42         27         43 │       758 
+807. black-hawaiian/p │        11          6          7          8 │       208 
+808. american indian- │        10          6         10         11 │       190 
+809. asian-hawaiian/p │        86         84         70         76 │     2,667 
+810. white-black-amer │        77         76         53         56 │     1,528 
+811. white-black-asia │        13         12         15         19 │       213 
+812. white-american i │        14         19         11         10 │       252 
+813. white-asian-hawa │        70         74         65         80 │     2,209 
+814. white-black-amer │         7          7          3          2 │        74 
+815. american indian- │         3          4          3          6 │        50 
+816. white-black--haw │         3          2          5          9 │        50 
+817. white-american i │         4          7          7          5 │        77 
+818. black-american i │         1          1          2          5 │        22 
+819. white-american i │         2          1          0          2 │        17 
+820. two or three rac │         2          3          2          7 │       356 
+830. four or five rac │         6          3          0          6 │       183 
+──────────────────────┼────────────────────────────────────────────┼──────────
+                Total │   148,197    142,895    123,053    123,429 │ 6,738,088 
+
+
+                      │           survey year
+                 race │      2022       2023       2024 │     Total
+──────────────────────┼─────────────────────────────────┼──────────
+           100. white │    94,546     91,429     83,703 │ 5,669,362 
+           200. black │    12,223     11,661     10,329 │   647,759 
+300. american indian/ │     1,364      1,328      1,194 │    56,015 
+650. asian or pacific │         0          0          0 │    80,330 
+      651. asian only │     7,822      7,558      7,236 │   168,441 
+652. hawaiian/pacific │       672        598        510 │    14,635 
+700. other (single) r │         0          0          0 │    45,931 
+     801. white-black │       641        660        652 │    11,088 
+802. white-american i │       614        618        587 │    20,999 
+     803. white-asian │       496        549        480 │     9,442 
+804. white-hawaiian/p │       103        104         90 │     2,740 
+805. black-american i │        82         93         64 │     2,492 
+     806. black-asian │        43         38         44 │       758 
+807. black-hawaiian/p │        11         17         11 │       208 
+808. american indian- │         9         11         11 │       190 
+809. asian-hawaiian/p │       106        104         95 │     2,667 
+810. white-black-amer │        53         75         58 │     1,528 
+811. white-black-asia │        24         19         19 │       213 
+812. white-american i │        11          9          7 │       252 
+813. white-asian-hawa │        68         69         84 │     2,209 
+814. white-black-amer │         7          2          1 │        74 
+815. american indian- │         3          8          5 │        50 
+816. white-black--haw │         9          6          2 │        50 
+817. white-american i │         6          9          5 │        77 
+818. black-american i │         1          3          0 │        22 
+819. white-american i │         3          2          1 │        17 
+820. two or three rac │         0          1          3 │       356 
+830. four or five rac │         9         13         10 │       183 
+──────────────────────┼─────────────────────────────────┼──────────
+                Total │   118,926    114,984    105,201 │ 6,738,088 
+
+.     tabulate race year, missing
+
+                      │                 survey year
+                 race │      1982       1983       1984       1985 │     Total
+──────────────────────┼────────────────────────────────────────────┼──────────
+           100. white │   146,627    145,099    147,612    150,014 │ 5,669,362 
+           200. black │    14,669     14,722     15,322     16,027 │   647,759 
+300. american indian/ │         0          0          0          0 │    56,015 
+650. asian or pacific │         0          0          0          0 │    80,330 
+      651. asian only │         0          0          0          0 │   168,441 
+652. hawaiian/pacific │         0          0          0          0 │    14,635 
+700. other (single) r │     5,354      5,354      5,517      5,573 │    45,931 
+     801. white-black │         0          0          0          0 │    11,088 
+802. white-american i │         0          0          0          0 │    20,999 
+     803. white-asian │         0          0          0          0 │     9,442 
+804. white-hawaiian/p │         0          0          0          0 │     2,740 
+805. black-american i │         0          0          0          0 │     2,492 
+     806. black-asian │         0          0          0          0 │       758 
+807. black-hawaiian/p │         0          0          0          0 │       208 
+808. american indian- │         0          0          0          0 │       190 
+809. asian-hawaiian/p │         0          0          0          0 │     2,667 
+810. white-black-amer │         0          0          0          0 │     1,528 
+811. white-black-asia │         0          0          0          0 │       213 
+812. white-american i │         0          0          0          0 │       252 
+813. white-asian-hawa │         0          0          0          0 │     2,209 
+814. white-black-amer │         0          0          0          0 │        74 
+815. american indian- │         0          0          0          0 │        50 
+816. white-black--haw │         0          0          0          0 │        50 
+817. white-american i │         0          0          0          0 │        77 
+818. black-american i │         0          0          0          0 │        22 
+819. white-american i │         0          0          0          0 │        17 
+820. two or three rac │         0          0          0          0 │       356 
+830. four or five rac │         0          0          0          0 │       183 
+──────────────────────┼────────────────────────────────────────────┼──────────
+                Total │   166,650    165,175    168,451    171,614 │ 6,738,088 
+
+
+                      │                 survey year
+                 race │      1986       1987       1988       1989 │     Total
+──────────────────────┼────────────────────────────────────────────┼──────────
+           100. white │   148,277    148,758    142,956    145,665 │ 5,669,362 
+           200. black │    16,274     16,685     15,764     15,917 │   647,759 
+300. american indian/ │         0          0          0      1,274 │    56,015 
+650. asian or pacific │         0          0          0      4,420 │    80,330 
+      651. asian only │         0          0          0          0 │   168,441 
+652. hawaiian/pacific │         0          0          0          0 │    14,635 
+700. other (single) r │     5,715      5,804      5,454        336 │    45,931 
+     801. white-black │         0          0          0          0 │    11,088 
+802. white-american i │         0          0          0          0 │    20,999 
+     803. white-asian │         0          0          0          0 │     9,442 
+804. white-hawaiian/p │         0          0          0          0 │     2,740 
+805. black-american i │         0          0          0          0 │     2,492 
+     806. black-asian │         0          0          0          0 │       758 
+807. black-hawaiian/p │         0          0          0          0 │       208 
+808. american indian- │         0          0          0          0 │       190 
+809. asian-hawaiian/p │         0          0          0          0 │     2,667 
+810. white-black-amer │         0          0          0          0 │     1,528 
+811. white-black-asia │         0          0          0          0 │       213 
+812. white-american i │         0          0          0          0 │       252 
+813. white-asian-hawa │         0          0          0          0 │     2,209 
+814. white-black-amer │         0          0          0          0 │        74 
+815. american indian- │         0          0          0          0 │        50 
+816. white-black--haw │         0          0          0          0 │        50 
+817. white-american i │         0          0          0          0 │        77 
+818. black-american i │         0          0          0          0 │        22 
+819. white-american i │         0          0          0          0 │        17 
+820. two or three rac │         0          0          0          0 │       356 
+830. four or five rac │         0          0          0          0 │       183 
+──────────────────────┼────────────────────────────────────────────┼──────────
+                Total │   170,266    171,247    164,174    167,612 │ 6,738,088 
+
+
+                      │                 survey year
+                 race │      1990       1991       1992       1993 │     Total
+──────────────────────┼────────────────────────────────────────────┼──────────
+           100. white │   152,628    148,002    145,775    142,959 │ 5,669,362 
+           200. black │    16,739     16,077     15,758     15,843 │   647,759 
+300. american indian/ │     1,331      1,375      1,403      1,539 │    56,015 
+650. asian or pacific │     5,130      5,303      5,414      5,551 │    80,330 
+      651. asian only │         0          0          0          0 │   168,441 
+652. hawaiian/pacific │         0          0          0          0 │    14,635 
+700. other (single) r │       427        539        610        822 │    45,931 
+     801. white-black │         0          0          0          0 │    11,088 
+802. white-american i │         0          0          0          0 │    20,999 
+     803. white-asian │         0          0          0          0 │     9,442 
+804. white-hawaiian/p │         0          0          0          0 │     2,740 
+805. black-american i │         0          0          0          0 │     2,492 
+     806. black-asian │         0          0          0          0 │       758 
+807. black-hawaiian/p │         0          0          0          0 │       208 
+808. american indian- │         0          0          0          0 │       190 
+809. asian-hawaiian/p │         0          0          0          0 │     2,667 
+810. white-black-amer │         0          0          0          0 │     1,528 
+811. white-black-asia │         0          0          0          0 │       213 
+812. white-american i │         0          0          0          0 │       252 
+813. white-asian-hawa │         0          0          0          0 │     2,209 
+814. white-black-amer │         0          0          0          0 │        74 
+815. american indian- │         0          0          0          0 │        50 
+816. white-black--haw │         0          0          0          0 │        50 
+817. white-american i │         0          0          0          0 │        77 
+818. black-american i │         0          0          0          0 │        22 
+819. white-american i │         0          0          0          0 │        17 
+820. two or three rac │         0          0          0          0 │       356 
+830. four or five rac │         0          0          0          0 │       183 
+──────────────────────┼────────────────────────────────────────────┼──────────
+                Total │   176,255    171,296    168,960    166,714 │ 6,738,088 
+
+
+                      │                 survey year
+                 race │      1994       1995       1996       1997 │     Total
+──────────────────────┼────────────────────────────────────────────┼──────────
+           100. white │   138,455    136,838    123,995    125,932 │ 5,669,362 
+           200. black │    15,509     15,731     13,979     14,384 │   647,759 
+300. american indian/ │     1,525      1,463      1,531      1,635 │    56,015 
+650. asian or pacific │     5,464      5,595      5,298      5,589 │    80,330 
+      651. asian only │         0          0          0          0 │   168,441 
+652. hawaiian/pacific │         0          0          0          0 │    14,635 
+700. other (single) r │     1,792      2,634          0          0 │    45,931 
+     801. white-black │         0          0          0          0 │    11,088 
+802. white-american i │         0          0          0          0 │    20,999 
+     803. white-asian │         0          0          0          0 │     9,442 
+804. white-hawaiian/p │         0          0          0          0 │     2,740 
+805. black-american i │         0          0          0          0 │     2,492 
+     806. black-asian │         0          0          0          0 │       758 
+807. black-hawaiian/p │         0          0          0          0 │       208 
+808. american indian- │         0          0          0          0 │       190 
+809. asian-hawaiian/p │         0          0          0          0 │     2,667 
+810. white-black-amer │         0          0          0          0 │     1,528 
+811. white-black-asia │         0          0          0          0 │       213 
+812. white-american i │         0          0          0          0 │       252 
+813. white-asian-hawa │         0          0          0          0 │     2,209 
+814. white-black-amer │         0          0          0          0 │        74 
+815. american indian- │         0          0          0          0 │        50 
+816. white-black--haw │         0          0          0          0 │        50 
+817. white-american i │         0          0          0          0 │        77 
+818. black-american i │         0          0          0          0 │        22 
+819. white-american i │         0          0          0          0 │        17 
+820. two or three rac │         0          0          0          0 │       356 
+830. four or five rac │         0          0          0          0 │       183 
+──────────────────────┼────────────────────────────────────────────┼──────────
+                Total │   162,745    162,261    144,803    147,540 │ 6,738,088 
+
+
+                      │                 survey year
+                 race │      1998       1999       2000       2001 │     Total
+──────────────────────┼────────────────────────────────────────────┼──────────
+           100. white │   126,956    128,952    129,688    142,204 │ 5,669,362 
+           200. black │    14,662     14,992     15,324     16,483 │   647,759 
+300. american indian/ │     1,720      1,641      1,783      2,039 │    56,015 
+650. asian or pacific │     5,940      5,886      6,280      7,125 │    80,330 
+      651. asian only │         0          0          0          0 │   168,441 
+652. hawaiian/pacific │         0          0          0          0 │    14,635 
+700. other (single) r │         0          0          0          0 │    45,931 
+     801. white-black │         0          0          0          0 │    11,088 
+802. white-american i │         0          0          0          0 │    20,999 
+     803. white-asian │         0          0          0          0 │     9,442 
+804. white-hawaiian/p │         0          0          0          0 │     2,740 
+805. black-american i │         0          0          0          0 │     2,492 
+     806. black-asian │         0          0          0          0 │       758 
+807. black-hawaiian/p │         0          0          0          0 │       208 
+808. american indian- │         0          0          0          0 │       190 
+809. asian-hawaiian/p │         0          0          0          0 │     2,667 
+810. white-black-amer │         0          0          0          0 │     1,528 
+811. white-black-asia │         0          0          0          0 │       213 
+812. white-american i │         0          0          0          0 │       252 
+813. white-asian-hawa │         0          0          0          0 │     2,209 
+814. white-black-amer │         0          0          0          0 │        74 
+815. american indian- │         0          0          0          0 │        50 
+816. white-black--haw │         0          0          0          0 │        50 
+817. white-american i │         0          0          0          0 │        77 
+818. black-american i │         0          0          0          0 │        22 
+819. white-american i │         0          0          0          0 │        17 
+820. two or three rac │         0          0          0          0 │       356 
+830. four or five rac │         0          0          0          0 │       183 
+──────────────────────┼────────────────────────────────────────────┼──────────
+                Total │   149,278    151,471    153,075    167,851 │ 6,738,088 
+
+
+                      │                 survey year
+                 race │      2002       2003       2004       2005 │     Total
+──────────────────────┼────────────────────────────────────────────┼──────────
+           100. white │   148,990    145,295    142,104    142,662 │ 5,669,362 
+           200. black │    16,602     15,683     15,286     15,269 │   647,759 
+300. american indian/ │     2,111      1,595      1,764      1,643 │    56,015 
+650. asian or pacific │     7,335          0          0          0 │    80,330 
+      651. asian only │         0      6,149      6,269      6,616 │   168,441 
+652. hawaiian/pacific │         0        562        608        605 │    14,635 
+700. other (single) r │         0          0          0          0 │    45,931 
+     801. white-black │         0        283        288        332 │    11,088 
+802. white-american i │         0      1,387      1,547      1,523 │    20,999 
+     803. white-asian │         0        277        318        406 │     9,442 
+804. white-hawaiian/p │         0        126        155        180 │     2,740 
+805. black-american i │         0        129        142        172 │     2,492 
+     806. black-asian │         0         18         14         23 │       758 
+807. black-hawaiian/p │         0          5          3          7 │       208 
+808. american indian- │         0         12         12          5 │       190 
+809. asian-hawaiian/p │         0        125        133        174 │     2,667 
+810. white-black-amer │         0         61         50         71 │     1,528 
+811. white-black-asia │         0          6          4          6 │       213 
+812. white-american i │         0          7         10         12 │       252 
+813. white-asian-hawa │         0          9         83        184 │     2,209 
+814. white-black-amer │         0          2          0          0 │        74 
+815. american indian- │         0          0          0          0 │        50 
+816. white-black--haw │         0          0          0          0 │        50 
+817. white-american i │         0          0          0          0 │        77 
+818. black-american i │         0          0          0          0 │        22 
+819. white-american i │         0          0          0          0 │        17 
+820. two or three rac │         0        123         70         23 │       356 
+830. four or five rac │         0          7         14         14 │       183 
+──────────────────────┼────────────────────────────────────────────┼──────────
+                Total │   175,038    171,861    168,874    169,927 │ 6,738,088 
+
+
+                      │                 survey year
+                 race │      2006       2007       2008       2009 │     Total
+──────────────────────┼────────────────────────────────────────────┼──────────
+           100. white │   141,472    139,499    137,551    133,797 │ 5,669,362 
+           200. black │    15,592     15,869     15,604     14,824 │   647,759 
+300. american indian/ │     1,549      1,610      1,606      1,428 │    56,015 
+650. asian or pacific │         0          0          0          0 │    80,330 
+      651. asian only │     6,917      7,078      7,330      7,318 │   168,441 
+652. hawaiian/pacific │       648        706        706        700 │    14,635 
+700. other (single) r │         0          0          0          0 │    45,931 
+     801. white-black │       348        336        390        418 │    11,088 
+802. white-american i │     1,407      1,209      1,078      1,019 │    20,999 
+     803. white-asian │       409        413        381        395 │     9,442 
+804. white-hawaiian/p │       185        143        133        130 │     2,740 
+805. black-american i │       153        109         95        100 │     2,492 
+     806. black-asian │        28         28         33         27 │       758 
+807. black-hawaiian/p │        16         10          3          5 │       208 
+808. american indian- │         3          8         13          2 │       190 
+809. asian-hawaiian/p │       191        177        183        142 │     2,667 
+810. white-black-amer │        67         74         73         81 │     1,528 
+811. white-black-asia │         4          2          1          7 │       213 
+812. white-american i │        10         20         19          9 │       252 
+813. white-asian-hawa │       158        122        132        141 │     2,209 
+814. white-black-amer │         7          4          1          1 │        74 
+815. american indian- │         0          0          0          0 │        50 
+816. white-black--haw │         0          0          0          0 │        50 
+817. white-american i │         0          0          0          0 │        77 
+818. black-american i │         0          0          0          0 │        22 
+819. white-american i │         0          0          0          0 │        17 
+820. two or three rac │        19         23         13         10 │       356 
+830. four or five rac │        13         11          9         11 │       183 
+──────────────────────┼────────────────────────────────────────────┼──────────
+                Total │   169,196    167,451    165,354    160,565 │ 6,738,088 
+
+
+                      │                 survey year
+                 race │      2010       2011       2012       2013 │     Total
+──────────────────────┼────────────────────────────────────────────┼──────────
+           100. white │   131,687    129,996    128,888    127,904 │ 5,669,362 
+           200. black │    15,195     14,776     14,837     14,918 │   647,759 
+300. american indian/ │     1,393      1,418      1,453      1,433 │    56,015 
+650. asian or pacific │         0          0          0          0 │    80,330 
+      651. asian only │     7,449      7,779      8,128      8,283 │   168,441 
+652. hawaiian/pacific │       661        672        687        753 │    14,635 
+700. other (single) r │         0          0          0          0 │    45,931 
+     801. white-black │       442        462        469        488 │    11,088 
+802. white-american i │     1,002        945        895        878 │    20,999 
+     803. white-asian │       416        397        421        445 │     9,442 
+804. white-hawaiian/p │       113        116        130        111 │     2,740 
+805. black-american i │       101        109        120        107 │     2,492 
+     806. black-asian │        37         31         41         43 │       758 
+807. black-hawaiian/p │        12         15         13          7 │       208 
+808. american indian- │         8         11          6          6 │       190 
+809. asian-hawaiian/p │       121        155         96        118 │     2,667 
+810. white-black-amer │        67         55         54         82 │     1,528 
+811. white-black-asia │         7          5          6          8 │       213 
+812. white-american i │        16         12          9         10 │       252 
+813. white-asian-hawa │       162        157        106         90 │     2,209 
+814. white-black-amer │         3          2          4          5 │        74 
+815. american indian- │         0          0          3          4 │        50 
+816. white-black--haw │         0          0          4          2 │        50 
+817. white-american i │         0          0          8          6 │        77 
+818. black-american i │         0          0          1          0 │        22 
+819. white-american i │         0          0          0          1 │        17 
+820. two or three rac │        11         21          7          3 │       356 
+830. four or five rac │        10          8          6         10 │       183 
+──────────────────────┼────────────────────────────────────────────┼──────────
+                Total │   158,913    157,142    156,392    155,715 │ 6,738,088 
+
+
+                      │                 survey year
+                 race │      2014       2015       2016       2017 │     Total
+──────────────────────┼────────────────────────────────────────────┼──────────
+           100. white │   128,025    125,029    124,596    122,430 │ 5,669,362 
+           200. black │    15,409     16,147     16,208     15,861 │   647,759 
+300. american indian/ │     1,482      1,744      1,843      1,736 │    56,015 
+650. asian or pacific │         0          0          0          0 │    80,330 
+      651. asian only │     8,338      8,352      8,612      8,806 │   168,441 
+652. hawaiian/pacific │       691        791        832        713 │    14,635 
+700. other (single) r │         0          0          0          0 │    45,931 
+     801. white-black │       557        537        560        604 │    11,088 
+802. white-american i │       870        812        768        863 │    20,999 
+     803. white-asian │       436        433        420        450 │     9,442 
+804. white-hawaiian/p │       130        122        130        133 │     2,740 
+805. black-american i │       142        147        101        130 │     2,492 
+     806. black-asian │        39         45         42         34 │       758 
+807. black-hawaiian/p │        11          9         11         10 │       208 
+808. american indian- │        12          7          6         11 │       190 
+809. asian-hawaiian/p │       128         92        115         96 │     2,667 
+810. white-black-amer │        73         87         93         92 │     1,528 
+811. white-black-asia │        13          7          7          9 │       213 
+812. white-american i │        12          7          8         10 │       252 
+813. white-asian-hawa │       110         86         90         69 │     2,209 
+814. white-black-amer │         6          5          5          0 │        74 
+815. american indian- │         8          2          0          1 │        50 
+816. white-black--haw │         3          0          2          3 │        50 
+817. white-american i │         3          7          6          4 │        77 
+818. black-american i │         2          3          3          0 │        22 
+819. white-american i │         3          1          0          1 │        17 
+820. two or three rac │         4          4          2          5 │       356 
+830. four or five rac │         4          9          7          3 │       183 
+──────────────────────┼────────────────────────────────────────────┼──────────
+                Total │   156,511    154,485    154,467    152,074 │ 6,738,088 
+
+
+                      │                 survey year
+                 race │      2018       2019       2020       2021 │     Total
+──────────────────────┼────────────────────────────────────────────┼──────────
+           100. white │   119,304    114,973     99,416     98,674 │ 5,669,362 
+           200. black │    15,161     14,539     12,234     12,671 │   647,759 
+300. american indian/ │     1,660      1,620      1,381      1,401 │    56,015 
+650. asian or pacific │         0          0          0          0 │    80,330 
+      651. asian only │     8,735      8,494      7,360      7,812 │   168,441 
+652. hawaiian/pacific │       684        683        564        589 │    14,635 
+700. other (single) r │         0          0          0          0 │    45,931 
+     801. white-black │       672        717        594        638 │    11,088 
+802. white-american i │       912        783        614        668 │    20,999 
+     803. white-asian │       481        512        437        470 │     9,442 
+804. white-hawaiian/p │       124        108         88         86 │     2,740 
+805. black-american i │       117        119         85         75 │     2,492 
+     806. black-asian │        38         42         27         43 │       758 
+807. black-hawaiian/p │        11          6          7          8 │       208 
+808. american indian- │        10          6         10         11 │       190 
+809. asian-hawaiian/p │        86         84         70         76 │     2,667 
+810. white-black-amer │        77         76         53         56 │     1,528 
+811. white-black-asia │        13         12         15         19 │       213 
+812. white-american i │        14         19         11         10 │       252 
+813. white-asian-hawa │        70         74         65         80 │     2,209 
+814. white-black-amer │         7          7          3          2 │        74 
+815. american indian- │         3          4          3          6 │        50 
+816. white-black--haw │         3          2          5          9 │        50 
+817. white-american i │         4          7          7          5 │        77 
+818. black-american i │         1          1          2          5 │        22 
+819. white-american i │         2          1          0          2 │        17 
+820. two or three rac │         2          3          2          7 │       356 
+830. four or five rac │         6          3          0          6 │       183 
+──────────────────────┼────────────────────────────────────────────┼──────────
+                Total │   148,197    142,895    123,053    123,429 │ 6,738,088 
+
+
+                      │           survey year
+                 race │      2022       2023       2024 │     Total
+──────────────────────┼─────────────────────────────────┼──────────
+           100. white │    94,546     91,429     83,703 │ 5,669,362 
+           200. black │    12,223     11,661     10,329 │   647,759 
+300. american indian/ │     1,364      1,328      1,194 │    56,015 
+650. asian or pacific │         0          0          0 │    80,330 
+      651. asian only │     7,822      7,558      7,236 │   168,441 
+652. hawaiian/pacific │       672        598        510 │    14,635 
+700. other (single) r │         0          0          0 │    45,931 
+     801. white-black │       641        660        652 │    11,088 
+802. white-american i │       614        618        587 │    20,999 
+     803. white-asian │       496        549        480 │     9,442 
+804. white-hawaiian/p │       103        104         90 │     2,740 
+805. black-american i │        82         93         64 │     2,492 
+     806. black-asian │        43         38         44 │       758 
+807. black-hawaiian/p │        11         17         11 │       208 
+808. american indian- │         9         11         11 │       190 
+809. asian-hawaiian/p │       106        104         95 │     2,667 
+810. white-black-amer │        53         75         58 │     1,528 
+811. white-black-asia │        24         19         19 │       213 
+812. white-american i │        11          9          7 │       252 
+813. white-asian-hawa │        68         69         84 │     2,209 
+814. white-black-amer │         7          2          1 │        74 
+815. american indian- │         3          8          5 │        50 
+816. white-black--haw │         9          6          2 │        50 
+817. white-american i │         6          9          5 │        77 
+818. black-american i │         1          3          0 │        22 
+819. white-american i │         3          2          1 │        17 
+820. two or three rac │         0          1          3 │       356 
+830. four or five rac │         9         13         10 │       183 
+──────────────────────┼─────────────────────────────────┼──────────
+                Total │   118,926    114,984    105,201 │ 6,738,088 
+
+.     generate race_orig = race
+
+.     generate race_recode = .
+(6,738,088 missing values generated)
+</pre>
+<pre class='stata'>.     replace race_recode = 1 if race == 100 // 1. White (non-Hispanic)
+(5,669,362 real changes made)
+
+.     replace race_recode = 2 if race == 200 // 2. Black
+(647,759 real changes made)
+
+.     replace race_recode = 3 if race == 300 // 3. American Indian/Aleut/Eskimo
+(56,015 real changes made)
+
+.     replace race_recode = 4 if inlist(race, 650, 651) | race == 652  // 4. Asian/Pacifi
+> c Islander
+(263,406 real changes made)
+
+.     replace race_recode = 5 if race == 700 // 5. Other race
+(45,931 real changes made)
+
+.     replace race_recode = 6 if inrange(race, 801, 830) // 6. Multiple races (combining 
+> all mixed categories)
+(55,615 real changes made)
+</pre>
+<pre class='stata'>.     label define race_label 1 "White" 2 "Black" 3 "American Indian" ///
+>                             4 "Asian/Pacific Islander" 5 "Other" 6 "Multiple races"
+
+.     label values race_recode race_label
+
+.     label variable race_recode "Race - consistent coding across years"
+</pre>
+<p>The dataset includes detailed race categories, with White (100) being
+the largest group (5,669,362 observations), followed by Black (200) with
+647,759 observations. Other groups, such as American Indian/Alaskan
+Native (300), Asian/Pacific Islander (650), and Multiple Races (800s),
+are smaller but show consistent representation over the years. The
+recoding ensures consistent categorization across all survey years, with
+adjustments for changes in race definitions (e.g., the introduction of
+separate Asian and Hawaiian/Pacific Islander categories in later
+years).</p>
+<hr />
+<h3 id="education-occupation-and-industry-recoding">Education,
+Occupation and Industry Recoding</h3>
+<pre class='stata'>.     generate occupation = .
+(6,738,088 missing values generated)
+
+.     generate industry = .
+(6,738,088 missing values generated)
+
+.     generate grade = .
+(6,738,088 missing values generated)
+</pre>
+<pre class='stata'>.     replace grade = 0 if educ == 2 &amp; year &lt;= 1991 // None or preschool
+(3,693 real changes made)
+
+.     replace grade = 1 if educ == 11 &amp; year &lt;= 1991
+(827 real changes made)
+
+.     replace grade = 2 if educ == 12 &amp; year &lt;= 1991
+(2,023 real changes made)
+
+.     replace grade = 3 if educ == 13 &amp; year &lt;= 1991
+(3,228 real changes made)
+
+.     replace grade = 4 if educ == 14 &amp; year &lt;= 1991
+(4,010 real changes made)
+
+.     replace grade = 5 if educ == 21 &amp; year &lt;= 1991
+(5,261 real changes made)
+
+.     replace grade = 6 if educ == 22 &amp; year &lt;= 1991
+(13,252 real changes made)
+
+.     replace grade = 7 if educ == 31 &amp; year &lt;= 1991
+(11,324 real changes made)
+
+.     replace grade = 8 if educ == 32 &amp; year &lt;= 1991
+(37,861 real changes made)
+
+.     replace grade = 9 if educ == 40 &amp; year &lt;= 1991
+(38,411 real changes made)
+
+.     replace grade = 10 if educ == 50 &amp; year &lt;= 1991
+(56,240 real changes made)
+
+.     replace grade = 11 if educ == 60 &amp; year &lt;= 1991
+(60,845 real changes made)
+
+.     replace grade = 12 if (educ == 72 | educ == 73) &amp; year &lt;= 1991 // 72 is 'diploma un
+> clear'
+(704,348 real changes made)
+
+.     replace grade = 13 if educ == 80 &amp; year &lt;= 1991
+(134,820 real changes made)
+
+.     replace grade = 14 if educ == 90 &amp; year &lt;= 1991
+(168,063 real changes made)
+
+.     replace grade = 15 if educ == 100 &amp; year &lt;= 1991
+(63,319 real changes made)
+
+.     replace grade = 16 if educ == 110 &amp; year &lt;= 1991
+(229,636 real changes made)
+
+.     replace grade = 17 if educ == 121 &amp; year &lt;= 1991
+(45,334 real changes made)
+
+.     replace grade = 18 if educ == 122 &amp; year &lt;= 1991
+(110,245 real changes made)
+</pre>
+<pre class='stata'>.     replace grade = 0 if educ == 2 &amp; year >= 1992
+(8,229 real changes made)
+
+.     replace grade = 2.5 if educ == 10 &amp; year >= 1992 // Grades 1-4
+(21,107 real changes made)
+
+.     replace grade = 5.5 if educ == 20 &amp; year >= 1992 // Grades 5-6
+(49,851 real changes made)
+
+.     replace grade = 7.5 if educ == 30 &amp; year >= 1992 // Grades 7-8
+(50,759 real changes made)
+
+.     replace grade = 9 if educ == 40 &amp; year >= 1992 // Grade 9
+(56,283 real changes made)
+
+.     replace grade = 10 if educ == 50 &amp; year >= 1992 // Grade 10
+(73,186 real changes made)
+
+.     replace grade = 11 if educ == 60 &amp; year >= 1992 // Grade 11
+(111,530 real changes made)
+
+.     replace grade = 12 if (educ == 71 | educ == 73) &amp; year >= 1992 // 71 is 'no diploma
+> '
+(1,558,364 real changes made)
+
+.     replace grade = 13 if educ == 81 &amp; year >= 1992 // Some college, no degree
+(977,528 real changes made)
+
+.     replace grade = 14 if (educ == 91 | educ == 92) &amp; year >= 1992 // Academic or vocat
+> ional associate's degree
+(510,086 real changes made)
+
+.     replace grade = 16 if educ == 111 &amp; year >= 1992
+(1,072,281 real changes made)
+
+.     replace grade = 18 if inlist(educ, 123, 124, 125) &amp; year >= 1992
+(556,144 real changes made)
+</pre>
+<pre class='stata'>.     label variable grade "Education (years)"
+</pre>
+<pre class='stata'>.     replace occupation = 1 if occ1950 >= 000 &amp; occ1950 &lt;= 099 // Professional, technica
+> l
+(1,637,521 real changes made)
+
+.     replace occupation = 2 if occ1950 >= 100 &amp; occ1950 &lt;= 290 // Managers, officials, p
+> roprietors
+(850,339 real changes made)
+
+.     replace occupation = 3 if occ1950 >= 300 &amp; occ1950 &lt;= 390 // Clerical, kindred
+(1,219,267 real changes made)
+
+.     replace occupation = 4 if occ1950 >= 400 &amp; occ1950 &lt;= 490 // Sales
+(385,664 real changes made)
+
+.     replace occupation = 5 if occ1950 >= 500 &amp; occ1950 &lt;= 594 // Craftsmen
+(656,513 real changes made)
+
+.     replace occupation = 6 if occ1950 >= 600 &amp; occ1950 &lt;= 690 // Operatives
+(733,005 real changes made)
+
+.     replace occupation = 7 if occ1950 >= 700 &amp; occ1950 &lt;= 720 // Service (private hh)
+(55,127 real changes made)
+
+.     replace occupation = 8 if occ1950 >= 730 &amp; occ1950 &lt;= 790 // Service (other)
+(886,510 real changes made)
+
+.     replace occupation = 9 if occ1950 >= 810 &amp; occ1950 &lt;= 970 // Laborers
+(314,142 real changes made)
+
+.     replace occupation = 10 if occ1950 == 595 // Armed forces
+(0 real changes made)
+</pre>
+<pre class='stata'>.     replace industry = 1 if ind1950 >= 105 &amp; ind1950 &lt;= 239 // Agriculture, fisheries, 
+> mining
+(164,547 real changes made)
+
+.     replace industry = 2 if ind1950 == 246 // Construction
+(387,651 real changes made)
+
+.     replace industry = 3 if ind1950 >= 306 &amp; ind1950 &lt;= 399 // Durable manufacturing
+(624,816 real changes made)
+
+.     replace industry = 4 if ind1950 >= 406 &amp; ind1950 &lt;= 499 // Nondurable manufacturing
+(402,224 real changes made)
+
+.     replace industry = 5 if ind1950 >= 506 &amp; ind1950 &lt;= 598 // Communications, transpor
+> tation, utilities
+(390,211 real changes made)
+
+.     replace industry = 6 if ind1950 >= 606 &amp; ind1950 &lt;= 627 // Wholesale trade
+(213,824 real changes made)
+
+.     replace industry = 7 if ind1950 >= 636 &amp; ind1950 &lt;= 699 // Retail trade
+(1,095,592 real changes made)
+
+.     replace industry = 8 if (ind1950 >= 716 &amp; ind1950 &lt;= 746) | (ind1950 >= 868 &amp; ind19
+> 50 &lt;= 879) | (ind1950 >= 897 &amp; ind1950 &lt;= 899) // Professional services, fire
+(1,420,189 real changes made)
+
+.     replace industry = 9 if inlist(ind1950, 888, 896) // Education, welfare services
+(838,993 real changes made)
+
+.     replace industry = 10 if ind1950 >= 906 &amp; ind1950 &lt;= 936 // Public administration
+(431,596 real changes made)
+
+.     replace industry = 11 if (ind1950 >= 806 &amp; ind1950 &lt;= 859) | inlist(ind1950, 997, 9
+> 98) // Other services
+(768,445 real changes made)
+</pre>
+<pre class='stata'>.     label define occupation 1 "Professional, technical" 2 "Managers, officials, proprie
+> tors" ///
+>                             3 "Clerical, kindred" 4 "Sales" 5 "Craftsmen" 6 "Operatives
+> " ///
+>                             7 "Service (private hh)" 8 "Service (other)" 9 "Laborers" /
+> //
+>                             10 "Armed forces"
+</pre>
+<pre class='stata'>.     label define industry 1 "Agriculture, fisheries, mining" 2 "Construction" ///
+>                           3 "Durable manufacturing" 4 "Nondurable manufacturing" ///
+>                           5 "Communications, transportation, utilities" 6 "Wholesale tr
+> ade" ///
+>                           7 "Retail trade" 8 "Professional services, fire" ///
+>                           9 "Education, welfare services" 10 "Public administration" //
+> /
+>                           11 "Other services"
+</pre>
+<pre class='stata'>.     label values occupation occupation
+
+.     label values industry industry
+</pre>
+<pre class='stata'>.     label variable occupation "Occupation (1-10)"
+
+.     label variable industry "Industry (1-11)"
+</pre>
+<p>In the education, occupation, and industry recoding section,
+variables are standardized for consistency across years. Education
+levels are recoded into years of schooling (e.g., 0 for no education, 18
+for advanced degrees), while occupation and industry categories are
+grouped into consistent classifications (e.g., professional, technical,
+sales, etc.). This ensures uniformity for analysis over time.</p>
+<hr />
+<h3 id="data-validation-and-final-checks">Data Validation and Final
+Checks</h3>
+<pre class='stata'>.     assert inlist(occupation, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, .) if !missing(occ1950)
+
+.     assert inlist(industry, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, .) if !missing(ind1950)
+</pre>
+<pre class='stata'>.     tabulate year occupation if occupation != ., missing
+
+    survey │                   Occupation (1-10)
+      year │ Professio  Managers,  Clerical,      Sales  Craftsmen │     Total
+───────────┼───────────────────────────────────────────────────────┼──────────
+      1982 │    32,075     15,022     34,028     10,048     20,510 │   166,650 
+      1983 │    30,844     16,706     33,677     10,019     19,309 │   165,175 
+      1984 │    31,493     17,746     33,960     10,339     19,583 │   168,451 
+      1985 │    32,690     18,789     34,838     10,671     19,819 │   171,614 
+      1986 │    32,634     19,302     34,817     10,689     19,200 │   170,266 
+      1987 │    32,879     19,694     35,005     10,809     19,122 │   171,247 
+      1988 │    31,961     19,376     32,912     10,239     18,408 │   164,174 
+      1989 │    32,972     20,237     33,014     10,366     18,629 │   167,612 
+      1990 │    35,479     21,230     35,090     10,986     18,866 │   176,255 
+      1991 │    35,175     20,822     33,912     10,643     17,782 │   171,296 
+      1992 │    35,650     20,451     33,471     10,169     17,027 │   168,960 
+      1993 │    35,354     20,409     32,720      9,949     16,378 │   166,714 
+      1994 │    35,573     20,782     30,930      9,424     16,239 │   162,745 
+      1995 │    36,112     21,613     29,838      9,714     16,211 │   162,261 
+      1996 │    32,217     19,512     26,387      8,716     14,352 │   144,803 
+      1997 │    33,254     20,113     26,568      8,926     14,760 │   147,540 
+      1998 │    34,111     20,610     26,687      9,047     14,898 │   149,278 
+      1999 │    35,622     21,125     26,269      8,975     15,141 │   151,471 
+      2000 │    35,892     21,571     26,549      9,087     15,177 │   153,075 
+      2001 │    40,307     24,139     28,521      9,931     16,797 │   167,851 
+      2002 │    42,627     25,405     29,141     10,578     16,931 │   175,038 
+      2003 │    42,666     20,653     32,748     10,044     17,183 │   171,861 
+      2004 │    42,127     20,348     31,537     10,000     16,751 │   168,874 
+      2005 │    42,676     20,414     31,498      9,853     17,073 │   169,927 
+      2006 │    42,288     20,524     31,116      9,831     17,053 │   169,196 
+      2007 │    43,023     20,397     30,341      9,953     16,299 │   167,451 
+      2008 │    43,353     20,495     29,780      9,370     15,461 │   165,354 
+      2009 │    43,164     20,152     28,688      8,992     14,120 │   160,565 
+      2010 │    43,170     19,360     28,557      8,906     13,674 │   158,913 
+      2011 │    43,023     19,155     27,900      8,591     13,373 │   157,142 
+      2012 │    43,179     19,814     26,968      8,466     13,002 │   156,392 
+      2013 │    43,276     19,845     26,491      8,333     13,099 │   155,715 
+      2014 │    43,417     19,987     26,285      8,306     13,273 │   156,511 
+      2015 │    43,622     19,866     25,561      8,133     13,128 │   154,485 
+      2016 │    43,888     19,871     25,104      7,948     12,871 │   154,467 
+      2017 │    43,774     19,915     24,162      7,888     12,765 │   152,074 
+      2018 │    43,116     19,822     23,147      7,563     12,425 │   148,197 
+      2019 │    42,109     19,058     22,353      6,999     11,993 │   142,895 
+      2020 │    37,992     17,726     19,091      6,090     10,139 │   123,053 
+      2021 │    37,414     17,616     19,141      5,971     10,219 │   123,429 
+      2022 │    36,495     17,484     18,211      5,407      9,663 │   118,926 
+      2023 │    35,666     17,475     17,073      5,077      9,246 │   114,984 
+      2024 │    33,162     15,708     15,181      4,618      8,564 │   105,201 
+───────────┼───────────────────────────────────────────────────────┼──────────
+     Total │ 1,637,521    850,339  1,219,267    385,664    656,513 │ 6,738,088 
+
+
+    survey │              Occupation (1-10)
+      year │ Operative  Service (  Service (   Laborers │     Total
+───────────┼────────────────────────────────────────────┼──────────
+      1982 │    23,678      1,478     20,755      9,056 │   166,650 
+      1983 │    22,591      1,405     21,423      9,201 │   165,175 
+      1984 │    23,285      1,470     21,139      9,436 │   168,451 
+      1985 │    23,095      1,417     21,302      8,993 │   171,614 
+      1986 │    22,342      1,357     21,012      8,913 │   170,266 
+      1987 │    22,476      1,220     21,139      8,903 │   171,247 
+      1988 │    21,198      1,125     20,204      8,751 │   164,174 
+      1989 │    21,774      1,084     20,688      8,848 │   167,612 
+      1990 │    22,309      1,057     21,890      9,348 │   176,255 
+      1991 │    21,144      1,059     21,860      8,899 │   171,296 
+      1992 │    20,466      1,164     21,894      8,668 │   168,960 
+      1993 │    20,377      1,150     22,013      8,364 │   166,714 
+      1994 │    19,470      1,015     21,108      8,204 │   162,745 
+      1995 │    19,005      1,028     20,551      8,189 │   162,261 
+      1996 │    16,750        915     18,522      7,432 │   144,803 
+      1997 │    16,894        893     18,774      7,358 │   147,540 
+      1998 │    16,708        936     18,939      7,342 │   149,278 
+      1999 │    16,596        936     19,172      7,635 │   151,471 
+      2000 │    16,686        876     19,328      7,909 │   153,075 
+      2001 │    17,309        883     21,658      8,306 │   167,851 
+      2002 │    17,525        861     23,136      8,834 │   175,038 
+      2003 │    17,505      1,784     22,582      6,696 │   171,861 
+      2004 │    16,953      1,738     22,573      6,847 │   168,874 
+      2005 │    17,085      1,698     22,647      6,983 │   169,927 
+      2006 │    16,831      1,766     22,556      7,231 │   169,196 
+      2007 │    16,427      1,695     22,275      7,041 │   167,451 
+      2008 │    15,924      1,643     22,516      6,812 │   165,354 
+      2009 │    14,373      1,669     23,212      6,195 │   160,565 
+      2010 │    14,430      1,613     23,261      5,942 │   158,913 
+      2011 │    14,496      1,602     22,895      6,107 │   157,142 
+      2012 │    14,784      1,534     22,537      6,108 │   156,392 
+      2013 │    14,685      1,471     22,400      6,115 │   155,715 
+      2014 │    14,694      1,584     22,442      6,523 │   156,511 
+      2015 │    14,613      1,575     21,684      6,303 │   154,485 
+      2016 │    14,632      1,453     22,166      6,534 │   154,467 
+      2017 │    14,393      1,378     21,319      6,480 │   152,074 
+      2018 │    14,051      1,402     20,422      6,249 │   148,197 
+      2019 │    13,200      1,360     19,611      6,212 │   142,895 
+      2020 │    10,909        895     14,999      5,212 │   123,053 
+      2021 │    11,338      1,040     15,345      5,345 │   123,429 
+      2022 │    10,626      1,022     14,893      5,125 │   118,926 
+      2023 │    10,235        989     14,351      4,872 │   114,984 
+      2024 │     9,143        887     13,317      4,621 │   105,201 
+───────────┼────────────────────────────────────────────┼──────────
+     Total │   733,005     55,127    886,510    314,142 │ 6,738,088 
+
+.     tabulate year industry if industry != ., missing
+
+    survey │                    Industry (1-11)
+      year │ Agricultu  Construct  Durable m  Nondurabl  Communica │     Total
+───────────┼───────────────────────────────────────────────────────┼──────────
+      1982 │     5,473      8,378     22,009     14,526     11,795 │   166,650 
+      1983 │     5,088      8,891     21,120     13,940     10,912 │   165,175 
+      1984 │     4,884      9,336     22,546     13,971     11,179 │   168,451 
+      1985 │     4,540      9,488     22,554     14,008     11,492 │   171,614 
+      1986 │     4,180      9,593     22,008     13,786     11,070 │   170,266 
+      1987 │     4,049      9,645     21,613     13,727     11,083 │   171,247 
+      1988 │     3,889      9,250     20,400     12,946     10,797 │   164,174 
+      1989 │     3,903      9,335     20,456     13,407     10,895 │   167,612 
+      1990 │     4,053      9,657     21,071     13,530     11,457 │   176,255 
+      1991 │     3,927      8,583     19,744     13,092     11,180 │   171,296 
+      1992 │     3,723      8,232     18,670     12,789     10,866 │   168,960 
+      1993 │     3,625      8,185     18,141     12,049     10,721 │   166,714 
+      1994 │     3,390      8,133     17,830     11,581     10,418 │   162,745 
+      1995 │     3,373      8,302     17,503     11,409     10,238 │   162,261 
+      1996 │     3,241      7,735     15,411      9,603      9,091 │   144,803 
+      1997 │     3,258      7,980     15,691      9,641      9,333 │   147,540 
+      1998 │     3,280      8,227     15,712      9,175      9,519 │   149,278 
+      1999 │     3,241      8,665     15,427      8,918      9,817 │   151,471 
+      2000 │     3,300      9,217     15,126      8,845     10,073 │   153,075 
+      2001 │     3,586     10,338     15,791      9,194     10,769 │   167,851 
+      2002 │     3,642     10,610     15,330      9,294     11,075 │   175,038 
+      2003 │     3,664     10,670     14,004      9,575      8,940 │   171,861 
+      2004 │     3,594     10,857     13,510      9,063      8,445 │   168,874 
+      2005 │     3,682     11,417     13,344      8,724      8,514 │   169,927 
+      2006 │     3,945     11,743     13,063      8,555      8,575 │   169,196 
+      2007 │     3,929     11,437     12,468      8,450      8,552 │   167,451 
+      2008 │     3,894     10,338     12,379      7,895      8,536 │   165,354 
+      2009 │     3,766      9,074     10,904      7,372      8,022 │   160,565 
+      2010 │     3,765      8,284     10,518      7,254      8,018 │   158,913 
+      2011 │     3,978      8,315     10,555      7,162      7,743 │   157,142 
+      2012 │     4,209      8,174     10,739      7,040      7,715 │   156,392 
+      2013 │     4,186      8,409     10,675      7,166      7,650 │   155,715 
+      2014 │     4,439      8,840     10,643      7,031      7,773 │   156,511 
+      2015 │     4,418      8,751     10,382      6,803      7,510 │   154,485 
+      2016 │     4,223      8,997     10,317      6,862      7,504 │   154,467 
+      2017 │     4,196      9,093     10,033      6,668      7,615 │   152,074 
+      2018 │     4,036      9,114      9,826      6,418      7,522 │   148,197 
+      2019 │     3,841      8,932      9,472      6,202      7,155 │   142,895 
+      2020 │     3,279      7,613      8,017      5,230      6,271 │   123,053 
+      2021 │     3,160      7,800      8,047      5,140      6,381 │   123,429 
+      2022 │     2,957      7,638      7,677      4,962      6,287 │   118,926 
+      2023 │     2,969      7,474      7,507      4,975      6,153 │   114,984 
+      2024 │     2,772      6,901      6,583      4,246      5,550 │   105,201 
+───────────┼───────────────────────────────────────────────────────┼──────────
+     Total │   164,547    387,651    624,816    402,224    390,211 │ 6,738,088 
+
+
+    survey │                    Industry (1-11)
+      year │ Wholesale  Retail tr  Professio  Education  Public ad │     Total
+───────────┼───────────────────────────────────────────────────────┼──────────
+      1982 │     6,648     25,554     28,176     19,103     10,732 │   166,650 
+      1983 │     6,538     25,821     27,957     18,972     11,080 │   165,175 
+      1984 │     6,312     26,536     28,102     18,966     10,884 │   168,451 
+      1985 │     6,519     27,044     28,800     19,519     11,090 │   171,614 
+      1986 │     6,299     26,650     29,729     19,221     11,172 │   170,266 
+      1987 │     6,545     26,755     30,440     19,310     11,168 │   171,247 
+      1988 │     6,103     25,369     29,113     18,857     10,896 │   164,174 
+      1989 │     6,257     26,205     29,698     19,416     10,981 │   167,612 
+      1990 │     6,454     27,698     32,116     20,713     11,441 │   176,255 
+      1991 │     6,351     26,940     31,821     20,456     11,240 │   171,296 
+      1992 │     6,449     26,797     32,234     20,681     10,828 │   168,960 
+      1993 │     6,002     26,855     32,117     20,624     10,784 │   166,714 
+      1994 │     5,869     25,802     31,112     20,442     10,573 │   162,745 
+      1995 │     5,981     25,926     30,984     19,988     10,598 │   162,261 
+      1996 │     5,408     23,397     27,381     17,926      9,210 │   144,803 
+      1997 │     5,305     23,419     28,278     18,159      9,220 │   147,540 
+      1998 │     5,480     23,800     28,603     18,593      9,224 │   149,278 
+      1999 │     5,667     23,943     28,764     19,377      9,388 │   151,471 
+      2000 │     5,929     24,015     28,717     19,382      9,363 │   153,075 
+      2001 │     6,162     26,567     32,310     21,773     10,312 │   167,851 
+      2002 │     6,282     28,131     34,863     23,249     11,036 │   175,038 
+      2003 │     5,355     28,585     39,157     21,880     10,744 │   171,861 
+      2004 │     5,450     28,322     38,454     21,691     10,596 │   168,874 
+      2005 │     5,235     28,694     39,147     21,569     10,787 │   169,927 
+      2006 │     5,322     28,052     39,065     21,455     10,603 │   169,196 
+      2007 │     4,994     27,453     38,742     21,624     10,645 │   167,451 
+      2008 │     4,532     27,811     38,723     21,403     10,619 │   165,354 
+      2009 │     4,277     27,694     38,370     21,521     10,625 │   160,565 
+      2010 │     4,199     27,362     38,800     21,242     10,599 │   158,913 
+      2011 │     4,108     27,141     37,781     20,748     10,284 │   157,142 
+      2012 │     4,024     27,240     37,821     20,358      9,769 │   156,392 
+      2013 │     3,820     26,971     37,911     20,061      9,673 │   155,715 
+      2014 │     3,785     27,067     37,636     20,050      9,672 │   156,511 
+      2015 │     3,726     26,714     37,120     20,148      9,540 │   154,485 
+      2016 │     3,651     26,509     37,352     19,964      9,519 │   154,467 
+      2017 │     3,558     25,856     36,676     19,583      9,494 │   152,074 
+      2018 │     3,479     24,733     35,736     18,883      9,396 │   148,197 
+      2019 │     3,171     23,419     34,954     18,276      8,812 │   142,895 
+      2020 │     2,883     19,238     30,931     15,900      8,488 │   123,053 
+      2021 │     2,826     19,949     30,613     15,569      8,142 │   123,429 
+      2022 │     2,413     18,966     29,466     14,878      7,769 │   118,926 
+      2023 │     2,326     18,008     28,230     14,291      7,659 │   114,984 
+      2024 │     2,130     16,584     26,189     13,172      6,941 │   105,201 
+───────────┼───────────────────────────────────────────────────────┼──────────
+     Total │   213,824  1,095,592  1,420,189    838,993    431,596 │ 6,738,088 
+
+
+           │  Industry
+    survey │   (1-11)
+      year │ Other ser │     Total
+───────────┼───────────┼──────────
+      1982 │    14,256 │   166,650 
+      1983 │    14,856 │   165,175 
+      1984 │    15,735 │   168,451 
+      1985 │    16,560 │   171,614 
+      1986 │    16,558 │   170,266 
+      1987 │    16,912 │   171,247 
+      1988 │    16,554 │   164,174 
+      1989 │    17,059 │   167,612 
+      1990 │    18,065 │   176,255 
+      1991 │    17,962 │   171,296 
+      1992 │    17,691 │   168,960 
+      1993 │    17,611 │   166,714 
+      1994 │    17,595 │   162,745 
+      1995 │    17,959 │   162,261 
+      1996 │    16,400 │   144,803 
+      1997 │    17,256 │   147,540 
+      1998 │    17,665 │   149,278 
+      1999 │    18,264 │   151,471 
+      2000 │    19,108 │   153,075 
+      2001 │    21,049 │   167,851 
+      2002 │    21,526 │   175,038 
+      2003 │    19,287 │   171,861 
+      2004 │    18,892 │   168,874 
+      2005 │    18,814 │   169,927 
+      2006 │    18,818 │   169,196 
+      2007 │    19,157 │   167,451 
+      2008 │    19,224 │   165,354 
+      2009 │    18,940 │   160,565 
+      2010 │    18,872 │   158,913 
+      2011 │    19,327 │   157,142 
+      2012 │    19,303 │   156,392 
+      2013 │    19,193 │   155,715 
+      2014 │    19,575 │   156,511 
+      2015 │    19,373 │   154,485 
+      2016 │    19,569 │   154,467 
+      2017 │    19,302 │   152,074 
+      2018 │    19,054 │   148,197 
+      2019 │    18,661 │   142,895 
+      2020 │    15,203 │   123,053 
+      2021 │    15,802 │   123,429 
+      2022 │    15,913 │   118,926 
+      2023 │    15,392 │   114,984 
+      2024 │    14,133 │   105,201 
+───────────┼───────────┼──────────
+     Total │   768,445 │ 6,738,088 
+</pre>
+<pre class='stata'>.     count if !missing(ind1950) &amp; missing(industry)
+  0
+
+.     if r(N) > 0 {
+.         display "WARNING: There are " r(N) " instances where ind1950 is non-missing but
+>  industry is missing."
+.     }
+
+.     else {
+.         display "All instances of ind1950 have been successfully recoded into industry.
+> "
+All instances of ind1950 have been successfully recoded into industry.
+.     }
+</pre>
+<pre class='stata'>.     count if !missing(industry) &amp; missing(ind1950)
+  0
+
+.     if r(N) > 0 {
+.         display "WARNING: There are " r(N) " instances where industry is non-missing bu
+> t ind1950 is missing."
+.     }
+
+.     else {
+.         display "No instances are missing from industry compared to ind1950."
+No instances are missing from industry compared to ind1950.
+.     }
+</pre>
+<pre class='stata'>.     replace earnweek = earnweek2 if missing(earnweek)
+(192,098 real changes made)
+
+.     replace hourwage = hourwage2 if missing(hourwage)
+(105,769 real changes made)
+
+.     drop earnweek2 hourwage2
+</pre>
+<pre class='stata'>.     generate topcode = (earnweek == 9999.99)  
+
+.     replace earnweek = 1.5 * earnweek if topcode == 1
+(0 real changes made)
+
+.     label variable topcode "Top-coded earnweek (1=yes, 0=no)"     
+</pre>
+<p>The data set contains 6,738,088 observations, with occupation and
+industry categories consistently recorded and validated across years.
+Key findings include a decline in manufacturing and retail trade jobs
+over time, while professional services and education sectors show
+growth. The recoding ensures accurate and uniform classification for
+analysis.</p>
+<hr />
+<h3 id="saving-the-cleaned-dataset">Saving the cleaned dataset</h3>
+<pre class='stata'>.         compress
+  variable uhrsworkorg was int now byte
+  variable female was float now byte
+  variable paidhour_dummy was float now byte
+  variable race_orig was float now int
+  variable race_recode was float now byte
+  variable occupation was float now byte
+  variable industry was float now byte
+  variable topcode was float now byte
+  (141,499,848 bytes saved)
+
+.         save "../Data/CPS ORGs, 1982-2024, Cleaned.dta", replace
+file ../Data/CPS ORGs, 1982-2024, Cleaned.dta saved
+
+.         describe
+
+Contains data from ../Data/CPS ORGs, 1982-2024, Cleaned.dta
+ Observations:     6,738,088                  
+    Variables:            29                  7 Jan 2025 18:25
+─────────────────────────────────────────────────────────────────────────────────────────
+Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+─────────────────────────────────────────────────────────────────────────────────────────
+year            int     %8.0g                 survey year
+month           byte    %8.0g      MONTH      month
+mish            byte    %8.0g      MISH       month in sample, household level
+region          byte    %8.0g      REGION     region and division
+cpsidv          double  %12.0g                validated longitudinal identifier
+age             byte    %8.0g      AGE        age
+sex             byte    %8.0g      SEX        sex
+race            int     %58.0g     RACE       race
+empstat         byte    %8.0g      EMPSTAT    employment status
+occ1950         int     %8.0g      OCC1950    occupation, 1950 basis
+ind1950         int     %8.0g      IND1950    industry, 1950 basis
+classwkr        byte    %8.0g      CLASSWKR   class of worker
+uhrswork1       int     %8.0g      UHRSWORK1
+                                              hours usually worked per week at main job
+educ            int     %8.0g      EDUC       educational attainment recode
+earnwt          double  %12.0g                earnings weight
+qearnwee        byte    %8.0g      QEARNWEE   data quality flag for earnweek
+hourwage        double  %12.0g     HOURWAGE   hourly wage
+paidhour        byte    %8.0g      PAIDHOUR   paid by the hour
+union           byte    %8.0g      UNION      union membership
+earnweek        double  %12.0g     EARNWEEK   weekly earnings
+uhrsworkorg     byte    %8.0g                 usual hours worked per week, outgoing
+                                                rotation groups
+female          byte    %9.0g                 Female (1=yes, 0=no)
+paidhour_dummy  byte    %9.0g                 Paid hourly (1=yes, 0=no)
+race_orig       int     %9.0g                 
+race_recode     byte    %22.0g     race_label
+                                              Race - consistent coding across years
+occupation      byte    %32.0g     occupation
+                                              Occupation (1-10)
+industry        byte    %41.0g     industry   Industry (1-11)
+grade           float   %9.0g                 Education (years)
+topcode         byte    %9.0g                 Top-coded earnweek (1=yes, 0=no)
+─────────────────────────────────────────────────────────────────────────────────────────
+Sorted by: 
+
+.         summarize
+
+    Variable │        Obs        Mean    Std. dev.       Min        Max
+─────────────┼─────────────────────────────────────────────────────────
+        year │  6,738,088    2002.068    12.10799       1982       2024
+       month │  6,738,088    6.505521    3.450084          1         12
+        mish │  6,738,088    6.003526    1.999997          4          8
+      region │  6,738,088    27.35454    10.74259         11         42
+      cpsidv │  6,738,088    2.00e+14    1.21e+12   1.98e+14   2.02e+14
+─────────────┼─────────────────────────────────────────────────────────
+         age │  6,738,088    39.04488    12.23483         18         64
+         sex │  6,738,088    1.487791    .4998509          1          2
+        race │  6,738,088    142.7038    133.6738        100        830
+     empstat │  6,738,088     10.0833    .3995664         10         12
+     occ1950 │  6,738,088    421.1817    267.7166          0        970
+─────────────┼─────────────────────────────────────────────────────────
+     ind1950 │  6,738,088    676.7314     222.289        105        936
+    classwkr │  6,738,088    22.68014    2.121586         13         28
+   uhrswork1 │  6,738,088    78.16546     189.717          0        997
+        educ │  6,738,088    86.05168    23.06105          2        125
+      earnwt │  6,738,088    8652.169    5093.023      90.01   209103.1
+─────────────┼─────────────────────────────────────────────────────────
+    qearnwee │  4,437,930    1.275338    1.864099          0          4
+    hourwage │  3,958,207    12.89962    8.767912        .01      99.99
+    paidhour │  6,738,088    1.587672    .4922536          1          2
+       union │  6,517,337    1.172239    .4198614          1          3
+    earnweek │  6,729,502    685.1702    606.4801          0      11960
+─────────────┼─────────────────────────────────────────────────────────
+ uhrsworkorg │  2,914,349    36.77634    9.983109          1         99
+      female │  6,738,088    .4877906    .4998509          0          1
+paidhour_d~y │  6,738,088    .5876722    .4922536          0          1
+   race_orig │  6,738,088    142.7038    133.6738        100        830
+ race_recode │  6,738,088    1.298572    .8411194          1          6
+─────────────┼─────────────────────────────────────────────────────────
+  occupation │  6,738,088    3.936502     2.59726          1          9
+    industry │  6,738,088    6.976406    2.776901          1         11
+       grade │  6,738,088    13.49376    2.614426          0         18
+     topcode │  6,738,088           0           0          0          0
+</pre>
+<hr />
+<h3 id="key-findings">Key Findings</h3>
+<ul>
+<li><strong>Demographics</strong>:
+<ul>
+<li>48.8% of the sample is female, and the majority identify as
+White.<br />
+</li>
+<li>The average years of education is <strong>13.49</strong>, ranging
+from 0 to 18.</li>
+</ul></li>
+<li><strong>Employment</strong>:
+<ul>
+<li>58.8% of workers are paid hourly.<br />
+</li>
+<li>The most common occupation is
+<strong>professional/technical</strong>, and the largest industry is
+<strong>professional services/fire</strong>.</li>
+</ul></li>
+<li><strong>Earnings</strong>:
+<ul>
+<li>Average weekly earnings are <strong>$685.17</strong>, with a wide
+range from $0.01 to $11,960.<br />
+</li>
+<li>Average weekly work hours are <strong>78.17</strong>, though
+outliers exist.</li>
+</ul></li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,12 @@
+# Ignore Stata temporary files
+*.log
+*.tmp
+*.dta
+
+# Ignore data and output folders
+/data/
+/output/
+
+# Ignore operating system files
+.DS_Store
+Thumbs.db

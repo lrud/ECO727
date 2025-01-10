@@ -1,6 +1,6 @@
 ***** Exercise_3_Rueda.do
-***** 
-***** 
+***** CPS_ORG + CPI Data Merge
+***** Exploration
 
 *preliminary instructions
 cd "~/OneDrive/ECO 727/Analysis"
@@ -111,3 +111,38 @@ describe
 summarize 
 
 **end part c
+
+*collapse the data to annual statistics
+collapse (mean) mean = rwage (p10) p10 = rwage (p50) p50 = rwage (p90) p90 = rwage, by(year)
+
+*create the log difference variable (ldiff)
+generate ldiff = log(p90) - log(p10)
+
+*label the variables
+label variable mean "Mean real weekly wage"
+label variable p10 "10th percentile of real weekly wage"
+label variable p50 "50th percentile of real weekly wage"
+label variable p90 "90th percentile of real weekly wage"
+label variable ldiff "Log difference between 90th and 10th percentiles"
+
+*save the collapsed dataset, describe and summarize 
+save "../Data/CPS-ORG, Wage Percentiles, 1982-2024.dta", replace
+describe
+summarize
+
+*plot the mean and percentiles over time
+twoway (line mean year, lcolor(blue)) ///
+       (line p10 year, lcolor(red)) ///
+       (line p50 year, lcolor(green)) ///
+       (line p90 year, lcolor(orange)), ///
+       xtitle(Year) xlabel(1980(10)2020) xtick(1985(5)2015) ///
+       ytitle("Real Weekly Wage (November 2024 dollars)") ylabel(, noticks) ///
+       legend(label(1 "Mean") label(2 "10th Percentile") label(3 "50th Percentile") label(4 "90th Percentile")) ///
+       scheme(s2color) name(g1, replace)
+
+*plot ldiff over time
+twoway (line ldiff year, lcolor(blue)), ///
+       xtitle(Year) xlabel(1980(10)2020) xtick(1985(5)2015) ///
+       ytitle("Log Difference (ldiff)") ylabel(, noticks) ///
+       scheme(s2color) name(g2, replace)
+

@@ -86,3 +86,28 @@ describe
 summarize cpi
 
 ***end part b
+
+*load cleaned CPS_ORG data, sort and count
+use "../Data/CPS ORGs, 1982-2024, Cleaned.dta", clear
+sort year month
+describe
+
+**many to one merge
+merge m:1 year month using "../Data/CPI_data.dta", keep(match)
+tabulate _merge
+
+*meanonly summary & scalar store
+summarize cpi if year == 2024 & month == 11, meanonly
+scalar cpi_nov2024 = r(mean)
+scalar list cpi_nov2024
+
+*create real weekly wage var
+generate rwage = (earnweek * cpi_nov2024) / cpi
+label variable rwage "Real weekly wage in November 2024 dollars"
+
+*save dataset, review results
+save "../Data/CPS-ORG with CPI, 1982-2024.dta", replace
+describe
+summarize 
+
+**end part c

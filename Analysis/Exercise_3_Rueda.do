@@ -33,7 +33,7 @@ tab year if missing(earnwke)
 
 ***end part a
 
-*import CPI data using a relative path
+*import CPI data 
 import excel "../Data/SeriesReport-20250109185653_d21c9e.xlsx", cellrange(A12:O124) firstrow clear
 
 *rename variables to have common stub 'v'
@@ -76,18 +76,14 @@ format cpi %9.2f
 *sort the data by year and month
 sort year month
 
-*save the reshaped data
+*save, describe and summarize the reshaped data
 save "../Data/CPI_data.dta", replace
-
-*describe the data
 describe
-
-*summarize the data
-summarize cpi
+summarize
 
 ***end part b
 
-*load cleaned CPS_ORG data, sort and count
+*load cleaned CPS_ORG data, sort and describe
 use "../Data/CPS ORGs, 1982-2024, Cleaned.dta", clear
 sort year month
 describe
@@ -95,6 +91,7 @@ describe
 **many to one merge
 merge m:1 year month using "../Data/CPI_data.dta", keep(match)
 tabulate _merge
+drop _merge
 
 *meanonly summary & scalar store
 summarize cpi if year == 2024 & month == 11, meanonly
@@ -145,4 +142,6 @@ twoway (line ldiff year, lcolor(blue)), ///
        xtitle(Year) xlabel(1980(10)2020) xtick(1985(5)2015) ///
        ytitle("Log Difference (ldiff)") ylabel(, noticks) ///
        scheme(s2color) name(g2, replace)
+
+***end part d
 

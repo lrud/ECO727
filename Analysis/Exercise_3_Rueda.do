@@ -6,11 +6,10 @@
 cd "~/OneDrive/ECO 727/Analysis"
 // log using "Exercise_3_Rueda.smcl", replace 
 set scheme s2color
-tempfile temp1
-tempfile temp2
 global ex=3
 global lname="Rueda"
 global endyear=2024
+global month=11
 
 *append the three files into one stacked dataset using relative paths
 append using "../Data/morg79.dta" "../Data/morg80.dta" "../Data/morg81.dta", ///
@@ -81,7 +80,7 @@ save "../Data/CPI_data.dta", replace
 describe
 summarize
 
-***end part b
+*** end part b
 
 *load cleaned CPS_ORG data, sort and describe
 use "../Data/CPS ORGs, 1982-2024, Cleaned.dta", clear
@@ -94,7 +93,7 @@ tabulate _merge
 drop _merge
 
 *meanonly summary & scalar store
-summarize cpi if year == 2024 & month == 11, meanonly
+summarize cpi if year == $endyear & month == $month, meanonly
 scalar cpi_nov2024 = r(mean)
 scalar list cpi_nov2024
 
@@ -107,13 +106,14 @@ save "../Data/CPS-ORG with CPI, 1982-2024.dta", replace
 describe
 summarize 
 
-**end part c
+** end part c
 
 *collapse the data to annual statistics
-collapse (mean) mean = rwage (p10) p10 = rwage (p50) p50 = rwage (p90) p90 = rwage, by(year)
+collapse (mean) mean = rwage (p10) p10 = rwage (p50) p50 = rwage (p90) p90 = rwage ///
+    [weight=earnwt], by(year)
 
 *create the log difference variable (ldiff)
-generate ldiff = log(p90) - log(p10)
+generate ldiff = 100 * (log(p90) - log(p10))
 
 *label the variables
 label variable mean "Mean real weekly wage"
@@ -137,11 +137,18 @@ twoway (line mean year, lcolor(blue)) ///
        legend(label(1 "Mean") label(2 "10th Percentile") label(3 "50th Percentile") label(4 "90th Percentile")) ///
        scheme(s2color) name(g1, replace)
 
+*export the mean and percentiles plot
+graph export "./Results/mean_percentiles.png", width(600) replace
+
+
 *plot ldiff over time
 twoway (line ldiff year, lcolor(blue)), ///
        xtitle(Year) xlabel(1980(10)2020) xtick(1985(5)2015) ///
        ytitle("Log Difference (ldiff)") ylabel(, noticks) ///
        scheme(s2color) name(g2, replace)
 
-***end part d
+*export the ldiff plot
+graph export "./Results/ldiff.png", width(600) replace
+
+*** end part d
 

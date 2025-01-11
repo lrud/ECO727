@@ -1,0 +1,576 @@
+{smcl}
+{txt}{sf}{ul off}{.-}
+      name:  {res}results
+       {txt}log:  {res}C:\Users\melin\OneDrive\ECO 727\Analysis\Exercise_3_Rueda.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}11 Jan 2025, 13:41:20
+{txt}
+{com}. set scheme s2color
+{txt}
+{com}. global ex=3
+{txt}
+{com}. global lname="Rueda"
+{txt}
+{com}. global endyear=2024
+{txt}
+{com}. global month=11
+{txt}
+{com}. 
+. *append the three files into one stacked dataset using relative paths
+. append using "../Data/morg79.dta" "../Data/morg80.dta" "../Data/morg81.dta", ///
+>     keep(year intmonth minsamp classer esr age race sex gradeat uhours earnwke earnwt)
+{txt}(label {bf:{txt}prunecat} already defined)
+(label {bf:{txt}ptstat} already defined)
+(label {bf:{txt}ftpt79} already defined)
+(label {bf:{txt}why35lw} already defined)
+(label {bf:{txt}absentlw} already defined)
+(label {bf:{txt}reasonlw} already defined)
+(label {bf:{txt}uhours35} already defined)
+(label {bf:{txt}doinglw} already defined)
+(label {bf:{txt}activlwr} already defined)
+(label {bf:{txt}eligible} already defined)
+(label {bf:{txt}docc70} already defined)
+(label {bf:{txt}dind} already defined)
+(label {bf:{txt}ind70} already defined)
+(label {bf:{txt}esr} already defined)
+(label {bf:{txt}classer} already defined)
+(label {bf:{txt}class} already defined)
+(label {bf:{txt}I25d} already defined)
+(label {bf:{txt}I25c} already defined)
+(label {bf:{txt}I25b} already defined)
+(label {bf:{txt}I25a} already defined)
+(label {bf:{txt}paidhre} already defined)
+(label {bf:{txt}paidhr} already defined)
+(label {bf:{txt}relahh} already defined)
+(label {bf:{txt}gradecp} already defined)
+(label {bf:{txt}veteran} already defined)
+(label {bf:{txt}marital} already defined)
+(label {bf:{txt}ethnic} already defined)
+(label {bf:{txt}race} already defined)
+(label {bf:{txt}sex} already defined)
+(label {bf:{txt}smsarank} already defined)
+(label {bf:{txt}smsa70} already defined)
+(label {bf:{txt}centcity} already defined)
+(label {bf:{txt}smsastat} already defined)
+(label {bf:{txt}state} already defined)
+(label {bf:{txt}intmonth} already defined)
+(label {bf:{txt}minsamp} already defined)
+(label {bf:{txt}prunecat} already defined)
+(label {bf:{txt}ptstat} already defined)
+(label {bf:{txt}ftpt79} already defined)
+(label {bf:{txt}why35lw} already defined)
+(label {bf:{txt}absentlw} already defined)
+(label {bf:{txt}reasonlw} already defined)
+(label {bf:{txt}uhours35} already defined)
+(label {bf:{txt}doinglw} already defined)
+(label {bf:{txt}activlwr} already defined)
+(label {bf:{txt}eligible} already defined)
+(label {bf:{txt}docc70} already defined)
+(label {bf:{txt}dind} already defined)
+(label {bf:{txt}ind70} already defined)
+(label {bf:{txt}esr} already defined)
+(label {bf:{txt}classer} already defined)
+(label {bf:{txt}class} already defined)
+(label {bf:{txt}I25d} already defined)
+(label {bf:{txt}I25c} already defined)
+(label {bf:{txt}I25b} already defined)
+(label {bf:{txt}I25a} already defined)
+(label {bf:{txt}paidhre} already defined)
+(label {bf:{txt}paidhr} already defined)
+(label {bf:{txt}relahh} already defined)
+(label {bf:{txt}gradecp} already defined)
+(label {bf:{txt}veteran} already defined)
+(label {bf:{txt}marital} already defined)
+(label {bf:{txt}ethnic} already defined)
+(label {bf:{txt}race} already defined)
+(label {bf:{txt}sex} already defined)
+(label {bf:{txt}smsarank} already defined)
+(label {bf:{txt}smsa70} already defined)
+(label {bf:{txt}centcity} already defined)
+(label {bf:{txt}smsastat} already defined)
+(label {bf:{txt}state} already defined)
+(label {bf:{txt}intmonth} already defined)
+(label {bf:{txt}minsamp} already defined)
+
+{com}. 
+. *run data_check 
+. run data_check
+{txt}
+{com}. 
+. *rename variables for consistency with IPUMS data
+. rename intmonth month
+{res}{txt}
+{com}. rename minsamp inmonth
+{res}{txt}
+{com}. 
+. *filter data
+. keep if age >= 18 & age <= 64 & esr == 1 & (classer == 1 | classer == 2)
+{txt}(570,719 observations deleted)
+
+{com}. 
+. *describe and summarize the data
+. describe
+
+{txt}Contains data
+ Observations:{res}       507,612                  
+{txt}    Variables:{res}            12                  
+{txt}{hline}
+Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+{hline}
+{p 0 48}{res}{bind:inmonth        }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:minsamp  }{bind:  }{res}{res}Month in sample (4 & 8 are departing){p_end}
+{p 0 48}{bind:month          }{txt}{bind: byte    }{bind:%9.0g     }{space 1}{bind:intmonth }{bind:  }{res}{res}Interview month{p_end}
+{p 0 48}{bind:classer        }{txt}{bind: byte    }{bind:%38.0g    }{space 1}{bind:classer  }{bind:  }{res}{res}(e&r) Class of worker{p_end}
+{p 0 48}{bind:age            }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:         }{bind:  }{res}{res}Age{p_end}
+{p 0 48}{bind:race           }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:race     }{bind:  }{res}{res}Race{p_end}
+{p 0 48}{bind:sex            }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:sex      }{bind:  }{res}{res}Sex{p_end}
+{p 0 48}{bind:gradeat        }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:         }{bind:  }{res}{res}Highest grade attended{p_end}
+{p 0 48}{bind:esr            }{txt}{bind: byte    }{bind:%24.0g    }{space 1}{bind:esr      }{bind:  }{res}{res}Employment status recode{p_end}
+{p 0 48}{bind:uhours         }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:         }{bind:  }{res}{res}(dp) Usual hours{p_end}
+{p 0 48}{bind:earnwt         }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}(dp) Earnings weight for all races x100{p_end}
+{p 0 48}{bind:earnwke        }{txt}{bind: int     }{bind:%8.0g     }{space 1}{bind:         }{bind:  }{res}{res}(e&dp) Earnings per week{p_end}
+{p 0 48}{bind:year           }{txt}{bind: int     }{bind:%8.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{txt}{hline}
+Sorted by: 
+     Note: {res}Dataset has changed since last saved.
+{txt}
+{com}. summarize earnwke, detail
+
+                  {txt}(e&dp) Earnings per week
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res}       25              0
+{txt} 5%    {res}       60              0
+{txt}10%    {res}       95              0       {txt}Obs         {res}    493,860
+{txt}25%    {res}      150              0       {txt}Sum of wgt. {res}    493,860
+
+{txt}50%    {res}      232                      {txt}Mean          {res} 268.4735
+                        {txt}Largest       Std. dev.     {res} 170.4047
+{txt}75%    {res}      350            999
+{txt}90%    {res}      490            999       {txt}Variance      {res} 29037.76
+{txt}95%    {res}      600            999       {txt}Skewness      {res} 1.454784
+{txt}99%    {res}      900            999       {txt}Kurtosis      {res} 6.037416
+{txt}
+{com}. tab year if missing(earnwke)
+
+       {txt}year {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+       1979 {c |}{res}      4,029       29.30       29.30
+{txt}       1980 {c |}{res}      4,849       35.26       64.56
+{txt}       1981 {c |}{res}      4,874       35.44      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}     13,752      100.00
+{txt}
+{com}. 
+. ***end part a
+. 
+. *import CPI data 
+. import excel "../Data/SeriesReport-20250109185653_d21c9e.xlsx", cellrange(A12:O124) firstrow clear
+{res}{text}(15 vars, 112 obs)
+
+{com}. 
+. *rename variables to have common stub 'v'
+. rename Year year
+{res}{txt}
+{com}. rename Jan v1
+{res}{txt}
+{com}. rename Feb v2
+{res}{txt}
+{com}. rename Mar v3
+{res}{txt}
+{com}. rename Apr v4
+{res}{txt}
+{com}. rename May v5
+{res}{txt}
+{com}. rename Jun v6
+{res}{txt}
+{com}. rename Jul v7
+{res}{txt}
+{com}. rename Aug v8
+{res}{txt}
+{com}. rename Sep v9
+{res}{txt}
+{com}. rename Oct v10
+{res}{txt}
+{com}. rename Nov v11
+{res}{txt}
+{com}. rename Dec v12
+{res}{txt}
+{com}. 
+. *drop HALF1 and HALF2 for reshape operation
+. drop HALF1 HALF2
+{txt}
+{com}. 
+. *reshape data from wide to long format
+. reshape long v, i(year) j(month)
+{txt}(j = 1 2 3 4 5 6 7 8 9 10 11 12)
+
+Data{col 36}Wide{col 43}->{col 48}Long
+{hline 77}
+Number of observations     {res}         112   {txt}->   {res}1,344       
+{txt}Number of variables        {res}          13   {txt}->   {res}3           
+{txt}j variable (12 values)                    ->   {res}month
+{txt}xij variables:
+                          {res}v1 v2 ... v12   {txt}->   {res}v
+{txt}{hline 77}
+
+{com}. 
+. *rename the reshaped CPI variable
+. rename v cpi
+{res}{txt}
+{com}. 
+. *create month labels
+. label define months 1 "Jan" 2 "Feb" 3 "Mar" 4 "Apr" 5 "May" 6 "Jun" ///
+>     7 "Jul" 8 "Aug" 9 "Sep" 10 "Oct" 11 "Nov" 12 "Dec"
+{txt}
+{com}. label values month months
+{txt}
+{com}. 
+. *label variables
+. label variable year "Year"
+{txt}
+{com}. label variable month "Month"
+{txt}
+{com}. label variable cpi "Consumer Price Index (CPI)"
+{txt}
+{com}. 
+. *format the CPI variable
+. format cpi %9.2f
+{txt}
+{com}. 
+. *sort the data by year and month
+. sort year month
+{txt}
+{com}. 
+. *save, describe and summarize the reshaped data
+. save "../Data/CPI_data.dta", replace
+{txt}{p 0 4 2}
+file {bf}
+../Data/CPI_data.dta{rm}
+saved
+{p_end}
+
+{com}. describe
+
+{txt}Contains data from {res}../Data/CPI_data.dta
+{txt} Observations:{res}         1,344                  
+{txt}    Variables:{res}             3                  11 Jan 2025 13:41
+{txt}{hline}
+Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+{hline}
+{p 0 48}{res}{bind:year           }{txt}{bind: int     }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}Year{p_end}
+{p 0 48}{bind:month          }{txt}{bind: byte    }{bind:%10.0g    }{space 1}{bind:months   }{bind:  }{res}{res}Month{p_end}
+{p 0 48}{bind:cpi            }{txt}{bind: double  }{bind:%9.2f     }{space 1}{bind:         }{bind:  }{res}{res}Consumer Price Index (CPI){p_end}
+{txt}{hline}
+Sorted by: {res}year  month
+{txt}
+{com}. summarize
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 8}year {c |}{res}      1,344      1968.5    32.34236       1913       2024
+{txt}{space 7}month {c |}{res}      1,344         6.5    3.453337          1         12
+{txt}{space 9}cpi {c |}{res}      1,343    89.11085    87.39035        9.7    315.664
+{txt}
+{com}. 
+. *** end part b
+. 
+. *load cleaned CPS_ORG data, sort and describe
+. use "../Data/CPS ORGs, 1982-2024, Cleaned.dta", clear
+{txt}
+{com}. sort year month
+{txt}
+{com}. describe
+
+{txt}Contains data from {res}../Data/CPS ORGs, 1982-2024, Cleaned.dta
+{txt} Observations:{res}     6,738,088                  
+{txt}    Variables:{res}            29                  7 Jan 2025 18:25
+{txt}{hline}
+Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+{hline}
+{p 0 48}{res}{bind:year           }{txt}{bind: int     }{bind:%8.0g     }{space 1}{bind:         }{bind:  }{res}{res}survey year{p_end}
+{p 0 48}{bind:month          }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:MONTH    }{bind:  }{res}{res}month{p_end}
+{p 0 48}{bind:mish           }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:MISH     }{bind:  }{res}{res}month in sample, household level{p_end}
+{p 0 48}{bind:region         }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:REGION   }{bind:  }{res}{res}region and division{p_end}
+{p 0 48}{bind:cpsidv         }{txt}{bind: double  }{bind:%12.0g    }{space 1}{bind:         }{bind:  }{res}{res}validated longitudinal identifier{p_end}
+{p 0 48}{bind:age            }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:AGE      }{bind:  }{res}{res}age{p_end}
+{p 0 48}{bind:sex            }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:SEX      }{bind:  }{res}{res}sex{p_end}
+{p 0 48}{bind:race           }{txt}{bind: int     }{bind:%58.0g    }{space 1}{bind:RACE     }{bind:  }{res}{res}race{p_end}
+{p 0 48}{bind:empstat        }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:EMPSTAT  }{bind:  }{res}{res}employment status{p_end}
+{p 0 48}{bind:occ1950        }{txt}{bind: int     }{bind:%8.0g     }{space 1}{bind:OCC1950  }{bind:  }{res}{res}occupation, 1950 basis{p_end}
+{p 0 48}{bind:ind1950        }{txt}{bind: int     }{bind:%8.0g     }{space 1}{bind:IND1950  }{bind:  }{res}{res}industry, 1950 basis{p_end}
+{p 0 48}{bind:classwkr       }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:CLASSWKR }{bind:  }{res}{res}class of worker{p_end}
+{p 0 48}{bind:uhrswork1      }{txt}{bind: int     }{bind:%8.0g     }{space 1}{txt}UHRSWORK1{p_end}
+{p 0 48}{space 44}{bind:  }{res}{res}hours usually worked per week at main job{p_end}
+{p 0 48}{bind:educ           }{txt}{bind: int     }{bind:%8.0g     }{space 1}{bind:EDUC     }{bind:  }{res}{res}educational attainment recode{p_end}
+{p 0 48}{bind:earnwt         }{txt}{bind: double  }{bind:%12.0g    }{space 1}{bind:         }{bind:  }{res}{res}earnings weight{p_end}
+{p 0 48}{bind:qearnwee       }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:QEARNWEE }{bind:  }{res}{res}data quality flag for earnweek{p_end}
+{p 0 48}{bind:hourwage       }{txt}{bind: double  }{bind:%12.0g    }{space 1}{bind:HOURWAGE }{bind:  }{res}{res}hourly wage{p_end}
+{p 0 48}{bind:paidhour       }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:PAIDHOUR }{bind:  }{res}{res}paid by the hour{p_end}
+{p 0 48}{bind:union          }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:UNION    }{bind:  }{res}{res}union membership{p_end}
+{p 0 48}{bind:earnweek       }{txt}{bind: double  }{bind:%12.0g    }{space 1}{bind:EARNWEEK }{bind:  }{res}{res}weekly earnings{p_end}
+{p 0 48}{bind:uhrsworkorg    }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:         }{bind:  }{res}{res}usual hours worked per week, outgoing rotation groups{p_end}
+{p 0 48}{bind:female         }{txt}{bind: byte    }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}Female (1=yes, 0=no){p_end}
+{p 0 48}{bind:paidhour_dummy }{txt}{bind: byte    }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}Paid hourly (1=yes, 0=no){p_end}
+{p 0 48}{bind:race_orig      }{txt}{bind: int     }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:race_recode    }{txt}{bind: byte    }{bind:%22.0g    }{space 1}{txt}race_label{p_end}
+{p 0 48}{space 44}{bind:  }{res}{res}Race - consistent coding across years{p_end}
+{p 0 48}{bind:occupation     }{txt}{bind: byte    }{bind:%32.0g    }{space 1}{txt}occupation{p_end}
+{p 0 48}{space 44}{bind:  }{res}{res}Occupation (1-10){p_end}
+{p 0 48}{bind:industry       }{txt}{bind: byte    }{bind:%41.0g    }{space 1}{bind:industry }{bind:  }{res}{res}Industry (1-11){p_end}
+{p 0 48}{bind:grade          }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}Education (years){p_end}
+{p 0 48}{bind:topcode        }{txt}{bind: byte    }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}Top-coded earnweek (1=yes, 0=no){p_end}
+{txt}{hline}
+Sorted by: {res}year  month
+{txt}
+{com}. 
+. **many to one merge
+. merge m:1 year month using "../Data/CPI_data.dta", keep(match)
+{res}
+{txt}{col 5}Result{col 33}Number of obs
+{col 5}{hline 41}
+{col 5}Not matched{col 30}{res}               0
+{txt}{col 5}Matched{col 30}{res}       6,738,088{txt}  (_merge==3)
+{col 5}{hline 41}
+
+{com}. tabulate _merge
+
+   {txt}Matching result from {c |}
+                  merge {c |}      Freq.     Percent        Cum.
+{hline 24}{c +}{hline 35}
+            Matched (3) {c |}{res}  6,738,088      100.00      100.00
+{txt}{hline 24}{c +}{hline 35}
+                  Total {c |}{res}  6,738,088      100.00
+{txt}
+{com}. drop _merge
+{txt}
+{com}. 
+. *meanonly summary & scalar store
+. summarize cpi if year == $endyear & month == $month, meanonly
+{txt}
+{com}. scalar cpi_nov2024 = r(mean)
+{txt}
+{com}. scalar list cpi_nov2024
+{txt}cpi_nov2024 = {res}   315.493
+{txt}
+{com}. 
+. *create real weekly wage var
+. generate rwage = (earnweek * cpi_nov2024) / cpi
+{txt}(8,586 missing values generated)
+
+{com}. label variable rwage "Real weekly wage in November 2024 dollars"
+{txt}
+{com}. 
+. *save dataset, review results
+. save "../Data/CPS-ORG with CPI, 1982-2024.dta", replace
+{txt}{p 0 4 2}
+file {bf}
+../Data/CPS-ORG with CPI, 1982-2024.dta{rm}
+saved
+{p_end}
+
+{com}. describe
+
+{txt}Contains data from {res}../Data/CPS-ORG with CPI, 1982-2024.dta
+{txt} Observations:{res}     6,738,088                  
+{txt}    Variables:{res}            31                  11 Jan 2025 13:41
+{txt}{hline}
+Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+{hline}
+{p 0 48}{res}{bind:year           }{txt}{bind: int     }{bind:%8.0g     }{space 1}{bind:         }{bind:  }{res}{res}survey year{p_end}
+{p 0 48}{bind:month          }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:MONTH    }{bind:  }{res}{res}month{p_end}
+{p 0 48}{bind:mish           }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:MISH     }{bind:  }{res}{res}month in sample, household level{p_end}
+{p 0 48}{bind:region         }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:REGION   }{bind:  }{res}{res}region and division{p_end}
+{p 0 48}{bind:cpsidv         }{txt}{bind: double  }{bind:%12.0g    }{space 1}{bind:         }{bind:  }{res}{res}validated longitudinal identifier{p_end}
+{p 0 48}{bind:age            }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:AGE      }{bind:  }{res}{res}age{p_end}
+{p 0 48}{bind:sex            }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:SEX      }{bind:  }{res}{res}sex{p_end}
+{p 0 48}{bind:race           }{txt}{bind: int     }{bind:%58.0g    }{space 1}{bind:RACE     }{bind:  }{res}{res}race{p_end}
+{p 0 48}{bind:empstat        }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:EMPSTAT  }{bind:  }{res}{res}employment status{p_end}
+{p 0 48}{bind:occ1950        }{txt}{bind: int     }{bind:%8.0g     }{space 1}{bind:OCC1950  }{bind:  }{res}{res}occupation, 1950 basis{p_end}
+{p 0 48}{bind:ind1950        }{txt}{bind: int     }{bind:%8.0g     }{space 1}{bind:IND1950  }{bind:  }{res}{res}industry, 1950 basis{p_end}
+{p 0 48}{bind:classwkr       }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:CLASSWKR }{bind:  }{res}{res}class of worker{p_end}
+{p 0 48}{bind:uhrswork1      }{txt}{bind: int     }{bind:%8.0g     }{space 1}{txt}UHRSWORK1{p_end}
+{p 0 48}{space 44}{bind:  }{res}{res}hours usually worked per week at main job{p_end}
+{p 0 48}{bind:educ           }{txt}{bind: int     }{bind:%8.0g     }{space 1}{bind:EDUC     }{bind:  }{res}{res}educational attainment recode{p_end}
+{p 0 48}{bind:earnwt         }{txt}{bind: double  }{bind:%12.0g    }{space 1}{bind:         }{bind:  }{res}{res}earnings weight{p_end}
+{p 0 48}{bind:qearnwee       }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:QEARNWEE }{bind:  }{res}{res}data quality flag for earnweek{p_end}
+{p 0 48}{bind:hourwage       }{txt}{bind: double  }{bind:%12.0g    }{space 1}{bind:HOURWAGE }{bind:  }{res}{res}hourly wage{p_end}
+{p 0 48}{bind:paidhour       }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:PAIDHOUR }{bind:  }{res}{res}paid by the hour{p_end}
+{p 0 48}{bind:union          }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:UNION    }{bind:  }{res}{res}union membership{p_end}
+{p 0 48}{bind:earnweek       }{txt}{bind: double  }{bind:%12.0g    }{space 1}{bind:EARNWEEK }{bind:  }{res}{res}weekly earnings{p_end}
+{p 0 48}{bind:uhrsworkorg    }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:         }{bind:  }{res}{res}usual hours worked per week, outgoing rotation groups{p_end}
+{p 0 48}{bind:female         }{txt}{bind: byte    }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}Female (1=yes, 0=no){p_end}
+{p 0 48}{bind:paidhour_dummy }{txt}{bind: byte    }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}Paid hourly (1=yes, 0=no){p_end}
+{p 0 48}{bind:race_orig      }{txt}{bind: int     }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:race_recode    }{txt}{bind: byte    }{bind:%22.0g    }{space 1}{txt}race_label{p_end}
+{p 0 48}{space 44}{bind:  }{res}{res}Race - consistent coding across years{p_end}
+{p 0 48}{bind:occupation     }{txt}{bind: byte    }{bind:%32.0g    }{space 1}{txt}occupation{p_end}
+{p 0 48}{space 44}{bind:  }{res}{res}Occupation (1-10){p_end}
+{p 0 48}{bind:industry       }{txt}{bind: byte    }{bind:%41.0g    }{space 1}{bind:industry }{bind:  }{res}{res}Industry (1-11){p_end}
+{p 0 48}{bind:grade          }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}Education (years){p_end}
+{p 0 48}{bind:topcode        }{txt}{bind: byte    }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}Top-coded earnweek (1=yes, 0=no){p_end}
+{p 0 48}{bind:cpi            }{txt}{bind: double  }{bind:%9.2f     }{space 1}{bind:         }{bind:  }{res}{res}Consumer Price Index (CPI){p_end}
+{p 0 48}{bind:rwage          }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}Real weekly wage in November 2024 dollars{p_end}
+{txt}{hline}
+Sorted by: 
+
+{com}. summarize 
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 8}year {c |}{res}  6,738,088    2002.068    12.10799       1982       2024
+{txt}{space 7}month {c |}{res}  6,738,088    6.505521    3.450084          1         12
+{txt}{space 8}mish {c |}{res}  6,738,088    6.003526    1.999997          4          8
+{txt}{space 6}region {c |}{res}  6,738,088    27.35454    10.74259         11         42
+{txt}{space 6}cpsidv {c |}{res}  6,738,088    2.00e+14    1.21e+12   1.98e+14   2.02e+14
+{txt}{hline 13}{c +}{hline 57}
+{space 9}age {c |}{res}  6,738,088    39.04488    12.23483         18         64
+{txt}{space 9}sex {c |}{res}  6,738,088    1.487791    .4998509          1          2
+{txt}{space 8}race {c |}{res}  6,738,088    142.7038    133.6738        100        830
+{txt}{space 5}empstat {c |}{res}  6,738,088     10.0833    .3995664         10         12
+{txt}{space 5}occ1950 {c |}{res}  6,738,088    421.1817    267.7166          0        970
+{txt}{hline 13}{c +}{hline 57}
+{space 5}ind1950 {c |}{res}  6,738,088    676.7314     222.289        105        936
+{txt}{space 4}classwkr {c |}{res}  6,738,088    22.68014    2.121586         13         28
+{txt}{space 3}uhrswork1 {c |}{res}  6,738,088    78.16546     189.717          0        997
+{txt}{space 8}educ {c |}{res}  6,738,088    86.05168    23.06105          2        125
+{txt}{space 6}earnwt {c |}{res}  6,738,088    8652.169    5093.023      90.01   209103.1
+{txt}{hline 13}{c +}{hline 57}
+{space 4}qearnwee {c |}{res}  4,437,930    1.275338    1.864099          0          4
+{txt}{space 4}hourwage {c |}{res}  3,958,207    12.89962    8.767912        .01      99.99
+{txt}{space 4}paidhour {c |}{res}  6,738,088    1.587672    .4922536          1          2
+{txt}{space 7}union {c |}{res}  6,517,337    1.172239    .4198614          1          3
+{txt}{space 4}earnweek {c |}{res}  6,729,502    685.1702    606.4801          0      11960
+{txt}{hline 13}{c +}{hline 57}
+{space 1}uhrsworkorg {c |}{res}  2,914,349    36.77634    9.983109          1         99
+{txt}{space 6}female {c |}{res}  6,738,088    .4877906    .4998509          0          1
+{txt}paidhour_d~y {c |}{res}  6,738,088    .5876722    .4922536          0          1
+{txt}{space 3}race_orig {c |}{res}  6,738,088    142.7038    133.6738        100        830
+{txt}{space 1}race_recode {c |}{res}  6,738,088    1.298572    .8411194          1          6
+{txt}{hline 13}{c +}{hline 57}
+{space 2}occupation {c |}{res}  6,738,088    3.936502     2.59726          1          9
+{txt}{space 4}industry {c |}{res}  6,738,088    6.976406    2.776901          1         11
+{txt}{space 7}grade {c |}{res}  6,738,088    13.49376    2.614426          0         18
+{txt}{space 5}topcode {c |}{res}  6,738,088           0           0          0          0
+{txt}{space 9}cpi {c |}{res}  6,738,088    184.1752    56.16483       94.3    315.664
+{txt}{hline 13}{c +}{hline 57}
+{space 7}rwage {c |}{res}  6,729,502    1145.996    832.4976          0   11986.48
+{txt}
+{com}. 
+. ** end part c
+. 
+. *collapse the data to annual statistics
+. collapse (mean) mean = rwage (p10) p10 = rwage (p50) p50 = rwage (p90) p90 = rwage ///
+>     [weight=earnwt], by(year)
+{txt}(analytic weights assumed)
+{res}{txt}
+{com}. 
+. *create the log difference variable (ldiff)
+. generate ldiff = 100 * (log(p90) - log(p10))
+{txt}
+{com}. 
+. *label the variables
+. label variable mean "Mean real weekly wage"
+{txt}
+{com}. label variable p10 "10th percentile of real weekly wage"
+{txt}
+{com}. label variable p50 "50th percentile of real weekly wage"
+{txt}
+{com}. label variable p90 "90th percentile of real weekly wage"
+{txt}
+{com}. label variable ldiff "Log difference between 90th and 10th percentiles"
+{txt}
+{com}. 
+. *save the collapsed dataset, describe and summarize 
+. save "../Data/CPS-ORG, Wage Percentiles, 1982-2024.dta", replace
+{txt}{p 0 4 2}
+file {bf}
+../Data/CPS-ORG, Wage Percentiles, 1982-2024.dta{rm}
+saved
+{p_end}
+
+{com}. describe
+
+{txt}Contains data from {res}../Data/CPS-ORG, Wage Percentiles, 1982-2024.dta
+{txt} Observations:{res}            43                  
+{txt}    Variables:{res}             6                  11 Jan 2025 13:41
+{txt}{hline}
+Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+{hline}
+{p 0 48}{res}{bind:year           }{txt}{bind: int     }{bind:%8.0g     }{space 1}{bind:         }{bind:  }{res}{res}survey year{p_end}
+{p 0 48}{bind:mean           }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}Mean real weekly wage{p_end}
+{p 0 48}{bind:p10            }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}10th percentile of real weekly wage{p_end}
+{p 0 48}{bind:p50            }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}50th percentile of real weekly wage{p_end}
+{p 0 48}{bind:p90            }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}90th percentile of real weekly wage{p_end}
+{p 0 48}{bind:ldiff          }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}Log difference between 90th and 10th percentiles{p_end}
+{txt}{hline}
+Sorted by: {res}year
+{txt}
+{com}. summarize
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 8}year {c |}{res}         43        2003    12.55654       1982       2024
+{txt}{space 8}mean {c |}{res}         43    1150.508    100.1597   1005.359    1461.67
+{txt}{space 9}p10 {c |}{res}         43    352.1248    30.14124   315.8088   423.4635
+{txt}{space 9}p50 {c |}{res}         43    935.8104    53.62844   863.1819   1071.522
+{txt}{space 9}p90 {c |}{res}         43    2241.833    255.0157   1828.463   2749.459
+{txt}{hline 13}{c +}{hline 57}
+{space 7}ldiff {c |}{res}         43    184.8171    7.380632   173.1777   199.8685
+{txt}
+{com}. 
+. *plot the mean and percentiles over time
+. twoway (line mean year, lcolor(blue)) ///
+>        (line p10 year, lcolor(red)) ///
+>        (line p50 year, lcolor(green)) ///
+>        (line p90 year, lcolor(orange)), ///
+>        xtitle(Year) xlabel(1980(10)2020) xtick(1985(5)2015) ///
+>        ytitle("Real Weekly Wage (November 2024 dollars)") ylabel(, noticks) ///
+>        legend(label(1 "Mean") label(2 "10th Percentile") label(3 "50th Percentile") label(4 "90th Percentile")) ///
+>        scheme(Wide727Scheme) name(g1, replace)
+{res}{txt}
+{com}. 
+. *export the mean and percentiles plot
+. graph export "./Results/mean_percentiles.png", width(600) replace
+{txt}{p 0 4 2}
+file {bf}
+./Results/mean_percentiles.png{rm}
+saved as
+PNG
+format
+{p_end}
+
+{com}. 
+. 
+. *plot ldiff over time
+. twoway (line ldiff year, lcolor(blue)), ///
+>        xtitle(Year) xlabel(1980(10)2020) xtick(1985(5)2015) ///
+>        ytitle("Log Difference (ldiff)") ylabel(, noticks) ///
+>        scheme(s2color) name(g2, replace)
+{res}{txt}
+{com}. 
+. *export the ldiff plot
+. graph export "./Results/ldiff.png", width(600) replace
+{txt}{p 0 4 2}
+file {bf}
+./Results/ldiff.png{rm}
+saved as
+PNG
+format
+{p_end}
+
+{com}. 
+. *** end part d
+. 
+. log close results
+      {txt}name:  {res}results
+       {txt}log:  {res}C:\Users\melin\OneDrive\ECO 727\Analysis\Exercise_3_Rueda.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res}11 Jan 2025, 13:41:26
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}

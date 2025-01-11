@@ -4,7 +4,7 @@
 
 *preliminary instructions
 cd "~/OneDrive/ECO 727/Analysis"
-// log using "Exercise_3_Rueda.smcl", replace 
+log using "Exercise_3_Rueda.smcl", name(results) replace 
 set scheme s2color
 global ex=3
 global lname="Rueda"
@@ -16,7 +16,7 @@ append using "../Data/morg79.dta" "../Data/morg80.dta" "../Data/morg81.dta", ///
     keep(year intmonth minsamp classer esr age race sex gradeat uhours earnwke earnwt)
 
 *run data_check 
-// run data_check
+run data_check
 
 *rename variables for consistency with IPUMS data
 rename intmonth month
@@ -152,3 +152,4 @@ graph export "./Results/ldiff.png", width(600) replace
 
 *** end part d
 
+log close results

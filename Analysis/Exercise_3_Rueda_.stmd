@@ -1,0 +1,25 @@
+## Exercise 3: CPS_ORG + CPI Data Analysis
+
+---
+
+### Plan
+
+- **Data Preparation**: Appending and cleaning CPS-ORG data.
+- **CPI Data Import and Reshaping**: Importing and reshaping CPI data for merging.
+- **Data Merge and Real Wage Calculation**: Merging CPS-ORG and CPI data, and calculating real weekly wages.
+- **Wage Inequality Analysis**: Collapsing data to annual statistics and generating plots.
+
+---
+
+### Preliminaries
+
+            cd "~/OneDrive/ECO 727/Analysis"
+            set scheme s2color
+            global ex=3
+            global lname="Rueda"
+            global endyear=2024
+            global month=11
+
+---
+
+### Appending CPI Data into 

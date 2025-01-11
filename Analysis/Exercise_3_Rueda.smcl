@@ -1,9 +1,9 @@
 {smcl}
-{txt}{sf}{ul off}{.-}
+{com}{sf}{ul off}{txt}{.-}
       name:  {res}results
        {txt}log:  {res}C:\Users\melin\OneDrive\ECO 727\Analysis\Exercise_3_Rueda.smcl
   {txt}log type:  {res}smcl
- {txt}opened on:  {res}11 Jan 2025, 13:41:20
+ {txt}opened on:  {res}11 Jan 2025, 16:24:57
 {txt}
 {com}. set scheme s2color
 {txt}
@@ -254,7 +254,7 @@ saved
 
 {txt}Contains data from {res}../Data/CPI_data.dta
 {txt} Observations:{res}         1,344                  
-{txt}    Variables:{res}             3                  11 Jan 2025 13:41
+{txt}    Variables:{res}             3                  11 Jan 2025 16:24
 {txt}{hline}
 Variable      Storage   Display    Value
     name         type    format    label      Variable label
@@ -285,7 +285,7 @@ Sorted by: {res}year  month
 
 {txt}Contains data from {res}../Data/CPS ORGs, 1982-2024, Cleaned.dta
 {txt} Observations:{res}     6,738,088                  
-{txt}    Variables:{res}            29                  7 Jan 2025 18:25
+{txt}    Variables:{res}            30                  11 Jan 2025 16:24
 {txt}{hline}
 Variable      Storage   Display    Value
     name         type    format    label      Variable label
@@ -312,16 +312,17 @@ Variable      Storage   Display    Value
 {p 0 48}{bind:union          }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:UNION    }{bind:  }{res}{res}union membership{p_end}
 {p 0 48}{bind:earnweek       }{txt}{bind: double  }{bind:%12.0g    }{space 1}{bind:EARNWEEK }{bind:  }{res}{res}weekly earnings{p_end}
 {p 0 48}{bind:uhrsworkorg    }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:         }{bind:  }{res}{res}usual hours worked per week, outgoing rotation groups{p_end}
-{p 0 48}{bind:female         }{txt}{bind: byte    }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}Female (1=yes, 0=no){p_end}
-{p 0 48}{bind:paidhour_dummy }{txt}{bind: byte    }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}Paid hourly (1=yes, 0=no){p_end}
+{p 0 48}{bind:female         }{txt}{bind: byte    }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}female (1=yes, 0=no){p_end}
+{p 0 48}{bind:paidhour_dummy }{txt}{bind: byte    }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}paid hourly (1=yes, 0=no){p_end}
 {p 0 48}{bind:race_orig      }{txt}{bind: int     }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
 {p 0 48}{bind:race_recode    }{txt}{bind: byte    }{bind:%22.0g    }{space 1}{txt}race_label{p_end}
-{p 0 48}{space 44}{bind:  }{res}{res}Race - consistent coding across years{p_end}
+{p 0 48}{space 44}{bind:  }{res}{res}race - consistent coding across years{p_end}
 {p 0 48}{bind:occupation     }{txt}{bind: byte    }{bind:%32.0g    }{space 1}{txt}occupation{p_end}
-{p 0 48}{space 44}{bind:  }{res}{res}Occupation (1-10){p_end}
-{p 0 48}{bind:industry       }{txt}{bind: byte    }{bind:%41.0g    }{space 1}{bind:industry }{bind:  }{res}{res}Industry (1-11){p_end}
-{p 0 48}{bind:grade          }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}Education (years){p_end}
-{p 0 48}{bind:topcode        }{txt}{bind: byte    }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}Top-coded earnweek (1=yes, 0=no){p_end}
+{p 0 48}{space 44}{bind:  }{res}{res}occupation (1-10){p_end}
+{p 0 48}{bind:industry       }{txt}{bind: byte    }{bind:%41.0g    }{space 1}{bind:industry }{bind:  }{res}{res}industry (1-11){p_end}
+{p 0 48}{bind:grade          }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}education (years){p_end}
+{p 0 48}{bind:max_val        }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:topcode        }{txt}{bind: byte    }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}top-coded earnweek (1=yes, 0=no){p_end}
 {txt}{hline}
 Sorted by: {res}year  month
 {txt}
@@ -358,7 +359,7 @@ Sorted by: {res}year  month
 {com}. 
 . *create real weekly wage var
 . generate rwage = (earnweek * cpi_nov2024) / cpi
-{txt}(8,586 missing values generated)
+{txt}(36,949 missing values generated)
 
 {com}. label variable rwage "Real weekly wage in November 2024 dollars"
 {txt}
@@ -375,7 +376,7 @@ saved
 
 {txt}Contains data from {res}../Data/CPS-ORG with CPI, 1982-2024.dta
 {txt} Observations:{res}     6,738,088                  
-{txt}    Variables:{res}            31                  11 Jan 2025 13:41
+{txt}    Variables:{res}            32                  11 Jan 2025 16:24
 {txt}{hline}
 Variable      Storage   Display    Value
     name         type    format    label      Variable label
@@ -402,16 +403,17 @@ Variable      Storage   Display    Value
 {p 0 48}{bind:union          }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:UNION    }{bind:  }{res}{res}union membership{p_end}
 {p 0 48}{bind:earnweek       }{txt}{bind: double  }{bind:%12.0g    }{space 1}{bind:EARNWEEK }{bind:  }{res}{res}weekly earnings{p_end}
 {p 0 48}{bind:uhrsworkorg    }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:         }{bind:  }{res}{res}usual hours worked per week, outgoing rotation groups{p_end}
-{p 0 48}{bind:female         }{txt}{bind: byte    }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}Female (1=yes, 0=no){p_end}
-{p 0 48}{bind:paidhour_dummy }{txt}{bind: byte    }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}Paid hourly (1=yes, 0=no){p_end}
+{p 0 48}{bind:female         }{txt}{bind: byte    }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}female (1=yes, 0=no){p_end}
+{p 0 48}{bind:paidhour_dummy }{txt}{bind: byte    }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}paid hourly (1=yes, 0=no){p_end}
 {p 0 48}{bind:race_orig      }{txt}{bind: int     }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
 {p 0 48}{bind:race_recode    }{txt}{bind: byte    }{bind:%22.0g    }{space 1}{txt}race_label{p_end}
-{p 0 48}{space 44}{bind:  }{res}{res}Race - consistent coding across years{p_end}
+{p 0 48}{space 44}{bind:  }{res}{res}race - consistent coding across years{p_end}
 {p 0 48}{bind:occupation     }{txt}{bind: byte    }{bind:%32.0g    }{space 1}{txt}occupation{p_end}
-{p 0 48}{space 44}{bind:  }{res}{res}Occupation (1-10){p_end}
-{p 0 48}{bind:industry       }{txt}{bind: byte    }{bind:%41.0g    }{space 1}{bind:industry }{bind:  }{res}{res}Industry (1-11){p_end}
-{p 0 48}{bind:grade          }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}Education (years){p_end}
-{p 0 48}{bind:topcode        }{txt}{bind: byte    }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}Top-coded earnweek (1=yes, 0=no){p_end}
+{p 0 48}{space 44}{bind:  }{res}{res}occupation (1-10){p_end}
+{p 0 48}{bind:industry       }{txt}{bind: byte    }{bind:%41.0g    }{space 1}{bind:industry }{bind:  }{res}{res}industry (1-11){p_end}
+{p 0 48}{bind:grade          }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}education (years){p_end}
+{p 0 48}{bind:max_val        }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{p 0 48}{bind:topcode        }{txt}{bind: byte    }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}top-coded earnweek (1=yes, 0=no){p_end}
 {p 0 48}{bind:cpi            }{txt}{bind: double  }{bind:%9.2f     }{space 1}{bind:         }{bind:  }{res}{res}Consumer Price Index (CPI){p_end}
 {p 0 48}{bind:rwage          }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}Real weekly wage in November 2024 dollars{p_end}
 {txt}{hline}
@@ -440,24 +442,25 @@ Sorted by:
 {txt}{space 6}earnwt {c |}{res}  6,738,088    8652.169    5093.023      90.01   209103.1
 {txt}{hline 13}{c +}{hline 57}
 {space 4}qearnwee {c |}{res}  4,437,930    1.275338    1.864099          0          4
-{txt}{space 4}hourwage {c |}{res}  3,958,207    12.89962    8.767912        .01      99.99
+{txt}{space 4}hourwage {c |}{res}  3,942,601    12.85596     8.72543        .01      99.99
 {txt}{space 4}paidhour {c |}{res}  6,738,088    1.587672    .4922536          1          2
 {txt}{space 7}union {c |}{res}  6,517,337    1.172239    .4198614          1          3
-{txt}{space 4}earnweek {c |}{res}  6,729,502    685.1702    606.4801          0      11960
+{txt}{space 4}earnweek {c |}{res}  6,701,139    710.0568    5298.886        .01    1000000
 {txt}{hline 13}{c +}{hline 57}
 {space 1}uhrsworkorg {c |}{res}  2,914,349    36.77634    9.983109          1         99
 {txt}{space 6}female {c |}{res}  6,738,088    .4877906    .4998509          0          1
-{txt}paidhour_d~y {c |}{res}  6,738,088    .5876722    .4922536          0          1
+{txt}paidhour_d~y {c |}{res}  6,738,088    .4123278    .4922536          0          1
 {txt}{space 3}race_orig {c |}{res}  6,738,088    142.7038    133.6738        100        830
 {txt}{space 1}race_recode {c |}{res}  6,738,088    1.298572    .8411194          1          6
 {txt}{hline 13}{c +}{hline 57}
 {space 2}occupation {c |}{res}  6,738,088    3.936502     2.59726          1          9
 {txt}{space 4}industry {c |}{res}  6,738,088    6.976406    2.776901          1         11
 {txt}{space 7}grade {c |}{res}  6,738,088    13.49376    2.614426          0         18
-{txt}{space 5}topcode {c |}{res}  6,738,088           0           0          0          0
-{txt}{space 9}cpi {c |}{res}  6,738,088    184.1752    56.16483       94.3    315.664
+{txt}{space 5}max_val {c |}{res}          1     1000000           .    1000000    1000000
+{txt}{space 5}topcode {c |}{res}  6,738,088    .0278238    .1644677          0          1
 {txt}{hline 13}{c +}{hline 57}
-{space 7}rwage {c |}{res}  6,729,502    1145.996    832.4976          0   11986.48
+{space 9}cpi {c |}{res}  6,738,088    184.1752    56.16483       94.3    315.664
+{txt}{space 7}rwage {c |}{res}  6,701,139    1173.275    5428.851   .0104871    1039985
 {txt}
 {com}. 
 . ** end part c
@@ -496,7 +499,7 @@ saved
 
 {txt}Contains data from {res}../Data/CPS-ORG, Wage Percentiles, 1982-2024.dta
 {txt} Observations:{res}            43                  
-{txt}    Variables:{res}             6                  11 Jan 2025 13:41
+{txt}    Variables:{res}             6                  11 Jan 2025 16:25
 {txt}{hline}
 Variable      Storage   Display    Value
     name         type    format    label      Variable label
@@ -515,12 +518,12 @@ Sorted by: {res}year
 {txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
 {hline 13}{c +}{hline 57}
 {space 8}year {c |}{res}         43        2003    12.55654       1982       2024
-{txt}{space 8}mean {c |}{res}         43    1150.508    100.1597   1005.359    1461.67
-{txt}{space 9}p10 {c |}{res}         43    352.1248    30.14124   315.8088   423.4635
-{txt}{space 9}p50 {c |}{res}         43    935.8104    53.62844   863.1819   1071.522
-{txt}{space 9}p90 {c |}{res}         43    2241.833    255.0157   1828.463   2749.459
+{txt}{space 8}mean {c |}{res}         43    1197.447     285.103   1005.497   2552.402
+{txt}{space 9}p10 {c |}{res}         43    352.2906    30.33549   315.8152   423.4635
+{txt}{space 9}p50 {c |}{res}         43    936.0295    54.03644   863.1819   1071.522
+{txt}{space 9}p90 {c |}{res}         43    2242.487    256.1653   1828.463   2749.459
 {txt}{hline 13}{c +}{hline 57}
-{space 7}ldiff {c |}{res}         43    184.8171    7.380632   173.1777   199.8685
+{space 7}ldiff {c |}{res}         43     184.798    7.395727   173.1777   199.8685
 {txt}
 {com}. 
 . *plot the mean and percentiles over time
@@ -570,7 +573,7 @@ format
       {txt}name:  {res}results
        {txt}log:  {res}C:\Users\melin\OneDrive\ECO 727\Analysis\Exercise_3_Rueda.smcl
   {txt}log type:  {res}smcl
- {txt}closed on:  {res}11 Jan 2025, 13:41:26
+ {txt}closed on:  {res}11 Jan 2025, 16:25:04
 {txt}{.-}
 {smcl}
 {txt}{sf}{ul off}

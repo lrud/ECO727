@@ -1,9 +1,9 @@
 {smcl}
-{txt}{sf}{ul off}{.-}
+{com}{sf}{ul off}{txt}{.-}
       name:  {res}<unnamed>
        {txt}log:  {res}C:\Users\melin\OneDrive\ECO 727\Analysis\Exercise_2_Rueda.smcl
   {txt}log type:  {res}smcl
- {txt}opened on:  {res} 7 Jan 2025, 18:24:15
+ {txt}opened on:  {res}11 Jan 2025, 16:23:55
 {txt}
 {com}. global ex=2
 {txt}
@@ -12,25 +12,24 @@
 {com}. global endyear=2024
 {txt}
 {com}. 
-. *importing data
+. * Importing data
 . use "../Data/CPS ORGs, 1982-2024.dta", clear
 {txt}
 {com}. 
-. *running data check and dropping variables
+. * Running data check and dropping variables
 . run data_check 
 {txt}
 {com}. drop serial cpsid cpsidp pernum hwtfinl wtfinl
 {txt}
 {com}. 
-. ***end part A
+. *** End part A
 . 
-. *recode missing values for categorical variables
-. * Recoding missing values for categorical variables
+. * Recode missing values for categorical variables
 . replace region = . if region == 97
 {txt}(0 real changes made)
 
-{com}. replace earnweek2 = . if earnweek2 == 999999.99
-{txt}(8,586 real changes made, 8,586 to missing)
+{com}. replace earnweek2 = . if inlist(earnweek2, 999999.98, 999999.97) // Recode missing values for earnweek2
+{txt}(0 real changes made)
 
 {com}. replace hourwage2 = . if hourwage2 == 999.99
 {txt}(2,779,881 real changes made, 2,779,881 to missing)
@@ -62,7 +61,7 @@
 {com}. replace hourwage = . if hourwage == 999.99
 {txt}(2,693,538 real changes made, 2,693,538 to missing)
 
-{com}. replace paidhour = . if inlist(paidhour, 0, 6, 7)
+{com}. replace paidhour = . if inlist(paidhour, 0, 6, 7) // Recode invalid responses as missing
 {txt}(0 real changes made)
 
 {com}. replace union = . if union == 0
@@ -75,835 +74,46 @@
 {txt}(2,646,162 real changes made, 2,646,162 to missing)
 
 {com}. 
-. *earnweek distribution and dummy variables
-. codebook earnweek
-
-{txt}{hline}
-{res}earnweek{right:weekly earnings}
-{txt}{hline}
-
-{col 19}Type: Numeric ({res}double{txt})
-{ralign 22:Label}: {res:EARNWEEK}{res}{txt}, but {res:70192} nonmissing values are not labeled
-
-{col 18}Range: [{res}.01{txt},{res}2884.61{txt}]{col 55}Units: {res}.01
-{col 10}{txt}Unique values: {res}70,192{col 51}{txt}Missing .: {res}200,684{txt}/{res}6,738,088
-
-{txt}{ralign 23: Examples:}{col 25}{res}258.46{col 31}{txt}
-{ralign 23: }{col 25}{res}420{col 31}{txt}
-{ralign 23: }{col 25}{res}638.4{col 31}{txt}
-{ralign 23: }{col 25}{res}1000{col 31}{txt}
-
-{com}. generate female = (sex == 2)
+. * Generate female dummy variable
+. generate female = (sex == 2)
 {txt}
 {com}. label variable female "female (1=yes, 0=no)"
 {txt}
-{com}. generate paidhour_dummy = (paidhour == 2)
+{com}. 
+. * Create a proper dummy variable for paidhour
+. generate paidhour_dummy = (paidhour == 1) if !missing(paidhour)
 {txt}
 {com}. label variable paidhour_dummy "paid hourly (1=yes, 0=no)"
 {txt}
 {com}. 
-. *first examine current coding
-. tabulate race year
-
-                      {txt}{c |}                 survey year
-                 race {c |}      1982       1983       1984       1985 {c |}     Total
-{hline 22}{c +}{hline 44}{c +}{hline 10}
-           100. white {c |}{res}   146,627    145,099    147,612    150,014 {txt}{c |}{res} 5,669,362 
-{txt}           200. black {c |}{res}    14,669     14,722     15,322     16,027 {txt}{c |}{res}   647,759 
-{txt}300. american indian/ {c |}{res}         0          0          0          0 {txt}{c |}{res}    56,015 
-{txt}650. asian or pacific {c |}{res}         0          0          0          0 {txt}{c |}{res}    80,330 
-{txt}      651. asian only {c |}{res}         0          0          0          0 {txt}{c |}{res}   168,441 
-{txt}652. hawaiian/pacific {c |}{res}         0          0          0          0 {txt}{c |}{res}    14,635 
-{txt}700. other (single) r {c |}{res}     5,354      5,354      5,517      5,573 {txt}{c |}{res}    45,931 
-{txt}     801. white-black {c |}{res}         0          0          0          0 {txt}{c |}{res}    11,088 
-{txt}802. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}    20,999 
-{txt}     803. white-asian {c |}{res}         0          0          0          0 {txt}{c |}{res}     9,442 
-{txt}804. white-hawaiian/p {c |}{res}         0          0          0          0 {txt}{c |}{res}     2,740 
-{txt}805. black-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}     2,492 
-{txt}     806. black-asian {c |}{res}         0          0          0          0 {txt}{c |}{res}       758 
-{txt}807. black-hawaiian/p {c |}{res}         0          0          0          0 {txt}{c |}{res}       208 
-{txt}808. american indian- {c |}{res}         0          0          0          0 {txt}{c |}{res}       190 
-{txt}809. asian-hawaiian/p {c |}{res}         0          0          0          0 {txt}{c |}{res}     2,667 
-{txt}810. white-black-amer {c |}{res}         0          0          0          0 {txt}{c |}{res}     1,528 
-{txt}811. white-black-asia {c |}{res}         0          0          0          0 {txt}{c |}{res}       213 
-{txt}812. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}       252 
-{txt}813. white-asian-hawa {c |}{res}         0          0          0          0 {txt}{c |}{res}     2,209 
-{txt}814. white-black-amer {c |}{res}         0          0          0          0 {txt}{c |}{res}        74 
-{txt}815. american indian- {c |}{res}         0          0          0          0 {txt}{c |}{res}        50 
-{txt}816. white-black--haw {c |}{res}         0          0          0          0 {txt}{c |}{res}        50 
-{txt}817. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}        77 
-{txt}818. black-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}        22 
-{txt}819. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}        17 
-{txt}820. two or three rac {c |}{res}         0          0          0          0 {txt}{c |}{res}       356 
-{txt}830. four or five rac {c |}{res}         0          0          0          0 {txt}{c |}{res}       183 
-{txt}{hline 22}{c +}{hline 44}{c +}{hline 10}
-                Total {c |}{res}   166,650    165,175    168,451    171,614 {txt}{c |}{res} 6,738,088 
-
-
-                      {txt}{c |}                 survey year
-                 race {c |}      1986       1987       1988       1989 {c |}     Total
-{hline 22}{c +}{hline 44}{c +}{hline 10}
-           100. white {c |}{res}   148,277    148,758    142,956    145,665 {txt}{c |}{res} 5,669,362 
-{txt}           200. black {c |}{res}    16,274     16,685     15,764     15,917 {txt}{c |}{res}   647,759 
-{txt}300. american indian/ {c |}{res}         0          0          0      1,274 {txt}{c |}{res}    56,015 
-{txt}650. asian or pacific {c |}{res}         0          0          0      4,420 {txt}{c |}{res}    80,330 
-{txt}      651. asian only {c |}{res}         0          0          0          0 {txt}{c |}{res}   168,441 
-{txt}652. hawaiian/pacific {c |}{res}         0          0          0          0 {txt}{c |}{res}    14,635 
-{txt}700. other (single) r {c |}{res}     5,715      5,804      5,454        336 {txt}{c |}{res}    45,931 
-{txt}     801. white-black {c |}{res}         0          0          0          0 {txt}{c |}{res}    11,088 
-{txt}802. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}    20,999 
-{txt}     803. white-asian {c |}{res}         0          0          0          0 {txt}{c |}{res}     9,442 
-{txt}804. white-hawaiian/p {c |}{res}         0          0          0          0 {txt}{c |}{res}     2,740 
-{txt}805. black-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}     2,492 
-{txt}     806. black-asian {c |}{res}         0          0          0          0 {txt}{c |}{res}       758 
-{txt}807. black-hawaiian/p {c |}{res}         0          0          0          0 {txt}{c |}{res}       208 
-{txt}808. american indian- {c |}{res}         0          0          0          0 {txt}{c |}{res}       190 
-{txt}809. asian-hawaiian/p {c |}{res}         0          0          0          0 {txt}{c |}{res}     2,667 
-{txt}810. white-black-amer {c |}{res}         0          0          0          0 {txt}{c |}{res}     1,528 
-{txt}811. white-black-asia {c |}{res}         0          0          0          0 {txt}{c |}{res}       213 
-{txt}812. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}       252 
-{txt}813. white-asian-hawa {c |}{res}         0          0          0          0 {txt}{c |}{res}     2,209 
-{txt}814. white-black-amer {c |}{res}         0          0          0          0 {txt}{c |}{res}        74 
-{txt}815. american indian- {c |}{res}         0          0          0          0 {txt}{c |}{res}        50 
-{txt}816. white-black--haw {c |}{res}         0          0          0          0 {txt}{c |}{res}        50 
-{txt}817. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}        77 
-{txt}818. black-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}        22 
-{txt}819. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}        17 
-{txt}820. two or three rac {c |}{res}         0          0          0          0 {txt}{c |}{res}       356 
-{txt}830. four or five rac {c |}{res}         0          0          0          0 {txt}{c |}{res}       183 
-{txt}{hline 22}{c +}{hline 44}{c +}{hline 10}
-                Total {c |}{res}   170,266    171,247    164,174    167,612 {txt}{c |}{res} 6,738,088 
-
-
-                      {txt}{c |}                 survey year
-                 race {c |}      1990       1991       1992       1993 {c |}     Total
-{hline 22}{c +}{hline 44}{c +}{hline 10}
-           100. white {c |}{res}   152,628    148,002    145,775    142,959 {txt}{c |}{res} 5,669,362 
-{txt}           200. black {c |}{res}    16,739     16,077     15,758     15,843 {txt}{c |}{res}   647,759 
-{txt}300. american indian/ {c |}{res}     1,331      1,375      1,403      1,539 {txt}{c |}{res}    56,015 
-{txt}650. asian or pacific {c |}{res}     5,130      5,303      5,414      5,551 {txt}{c |}{res}    80,330 
-{txt}      651. asian only {c |}{res}         0          0          0          0 {txt}{c |}{res}   168,441 
-{txt}652. hawaiian/pacific {c |}{res}         0          0          0          0 {txt}{c |}{res}    14,635 
-{txt}700. other (single) r {c |}{res}       427        539        610        822 {txt}{c |}{res}    45,931 
-{txt}     801. white-black {c |}{res}         0          0          0          0 {txt}{c |}{res}    11,088 
-{txt}802. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}    20,999 
-{txt}     803. white-asian {c |}{res}         0          0          0          0 {txt}{c |}{res}     9,442 
-{txt}804. white-hawaiian/p {c |}{res}         0          0          0          0 {txt}{c |}{res}     2,740 
-{txt}805. black-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}     2,492 
-{txt}     806. black-asian {c |}{res}         0          0          0          0 {txt}{c |}{res}       758 
-{txt}807. black-hawaiian/p {c |}{res}         0          0          0          0 {txt}{c |}{res}       208 
-{txt}808. american indian- {c |}{res}         0          0          0          0 {txt}{c |}{res}       190 
-{txt}809. asian-hawaiian/p {c |}{res}         0          0          0          0 {txt}{c |}{res}     2,667 
-{txt}810. white-black-amer {c |}{res}         0          0          0          0 {txt}{c |}{res}     1,528 
-{txt}811. white-black-asia {c |}{res}         0          0          0          0 {txt}{c |}{res}       213 
-{txt}812. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}       252 
-{txt}813. white-asian-hawa {c |}{res}         0          0          0          0 {txt}{c |}{res}     2,209 
-{txt}814. white-black-amer {c |}{res}         0          0          0          0 {txt}{c |}{res}        74 
-{txt}815. american indian- {c |}{res}         0          0          0          0 {txt}{c |}{res}        50 
-{txt}816. white-black--haw {c |}{res}         0          0          0          0 {txt}{c |}{res}        50 
-{txt}817. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}        77 
-{txt}818. black-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}        22 
-{txt}819. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}        17 
-{txt}820. two or three rac {c |}{res}         0          0          0          0 {txt}{c |}{res}       356 
-{txt}830. four or five rac {c |}{res}         0          0          0          0 {txt}{c |}{res}       183 
-{txt}{hline 22}{c +}{hline 44}{c +}{hline 10}
-                Total {c |}{res}   176,255    171,296    168,960    166,714 {txt}{c |}{res} 6,738,088 
-
-
-                      {txt}{c |}                 survey year
-                 race {c |}      1994       1995       1996       1997 {c |}     Total
-{hline 22}{c +}{hline 44}{c +}{hline 10}
-           100. white {c |}{res}   138,455    136,838    123,995    125,932 {txt}{c |}{res} 5,669,362 
-{txt}           200. black {c |}{res}    15,509     15,731     13,979     14,384 {txt}{c |}{res}   647,759 
-{txt}300. american indian/ {c |}{res}     1,525      1,463      1,531      1,635 {txt}{c |}{res}    56,015 
-{txt}650. asian or pacific {c |}{res}     5,464      5,595      5,298      5,589 {txt}{c |}{res}    80,330 
-{txt}      651. asian only {c |}{res}         0          0          0          0 {txt}{c |}{res}   168,441 
-{txt}652. hawaiian/pacific {c |}{res}         0          0          0          0 {txt}{c |}{res}    14,635 
-{txt}700. other (single) r {c |}{res}     1,792      2,634          0          0 {txt}{c |}{res}    45,931 
-{txt}     801. white-black {c |}{res}         0          0          0          0 {txt}{c |}{res}    11,088 
-{txt}802. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}    20,999 
-{txt}     803. white-asian {c |}{res}         0          0          0          0 {txt}{c |}{res}     9,442 
-{txt}804. white-hawaiian/p {c |}{res}         0          0          0          0 {txt}{c |}{res}     2,740 
-{txt}805. black-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}     2,492 
-{txt}     806. black-asian {c |}{res}         0          0          0          0 {txt}{c |}{res}       758 
-{txt}807. black-hawaiian/p {c |}{res}         0          0          0          0 {txt}{c |}{res}       208 
-{txt}808. american indian- {c |}{res}         0          0          0          0 {txt}{c |}{res}       190 
-{txt}809. asian-hawaiian/p {c |}{res}         0          0          0          0 {txt}{c |}{res}     2,667 
-{txt}810. white-black-amer {c |}{res}         0          0          0          0 {txt}{c |}{res}     1,528 
-{txt}811. white-black-asia {c |}{res}         0          0          0          0 {txt}{c |}{res}       213 
-{txt}812. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}       252 
-{txt}813. white-asian-hawa {c |}{res}         0          0          0          0 {txt}{c |}{res}     2,209 
-{txt}814. white-black-amer {c |}{res}         0          0          0          0 {txt}{c |}{res}        74 
-{txt}815. american indian- {c |}{res}         0          0          0          0 {txt}{c |}{res}        50 
-{txt}816. white-black--haw {c |}{res}         0          0          0          0 {txt}{c |}{res}        50 
-{txt}817. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}        77 
-{txt}818. black-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}        22 
-{txt}819. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}        17 
-{txt}820. two or three rac {c |}{res}         0          0          0          0 {txt}{c |}{res}       356 
-{txt}830. four or five rac {c |}{res}         0          0          0          0 {txt}{c |}{res}       183 
-{txt}{hline 22}{c +}{hline 44}{c +}{hline 10}
-                Total {c |}{res}   162,745    162,261    144,803    147,540 {txt}{c |}{res} 6,738,088 
-
-
-                      {txt}{c |}                 survey year
-                 race {c |}      1998       1999       2000       2001 {c |}     Total
-{hline 22}{c +}{hline 44}{c +}{hline 10}
-           100. white {c |}{res}   126,956    128,952    129,688    142,204 {txt}{c |}{res} 5,669,362 
-{txt}           200. black {c |}{res}    14,662     14,992     15,324     16,483 {txt}{c |}{res}   647,759 
-{txt}300. american indian/ {c |}{res}     1,720      1,641      1,783      2,039 {txt}{c |}{res}    56,015 
-{txt}650. asian or pacific {c |}{res}     5,940      5,886      6,280      7,125 {txt}{c |}{res}    80,330 
-{txt}      651. asian only {c |}{res}         0          0          0          0 {txt}{c |}{res}   168,441 
-{txt}652. hawaiian/pacific {c |}{res}         0          0          0          0 {txt}{c |}{res}    14,635 
-{txt}700. other (single) r {c |}{res}         0          0          0          0 {txt}{c |}{res}    45,931 
-{txt}     801. white-black {c |}{res}         0          0          0          0 {txt}{c |}{res}    11,088 
-{txt}802. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}    20,999 
-{txt}     803. white-asian {c |}{res}         0          0          0          0 {txt}{c |}{res}     9,442 
-{txt}804. white-hawaiian/p {c |}{res}         0          0          0          0 {txt}{c |}{res}     2,740 
-{txt}805. black-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}     2,492 
-{txt}     806. black-asian {c |}{res}         0          0          0          0 {txt}{c |}{res}       758 
-{txt}807. black-hawaiian/p {c |}{res}         0          0          0          0 {txt}{c |}{res}       208 
-{txt}808. american indian- {c |}{res}         0          0          0          0 {txt}{c |}{res}       190 
-{txt}809. asian-hawaiian/p {c |}{res}         0          0          0          0 {txt}{c |}{res}     2,667 
-{txt}810. white-black-amer {c |}{res}         0          0          0          0 {txt}{c |}{res}     1,528 
-{txt}811. white-black-asia {c |}{res}         0          0          0          0 {txt}{c |}{res}       213 
-{txt}812. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}       252 
-{txt}813. white-asian-hawa {c |}{res}         0          0          0          0 {txt}{c |}{res}     2,209 
-{txt}814. white-black-amer {c |}{res}         0          0          0          0 {txt}{c |}{res}        74 
-{txt}815. american indian- {c |}{res}         0          0          0          0 {txt}{c |}{res}        50 
-{txt}816. white-black--haw {c |}{res}         0          0          0          0 {txt}{c |}{res}        50 
-{txt}817. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}        77 
-{txt}818. black-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}        22 
-{txt}819. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}        17 
-{txt}820. two or three rac {c |}{res}         0          0          0          0 {txt}{c |}{res}       356 
-{txt}830. four or five rac {c |}{res}         0          0          0          0 {txt}{c |}{res}       183 
-{txt}{hline 22}{c +}{hline 44}{c +}{hline 10}
-                Total {c |}{res}   149,278    151,471    153,075    167,851 {txt}{c |}{res} 6,738,088 
-
-
-                      {txt}{c |}                 survey year
-                 race {c |}      2002       2003       2004       2005 {c |}     Total
-{hline 22}{c +}{hline 44}{c +}{hline 10}
-           100. white {c |}{res}   148,990    145,295    142,104    142,662 {txt}{c |}{res} 5,669,362 
-{txt}           200. black {c |}{res}    16,602     15,683     15,286     15,269 {txt}{c |}{res}   647,759 
-{txt}300. american indian/ {c |}{res}     2,111      1,595      1,764      1,643 {txt}{c |}{res}    56,015 
-{txt}650. asian or pacific {c |}{res}     7,335          0          0          0 {txt}{c |}{res}    80,330 
-{txt}      651. asian only {c |}{res}         0      6,149      6,269      6,616 {txt}{c |}{res}   168,441 
-{txt}652. hawaiian/pacific {c |}{res}         0        562        608        605 {txt}{c |}{res}    14,635 
-{txt}700. other (single) r {c |}{res}         0          0          0          0 {txt}{c |}{res}    45,931 
-{txt}     801. white-black {c |}{res}         0        283        288        332 {txt}{c |}{res}    11,088 
-{txt}802. white-american i {c |}{res}         0      1,387      1,547      1,523 {txt}{c |}{res}    20,999 
-{txt}     803. white-asian {c |}{res}         0        277        318        406 {txt}{c |}{res}     9,442 
-{txt}804. white-hawaiian/p {c |}{res}         0        126        155        180 {txt}{c |}{res}     2,740 
-{txt}805. black-american i {c |}{res}         0        129        142        172 {txt}{c |}{res}     2,492 
-{txt}     806. black-asian {c |}{res}         0         18         14         23 {txt}{c |}{res}       758 
-{txt}807. black-hawaiian/p {c |}{res}         0          5          3          7 {txt}{c |}{res}       208 
-{txt}808. american indian- {c |}{res}         0         12         12          5 {txt}{c |}{res}       190 
-{txt}809. asian-hawaiian/p {c |}{res}         0        125        133        174 {txt}{c |}{res}     2,667 
-{txt}810. white-black-amer {c |}{res}         0         61         50         71 {txt}{c |}{res}     1,528 
-{txt}811. white-black-asia {c |}{res}         0          6          4          6 {txt}{c |}{res}       213 
-{txt}812. white-american i {c |}{res}         0          7         10         12 {txt}{c |}{res}       252 
-{txt}813. white-asian-hawa {c |}{res}         0          9         83        184 {txt}{c |}{res}     2,209 
-{txt}814. white-black-amer {c |}{res}         0          2          0          0 {txt}{c |}{res}        74 
-{txt}815. american indian- {c |}{res}         0          0          0          0 {txt}{c |}{res}        50 
-{txt}816. white-black--haw {c |}{res}         0          0          0          0 {txt}{c |}{res}        50 
-{txt}817. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}        77 
-{txt}818. black-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}        22 
-{txt}819. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}        17 
-{txt}820. two or three rac {c |}{res}         0        123         70         23 {txt}{c |}{res}       356 
-{txt}830. four or five rac {c |}{res}         0          7         14         14 {txt}{c |}{res}       183 
-{txt}{hline 22}{c +}{hline 44}{c +}{hline 10}
-                Total {c |}{res}   175,038    171,861    168,874    169,927 {txt}{c |}{res} 6,738,088 
-
-
-                      {txt}{c |}                 survey year
-                 race {c |}      2006       2007       2008       2009 {c |}     Total
-{hline 22}{c +}{hline 44}{c +}{hline 10}
-           100. white {c |}{res}   141,472    139,499    137,551    133,797 {txt}{c |}{res} 5,669,362 
-{txt}           200. black {c |}{res}    15,592     15,869     15,604     14,824 {txt}{c |}{res}   647,759 
-{txt}300. american indian/ {c |}{res}     1,549      1,610      1,606      1,428 {txt}{c |}{res}    56,015 
-{txt}650. asian or pacific {c |}{res}         0          0          0          0 {txt}{c |}{res}    80,330 
-{txt}      651. asian only {c |}{res}     6,917      7,078      7,330      7,318 {txt}{c |}{res}   168,441 
-{txt}652. hawaiian/pacific {c |}{res}       648        706        706        700 {txt}{c |}{res}    14,635 
-{txt}700. other (single) r {c |}{res}         0          0          0          0 {txt}{c |}{res}    45,931 
-{txt}     801. white-black {c |}{res}       348        336        390        418 {txt}{c |}{res}    11,088 
-{txt}802. white-american i {c |}{res}     1,407      1,209      1,078      1,019 {txt}{c |}{res}    20,999 
-{txt}     803. white-asian {c |}{res}       409        413        381        395 {txt}{c |}{res}     9,442 
-{txt}804. white-hawaiian/p {c |}{res}       185        143        133        130 {txt}{c |}{res}     2,740 
-{txt}805. black-american i {c |}{res}       153        109         95        100 {txt}{c |}{res}     2,492 
-{txt}     806. black-asian {c |}{res}        28         28         33         27 {txt}{c |}{res}       758 
-{txt}807. black-hawaiian/p {c |}{res}        16         10          3          5 {txt}{c |}{res}       208 
-{txt}808. american indian- {c |}{res}         3          8         13          2 {txt}{c |}{res}       190 
-{txt}809. asian-hawaiian/p {c |}{res}       191        177        183        142 {txt}{c |}{res}     2,667 
-{txt}810. white-black-amer {c |}{res}        67         74         73         81 {txt}{c |}{res}     1,528 
-{txt}811. white-black-asia {c |}{res}         4          2          1          7 {txt}{c |}{res}       213 
-{txt}812. white-american i {c |}{res}        10         20         19          9 {txt}{c |}{res}       252 
-{txt}813. white-asian-hawa {c |}{res}       158        122        132        141 {txt}{c |}{res}     2,209 
-{txt}814. white-black-amer {c |}{res}         7          4          1          1 {txt}{c |}{res}        74 
-{txt}815. american indian- {c |}{res}         0          0          0          0 {txt}{c |}{res}        50 
-{txt}816. white-black--haw {c |}{res}         0          0          0          0 {txt}{c |}{res}        50 
-{txt}817. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}        77 
-{txt}818. black-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}        22 
-{txt}819. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}        17 
-{txt}820. two or three rac {c |}{res}        19         23         13         10 {txt}{c |}{res}       356 
-{txt}830. four or five rac {c |}{res}        13         11          9         11 {txt}{c |}{res}       183 
-{txt}{hline 22}{c +}{hline 44}{c +}{hline 10}
-                Total {c |}{res}   169,196    167,451    165,354    160,565 {txt}{c |}{res} 6,738,088 
-
-
-                      {txt}{c |}                 survey year
-                 race {c |}      2010       2011       2012       2013 {c |}     Total
-{hline 22}{c +}{hline 44}{c +}{hline 10}
-           100. white {c |}{res}   131,687    129,996    128,888    127,904 {txt}{c |}{res} 5,669,362 
-{txt}           200. black {c |}{res}    15,195     14,776     14,837     14,918 {txt}{c |}{res}   647,759 
-{txt}300. american indian/ {c |}{res}     1,393      1,418      1,453      1,433 {txt}{c |}{res}    56,015 
-{txt}650. asian or pacific {c |}{res}         0          0          0          0 {txt}{c |}{res}    80,330 
-{txt}      651. asian only {c |}{res}     7,449      7,779      8,128      8,283 {txt}{c |}{res}   168,441 
-{txt}652. hawaiian/pacific {c |}{res}       661        672        687        753 {txt}{c |}{res}    14,635 
-{txt}700. other (single) r {c |}{res}         0          0          0          0 {txt}{c |}{res}    45,931 
-{txt}     801. white-black {c |}{res}       442        462        469        488 {txt}{c |}{res}    11,088 
-{txt}802. white-american i {c |}{res}     1,002        945        895        878 {txt}{c |}{res}    20,999 
-{txt}     803. white-asian {c |}{res}       416        397        421        445 {txt}{c |}{res}     9,442 
-{txt}804. white-hawaiian/p {c |}{res}       113        116        130        111 {txt}{c |}{res}     2,740 
-{txt}805. black-american i {c |}{res}       101        109        120        107 {txt}{c |}{res}     2,492 
-{txt}     806. black-asian {c |}{res}        37         31         41         43 {txt}{c |}{res}       758 
-{txt}807. black-hawaiian/p {c |}{res}        12         15         13          7 {txt}{c |}{res}       208 
-{txt}808. american indian- {c |}{res}         8         11          6          6 {txt}{c |}{res}       190 
-{txt}809. asian-hawaiian/p {c |}{res}       121        155         96        118 {txt}{c |}{res}     2,667 
-{txt}810. white-black-amer {c |}{res}        67         55         54         82 {txt}{c |}{res}     1,528 
-{txt}811. white-black-asia {c |}{res}         7          5          6          8 {txt}{c |}{res}       213 
-{txt}812. white-american i {c |}{res}        16         12          9         10 {txt}{c |}{res}       252 
-{txt}813. white-asian-hawa {c |}{res}       162        157        106         90 {txt}{c |}{res}     2,209 
-{txt}814. white-black-amer {c |}{res}         3          2          4          5 {txt}{c |}{res}        74 
-{txt}815. american indian- {c |}{res}         0          0          3          4 {txt}{c |}{res}        50 
-{txt}816. white-black--haw {c |}{res}         0          0          4          2 {txt}{c |}{res}        50 
-{txt}817. white-american i {c |}{res}         0          0          8          6 {txt}{c |}{res}        77 
-{txt}818. black-american i {c |}{res}         0          0          1          0 {txt}{c |}{res}        22 
-{txt}819. white-american i {c |}{res}         0          0          0          1 {txt}{c |}{res}        17 
-{txt}820. two or three rac {c |}{res}        11         21          7          3 {txt}{c |}{res}       356 
-{txt}830. four or five rac {c |}{res}        10          8          6         10 {txt}{c |}{res}       183 
-{txt}{hline 22}{c +}{hline 44}{c +}{hline 10}
-                Total {c |}{res}   158,913    157,142    156,392    155,715 {txt}{c |}{res} 6,738,088 
-
-
-                      {txt}{c |}                 survey year
-                 race {c |}      2014       2015       2016       2017 {c |}     Total
-{hline 22}{c +}{hline 44}{c +}{hline 10}
-           100. white {c |}{res}   128,025    125,029    124,596    122,430 {txt}{c |}{res} 5,669,362 
-{txt}           200. black {c |}{res}    15,409     16,147     16,208     15,861 {txt}{c |}{res}   647,759 
-{txt}300. american indian/ {c |}{res}     1,482      1,744      1,843      1,736 {txt}{c |}{res}    56,015 
-{txt}650. asian or pacific {c |}{res}         0          0          0          0 {txt}{c |}{res}    80,330 
-{txt}      651. asian only {c |}{res}     8,338      8,352      8,612      8,806 {txt}{c |}{res}   168,441 
-{txt}652. hawaiian/pacific {c |}{res}       691        791        832        713 {txt}{c |}{res}    14,635 
-{txt}700. other (single) r {c |}{res}         0          0          0          0 {txt}{c |}{res}    45,931 
-{txt}     801. white-black {c |}{res}       557        537        560        604 {txt}{c |}{res}    11,088 
-{txt}802. white-american i {c |}{res}       870        812        768        863 {txt}{c |}{res}    20,999 
-{txt}     803. white-asian {c |}{res}       436        433        420        450 {txt}{c |}{res}     9,442 
-{txt}804. white-hawaiian/p {c |}{res}       130        122        130        133 {txt}{c |}{res}     2,740 
-{txt}805. black-american i {c |}{res}       142        147        101        130 {txt}{c |}{res}     2,492 
-{txt}     806. black-asian {c |}{res}        39         45         42         34 {txt}{c |}{res}       758 
-{txt}807. black-hawaiian/p {c |}{res}        11          9         11         10 {txt}{c |}{res}       208 
-{txt}808. american indian- {c |}{res}        12          7          6         11 {txt}{c |}{res}       190 
-{txt}809. asian-hawaiian/p {c |}{res}       128         92        115         96 {txt}{c |}{res}     2,667 
-{txt}810. white-black-amer {c |}{res}        73         87         93         92 {txt}{c |}{res}     1,528 
-{txt}811. white-black-asia {c |}{res}        13          7          7          9 {txt}{c |}{res}       213 
-{txt}812. white-american i {c |}{res}        12          7          8         10 {txt}{c |}{res}       252 
-{txt}813. white-asian-hawa {c |}{res}       110         86         90         69 {txt}{c |}{res}     2,209 
-{txt}814. white-black-amer {c |}{res}         6          5          5          0 {txt}{c |}{res}        74 
-{txt}815. american indian- {c |}{res}         8          2          0          1 {txt}{c |}{res}        50 
-{txt}816. white-black--haw {c |}{res}         3          0          2          3 {txt}{c |}{res}        50 
-{txt}817. white-american i {c |}{res}         3          7          6          4 {txt}{c |}{res}        77 
-{txt}818. black-american i {c |}{res}         2          3          3          0 {txt}{c |}{res}        22 
-{txt}819. white-american i {c |}{res}         3          1          0          1 {txt}{c |}{res}        17 
-{txt}820. two or three rac {c |}{res}         4          4          2          5 {txt}{c |}{res}       356 
-{txt}830. four or five rac {c |}{res}         4          9          7          3 {txt}{c |}{res}       183 
-{txt}{hline 22}{c +}{hline 44}{c +}{hline 10}
-                Total {c |}{res}   156,511    154,485    154,467    152,074 {txt}{c |}{res} 6,738,088 
-
-
-                      {txt}{c |}                 survey year
-                 race {c |}      2018       2019       2020       2021 {c |}     Total
-{hline 22}{c +}{hline 44}{c +}{hline 10}
-           100. white {c |}{res}   119,304    114,973     99,416     98,674 {txt}{c |}{res} 5,669,362 
-{txt}           200. black {c |}{res}    15,161     14,539     12,234     12,671 {txt}{c |}{res}   647,759 
-{txt}300. american indian/ {c |}{res}     1,660      1,620      1,381      1,401 {txt}{c |}{res}    56,015 
-{txt}650. asian or pacific {c |}{res}         0          0          0          0 {txt}{c |}{res}    80,330 
-{txt}      651. asian only {c |}{res}     8,735      8,494      7,360      7,812 {txt}{c |}{res}   168,441 
-{txt}652. hawaiian/pacific {c |}{res}       684        683        564        589 {txt}{c |}{res}    14,635 
-{txt}700. other (single) r {c |}{res}         0          0          0          0 {txt}{c |}{res}    45,931 
-{txt}     801. white-black {c |}{res}       672        717        594        638 {txt}{c |}{res}    11,088 
-{txt}802. white-american i {c |}{res}       912        783        614        668 {txt}{c |}{res}    20,999 
-{txt}     803. white-asian {c |}{res}       481        512        437        470 {txt}{c |}{res}     9,442 
-{txt}804. white-hawaiian/p {c |}{res}       124        108         88         86 {txt}{c |}{res}     2,740 
-{txt}805. black-american i {c |}{res}       117        119         85         75 {txt}{c |}{res}     2,492 
-{txt}     806. black-asian {c |}{res}        38         42         27         43 {txt}{c |}{res}       758 
-{txt}807. black-hawaiian/p {c |}{res}        11          6          7          8 {txt}{c |}{res}       208 
-{txt}808. american indian- {c |}{res}        10          6         10         11 {txt}{c |}{res}       190 
-{txt}809. asian-hawaiian/p {c |}{res}        86         84         70         76 {txt}{c |}{res}     2,667 
-{txt}810. white-black-amer {c |}{res}        77         76         53         56 {txt}{c |}{res}     1,528 
-{txt}811. white-black-asia {c |}{res}        13         12         15         19 {txt}{c |}{res}       213 
-{txt}812. white-american i {c |}{res}        14         19         11         10 {txt}{c |}{res}       252 
-{txt}813. white-asian-hawa {c |}{res}        70         74         65         80 {txt}{c |}{res}     2,209 
-{txt}814. white-black-amer {c |}{res}         7          7          3          2 {txt}{c |}{res}        74 
-{txt}815. american indian- {c |}{res}         3          4          3          6 {txt}{c |}{res}        50 
-{txt}816. white-black--haw {c |}{res}         3          2          5          9 {txt}{c |}{res}        50 
-{txt}817. white-american i {c |}{res}         4          7          7          5 {txt}{c |}{res}        77 
-{txt}818. black-american i {c |}{res}         1          1          2          5 {txt}{c |}{res}        22 
-{txt}819. white-american i {c |}{res}         2          1          0          2 {txt}{c |}{res}        17 
-{txt}820. two or three rac {c |}{res}         2          3          2          7 {txt}{c |}{res}       356 
-{txt}830. four or five rac {c |}{res}         6          3          0          6 {txt}{c |}{res}       183 
-{txt}{hline 22}{c +}{hline 44}{c +}{hline 10}
-                Total {c |}{res}   148,197    142,895    123,053    123,429 {txt}{c |}{res} 6,738,088 
-
-
-                      {txt}{c |}           survey year
-                 race {c |}      2022       2023       2024 {c |}     Total
-{hline 22}{c +}{hline 33}{c +}{hline 10}
-           100. white {c |}{res}    94,546     91,429     83,703 {txt}{c |}{res} 5,669,362 
-{txt}           200. black {c |}{res}    12,223     11,661     10,329 {txt}{c |}{res}   647,759 
-{txt}300. american indian/ {c |}{res}     1,364      1,328      1,194 {txt}{c |}{res}    56,015 
-{txt}650. asian or pacific {c |}{res}         0          0          0 {txt}{c |}{res}    80,330 
-{txt}      651. asian only {c |}{res}     7,822      7,558      7,236 {txt}{c |}{res}   168,441 
-{txt}652. hawaiian/pacific {c |}{res}       672        598        510 {txt}{c |}{res}    14,635 
-{txt}700. other (single) r {c |}{res}         0          0          0 {txt}{c |}{res}    45,931 
-{txt}     801. white-black {c |}{res}       641        660        652 {txt}{c |}{res}    11,088 
-{txt}802. white-american i {c |}{res}       614        618        587 {txt}{c |}{res}    20,999 
-{txt}     803. white-asian {c |}{res}       496        549        480 {txt}{c |}{res}     9,442 
-{txt}804. white-hawaiian/p {c |}{res}       103        104         90 {txt}{c |}{res}     2,740 
-{txt}805. black-american i {c |}{res}        82         93         64 {txt}{c |}{res}     2,492 
-{txt}     806. black-asian {c |}{res}        43         38         44 {txt}{c |}{res}       758 
-{txt}807. black-hawaiian/p {c |}{res}        11         17         11 {txt}{c |}{res}       208 
-{txt}808. american indian- {c |}{res}         9         11         11 {txt}{c |}{res}       190 
-{txt}809. asian-hawaiian/p {c |}{res}       106        104         95 {txt}{c |}{res}     2,667 
-{txt}810. white-black-amer {c |}{res}        53         75         58 {txt}{c |}{res}     1,528 
-{txt}811. white-black-asia {c |}{res}        24         19         19 {txt}{c |}{res}       213 
-{txt}812. white-american i {c |}{res}        11          9          7 {txt}{c |}{res}       252 
-{txt}813. white-asian-hawa {c |}{res}        68         69         84 {txt}{c |}{res}     2,209 
-{txt}814. white-black-amer {c |}{res}         7          2          1 {txt}{c |}{res}        74 
-{txt}815. american indian- {c |}{res}         3          8          5 {txt}{c |}{res}        50 
-{txt}816. white-black--haw {c |}{res}         9          6          2 {txt}{c |}{res}        50 
-{txt}817. white-american i {c |}{res}         6          9          5 {txt}{c |}{res}        77 
-{txt}818. black-american i {c |}{res}         1          3          0 {txt}{c |}{res}        22 
-{txt}819. white-american i {c |}{res}         3          2          1 {txt}{c |}{res}        17 
-{txt}820. two or three rac {c |}{res}         0          1          3 {txt}{c |}{res}       356 
-{txt}830. four or five rac {c |}{res}         9         13         10 {txt}{c |}{res}       183 
-{txt}{hline 22}{c +}{hline 33}{c +}{hline 10}
-                Total {c |}{res}   118,926    114,984    105,201 {txt}{c |}{res} 6,738,088 
+. * Generate new race variable with consistent categories
+. generate race_orig = race  // Save original coding
 {txt}
-{com}. tabulate race year, missing
-
-                      {txt}{c |}                 survey year
-                 race {c |}      1982       1983       1984       1985 {c |}     Total
-{hline 22}{c +}{hline 44}{c +}{hline 10}
-           100. white {c |}{res}   146,627    145,099    147,612    150,014 {txt}{c |}{res} 5,669,362 
-{txt}           200. black {c |}{res}    14,669     14,722     15,322     16,027 {txt}{c |}{res}   647,759 
-{txt}300. american indian/ {c |}{res}         0          0          0          0 {txt}{c |}{res}    56,015 
-{txt}650. asian or pacific {c |}{res}         0          0          0          0 {txt}{c |}{res}    80,330 
-{txt}      651. asian only {c |}{res}         0          0          0          0 {txt}{c |}{res}   168,441 
-{txt}652. hawaiian/pacific {c |}{res}         0          0          0          0 {txt}{c |}{res}    14,635 
-{txt}700. other (single) r {c |}{res}     5,354      5,354      5,517      5,573 {txt}{c |}{res}    45,931 
-{txt}     801. white-black {c |}{res}         0          0          0          0 {txt}{c |}{res}    11,088 
-{txt}802. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}    20,999 
-{txt}     803. white-asian {c |}{res}         0          0          0          0 {txt}{c |}{res}     9,442 
-{txt}804. white-hawaiian/p {c |}{res}         0          0          0          0 {txt}{c |}{res}     2,740 
-{txt}805. black-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}     2,492 
-{txt}     806. black-asian {c |}{res}         0          0          0          0 {txt}{c |}{res}       758 
-{txt}807. black-hawaiian/p {c |}{res}         0          0          0          0 {txt}{c |}{res}       208 
-{txt}808. american indian- {c |}{res}         0          0          0          0 {txt}{c |}{res}       190 
-{txt}809. asian-hawaiian/p {c |}{res}         0          0          0          0 {txt}{c |}{res}     2,667 
-{txt}810. white-black-amer {c |}{res}         0          0          0          0 {txt}{c |}{res}     1,528 
-{txt}811. white-black-asia {c |}{res}         0          0          0          0 {txt}{c |}{res}       213 
-{txt}812. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}       252 
-{txt}813. white-asian-hawa {c |}{res}         0          0          0          0 {txt}{c |}{res}     2,209 
-{txt}814. white-black-amer {c |}{res}         0          0          0          0 {txt}{c |}{res}        74 
-{txt}815. american indian- {c |}{res}         0          0          0          0 {txt}{c |}{res}        50 
-{txt}816. white-black--haw {c |}{res}         0          0          0          0 {txt}{c |}{res}        50 
-{txt}817. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}        77 
-{txt}818. black-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}        22 
-{txt}819. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}        17 
-{txt}820. two or three rac {c |}{res}         0          0          0          0 {txt}{c |}{res}       356 
-{txt}830. four or five rac {c |}{res}         0          0          0          0 {txt}{c |}{res}       183 
-{txt}{hline 22}{c +}{hline 44}{c +}{hline 10}
-                Total {c |}{res}   166,650    165,175    168,451    171,614 {txt}{c |}{res} 6,738,088 
-
-
-                      {txt}{c |}                 survey year
-                 race {c |}      1986       1987       1988       1989 {c |}     Total
-{hline 22}{c +}{hline 44}{c +}{hline 10}
-           100. white {c |}{res}   148,277    148,758    142,956    145,665 {txt}{c |}{res} 5,669,362 
-{txt}           200. black {c |}{res}    16,274     16,685     15,764     15,917 {txt}{c |}{res}   647,759 
-{txt}300. american indian/ {c |}{res}         0          0          0      1,274 {txt}{c |}{res}    56,015 
-{txt}650. asian or pacific {c |}{res}         0          0          0      4,420 {txt}{c |}{res}    80,330 
-{txt}      651. asian only {c |}{res}         0          0          0          0 {txt}{c |}{res}   168,441 
-{txt}652. hawaiian/pacific {c |}{res}         0          0          0          0 {txt}{c |}{res}    14,635 
-{txt}700. other (single) r {c |}{res}     5,715      5,804      5,454        336 {txt}{c |}{res}    45,931 
-{txt}     801. white-black {c |}{res}         0          0          0          0 {txt}{c |}{res}    11,088 
-{txt}802. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}    20,999 
-{txt}     803. white-asian {c |}{res}         0          0          0          0 {txt}{c |}{res}     9,442 
-{txt}804. white-hawaiian/p {c |}{res}         0          0          0          0 {txt}{c |}{res}     2,740 
-{txt}805. black-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}     2,492 
-{txt}     806. black-asian {c |}{res}         0          0          0          0 {txt}{c |}{res}       758 
-{txt}807. black-hawaiian/p {c |}{res}         0          0          0          0 {txt}{c |}{res}       208 
-{txt}808. american indian- {c |}{res}         0          0          0          0 {txt}{c |}{res}       190 
-{txt}809. asian-hawaiian/p {c |}{res}         0          0          0          0 {txt}{c |}{res}     2,667 
-{txt}810. white-black-amer {c |}{res}         0          0          0          0 {txt}{c |}{res}     1,528 
-{txt}811. white-black-asia {c |}{res}         0          0          0          0 {txt}{c |}{res}       213 
-{txt}812. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}       252 
-{txt}813. white-asian-hawa {c |}{res}         0          0          0          0 {txt}{c |}{res}     2,209 
-{txt}814. white-black-amer {c |}{res}         0          0          0          0 {txt}{c |}{res}        74 
-{txt}815. american indian- {c |}{res}         0          0          0          0 {txt}{c |}{res}        50 
-{txt}816. white-black--haw {c |}{res}         0          0          0          0 {txt}{c |}{res}        50 
-{txt}817. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}        77 
-{txt}818. black-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}        22 
-{txt}819. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}        17 
-{txt}820. two or three rac {c |}{res}         0          0          0          0 {txt}{c |}{res}       356 
-{txt}830. four or five rac {c |}{res}         0          0          0          0 {txt}{c |}{res}       183 
-{txt}{hline 22}{c +}{hline 44}{c +}{hline 10}
-                Total {c |}{res}   170,266    171,247    164,174    167,612 {txt}{c |}{res} 6,738,088 
-
-
-                      {txt}{c |}                 survey year
-                 race {c |}      1990       1991       1992       1993 {c |}     Total
-{hline 22}{c +}{hline 44}{c +}{hline 10}
-           100. white {c |}{res}   152,628    148,002    145,775    142,959 {txt}{c |}{res} 5,669,362 
-{txt}           200. black {c |}{res}    16,739     16,077     15,758     15,843 {txt}{c |}{res}   647,759 
-{txt}300. american indian/ {c |}{res}     1,331      1,375      1,403      1,539 {txt}{c |}{res}    56,015 
-{txt}650. asian or pacific {c |}{res}     5,130      5,303      5,414      5,551 {txt}{c |}{res}    80,330 
-{txt}      651. asian only {c |}{res}         0          0          0          0 {txt}{c |}{res}   168,441 
-{txt}652. hawaiian/pacific {c |}{res}         0          0          0          0 {txt}{c |}{res}    14,635 
-{txt}700. other (single) r {c |}{res}       427        539        610        822 {txt}{c |}{res}    45,931 
-{txt}     801. white-black {c |}{res}         0          0          0          0 {txt}{c |}{res}    11,088 
-{txt}802. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}    20,999 
-{txt}     803. white-asian {c |}{res}         0          0          0          0 {txt}{c |}{res}     9,442 
-{txt}804. white-hawaiian/p {c |}{res}         0          0          0          0 {txt}{c |}{res}     2,740 
-{txt}805. black-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}     2,492 
-{txt}     806. black-asian {c |}{res}         0          0          0          0 {txt}{c |}{res}       758 
-{txt}807. black-hawaiian/p {c |}{res}         0          0          0          0 {txt}{c |}{res}       208 
-{txt}808. american indian- {c |}{res}         0          0          0          0 {txt}{c |}{res}       190 
-{txt}809. asian-hawaiian/p {c |}{res}         0          0          0          0 {txt}{c |}{res}     2,667 
-{txt}810. white-black-amer {c |}{res}         0          0          0          0 {txt}{c |}{res}     1,528 
-{txt}811. white-black-asia {c |}{res}         0          0          0          0 {txt}{c |}{res}       213 
-{txt}812. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}       252 
-{txt}813. white-asian-hawa {c |}{res}         0          0          0          0 {txt}{c |}{res}     2,209 
-{txt}814. white-black-amer {c |}{res}         0          0          0          0 {txt}{c |}{res}        74 
-{txt}815. american indian- {c |}{res}         0          0          0          0 {txt}{c |}{res}        50 
-{txt}816. white-black--haw {c |}{res}         0          0          0          0 {txt}{c |}{res}        50 
-{txt}817. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}        77 
-{txt}818. black-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}        22 
-{txt}819. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}        17 
-{txt}820. two or three rac {c |}{res}         0          0          0          0 {txt}{c |}{res}       356 
-{txt}830. four or five rac {c |}{res}         0          0          0          0 {txt}{c |}{res}       183 
-{txt}{hline 22}{c +}{hline 44}{c +}{hline 10}
-                Total {c |}{res}   176,255    171,296    168,960    166,714 {txt}{c |}{res} 6,738,088 
-
-
-                      {txt}{c |}                 survey year
-                 race {c |}      1994       1995       1996       1997 {c |}     Total
-{hline 22}{c +}{hline 44}{c +}{hline 10}
-           100. white {c |}{res}   138,455    136,838    123,995    125,932 {txt}{c |}{res} 5,669,362 
-{txt}           200. black {c |}{res}    15,509     15,731     13,979     14,384 {txt}{c |}{res}   647,759 
-{txt}300. american indian/ {c |}{res}     1,525      1,463      1,531      1,635 {txt}{c |}{res}    56,015 
-{txt}650. asian or pacific {c |}{res}     5,464      5,595      5,298      5,589 {txt}{c |}{res}    80,330 
-{txt}      651. asian only {c |}{res}         0          0          0          0 {txt}{c |}{res}   168,441 
-{txt}652. hawaiian/pacific {c |}{res}         0          0          0          0 {txt}{c |}{res}    14,635 
-{txt}700. other (single) r {c |}{res}     1,792      2,634          0          0 {txt}{c |}{res}    45,931 
-{txt}     801. white-black {c |}{res}         0          0          0          0 {txt}{c |}{res}    11,088 
-{txt}802. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}    20,999 
-{txt}     803. white-asian {c |}{res}         0          0          0          0 {txt}{c |}{res}     9,442 
-{txt}804. white-hawaiian/p {c |}{res}         0          0          0          0 {txt}{c |}{res}     2,740 
-{txt}805. black-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}     2,492 
-{txt}     806. black-asian {c |}{res}         0          0          0          0 {txt}{c |}{res}       758 
-{txt}807. black-hawaiian/p {c |}{res}         0          0          0          0 {txt}{c |}{res}       208 
-{txt}808. american indian- {c |}{res}         0          0          0          0 {txt}{c |}{res}       190 
-{txt}809. asian-hawaiian/p {c |}{res}         0          0          0          0 {txt}{c |}{res}     2,667 
-{txt}810. white-black-amer {c |}{res}         0          0          0          0 {txt}{c |}{res}     1,528 
-{txt}811. white-black-asia {c |}{res}         0          0          0          0 {txt}{c |}{res}       213 
-{txt}812. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}       252 
-{txt}813. white-asian-hawa {c |}{res}         0          0          0          0 {txt}{c |}{res}     2,209 
-{txt}814. white-black-amer {c |}{res}         0          0          0          0 {txt}{c |}{res}        74 
-{txt}815. american indian- {c |}{res}         0          0          0          0 {txt}{c |}{res}        50 
-{txt}816. white-black--haw {c |}{res}         0          0          0          0 {txt}{c |}{res}        50 
-{txt}817. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}        77 
-{txt}818. black-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}        22 
-{txt}819. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}        17 
-{txt}820. two or three rac {c |}{res}         0          0          0          0 {txt}{c |}{res}       356 
-{txt}830. four or five rac {c |}{res}         0          0          0          0 {txt}{c |}{res}       183 
-{txt}{hline 22}{c +}{hline 44}{c +}{hline 10}
-                Total {c |}{res}   162,745    162,261    144,803    147,540 {txt}{c |}{res} 6,738,088 
-
-
-                      {txt}{c |}                 survey year
-                 race {c |}      1998       1999       2000       2001 {c |}     Total
-{hline 22}{c +}{hline 44}{c +}{hline 10}
-           100. white {c |}{res}   126,956    128,952    129,688    142,204 {txt}{c |}{res} 5,669,362 
-{txt}           200. black {c |}{res}    14,662     14,992     15,324     16,483 {txt}{c |}{res}   647,759 
-{txt}300. american indian/ {c |}{res}     1,720      1,641      1,783      2,039 {txt}{c |}{res}    56,015 
-{txt}650. asian or pacific {c |}{res}     5,940      5,886      6,280      7,125 {txt}{c |}{res}    80,330 
-{txt}      651. asian only {c |}{res}         0          0          0          0 {txt}{c |}{res}   168,441 
-{txt}652. hawaiian/pacific {c |}{res}         0          0          0          0 {txt}{c |}{res}    14,635 
-{txt}700. other (single) r {c |}{res}         0          0          0          0 {txt}{c |}{res}    45,931 
-{txt}     801. white-black {c |}{res}         0          0          0          0 {txt}{c |}{res}    11,088 
-{txt}802. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}    20,999 
-{txt}     803. white-asian {c |}{res}         0          0          0          0 {txt}{c |}{res}     9,442 
-{txt}804. white-hawaiian/p {c |}{res}         0          0          0          0 {txt}{c |}{res}     2,740 
-{txt}805. black-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}     2,492 
-{txt}     806. black-asian {c |}{res}         0          0          0          0 {txt}{c |}{res}       758 
-{txt}807. black-hawaiian/p {c |}{res}         0          0          0          0 {txt}{c |}{res}       208 
-{txt}808. american indian- {c |}{res}         0          0          0          0 {txt}{c |}{res}       190 
-{txt}809. asian-hawaiian/p {c |}{res}         0          0          0          0 {txt}{c |}{res}     2,667 
-{txt}810. white-black-amer {c |}{res}         0          0          0          0 {txt}{c |}{res}     1,528 
-{txt}811. white-black-asia {c |}{res}         0          0          0          0 {txt}{c |}{res}       213 
-{txt}812. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}       252 
-{txt}813. white-asian-hawa {c |}{res}         0          0          0          0 {txt}{c |}{res}     2,209 
-{txt}814. white-black-amer {c |}{res}         0          0          0          0 {txt}{c |}{res}        74 
-{txt}815. american indian- {c |}{res}         0          0          0          0 {txt}{c |}{res}        50 
-{txt}816. white-black--haw {c |}{res}         0          0          0          0 {txt}{c |}{res}        50 
-{txt}817. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}        77 
-{txt}818. black-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}        22 
-{txt}819. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}        17 
-{txt}820. two or three rac {c |}{res}         0          0          0          0 {txt}{c |}{res}       356 
-{txt}830. four or five rac {c |}{res}         0          0          0          0 {txt}{c |}{res}       183 
-{txt}{hline 22}{c +}{hline 44}{c +}{hline 10}
-                Total {c |}{res}   149,278    151,471    153,075    167,851 {txt}{c |}{res} 6,738,088 
-
-
-                      {txt}{c |}                 survey year
-                 race {c |}      2002       2003       2004       2005 {c |}     Total
-{hline 22}{c +}{hline 44}{c +}{hline 10}
-           100. white {c |}{res}   148,990    145,295    142,104    142,662 {txt}{c |}{res} 5,669,362 
-{txt}           200. black {c |}{res}    16,602     15,683     15,286     15,269 {txt}{c |}{res}   647,759 
-{txt}300. american indian/ {c |}{res}     2,111      1,595      1,764      1,643 {txt}{c |}{res}    56,015 
-{txt}650. asian or pacific {c |}{res}     7,335          0          0          0 {txt}{c |}{res}    80,330 
-{txt}      651. asian only {c |}{res}         0      6,149      6,269      6,616 {txt}{c |}{res}   168,441 
-{txt}652. hawaiian/pacific {c |}{res}         0        562        608        605 {txt}{c |}{res}    14,635 
-{txt}700. other (single) r {c |}{res}         0          0          0          0 {txt}{c |}{res}    45,931 
-{txt}     801. white-black {c |}{res}         0        283        288        332 {txt}{c |}{res}    11,088 
-{txt}802. white-american i {c |}{res}         0      1,387      1,547      1,523 {txt}{c |}{res}    20,999 
-{txt}     803. white-asian {c |}{res}         0        277        318        406 {txt}{c |}{res}     9,442 
-{txt}804. white-hawaiian/p {c |}{res}         0        126        155        180 {txt}{c |}{res}     2,740 
-{txt}805. black-american i {c |}{res}         0        129        142        172 {txt}{c |}{res}     2,492 
-{txt}     806. black-asian {c |}{res}         0         18         14         23 {txt}{c |}{res}       758 
-{txt}807. black-hawaiian/p {c |}{res}         0          5          3          7 {txt}{c |}{res}       208 
-{txt}808. american indian- {c |}{res}         0         12         12          5 {txt}{c |}{res}       190 
-{txt}809. asian-hawaiian/p {c |}{res}         0        125        133        174 {txt}{c |}{res}     2,667 
-{txt}810. white-black-amer {c |}{res}         0         61         50         71 {txt}{c |}{res}     1,528 
-{txt}811. white-black-asia {c |}{res}         0          6          4          6 {txt}{c |}{res}       213 
-{txt}812. white-american i {c |}{res}         0          7         10         12 {txt}{c |}{res}       252 
-{txt}813. white-asian-hawa {c |}{res}         0          9         83        184 {txt}{c |}{res}     2,209 
-{txt}814. white-black-amer {c |}{res}         0          2          0          0 {txt}{c |}{res}        74 
-{txt}815. american indian- {c |}{res}         0          0          0          0 {txt}{c |}{res}        50 
-{txt}816. white-black--haw {c |}{res}         0          0          0          0 {txt}{c |}{res}        50 
-{txt}817. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}        77 
-{txt}818. black-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}        22 
-{txt}819. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}        17 
-{txt}820. two or three rac {c |}{res}         0        123         70         23 {txt}{c |}{res}       356 
-{txt}830. four or five rac {c |}{res}         0          7         14         14 {txt}{c |}{res}       183 
-{txt}{hline 22}{c +}{hline 44}{c +}{hline 10}
-                Total {c |}{res}   175,038    171,861    168,874    169,927 {txt}{c |}{res} 6,738,088 
-
-
-                      {txt}{c |}                 survey year
-                 race {c |}      2006       2007       2008       2009 {c |}     Total
-{hline 22}{c +}{hline 44}{c +}{hline 10}
-           100. white {c |}{res}   141,472    139,499    137,551    133,797 {txt}{c |}{res} 5,669,362 
-{txt}           200. black {c |}{res}    15,592     15,869     15,604     14,824 {txt}{c |}{res}   647,759 
-{txt}300. american indian/ {c |}{res}     1,549      1,610      1,606      1,428 {txt}{c |}{res}    56,015 
-{txt}650. asian or pacific {c |}{res}         0          0          0          0 {txt}{c |}{res}    80,330 
-{txt}      651. asian only {c |}{res}     6,917      7,078      7,330      7,318 {txt}{c |}{res}   168,441 
-{txt}652. hawaiian/pacific {c |}{res}       648        706        706        700 {txt}{c |}{res}    14,635 
-{txt}700. other (single) r {c |}{res}         0          0          0          0 {txt}{c |}{res}    45,931 
-{txt}     801. white-black {c |}{res}       348        336        390        418 {txt}{c |}{res}    11,088 
-{txt}802. white-american i {c |}{res}     1,407      1,209      1,078      1,019 {txt}{c |}{res}    20,999 
-{txt}     803. white-asian {c |}{res}       409        413        381        395 {txt}{c |}{res}     9,442 
-{txt}804. white-hawaiian/p {c |}{res}       185        143        133        130 {txt}{c |}{res}     2,740 
-{txt}805. black-american i {c |}{res}       153        109         95        100 {txt}{c |}{res}     2,492 
-{txt}     806. black-asian {c |}{res}        28         28         33         27 {txt}{c |}{res}       758 
-{txt}807. black-hawaiian/p {c |}{res}        16         10          3          5 {txt}{c |}{res}       208 
-{txt}808. american indian- {c |}{res}         3          8         13          2 {txt}{c |}{res}       190 
-{txt}809. asian-hawaiian/p {c |}{res}       191        177        183        142 {txt}{c |}{res}     2,667 
-{txt}810. white-black-amer {c |}{res}        67         74         73         81 {txt}{c |}{res}     1,528 
-{txt}811. white-black-asia {c |}{res}         4          2          1          7 {txt}{c |}{res}       213 
-{txt}812. white-american i {c |}{res}        10         20         19          9 {txt}{c |}{res}       252 
-{txt}813. white-asian-hawa {c |}{res}       158        122        132        141 {txt}{c |}{res}     2,209 
-{txt}814. white-black-amer {c |}{res}         7          4          1          1 {txt}{c |}{res}        74 
-{txt}815. american indian- {c |}{res}         0          0          0          0 {txt}{c |}{res}        50 
-{txt}816. white-black--haw {c |}{res}         0          0          0          0 {txt}{c |}{res}        50 
-{txt}817. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}        77 
-{txt}818. black-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}        22 
-{txt}819. white-american i {c |}{res}         0          0          0          0 {txt}{c |}{res}        17 
-{txt}820. two or three rac {c |}{res}        19         23         13         10 {txt}{c |}{res}       356 
-{txt}830. four or five rac {c |}{res}        13         11          9         11 {txt}{c |}{res}       183 
-{txt}{hline 22}{c +}{hline 44}{c +}{hline 10}
-                Total {c |}{res}   169,196    167,451    165,354    160,565 {txt}{c |}{res} 6,738,088 
-
-
-                      {txt}{c |}                 survey year
-                 race {c |}      2010       2011       2012       2013 {c |}     Total
-{hline 22}{c +}{hline 44}{c +}{hline 10}
-           100. white {c |}{res}   131,687    129,996    128,888    127,904 {txt}{c |}{res} 5,669,362 
-{txt}           200. black {c |}{res}    15,195     14,776     14,837     14,918 {txt}{c |}{res}   647,759 
-{txt}300. american indian/ {c |}{res}     1,393      1,418      1,453      1,433 {txt}{c |}{res}    56,015 
-{txt}650. asian or pacific {c |}{res}         0          0          0          0 {txt}{c |}{res}    80,330 
-{txt}      651. asian only {c |}{res}     7,449      7,779      8,128      8,283 {txt}{c |}{res}   168,441 
-{txt}652. hawaiian/pacific {c |}{res}       661        672        687        753 {txt}{c |}{res}    14,635 
-{txt}700. other (single) r {c |}{res}         0          0          0          0 {txt}{c |}{res}    45,931 
-{txt}     801. white-black {c |}{res}       442        462        469        488 {txt}{c |}{res}    11,088 
-{txt}802. white-american i {c |}{res}     1,002        945        895        878 {txt}{c |}{res}    20,999 
-{txt}     803. white-asian {c |}{res}       416        397        421        445 {txt}{c |}{res}     9,442 
-{txt}804. white-hawaiian/p {c |}{res}       113        116        130        111 {txt}{c |}{res}     2,740 
-{txt}805. black-american i {c |}{res}       101        109        120        107 {txt}{c |}{res}     2,492 
-{txt}     806. black-asian {c |}{res}        37         31         41         43 {txt}{c |}{res}       758 
-{txt}807. black-hawaiian/p {c |}{res}        12         15         13          7 {txt}{c |}{res}       208 
-{txt}808. american indian- {c |}{res}         8         11          6          6 {txt}{c |}{res}       190 
-{txt}809. asian-hawaiian/p {c |}{res}       121        155         96        118 {txt}{c |}{res}     2,667 
-{txt}810. white-black-amer {c |}{res}        67         55         54         82 {txt}{c |}{res}     1,528 
-{txt}811. white-black-asia {c |}{res}         7          5          6          8 {txt}{c |}{res}       213 
-{txt}812. white-american i {c |}{res}        16         12          9         10 {txt}{c |}{res}       252 
-{txt}813. white-asian-hawa {c |}{res}       162        157        106         90 {txt}{c |}{res}     2,209 
-{txt}814. white-black-amer {c |}{res}         3          2          4          5 {txt}{c |}{res}        74 
-{txt}815. american indian- {c |}{res}         0          0          3          4 {txt}{c |}{res}        50 
-{txt}816. white-black--haw {c |}{res}         0          0          4          2 {txt}{c |}{res}        50 
-{txt}817. white-american i {c |}{res}         0          0          8          6 {txt}{c |}{res}        77 
-{txt}818. black-american i {c |}{res}         0          0          1          0 {txt}{c |}{res}        22 
-{txt}819. white-american i {c |}{res}         0          0          0          1 {txt}{c |}{res}        17 
-{txt}820. two or three rac {c |}{res}        11         21          7          3 {txt}{c |}{res}       356 
-{txt}830. four or five rac {c |}{res}        10          8          6         10 {txt}{c |}{res}       183 
-{txt}{hline 22}{c +}{hline 44}{c +}{hline 10}
-                Total {c |}{res}   158,913    157,142    156,392    155,715 {txt}{c |}{res} 6,738,088 
-
-
-                      {txt}{c |}                 survey year
-                 race {c |}      2014       2015       2016       2017 {c |}     Total
-{hline 22}{c +}{hline 44}{c +}{hline 10}
-           100. white {c |}{res}   128,025    125,029    124,596    122,430 {txt}{c |}{res} 5,669,362 
-{txt}           200. black {c |}{res}    15,409     16,147     16,208     15,861 {txt}{c |}{res}   647,759 
-{txt}300. american indian/ {c |}{res}     1,482      1,744      1,843      1,736 {txt}{c |}{res}    56,015 
-{txt}650. asian or pacific {c |}{res}         0          0          0          0 {txt}{c |}{res}    80,330 
-{txt}      651. asian only {c |}{res}     8,338      8,352      8,612      8,806 {txt}{c |}{res}   168,441 
-{txt}652. hawaiian/pacific {c |}{res}       691        791        832        713 {txt}{c |}{res}    14,635 
-{txt}700. other (single) r {c |}{res}         0          0          0          0 {txt}{c |}{res}    45,931 
-{txt}     801. white-black {c |}{res}       557        537        560        604 {txt}{c |}{res}    11,088 
-{txt}802. white-american i {c |}{res}       870        812        768        863 {txt}{c |}{res}    20,999 
-{txt}     803. white-asian {c |}{res}       436        433        420        450 {txt}{c |}{res}     9,442 
-{txt}804. white-hawaiian/p {c |}{res}       130        122        130        133 {txt}{c |}{res}     2,740 
-{txt}805. black-american i {c |}{res}       142        147        101        130 {txt}{c |}{res}     2,492 
-{txt}     806. black-asian {c |}{res}        39         45         42         34 {txt}{c |}{res}       758 
-{txt}807. black-hawaiian/p {c |}{res}        11          9         11         10 {txt}{c |}{res}       208 
-{txt}808. american indian- {c |}{res}        12          7          6         11 {txt}{c |}{res}       190 
-{txt}809. asian-hawaiian/p {c |}{res}       128         92        115         96 {txt}{c |}{res}     2,667 
-{txt}810. white-black-amer {c |}{res}        73         87         93         92 {txt}{c |}{res}     1,528 
-{txt}811. white-black-asia {c |}{res}        13          7          7          9 {txt}{c |}{res}       213 
-{txt}812. white-american i {c |}{res}        12          7          8         10 {txt}{c |}{res}       252 
-{txt}813. white-asian-hawa {c |}{res}       110         86         90         69 {txt}{c |}{res}     2,209 
-{txt}814. white-black-amer {c |}{res}         6          5          5          0 {txt}{c |}{res}        74 
-{txt}815. american indian- {c |}{res}         8          2          0          1 {txt}{c |}{res}        50 
-{txt}816. white-black--haw {c |}{res}         3          0          2          3 {txt}{c |}{res}        50 
-{txt}817. white-american i {c |}{res}         3          7          6          4 {txt}{c |}{res}        77 
-{txt}818. black-american i {c |}{res}         2          3          3          0 {txt}{c |}{res}        22 
-{txt}819. white-american i {c |}{res}         3          1          0          1 {txt}{c |}{res}        17 
-{txt}820. two or three rac {c |}{res}         4          4          2          5 {txt}{c |}{res}       356 
-{txt}830. four or five rac {c |}{res}         4          9          7          3 {txt}{c |}{res}       183 
-{txt}{hline 22}{c +}{hline 44}{c +}{hline 10}
-                Total {c |}{res}   156,511    154,485    154,467    152,074 {txt}{c |}{res} 6,738,088 
-
-
-                      {txt}{c |}                 survey year
-                 race {c |}      2018       2019       2020       2021 {c |}     Total
-{hline 22}{c +}{hline 44}{c +}{hline 10}
-           100. white {c |}{res}   119,304    114,973     99,416     98,674 {txt}{c |}{res} 5,669,362 
-{txt}           200. black {c |}{res}    15,161     14,539     12,234     12,671 {txt}{c |}{res}   647,759 
-{txt}300. american indian/ {c |}{res}     1,660      1,620      1,381      1,401 {txt}{c |}{res}    56,015 
-{txt}650. asian or pacific {c |}{res}         0          0          0          0 {txt}{c |}{res}    80,330 
-{txt}      651. asian only {c |}{res}     8,735      8,494      7,360      7,812 {txt}{c |}{res}   168,441 
-{txt}652. hawaiian/pacific {c |}{res}       684        683        564        589 {txt}{c |}{res}    14,635 
-{txt}700. other (single) r {c |}{res}         0          0          0          0 {txt}{c |}{res}    45,931 
-{txt}     801. white-black {c |}{res}       672        717        594        638 {txt}{c |}{res}    11,088 
-{txt}802. white-american i {c |}{res}       912        783        614        668 {txt}{c |}{res}    20,999 
-{txt}     803. white-asian {c |}{res}       481        512        437        470 {txt}{c |}{res}     9,442 
-{txt}804. white-hawaiian/p {c |}{res}       124        108         88         86 {txt}{c |}{res}     2,740 
-{txt}805. black-american i {c |}{res}       117        119         85         75 {txt}{c |}{res}     2,492 
-{txt}     806. black-asian {c |}{res}        38         42         27         43 {txt}{c |}{res}       758 
-{txt}807. black-hawaiian/p {c |}{res}        11          6          7          8 {txt}{c |}{res}       208 
-{txt}808. american indian- {c |}{res}        10          6         10         11 {txt}{c |}{res}       190 
-{txt}809. asian-hawaiian/p {c |}{res}        86         84         70         76 {txt}{c |}{res}     2,667 
-{txt}810. white-black-amer {c |}{res}        77         76         53         56 {txt}{c |}{res}     1,528 
-{txt}811. white-black-asia {c |}{res}        13         12         15         19 {txt}{c |}{res}       213 
-{txt}812. white-american i {c |}{res}        14         19         11         10 {txt}{c |}{res}       252 
-{txt}813. white-asian-hawa {c |}{res}        70         74         65         80 {txt}{c |}{res}     2,209 
-{txt}814. white-black-amer {c |}{res}         7          7          3          2 {txt}{c |}{res}        74 
-{txt}815. american indian- {c |}{res}         3          4          3          6 {txt}{c |}{res}        50 
-{txt}816. white-black--haw {c |}{res}         3          2          5          9 {txt}{c |}{res}        50 
-{txt}817. white-american i {c |}{res}         4          7          7          5 {txt}{c |}{res}        77 
-{txt}818. black-american i {c |}{res}         1          1          2          5 {txt}{c |}{res}        22 
-{txt}819. white-american i {c |}{res}         2          1          0          2 {txt}{c |}{res}        17 
-{txt}820. two or three rac {c |}{res}         2          3          2          7 {txt}{c |}{res}       356 
-{txt}830. four or five rac {c |}{res}         6          3          0          6 {txt}{c |}{res}       183 
-{txt}{hline 22}{c +}{hline 44}{c +}{hline 10}
-                Total {c |}{res}   148,197    142,895    123,053    123,429 {txt}{c |}{res} 6,738,088 
-
-
-                      {txt}{c |}           survey year
-                 race {c |}      2022       2023       2024 {c |}     Total
-{hline 22}{c +}{hline 33}{c +}{hline 10}
-           100. white {c |}{res}    94,546     91,429     83,703 {txt}{c |}{res} 5,669,362 
-{txt}           200. black {c |}{res}    12,223     11,661     10,329 {txt}{c |}{res}   647,759 
-{txt}300. american indian/ {c |}{res}     1,364      1,328      1,194 {txt}{c |}{res}    56,015 
-{txt}650. asian or pacific {c |}{res}         0          0          0 {txt}{c |}{res}    80,330 
-{txt}      651. asian only {c |}{res}     7,822      7,558      7,236 {txt}{c |}{res}   168,441 
-{txt}652. hawaiian/pacific {c |}{res}       672        598        510 {txt}{c |}{res}    14,635 
-{txt}700. other (single) r {c |}{res}         0          0          0 {txt}{c |}{res}    45,931 
-{txt}     801. white-black {c |}{res}       641        660        652 {txt}{c |}{res}    11,088 
-{txt}802. white-american i {c |}{res}       614        618        587 {txt}{c |}{res}    20,999 
-{txt}     803. white-asian {c |}{res}       496        549        480 {txt}{c |}{res}     9,442 
-{txt}804. white-hawaiian/p {c |}{res}       103        104         90 {txt}{c |}{res}     2,740 
-{txt}805. black-american i {c |}{res}        82         93         64 {txt}{c |}{res}     2,492 
-{txt}     806. black-asian {c |}{res}        43         38         44 {txt}{c |}{res}       758 
-{txt}807. black-hawaiian/p {c |}{res}        11         17         11 {txt}{c |}{res}       208 
-{txt}808. american indian- {c |}{res}         9         11         11 {txt}{c |}{res}       190 
-{txt}809. asian-hawaiian/p {c |}{res}       106        104         95 {txt}{c |}{res}     2,667 
-{txt}810. white-black-amer {c |}{res}        53         75         58 {txt}{c |}{res}     1,528 
-{txt}811. white-black-asia {c |}{res}        24         19         19 {txt}{c |}{res}       213 
-{txt}812. white-american i {c |}{res}        11          9          7 {txt}{c |}{res}       252 
-{txt}813. white-asian-hawa {c |}{res}        68         69         84 {txt}{c |}{res}     2,209 
-{txt}814. white-black-amer {c |}{res}         7          2          1 {txt}{c |}{res}        74 
-{txt}815. american indian- {c |}{res}         3          8          5 {txt}{c |}{res}        50 
-{txt}816. white-black--haw {c |}{res}         9          6          2 {txt}{c |}{res}        50 
-{txt}817. white-american i {c |}{res}         6          9          5 {txt}{c |}{res}        77 
-{txt}818. black-american i {c |}{res}         1          3          0 {txt}{c |}{res}        22 
-{txt}819. white-american i {c |}{res}         3          2          1 {txt}{c |}{res}        17 
-{txt}820. two or three rac {c |}{res}         0          1          3 {txt}{c |}{res}       356 
-{txt}830. four or five rac {c |}{res}         9         13         10 {txt}{c |}{res}       183 
-{txt}{hline 22}{c +}{hline 33}{c +}{hline 10}
-                Total {c |}{res}   118,926    114,984    105,201 {txt}{c |}{res} 6,738,088 
-{txt}
-{com}. 
-. *generate new race variable with consistent categories
-. generate race_orig = race  //save original coding
-{txt}
-{com}. generate race_recode = .   //create new variable for recoded race
+{com}. generate race_recode = .   // Create new variable for recoded race
 {txt}(6,738,088 missing values generated)
 
 {com}. 
-. *recode to consistent categories across all years
-. replace race_recode = 1 if race == 100 //1. white (non-hispanic)
+. * Recode to consistent categories across all years
+. replace race_recode = 1 if race == 100 // 1. white (non-hispanic)
 {txt}(5,669,362 real changes made)
 
-{com}. replace race_recode = 2 if race == 200 //2. black
+{com}. replace race_recode = 2 if race == 200 // 2. black
 {txt}(647,759 real changes made)
 
-{com}. replace race_recode = 3 if race == 300 //3. american indian/aleut/eskimo
+{com}. replace race_recode = 3 if race == 300 // 3. american indian/aleut/eskimo
 {txt}(56,015 real changes made)
 
-{com}. replace race_recode = 4 if inlist(race, 650, 651) | race == 652  //4. asian/pacific islander
+{com}. replace race_recode = 4 if inlist(race, 650, 651, 652) // 4. asian/pacific islander
 {txt}(263,406 real changes made)
 
-{com}. replace race_recode = 5 if race == 700 //5. other race
+{com}. replace race_recode = 5 if race == 700 // 5. other race
 {txt}(45,931 real changes made)
 
-{com}. replace race_recode = 6 if inrange(race, 801, 830) //6. multiple races (combining all mixed categories)
+{com}. replace race_recode = 6 if inrange(race, 801, 830) // 6. multiple races (combining all mixed categories)
 {txt}(55,615 real changes made)
 
 {com}. 
-. *label new race variable
+. * Label new race variable
 . label define race_label 1 "white" 2 "black" 3 "american indian" ///
 >                         4 "asian/pacific islander" 5 "other" 6 "multiple races"
 {txt}
@@ -912,7 +122,7 @@
 {com}. label variable race_recode "race - consistent coding across years"
 {txt}
 {com}. 
-. *initialize occupation, industry, and grade variables
+. * Initialize occupation, industry, and grade variables
 . generate occupation = .
 {txt}(6,738,088 missing values generated)
 
@@ -923,9 +133,9 @@
 {txt}(6,738,088 missing values generated)
 
 {com}. 
-. *grade variable recoding
-. *1982-1991 grade recoding
-. replace grade = 0 if educ == 2 & year <= 1991 //none or preschool
+. * Grade variable recoding
+. * 1982-1991 grade recoding
+. replace grade = 0 if educ == 2 & year <= 1991 // none or preschool
 {txt}(3,693 real changes made)
 
 {com}. replace grade = 1 if educ == 11 & year <= 1991
@@ -961,7 +171,7 @@
 {com}. replace grade = 11 if educ == 60 & year <= 1991
 {txt}(60,845 real changes made)
 
-{com}. replace grade = 12 if (educ == 72 | educ == 73) & year <= 1991 //72 is 'diploma unclear'
+{com}. replace grade = 12 if (educ == 72 | educ == 73) & year <= 1991 // 72 is 'diploma unclear'
 {txt}(704,348 real changes made)
 
 {com}. replace grade = 13 if educ == 80 & year <= 1991
@@ -983,35 +193,35 @@
 {txt}(110,245 real changes made)
 
 {com}. 
-. *1992-2024 grade recoding (Jaeger 1997)
+. * 1992-2024 grade recoding (Jaeger 1997)
 . replace grade = 0 if educ == 2 & year >= 1992
 {txt}(8,229 real changes made)
 
-{com}. replace grade = 2.5 if educ == 10 & year >= 1992 //grades 1-4
+{com}. replace grade = 2.5 if educ == 10 & year >= 1992 // grades 1-4
 {txt}(21,107 real changes made)
 
-{com}. replace grade = 5.5 if educ == 20 & year >= 1992 //grades 5-6
+{com}. replace grade = 5.5 if educ == 20 & year >= 1992 // grades 5-6
 {txt}(49,851 real changes made)
 
-{com}. replace grade = 7.5 if educ == 30 & year >= 1992 //grades 7-8
+{com}. replace grade = 7.5 if educ == 30 & year >= 1992 // grades 7-8
 {txt}(50,759 real changes made)
 
-{com}. replace grade = 9 if educ == 40 & year >= 1992 //grade 9
+{com}. replace grade = 9 if educ == 40 & year >= 1992 // grade 9
 {txt}(56,283 real changes made)
 
-{com}. replace grade = 10 if educ == 50 & year >= 1992 //grade 10
+{com}. replace grade = 10 if educ == 50 & year >= 1992 // grade 10
 {txt}(73,186 real changes made)
 
-{com}. replace grade = 11 if educ == 60 & year >= 1992 //grade 11
+{com}. replace grade = 11 if educ == 60 & year >= 1992 // grade 11
 {txt}(111,530 real changes made)
 
-{com}. replace grade = 12 if (educ == 71 | educ == 73) & year >= 1992 //71 is 'no diploma'
+{com}. replace grade = 12 if (educ == 71 | educ == 73) & year >= 1992 // 71 is 'no diploma'
 {txt}(1,558,364 real changes made)
 
-{com}. replace grade = 13 if educ == 81 & year >= 1992 //some college, no degree
+{com}. replace grade = 13 if educ == 81 & year >= 1992 // some college, no degree
 {txt}(977,528 real changes made)
 
-{com}. replace grade = 14 if (educ == 91 | educ == 92) & year >= 1992 //academic or vocational associate's degree
+{com}. replace grade = 14 if (educ == 91 | educ == 92) & year >= 1992 // academic or vocational associate's degree
 {txt}(510,086 real changes made)
 
 {com}. replace grade = 16 if educ == 111 & year >= 1992
@@ -1021,78 +231,78 @@
 {txt}(556,144 real changes made)
 
 {com}. 
-. *order grade, before(educ)
+. * Order grade, before(educ)
 . label variable grade "education (years)"
 {txt}
 {com}. 
-. *1982-2023 occupation recoding
-. replace occupation = 1 if occ1950 >= 000 & occ1950 <= 099 //professional, technical
+. * 1982-2023 occupation recoding
+. replace occupation = 1 if occ1950 >= 000 & occ1950 <= 099 // professional, technical
 {txt}(1,637,521 real changes made)
 
-{com}. replace occupation = 2 if occ1950 >= 100 & occ1950 <= 290 //managers, officials, proprietors
+{com}. replace occupation = 2 if occ1950 >= 100 & occ1950 <= 290 // managers, officials, proprietors
 {txt}(850,339 real changes made)
 
-{com}. replace occupation = 3 if occ1950 >= 300 & occ1950 <= 390 //clerical, kindred
+{com}. replace occupation = 3 if occ1950 >= 300 & occ1950 <= 390 // clerical, kindred
 {txt}(1,219,267 real changes made)
 
-{com}. replace occupation = 4 if occ1950 >= 400 & occ1950 <= 490 //sales
+{com}. replace occupation = 4 if occ1950 >= 400 & occ1950 <= 490 // sales
 {txt}(385,664 real changes made)
 
-{com}. replace occupation = 5 if occ1950 >= 500 & occ1950 <= 594 //craftsmen
+{com}. replace occupation = 5 if occ1950 >= 500 & occ1950 <= 594 // craftsmen
 {txt}(656,513 real changes made)
 
-{com}. replace occupation = 6 if occ1950 >= 600 & occ1950 <= 690 //operatives
+{com}. replace occupation = 6 if occ1950 >= 600 & occ1950 <= 690 // operatives
 {txt}(733,005 real changes made)
 
-{com}. replace occupation = 7 if occ1950 >= 700 & occ1950 <= 720 //service (private hh)
+{com}. replace occupation = 7 if occ1950 >= 700 & occ1950 <= 720 // service (private hh)
 {txt}(55,127 real changes made)
 
-{com}. replace occupation = 8 if occ1950 >= 730 & occ1950 <= 790 //service (other)
+{com}. replace occupation = 8 if occ1950 >= 730 & occ1950 <= 790 // service (other)
 {txt}(886,510 real changes made)
 
-{com}. replace occupation = 9 if occ1950 >= 810 & occ1950 <= 970 //laborers
+{com}. replace occupation = 9 if occ1950 >= 810 & occ1950 <= 970 // laborers
 {txt}(314,142 real changes made)
 
-{com}. replace occupation = 10 if occ1950 == 595 //armed forces
+{com}. replace occupation = 10 if occ1950 == 595 // armed forces
 {txt}(0 real changes made)
 
 {com}. 
-. *1982-2023 industry recoding
-. replace industry = 1 if ind1950 >= 105 & ind1950 <= 239 //agriculture, fisheries, mining
+. * 1982-2023 industry recoding
+. replace industry = 1 if ind1950 >= 105 & ind1950 <= 239 // agriculture, fisheries, mining
 {txt}(164,547 real changes made)
 
-{com}. replace industry = 2 if ind1950 == 246 //construction
+{com}. replace industry = 2 if ind1950 == 246 // construction
 {txt}(387,651 real changes made)
 
-{com}. replace industry = 3 if ind1950 >= 306 & ind1950 <= 399 //durable manufacturing
+{com}. replace industry = 3 if ind1950 >= 306 & ind1950 <= 399 // durable manufacturing
 {txt}(624,816 real changes made)
 
-{com}. replace industry = 4 if ind1950 >= 406 & ind1950 <= 499 //nondurable manufacturing
+{com}. replace industry = 4 if ind1950 >= 406 & ind1950 <= 499 // nondurable manufacturing
 {txt}(402,224 real changes made)
 
-{com}. replace industry = 5 if ind1950 >= 506 & ind1950 <= 598 //communications, transportation, utilities
+{com}. replace industry = 5 if ind1950 >= 506 & ind1950 <= 598 // communications, transportation, utilities
 {txt}(390,211 real changes made)
 
-{com}. replace industry = 6 if ind1950 >= 606 & ind1950 <= 627 //wholesale trade
+{com}. replace industry = 6 if ind1950 >= 606 & ind1950 <= 627 // wholesale trade
 {txt}(213,824 real changes made)
 
-{com}. replace industry = 7 if ind1950 >= 636 & ind1950 <= 699 //retail trade
+{com}. replace industry = 7 if ind1950 >= 636 & ind1950 <= 699 // retail trade
 {txt}(1,095,592 real changes made)
 
-{com}. replace industry = 8 if (ind1950 >= 716 & ind1950 <= 746) | (ind1950 >= 868 & ind1950 <= 879) | (ind1950 >= 897 & ind1950 <= 899) //professional services, fire
+{com}. replace industry = 8 if (ind1950 >= 716 & ind1950 <= 746) | (ind1950 >= 868 & ind1950 <= 879) | (ind1950 >= 897 & ind1950 <= 899) // professional services, fire
 {txt}(1,420,189 real changes made)
 
-{com}. replace industry = 9 if inlist(ind1950, 888, 896) //education, welfare services
+{com}. replace industry = 9 if inlist(ind1950, 888, 896) // education, welfare services
 {txt}(838,993 real changes made)
 
-{com}. replace industry = 10 if ind1950 >= 906 & ind1950 <= 936 //public administration
+{com}. replace industry = 10 if ind1950 >= 906 & ind1950 <= 936 // public administration
 {txt}(431,596 real changes made)
 
-{com}. replace industry = 11 if (ind1950 >= 806 & ind1950 <= 859) | inlist(ind1950, 997, 998) //other services
+{com}. replace industry = 11 if (ind1950 >= 806 & ind1950 <= 859) | inlist(ind1950, 997, 998) // other services
 {txt}(768,445 real changes made)
 
 {com}. 
-. *add value labels
+. * Add value labels
 . label define occupation 1 "professional, technical" 2 "managers, officials, proprietors" ///
 >                         3 "clerical, kindred" 4 "sales" 5 "craftsmen" 6 "operatives" ///
 >                         7 "service (private hh)" 8 "service (other)" 9 "laborers" ///
@@ -1107,25 +317,25 @@
 >                       11 "other services"
 {txt}
 {com}. 
-. *apply labels
+. * Apply labels
 . label values occupation occupation
 {txt}
 {com}. label values industry industry
 {txt}
 {com}. 
-. *add variable labels
+. * Add variable labels
 . label variable occupation "occupation (1-10)"
 {txt}
 {com}. label variable industry "industry (1-11)"
 {txt}
 {com}. 
-. *error checking for recoding
+. * Error checking for recoding
 . assert inlist(occupation, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, .) if !missing(occ1950)
 {txt}
 {com}. assert inlist(industry, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, .) if !missing(ind1950)
 {txt}
 {com}. 
-. *verify recoding
+. * Verify recoding
 . tabulate year occupation if occupation != ., missing
 
     {txt}survey {c |}                   occupation (1-10)
@@ -1380,7 +590,7 @@
      Total {c |}{res}   768,445 {txt}{c |}{res} 6,738,088 
 {txt}
 {com}. 
-. *check that industry contains all instances of ind1950
+. * Check that industry contains all instances of ind1950
 . count if !missing(ind1950) & missing(industry)
   {res}0
 {txt}
@@ -1394,7 +604,7 @@
 {com}. {c )-}
 {txt}
 {com}. 
-. *check that no instances are missing from industry compared to ind1950
+. * Check that no instances are missing from industry compared to ind1950
 . count if !missing(industry) & missing(ind1950)
   {res}0
 {txt}
@@ -1408,28 +618,205 @@
 {com}. {c )-}
 {txt}
 {com}. 
-. *replace missing values with rounded values from earnweek2 and hourwage2
-. replace earnweek = earnweek2 if missing(earnweek)
-{txt}(192,098 real changes made)
+. * Get max value of earnweek2 for recent period before any replacements
+. summarize earnweek2 if (year==2023 & month>=4) | (year==2024 & month<=3), detail
 
-{com}. replace hourwage = hourwage2 if missing(hourwage)
-{txt}(105,769 real changes made)
+                  {txt}weekly earnings (rounded)
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res}      108              4
+{txt} 5%    {res}      288              4
+{txt}10%    {res}      416              4       {txt}Obs         {res}    115,288
+{txt}25%    {res}      680              4       {txt}Sum of wgt. {res}    115,288
 
-{com}. drop earnweek2 hourwage2
+{txt}50%    {res}     1016                      {txt}Mean          {res} 2588.129
+                        {txt}Largest       Std. dev.     {res} 35294.54
+{txt}75%    {res}     1630        1000000
+{txt}90%    {res}     2560        1000000       {txt}Variance      {res} 1.25e+09
+{txt}95%    {res}  2884.61        1000000       {txt}Skewness      {res} 28.18935
+{txt}99%    {res}  8672.01        1000000       {txt}Kurtosis      {res} 796.6248
+{txt}
+{com}. return list
+
+{txt}scalars:
+                  r(N) =  {res}115288
+              {txt}r(sum_w) =  {res}115288
+               {txt}r(mean) =  {res}2588.1294453022
+                {txt}r(Var) =  {res}1245704747.004343
+                 {txt}r(sd) =  {res}35294.54273686434
+           {txt}r(skewness) =  {res}28.18934578750244
+           {txt}r(kurtosis) =  {res}796.6247763236568
+                {txt}r(sum) =  {res}298380267.49
+                {txt}r(min) =  {res}4
+                {txt}r(max) =  {res}999999.99
+                 {txt}r(p1) =  {res}108
+                 {txt}r(p5) =  {res}288
+                {txt}r(p10) =  {res}416
+                {txt}r(p25) =  {res}680
+                {txt}r(p50) =  {res}1016
+                {txt}r(p75) =  {res}1630
+                {txt}r(p90) =  {res}2560
+                {txt}r(p95) =  {res}2884.61
+                {txt}r(p99) =  {res}8672.01
+{txt}
+{com}. scalar max_earnweek2 = r(max)
 {txt}
 {com}. 
-. *create topcode variable for earnweek
-. generate topcode = (earnweek == 9999.99)  
+. * Store the max value for verification
+. gen max_val = r(max) if _n == 1
+{txt}(6,738,087 missing values generated)
+
+{com}. display "Maximum value of earnweek2 for recent period: " max_earnweek2
+{res}Maximum value of earnweek2 for recent period: 999999.99
 {txt}
-{com}. replace earnweek = 1.5 * earnweek if topcode == 1
-{txt}(0 real changes made)
+{com}. 
+. * Replace missing values with rounded values from earnweek2 and hourwage2
+. replace earnweek = earnweek2 if missing(earnweek) & month>=4 & year>=2023
+{txt}(163,735 real changes made)
+
+{com}. replace hourwage = hourwage2 if missing(hourwage) & month>=4 & year>=2023
+{txt}(90,163 real changes made)
+
+{com}. 
+. * Create topcode variable for earnweek
+. generate topcode = .
+{txt}(6,738,088 missing values generated)
 
 {com}. label variable topcode "top-coded earnweek (1=yes, 0=no)"
 {txt}
 {com}. 
-. ***end part B
+. * Identify topcoded values by period
+. replace topcode = 1 if earnweek >= 9999.99   // topcode for earnweek
+{txt}(38,148 real changes made)
+
+{com}. replace topcode = 1 if earnweek >= 999 & inrange(year, 1982, 1988) // 1982-1988
+{txt}(34,917 real changes made)
+
+{com}. replace topcode = 1 if earnweek >= 1923 & inrange(year, 1989, 1997) // 1989-1997
+{txt}(14,628 real changes made)
+
+{com}. replace topcode = 1 if earnweek >= 2884.61 & (inrange(year, 1998, 2022) | (year==2023 & month<=3)) // 1998-March 2023
+{txt}(96,492 real changes made)
+
+{com}. replace topcode = 1 if earnweek >= max_earnweek2 & ((year==2023 & month>=4) | (year==2024 & month<=3)) & mish==4 // April 2023-March 2024, MISH 4
+{txt}(0 real changes made)
+
+{com}. replace topcode = 1 if earnweek >= 2884.61 & ((year==2023 & month>=4) | (year==2024 & month<=3)) & mish==8 // April 2023-March 2024, MISH 8
+{txt}(3,294 real changes made)
+
+{com}. replace topcode = 0 if missing(topcode) & !missing(earnweek)
+{txt}(6,550,609 real changes made)
+
+{com}. 
+. * Verify topcoding implementation
+. display "Verifying topcode implementation..."
+{res}Verifying topcode implementation...
+{txt}
+{com}. count if missing(topcode) & !missing(earnweek)
+  {res}0
+{txt}
+{com}. tab year topcode if year >= 2023, col
+{txt}
+{c TLC}{hline 19}{c TRC}
+{c |} Key{col 21}{c |}
+{c LT}{hline 19}{c RT}
+{c |}{space 5}{it:frequency}{col 21}{c |}
+{c |}{space 1}{it:column percentage}{col 21}{c |}
+{c BLC}{hline 19}{c BRC}
+
+           {c |}  top-coded earnweek
+    survey {c |}     (1=yes, 0=no)
+      year {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+      2023 {c |}{res}   109,303      5,681 {txt}{c |}{res}   114,984 
+           {txt}{c |}{res}     59.03      16.22 {txt}{c |}{res}     52.22 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+      2024 {c |}{res}    75,862     29,339 {txt}{c |}{res}   105,201 
+           {txt}{c |}{res}     40.97      83.78 {txt}{c |}{res}     47.78 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}   185,165     35,020 {txt}{c |}{res}   220,185 
+           {txt}{c |}{res}    100.00     100.00 {txt}{c |}{res}    100.00 
+{txt}
+{com}. tab month topcode if year == 2024, col
+{txt}
+{c TLC}{hline 19}{c TRC}
+{c |} Key{col 21}{c |}
+{c LT}{hline 19}{c RT}
+{c |}{space 5}{it:frequency}{col 21}{c |}
+{c |}{space 1}{it:column percentage}{col 21}{c |}
+{c BLC}{hline 19}{c BRC}
+
+           {c |}  top-coded earnweek
+           {c |}     (1=yes, 0=no)
+     month {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+   january {c |}{res}         0      9,729 {txt}{c |}{res}     9,729 
+           {txt}{c |}{res}      0.00      33.16 {txt}{c |}{res}      9.25 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+  february {c |}{res}         0      9,369 {txt}{c |}{res}     9,369 
+           {txt}{c |}{res}      0.00      31.93 {txt}{c |}{res}      8.91 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     march {c |}{res}         0      9,279 {txt}{c |}{res}     9,279 
+           {txt}{c |}{res}      0.00      31.63 {txt}{c |}{res}      8.82 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     april {c |}{res}     9,511         23 {txt}{c |}{res}     9,534 
+           {txt}{c |}{res}     12.54       0.08 {txt}{c |}{res}      9.06 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+       may {c |}{res}     9,628          7 {txt}{c |}{res}     9,635 
+           {txt}{c |}{res}     12.69       0.02 {txt}{c |}{res}      9.16 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+      june {c |}{res}     9,347        295 {txt}{c |}{res}     9,642 
+           {txt}{c |}{res}     12.32       1.01 {txt}{c |}{res}      9.17 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+      july {c |}{res}     9,467          5 {txt}{c |}{res}     9,472 
+           {txt}{c |}{res}     12.48       0.02 {txt}{c |}{res}      9.00 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+    august {c |}{res}     9,347        306 {txt}{c |}{res}     9,653 
+           {txt}{c |}{res}     12.32       1.04 {txt}{c |}{res}      9.18 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+ september {c |}{res}     9,301        300 {txt}{c |}{res}     9,601 
+           {txt}{c |}{res}     12.26       1.02 {txt}{c |}{res}      9.13 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+   october {c |}{res}     9,586         14 {txt}{c |}{res}     9,600 
+           {txt}{c |}{res}     12.64       0.05 {txt}{c |}{res}      9.13 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+  november {c |}{res}     9,675         12 {txt}{c |}{res}     9,687 
+           {txt}{c |}{res}     12.75       0.04 {txt}{c |}{res}      9.21 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}    75,862     29,339 {txt}{c |}{res}   105,201 
+           {txt}{c |}{res}    100.00     100.00 {txt}{c |}{res}    100.00 
+{txt}
+{com}. tab mish topcode if year == 2024, col
+{txt}
+{c TLC}{hline 19}{c TRC}
+{c |} Key{col 21}{c |}
+{c LT}{hline 19}{c RT}
+{c |}{space 5}{it:frequency}{col 21}{c |}
+{c |}{space 1}{it:column percentage}{col 21}{c |}
+{c BLC}{hline 19}{c BRC}
+
+  month in {c |}
+   sample, {c |}  top-coded earnweek
+ household {c |}     (1=yes, 0=no)
+     level {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+      four {c |}{res}    37,617     15,160 {txt}{c |}{res}    52,777 
+           {txt}{c |}{res}     49.59      51.67 {txt}{c |}{res}     50.17 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     eight {c |}{res}    38,245     14,179 {txt}{c |}{res}    52,424 
+           {txt}{c |}{res}     50.41      48.33 {txt}{c |}{res}     49.83 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}    75,862     29,339 {txt}{c |}{res}   105,201 
+           {txt}{c |}{res}    100.00     100.00 {txt}{c |}{res}    100.00 
+{txt}
+{com}. 
+. * Now safe to drop earnweek2 and hourwage2
+. drop earnweek2 hourwage2
+{txt}
+{com}. 
+. *** End part B
 . 
-. *compress and save the cleaned data
+. * Compress and save the cleaned data
 . compress
   {txt}variable {bf}{res}uhrsworkorg{sf}{txt} was {bf}{res}int{sf}{txt} now {bf}{res}byte{sf}
   {txt}variable {bf}{res}female{sf}{txt} was {bf}{res}float{sf}{txt} now {bf}{res}byte{sf}
@@ -1449,12 +836,12 @@ saved
 {p_end}
 
 {com}. 
-. *describe and summarize the final dataset
+. * Describe and summarize the final dataset
 . describe
 
 {txt}Contains data from {res}../Data/CPS ORGs, 1982-2024, Cleaned.dta
 {txt} Observations:{res}     6,738,088                  
-{txt}    Variables:{res}            29                  7 Jan 2025 18:24
+{txt}    Variables:{res}            30                  11 Jan 2025 16:24
 {txt}{hline}
 Variable      Storage   Display    Value
     name         type    format    label      Variable label
@@ -1490,6 +877,7 @@ Variable      Storage   Display    Value
 {p 0 48}{space 44}{bind:  }{res}{res}occupation (1-10){p_end}
 {p 0 48}{bind:industry       }{txt}{bind: byte    }{bind:%41.0g    }{space 1}{bind:industry }{bind:  }{res}{res}industry (1-11){p_end}
 {p 0 48}{bind:grade          }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}education (years){p_end}
+{p 0 48}{bind:max_val        }{txt}{bind: float   }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
 {p 0 48}{bind:topcode        }{txt}{bind: byte    }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}top-coded earnweek (1=yes, 0=no){p_end}
 {txt}{hline}
 Sorted by: 
@@ -1517,30 +905,31 @@ Sorted by:
 {txt}{space 6}earnwt {c |}{res}  6,738,088    8652.169    5093.023      90.01   209103.1
 {txt}{hline 13}{c +}{hline 57}
 {space 4}qearnwee {c |}{res}  4,437,930    1.275338    1.864099          0          4
-{txt}{space 4}hourwage {c |}{res}  3,958,207    12.89962    8.767912        .01      99.99
+{txt}{space 4}hourwage {c |}{res}  3,942,601    12.85596     8.72543        .01      99.99
 {txt}{space 4}paidhour {c |}{res}  6,738,088    1.587672    .4922536          1          2
 {txt}{space 7}union {c |}{res}  6,517,337    1.172239    .4198614          1          3
-{txt}{space 4}earnweek {c |}{res}  6,729,502    685.1702    606.4801          0      11960
+{txt}{space 4}earnweek {c |}{res}  6,701,139    710.0568    5298.886        .01    1000000
 {txt}{hline 13}{c +}{hline 57}
 {space 1}uhrsworkorg {c |}{res}  2,914,349    36.77634    9.983109          1         99
 {txt}{space 6}female {c |}{res}  6,738,088    .4877906    .4998509          0          1
-{txt}paidhour_d~y {c |}{res}  6,738,088    .5876722    .4922536          0          1
+{txt}paidhour_d~y {c |}{res}  6,738,088    .4123278    .4922536          0          1
 {txt}{space 3}race_orig {c |}{res}  6,738,088    142.7038    133.6738        100        830
 {txt}{space 1}race_recode {c |}{res}  6,738,088    1.298572    .8411194          1          6
 {txt}{hline 13}{c +}{hline 57}
 {space 2}occupation {c |}{res}  6,738,088    3.936502     2.59726          1          9
 {txt}{space 4}industry {c |}{res}  6,738,088    6.976406    2.776901          1         11
 {txt}{space 7}grade {c |}{res}  6,738,088    13.49376    2.614426          0         18
-{txt}{space 5}topcode {c |}{res}  6,738,088           0           0          0          0
+{txt}{space 5}max_val {c |}{res}          1     1000000           .    1000000    1000000
+{txt}{space 5}topcode {c |}{res}  6,738,088    .0278238    .1644677          0          1
 {txt}
 {com}. 
-. ***end part C
+. *** End part C
 . 
 . log close
       {txt}name:  {res}<unnamed>
        {txt}log:  {res}C:\Users\melin\OneDrive\ECO 727\Analysis\Exercise_2_Rueda.smcl
   {txt}log type:  {res}smcl
- {txt}closed on:  {res} 7 Jan 2025, 18:24:48
+ {txt}closed on:  {res}11 Jan 2025, 16:24:20
 {txt}{.-}
 {smcl}
 {txt}{sf}{ul off}

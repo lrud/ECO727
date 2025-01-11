@@ -135,7 +135,7 @@ twoway (line mean year, lcolor(blue)) ///
        xtitle(Year) xlabel(1980(10)2020) xtick(1985(5)2015) ///
        ytitle("Real Weekly Wage (November 2024 dollars)") ylabel(, noticks) ///
        legend(label(1 "Mean") label(2 "10th Percentile") label(3 "50th Percentile") label(4 "90th Percentile")) ///
-       scheme(s2color) name(g1, replace)
+       scheme(Wide727Scheme) name(g1, replace)
 
 *export the mean and percentiles plot
 graph export "./Results/mean_percentiles.png", width(600) replace

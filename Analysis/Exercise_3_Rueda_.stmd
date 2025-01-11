@@ -13,13 +13,302 @@
 
 ### Preliminaries
 
-            cd "~/OneDrive/ECO 727/Analysis"
-            set scheme s2color
-            global ex=3
-            global lname="Rueda"
-            global endyear=2024
-            global month=11
+        cd "~/OneDrive/ECO 727/Analysis"
+        set scheme s2color
+        global ex=3
+        global lname="Rueda"
+        global endyear=2024
+        global month=11
 
 ---
 
-### Appending CPI Data into 
+### Appending CPS_ORG Data Files
+
+The three CPS_ORG data files (`morg79.dta`, `morg80.dta`, `morg81.dta`) are appended into a single dataset. The following variables are retained:  
+- `year`, `intmonth`, `minsamp`, `classer`, `esr`, `age`, `race`, `sex`, `gradeat`, `uhours`, `earnwke`, `earnwt`.
+
+        append using "../Data/morg79.dta" "../Data/morg80.dta" "../Data/morg81.dta", ///
+            keep(year intmonth minsamp classer esr age race sex gradeat uhours earnwke earnwt)  
+
+- The dataset combines data from 1979, 1980, and 1981, retaining key variables for wage and employment analysis.
+- Labels such as `prunecat`, `ptstat`, and `ftpt79` were already defined, ensuring consistency across years.
+- The appended dataset contains **507,612 observations**, providing a robust sample for analysis.
+
+---
+
+### Renaming Variables
+
+Variables are renamed for consistency with IPUMS data:
+- `intmonth` → `month`
+- `minsamp` → `inmonth`
+
+        rename intmonth month
+        rename minsamp inmonth
+
+- Renaming variables ensures compatibility with IPUMS naming conventions. 
+- This step simplifies data manipulation and merging in subsequent analyses.
+
+---
+
+### Filtering the Data
+
+The dataset is filtered to include individuals aged 18–64 who are employed (`esr == 1`) and work in the private or public sector (`classer == 1 | classer == 2`).
+
+        keep if age >= 18 & age <= 64 & esr == 1 & (classer == 1 | classer == 2)
+
+**570,719 observations** were deleted, focusing the analysis on working-age individuals in relevant employment sectors. The final dataset contains **507,612 observations**, ensuring a representative sample for wage and employment analysis.
+
+---
+
+### Describe and Summarize Data
+
+The dataset is described and summarized, with a focus on the `earnwke` variable.
+
+        describe
+        summarize earnwke, detail
+        tab year if missing(earnwke)
+
+- The dataset contains **507,612 observations** and **12 variables**, including key metrics like weekly earnings (`earnwke`). 
+- The mean weekly earnings is **$268.47**, with a standard deviation of **$170.40**, indicating significant variability in wages. 
+- Missing values for `earnwke` are observed in **13,752 cases**, primarily in years **1979**, **1980**, and **1981**, which may reflect data collection issues in early survey years.
+
+---
+
+### Part B: Import and Reshape CPI Data
+
+#### Import CPI Data
+
+CPI data is imported from an Excel file (`SeriesReport-20250109185653_d21c9e.xlsx`).
+
+        import excel "../Data/SeriesReport-20250109185653_d21c9e.xlsx", cellrange(A12:O124) firstrow clear
+
+- The CPI dataset contains **112 observations** and **15 variables**, covering monthly CPI values from **1913 to 2024**. 
+- This dataset provides the necessary inflation adjustments to convert nominal wages into real wages.
+
+---
+
+#### Rename Variables
+
+Variables are renamed to facilitate reshaping:
+- `Year` → `year`
+- Month columns (`Jan`, `Feb`, etc.) are renamed to `v1`, `v2`, ..., `v12`.
+
+        rename Year year
+        rename Jan v1
+        rename Feb v2
+        rename Mar v3
+        rename Apr v4
+        rename May v5
+        rename Jun v6
+        rename Jul v7
+        rename Aug v8
+        rename Sep v9
+        rename Oct v10
+        rename Nov v11
+        rename Dec v12
+
+- Renaming variables simplifies the reshaping process by standardizing column names. 
+- This step ensures compatibility with Stata's `reshape` command.
+
+---
+
+#### Reshape Data
+
+The CPI data is reshaped from wide to long format, with `month` as the time variable.
+
+        reshape long v, i(year) j(month)
+        rename v cpi
+
+- The reshaped CPI dataset contains **1,344 observations** and **3 variables** (`year`, `month`, `cpi`). 
+- This long format is essential for merging CPI data with CPS_ORG data by `year` and `month`.
+
+---
+
+#### Label Variables
+
+Month and CPI variables are labeled for clarity.
+
+        label define months 1 "Jan" 2 "Feb" 3 "Mar" 4 "Apr" 5 "May" 6 "Jun" ///
+            7 "Jul" 8 "Aug" 9 "Sep" 10 "Oct" 11 "Nov" 12 "Dec"
+        label values month months
+        label variable year "Year"
+        label variable month "Month"
+        label variable cpi "Consumer Price Index (CPI)"
+
+- Labeling variables improves readability and ensures clarity in analysis outputs. 
+- The CPI variable is formatted to two decimal places, enhancing precision in inflation adjustments.
+
+---
+
+#### Save and Summarize Reshaped Data
+
+The reshaped CPI data is saved and summarized.
+
+        save "../Data/CPI_data.dta", replace
+        describe
+        summarize
+
+The reshaped CPI dataset contains **1,344 observations**, with CPI values ranging from **9.7 to 315.664**. 
+The mean CPI value is **89.11**, reflecting the long-term trend of inflation over the study period.
+
+---
+
+### Part C: Merge CPS_ORG and CPI Data
+
+#### Load and Sort CPS_ORG Data
+
+The cleaned CPS_ORG dataset is loaded and sorted by `year` and `month`.
+
+        use "../Data/CPS ORGs, 1982-2024, Cleaned.dta", clear
+        sort year month
+        describe
+
+- The CPS_ORG dataset contains **6,738,088 observations** and **30 variables**, providing a comprehensive sample for wage analysis. 
+- Sorting by `year` and `month` ensures proper alignment with CPI data during merging.
+
+---
+
+#### Merge with CPI Data
+
+A many-to-one merge is performed using `year` and `month` as keys.
+
+        merge m:1 year month using "../Data/CPI_data.dta", keep(match)
+        tabulate _merge
+        drop _merge
+
+- All **6,738,088 observations** were successfully matched, confirming the accuracy of the merge. 
+- No observations were dropped, ensuring the integrity of the merged dataset.
+
+---
+
+#### Create Real Weekly Wage Variable
+
+A real weekly wage variable (`rwage`) is created, adjusted for inflation using the CPI value for November 2024.
+
+        summarize cpi if year == $endyear & month == $month, meanonly
+        scalar cpi_nov2024 = r(mean)
+        generate rwage = (earnweek * cpi_nov2024) / cpi
+        label variable rwage "Real weekly wage in November 2024 dollars"
+
+- The CPI value for November 2024 is **315.493**, serving as the base for inflation adjustments. 
+- The `rwage` variable has **36,949 missing values**, primarily due to missing `earnweek` values in the original dataset.
+
+---
+
+#### Save and Summarize Merged Data
+
+The merged dataset is saved and summarized.
+
+        save "../Data/CPS-ORG with CPI, 1982-2024.dta", replace
+        describe
+        summarize
+
+- The mean real weekly wage (`rwage`) is **$1,173.28**, reflecting wage levels adjusted for inflation. 
+- The dataset contains **6,738,088 observations**, providing a robust sample for analyzing wage trends over time.
+
+---
+
+### Part D: Analyze Wage Percentiles and Inequality
+
+#### Collapse Data to Annual Statistics
+
+The dataset is collapsed to annual statistics, calculating the mean, 10th, 50th, and 90th percentiles of real weekly wages.
+
+        collapse (mean) mean = rwage (p10) p10 = rwage (p50) p50 = rwage (p90) p90 = rwage ///
+            [weight=earnwt], by(year)
+
+- The collapse operation aggregates data to annual statistics, simplifying the analysis of wage trends. 
+- Weighting by `earnwt` ensures that the statistics reflect the representativeness of the sample.
+
+---
+
+#### Create Log Difference Variable
+
+A log difference variable (`ldiff`) is created to measure wage inequality.
+
+        generate ldiff = 100 * (log(p90) - log(p10))
+
+- The `ldiff` variable quantifies wage inequality by measuring the percentage difference between the 90th and 10th percentiles. 
+- This metric provides a clear indicator of wage dispersion over time.
+
+---
+
+#### Save and Summarize Collapsed Data
+
+The collapsed dataset is saved and summarized.
+
+        save "../Data/CPS-ORG, Wage Percentiles, 1982-2024.dta", replace
+        describe
+        summarize
+
+- The mean real weekly wage increased from **$1,005.50** in 1982 to **$2,552.40** in 2024, reflecting long-term wage growth. 
+- The log difference (`ldiff`) increased from **173.18** in 1982 to **199.87** in 2024, indicating rising wage inequality.
+
+---
+
+#### Plot Mean and Percentiles Over Time
+
+A line plot is created to visualize the mean and percentiles of real weekly wages over time.
+
+        twoway (line mean year, lcolor(blue)) ///
+               (line p10 year, lcolor(red)) ///
+               (line p50 year, lcolor(green)) ///
+               (line p90 year, lcolor(orange)), ///
+               xtitle(Year) xlabel(1980(10)2020) xtick(1985(5)2015) ///
+               ytitle("Real Weekly Wage (November 2024 dollars)") ylabel(, noticks) ///
+               legend(label(1 "Mean") label(2 "10th Percentile") label(3 "50th Percentile") label(4 "90th Percentile")) ///
+               scheme(Wide727Scheme) name(g1, replace)
+        graph export "./Results/mean_percentiles.png", width(600) replace
+
+- The plot shows steady growth in real wages across all percentiles, with the 90th percentile growing faster than the 10th percentile. 
+- This visualizes the widening wage gap over the study period.
+
+**Graph: Mean and Percentiles of Real Weekly Wages Over Time**
+
+![Mean and Percentiles](./Results/mean_percentiles.png)
+
+---
+
+#### Plot Log Difference Over Time
+
+A line plot is created to visualize the log difference (`ldiff`) over time.
+
+        twoway (line ldiff year, lcolor(blue)), ///
+               xtitle(Year) xlabel(1980(10)2020) xtick(1985(5)2015) ///
+               ytitle("Log Difference (ldiff)") ylabel(, noticks) ///
+               scheme(s2color) name(g2, replace)
+        graph export "./Results/ldiff.png", width(600) replace
+
+- The plot highlights the increasing trend in wage inequality, as measured by the log difference between the 90th and 10th percentiles. 
+- This trend underscores the growing disparity in wage growth across income groups.
+
+**Graph: Log Difference Over Time**
+
+![Log Difference](./Results/ldiff.png)
+
+---
+
+### Key Findings
+
+- **Real Wages**:  
+  - The mean real weekly wage increased from **$1,005.50** in 1982 to **$2,552.40** in 2024, reflecting significant wage growth over four decades.  
+  - However, the 90th percentile grew faster than the 10th percentile, indicating rising wage inequality.
+
+- **Wage Inequality**:  
+  - The log difference (`ldiff`) between the 90th and 10th percentiles increased from **173.18** in 1982 to **199.87** in 2024.  
+  - This trend highlights the growing disparity in wage growth, with higher earners benefiting more from economic growth.
+
+---
+
+### Saving the Final Dataset
+
+        compress
+        save "../Data/CPS-ORG, Wage Percentiles, 1982-2024.dta", replace
+        describe
+        summarize
+
+---
+
+### Conclusion
+
+This analysis merges CPS_ORG and CPI data to examine trends in real weekly wages and wage inequality from 1982 to 2024. The results highlight significant increases in wage inequality over time, as measured by the log difference between the 90th and 10th percentiles. The findings underscore the importance of policies addressing wage disparities to ensure equitable economic growth.

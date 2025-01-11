@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Exercise_3_Rueda_</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+<style>
+/* CSS for Markstat 2.0 using Pandoc 2.0 */
+body{padding:14px 28px; max-width:45em;}
+body, table {font-family: Helvetica, Arial, Sans-serif; font-size: 14px;}
+h1, h2, h3, h4 {font-weight: normal; color: #3366cc}
+h1 {font-size: 200%;}
+h2 {font-size: 150%;}
+h3 {font-size: 120%;}
+h4 {font-size: 100%; font-weight:bold}
+img.center {display:block; margin-left:auto; margin-right:auto}
+.small{font-size:8pt;}
+a {color: black;}
+a:visited {color: #808080;}
+a.plain {text-decoration:none;}
+a.plain:hover {text-decoration:underline;}
+.em {font-weight:bold;}
+pre, code {font-family: "lucida console", monospace;}
+pre.stata {font-size:13px; line-height:13px;}
+pre {padding:8px; border:1px solid #c0c0c0; border-radius:8px; background-color:#fdfdfd;}
+code {color:#3366cc; background-color:#fafafa;}
+pre code { color:black; background-color:white}
+/* Added for Pandoc */
+figure > img, div.figure > img {display:block; margin:auto}
+figcaption, p.caption {text-align:center; font-weight:bold; color:#3366cc;}
+h1.title {text-align:center; margin-bottom:0}
+p.author, h2.author {font-style:italic; text-align:center;margin-top:4px;margin-bottom:0}
+p.date, h3.date {text-align:center;margin-top:4px; margin-bottom:0}
+/* Tables*/
+table { margin:auto; border-collapse:collapse; }
+table caption { margin-bottom:1ex;}
+td {padding:0 0 0 0} /* override */
+table:not([class]) th { padding:4px 6px } 
+table:not([class]) td { padding:4px 6px } 
+table:not([class]) thead tr:first-child th {border-top:1px solid black; padding-top:6px}
+table:not([class]) thead tr:last-child  th {padding-bottom:6px}
+table:not([class]) tbody tr:first-child td {border-top:1px solid black; padding-top:6px}
+table:not([class]) tbody tr:last-child  td {padding-bottom:6px;}
+table:not([class]) tbody:last-child tr:last-child td {border-bottom:1px solid black;}
+</style>
+</head>
+<body>
+<h2 id="exercise-3-cps_org-cpi-data-analysis">Exercise 3: CPS_ORG + CPI
+Data Analysis</h2>
+<hr />
+<h3 id="plan">Plan</h3>
+<ul>
+<li><strong>Data Preparation</strong>: Appending and cleaning CPS-ORG
+data.</li>
+<li><strong>CPI Data Import and Reshaping</strong>: Importing and
+reshaping CPI data for merging.</li>
+<li><strong>Data Merge and Real Wage Calculation</strong>: Merging
+CPS-ORG and CPI data, and calculating real weekly wages.</li>
+<li><strong>Wage Inequality Analysis</strong>: Collapsing data to annual
+statistics and generating plots.</li>
+</ul>
+<hr />
+<h3 id="preliminaries">Preliminaries</h3>
+<pre class='stata'>.     cd "~/OneDrive/ECO 727/Analysis"
+C:\Users\melin\OneDrive\ECO 727\Analysis
+
+.     set scheme s2color
+
+.     global ex=3
+
+.     global lname="Rueda"
+
+.     global endyear=2024
+
+.     global month=11
+</pre>
+<hr />
+<h3 id="appending-cps_org-data-files">Appending CPS_ORG Data Files</h3>
+<p>The three CPS_ORG data files (<code>morg79.dta</code>,
+<code>morg80.dta</code>, <code>morg81.dta</code>) are appended into a
+single dataset. The following variables are retained:<br />
+- <code>year</code>, <code>intmonth</code>, <code>minsamp</code>,
+<code>classer</code>, <code>esr</code>, <code>age</code>,
+<code>race</code>, <code>sex</code>, <code>gradeat</code>,
+<code>uhours</code>, <code>earnwke</code>, <code>earnwt</code>.</p>
+<pre class='stata'>.     append using "../Data/morg79.dta" "../Data/morg80.dta" "../Data/morg81.dta", ///
+>         keep(year intmonth minsamp classer esr age race sex gradeat uhours earnwke earn
+> wt)  
+(label prunecat already defined)
+(label ptstat already defined)
+(label ftpt79 already defined)
+(label why35lw already defined)
+(label absentlw already defined)
+(label reasonlw already defined)
+(label uhours35 already defined)
+(label doinglw already defined)
+(label activlwr already defined)
+(label eligible already defined)
+(label docc70 already defined)
+(label dind already defined)
+(label ind70 already defined)
+(label esr already defined)
+(label classer already defined)
+(label class already defined)
+(label I25d already defined)
+(label I25c already defined)
+(label I25b already defined)
+(label I25a already defined)
+(label paidhre already defined)
+(label paidhr already defined)
+(label relahh already defined)
+(label gradecp already defined)
+(label veteran already defined)
+(label marital already defined)
+(label ethnic already defined)
+(label race already defined)
+(label sex already defined)
+(label smsarank already defined)
+(label smsa70 already defined)
+(label centcity already defined)
+(label smsastat already defined)
+(label state already defined)
+(label intmonth already defined)
+(label minsamp already defined)
+(label prunecat already defined)
+(label ptstat already defined)
+(label ftpt79 already defined)
+(label why35lw already defined)
+(label absentlw already defined)
+(label reasonlw already defined)
+(label uhours35 already defined)
+(label doinglw already defined)
+(label activlwr already defined)
+(label eligible already defined)
+(label docc70 already defined)
+(label dind already defined)
+(label ind70 already defined)
+(label esr already defined)
+(label classer already defined)
+(label class already defined)
+(label I25d already defined)
+(label I25c already defined)
+(label I25b already defined)
+(label I25a already defined)
+(label paidhre already defined)
+(label paidhr already defined)
+(label relahh already defined)
+(label gradecp already defined)
+(label veteran already defined)
+(label marital already defined)
+(label ethnic already defined)
+(label race already defined)
+(label sex already defined)
+(label smsarank already defined)
+(label smsa70 already defined)
+(label centcity already defined)
+(label smsastat already defined)
+(label state already defined)
+(label intmonth already defined)
+(label minsamp already defined)
+</pre>
+<ul>
+<li>The dataset combines data from 1979, 1980, and 1981, retaining key
+variables for wage and employment analysis.</li>
+<li>Labels such as <code>prunecat</code>, <code>ptstat</code>, and
+<code>ftpt79</code> were already defined, ensuring consistency across
+years.</li>
+<li>The appended dataset contains <strong>507,612 observations</strong>,
+providing a robust sample for analysis.</li>
+</ul>
+<hr />
+<h3 id="renaming-variables">Renaming Variables</h3>
+<p>Variables are renamed for consistency with IPUMS data: -
+<code>intmonth</code> → <code>month</code> - <code>minsamp</code> →
+<code>inmonth</code></p>
+<pre class='stata'>.     rename intmonth month
+
+.     rename minsamp inmonth
+</pre>
+<ul>
+<li>Renaming variables ensures compatibility with IPUMS naming
+conventions.</li>
+<li>This step simplifies data manipulation and merging in subsequent
+analyses.</li>
+</ul>
+<hr />
+<h3 id="filtering-the-data">Filtering the Data</h3>
+<p>The dataset is filtered to include individuals aged 18–64 who are
+employed (<code>esr == 1</code>) and work in the private or public
+sector (<code>classer == 1 | classer == 2</code>).</p>
+<pre class='stata'>.     keep if age >= 18 &amp; age &lt;= 64 &amp; esr == 1 &amp; (classer == 1 | classer == 2)
+(570,762 observations deleted)
+</pre>
+<p><strong>570,719 observations</strong> were deleted, focusing the
+analysis on working-age individuals in relevant employment sectors. The
+final dataset contains <strong>507,612 observations</strong>, ensuring a
+representative sample for wage and employment analysis.</p>
+<hr />
+<h3 id="describe-and-summarize-data">Describe and Summarize Data</h3>
+<p>The dataset is described and summarized, with a focus on the
+<code>earnwke</code> variable.</p>
+<pre class='stata'>.     describe
+
+Contains data from ../Data/CPS-ORG, Wage Percentiles, 1982-2024.dta
+ Observations:       507,612                  
+    Variables:            17                  11 Jan 2025 17:01
+─────────────────────────────────────────────────────────────────────────────────────────
+Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+─────────────────────────────────────────────────────────────────────────────────────────
+year            int     %8.0g                 survey year
+mean            float   %9.0g                 (mean) rwage
+p10             float   %9.0g                 (p 10) rwage
+p50             float   %9.0g                 (p 50) rwage
+p90             float   %9.0g                 (p 90) rwage
+ldiff           float   %9.0g                 
+inmonth         byte    %8.0g      minsamp    Month in sample (4 &amp; 8 are departing)
+month           byte    %9.0g      intmonth   Interview month
+classer         byte    %38.0g     classer    (e&amp;r) Class of worker
+age             byte    %8.0g                 Age
+race            byte    %8.0g      race       Race
+sex             byte    %8.0g      sex        Sex
+gradeat         byte    %8.0g                 Highest grade attended
+esr             byte    %24.0g     esr        Employment status recode
+uhours          byte    %8.0g                 (dp) Usual hours
+earnwt          float   %9.0g                 (dp) Earnings weight for all races x100
+earnwke         int     %8.0g                 (e&amp;dp) Earnings per week
+─────────────────────────────────────────────────────────────────────────────────────────
+Sorted by: 
+     Note: Dataset has changed since last saved.
+
+.     summarize earnwke, detail
+
+                  (e&amp;dp) Earnings per week
+─────────────────────────────────────────────────────────────
+      Percentiles      Smallest
+ 1%           25              0
+ 5%           60              0
+10%           95              0       Obs             493,860
+25%          150              0       Sum of wgt.     493,860
+
+50%          232                      Mean           268.4735
+                        Largest       Std. dev.      170.4047
+75%          350            999
+90%          490            999       Variance       29037.76
+95%          600            999       Skewness       1.454784
+99%          900            999       Kurtosis       6.037416
+
+.     tab year if missing(earnwke)
+
+survey year │      Freq.     Percent        Cum.
+────────────┼───────────────────────────────────
+       1979 │      4,029       29.30       29.30
+       1980 │      4,849       35.26       64.56
+       1981 │      4,874       35.44      100.00
+────────────┼───────────────────────────────────
+      Total │     13,752      100.00
+</pre>
+<ul>
+<li>The dataset contains <strong>507,612 observations</strong> and
+<strong>12 variables</strong>, including key metrics like weekly
+earnings (<code>earnwke</code>).</li>
+<li>The mean weekly earnings is <strong>$268.47</strong>, with a
+standard deviation of <strong>$170.40</strong>, indicating significant
+variability in wages.</li>
+<li>Missing values for <code>earnwke</code> are observed in
+<strong>13,752 cases</strong>, primarily in years <strong>1979</strong>,
+<strong>1980</strong>, and <strong>1981</strong>, which may reflect data
+collection issues in early survey years.</li>
+</ul>
+<hr />
+<h3 id="part-b-import-and-reshape-cpi-data">Part B: Import and Reshape
+CPI Data</h3>
+<h4 id="import-cpi-data">Import CPI Data</h4>
+<p>CPI data is imported from an Excel file
+(<code>SeriesReport-20250109185653_d21c9e.xlsx</code>).</p>
+<pre class='stata'>.     import excel "../Data/SeriesReport-20250109185653_d21c9e.xlsx", cellrange(A12:O124)
+>  firstrow clear
+(15 vars, 112 obs)
+</pre>
+<ul>
+<li>The CPI dataset contains <strong>112 observations</strong> and
+<strong>15 variables</strong>, covering monthly CPI values from
+<strong>1913 to 2024</strong>.</li>
+<li>This dataset provides the necessary inflation adjustments to convert
+nominal wages into real wages.</li>
+</ul>
+<hr />
+<h4 id="rename-variables">Rename Variables</h4>
+<p>Variables are renamed to facilitate reshaping: - <code>Year</code> →
+<code>year</code> - Month columns (<code>Jan</code>, <code>Feb</code>,
+etc.) are renamed to <code>v1</code>, <code>v2</code>, …,
+<code>v12</code>.</p>
+<pre class='stata'>.     rename Year year
+
+.     rename Jan v1
+
+.     rename Feb v2
+
+.     rename Mar v3
+
+.     rename Apr v4
+
+.     rename May v5
+
+.     rename Jun v6
+
+.     rename Jul v7
+
+.     rename Aug v8
+
+.     rename Sep v9
+
+.     rename Oct v10
+
+.     rename Nov v11
+
+.     rename Dec v12
+</pre>
+<ul>
+<li>Renaming variables simplifies the reshaping process by standardizing
+column names.</li>
+<li>This step ensures compatibility with Stata’s <code>reshape</code>
+command.</li>
+</ul>
+<hr />
+<h4 id="reshape-data">Reshape Data</h4>
+<p>The CPI data is reshaped from wide to long format, with
+<code>month</code> as the time variable.</p>
+<pre class='stata'>.     reshape long v, i(year) j(month)
+(j = 1 2 3 4 5 6 7 8 9 10 11 12)
+
+Data                               Wide   ->   Long
+─────────────────────────────────────────────────────────────────────────────
+Number of observations              112   ->   1,344       
+Number of variables                  15   ->   5           
+j variable (12 values)                    ->   month
+xij variables:
+                          v1 v2 ... v12   ->   v
+─────────────────────────────────────────────────────────────────────────────
+
+.     rename v cpi
+</pre>
+<ul>
+<li>The reshaped CPI dataset contains <strong>1,344
+observations</strong> and <strong>3 variables</strong>
+(<code>year</code>, <code>month</code>, <code>cpi</code>).</li>
+<li>This long format is essential for merging CPI data with CPS_ORG data
+by <code>year</code> and <code>month</code>.</li>
+</ul>
+<hr />
+<h4 id="label-variables">Label Variables</h4>
+<p>Month and CPI variables are labeled for clarity.</p>
+<pre class='stata'>.     label define months 1 "Jan" 2 "Feb" 3 "Mar" 4 "Apr" 5 "May" 6 "Jun" ///
+>         7 "Jul" 8 "Aug" 9 "Sep" 10 "Oct" 11 "Nov" 12 "Dec"
+
+.     label values month months
+
+.     label variable year "Year"
+
+.     label variable month "Month"
+
+.     label variable cpi "Consumer Price Index (CPI)"
+</pre>
+<ul>
+<li>Labeling variables improves readability and ensures clarity in
+analysis outputs.</li>
+<li>The CPI variable is formatted to two decimal places, enhancing
+precision in inflation adjustments.</li>
+</ul>
+<hr />
+<h4 id="save-and-summarize-reshaped-data">Save and Summarize Reshaped
+Data</h4>
+<p>The reshaped CPI data is saved and summarized.</p>
+<pre class='stata'>.     save "../Data/CPI_data.dta", replace
+file ../Data/CPI_data.dta saved
+
+.     describe
+
+Contains data from ../Data/CPI_data.dta
+ Observations:         1,344                  
+    Variables:             5                  11 Jan 2025 17:03
+─────────────────────────────────────────────────────────────────────────────────────────
+Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+─────────────────────────────────────────────────────────────────────────────────────────
+year            int     %10.0g                Year
+month           byte    %10.0g     months     Month
+cpi             double  %10.0g                Consumer Price Index (CPI)
+HALF1           double  %10.0g                HALF1
+HALF2           double  %10.0g                HALF2
+─────────────────────────────────────────────────────────────────────────────────────────
+Sorted by: year  month
+
+.     summarize
+
+    Variable │        Obs        Mean    Std. dev.       Min        Max
+─────────────┼─────────────────────────────────────────────────────────
+        year │      1,344      1968.5    32.34236       1913       2024
+       month │      1,344         6.5    3.453337          1         12
+         cpi │      1,343    89.11085    87.39035        9.7    315.664
+       HALF1 │        492    192.0176    55.81083      102.9    312.145
+       HALF2 │        480    191.5161    53.80662      104.9    306.996
+</pre>
+<p>The reshaped CPI dataset contains <strong>1,344
+observations</strong>, with CPI values ranging from <strong>9.7 to
+315.664</strong>. The mean CPI value is <strong>89.11</strong>,
+reflecting the long-term trend of inflation over the study period.</p>
+<hr />
+<h3 id="part-c-merge-cps_org-and-cpi-data">Part C: Merge CPS_ORG and CPI
+Data</h3>
+<h4 id="load-and-sort-cps_org-data">Load and Sort CPS_ORG Data</h4>
+<p>The cleaned CPS_ORG dataset is loaded and sorted by <code>year</code>
+and <code>month</code>.</p>
+<pre class='stata'>.     use "../Data/CPS ORGs, 1982-2024, Cleaned.dta", clear
+
+.     sort year month
+
+.     describe
+
+Contains data from ../Data/CPS ORGs, 1982-2024, Cleaned.dta
+ Observations:     6,738,088                  
+    Variables:            30                  11 Jan 2025 16:24
+─────────────────────────────────────────────────────────────────────────────────────────
+Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+─────────────────────────────────────────────────────────────────────────────────────────
+year            int     %8.0g                 survey year
+month           byte    %8.0g      MONTH      month
+mish            byte    %8.0g      MISH       month in sample, household level
+region          byte    %8.0g      REGION     region and division
+cpsidv          double  %12.0g                validated longitudinal identifier
+age             byte    %8.0g      AGE        age
+sex             byte    %8.0g      SEX        sex
+race            int     %58.0g     RACE       race
+empstat         byte    %8.0g      EMPSTAT    employment status
+occ1950         int     %8.0g      OCC1950    occupation, 1950 basis
+ind1950         int     %8.0g      IND1950    industry, 1950 basis
+classwkr        byte    %8.0g      CLASSWKR   class of worker
+uhrswork1       int     %8.0g      UHRSWORK1
+                                              hours usually worked per week at main job
+educ            int     %8.0g      EDUC       educational attainment recode
+earnwt          double  %12.0g                earnings weight
+qearnwee        byte    %8.0g      QEARNWEE   data quality flag for earnweek
+hourwage        double  %12.0g     HOURWAGE   hourly wage
+paidhour        byte    %8.0g      PAIDHOUR   paid by the hour
+union           byte    %8.0g      UNION      union membership
+earnweek        double  %12.0g     EARNWEEK   weekly earnings
+uhrsworkorg     byte    %8.0g                 usual hours worked per week, outgoing
+                                                rotation groups
+female          byte    %9.0g                 female (1=yes, 0=no)
+paidhour_dummy  byte    %9.0g                 paid hourly (1=yes, 0=no)
+race_orig       int     %9.0g                 
+race_recode     byte    %22.0g     race_label
+                                              race - consistent coding across years
+occupation      byte    %32.0g     occupation
+                                              occupation (1-10)
+industry        byte    %41.0g     industry   industry (1-11)
+grade           float   %9.0g                 education (years)
+max_val         float   %9.0g                 
+topcode         byte    %9.0g                 top-coded earnweek (1=yes, 0=no)
+─────────────────────────────────────────────────────────────────────────────────────────
+Sorted by: year  month
+</pre>
+<ul>
+<li>The CPS_ORG dataset contains <strong>6,738,088 observations</strong>
+and <strong>30 variables</strong>, providing a comprehensive sample for
+wage analysis.</li>
+<li>Sorting by <code>year</code> and <code>month</code> ensures proper
+alignment with CPI data during merging.</li>
+</ul>
+<hr />
+<h4 id="merge-with-cpi-data">Merge with CPI Data</h4>
+<p>A many-to-one merge is performed using <code>year</code> and
+<code>month</code> as keys.</p>
+<pre class='stata'>.     merge m:1 year month using "../Data/CPI_data.dta", keep(match)
+
+    Result                      Number of obs
+    ─────────────────────────────────────────
+    Not matched                             0
+    Matched                         6,738,088  (_merge==3)
+    ─────────────────────────────────────────
+
+.     tabulate _merge
+
+   Matching result from │
+                  merge │      Freq.     Percent        Cum.
+────────────────────────┼───────────────────────────────────
+            Matched (3) │  6,738,088      100.00      100.00
+────────────────────────┼───────────────────────────────────
+                  Total │  6,738,088      100.00
+
+.     drop _merge
+</pre>
+<ul>
+<li>All <strong>6,738,088 observations</strong> were successfully
+matched, confirming the accuracy of the merge.</li>
+<li>No observations were dropped, ensuring the integrity of the merged
+dataset.</li>
+</ul>
+<hr />
+<h4 id="create-real-weekly-wage-variable">Create Real Weekly Wage
+Variable</h4>
+<p>A real weekly wage variable (<code>rwage</code>) is created, adjusted
+for inflation using the CPI value for November 2024.</p>
+<pre class='stata'>.     summarize cpi if year == $endyear &amp; month == $month, meanonly
+
+.     scalar cpi_nov2024 = r(mean)
+
+.     generate rwage = (earnweek * cpi_nov2024) / cpi
+(36,949 missing values generated)
+
+.     label variable rwage "Real weekly wage in November 2024 dollars"
+</pre>
+<ul>
+<li>The CPI value for November 2024 is <strong>315.493</strong>, serving
+as the base for inflation adjustments.</li>
+<li>The <code>rwage</code> variable has <strong>36,949 missing
+values</strong>, primarily due to missing <code>earnweek</code> values
+in the original dataset.</li>
+</ul>
+<hr />
+<h4 id="save-and-summarize-merged-data">Save and Summarize Merged
+Data</h4>
+<p>The merged dataset is saved and summarized.</p>
+<pre class='stata'>.     save "../Data/CPS-ORG with CPI, 1982-2024.dta", replace
+file ../Data/CPS-ORG with CPI, 1982-2024.dta saved
+
+.     describe
+
+Contains data from ../Data/CPS-ORG with CPI, 1982-2024.dta
+ Observations:     6,738,088                  
+    Variables:            34                  11 Jan 2025 17:03
+─────────────────────────────────────────────────────────────────────────────────────────
+Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+─────────────────────────────────────────────────────────────────────────────────────────
+year            int     %8.0g                 survey year
+month           byte    %8.0g      MONTH      month
+mish            byte    %8.0g      MISH       month in sample, household level
+region          byte    %8.0g      REGION     region and division
+cpsidv          double  %12.0g                validated longitudinal identifier
+age             byte    %8.0g      AGE        age
+sex             byte    %8.0g      SEX        sex
+race            int     %58.0g     RACE       race
+empstat         byte    %8.0g      EMPSTAT    employment status
+occ1950         int     %8.0g      OCC1950    occupation, 1950 basis
+ind1950         int     %8.0g      IND1950    industry, 1950 basis
+classwkr        byte    %8.0g      CLASSWKR   class of worker
+uhrswork1       int     %8.0g      UHRSWORK1
+                                              hours usually worked per week at main job
+educ            int     %8.0g      EDUC       educational attainment recode
+earnwt          double  %12.0g                earnings weight
+qearnwee        byte    %8.0g      QEARNWEE   data quality flag for earnweek
+hourwage        double  %12.0g     HOURWAGE   hourly wage
+paidhour        byte    %8.0g      PAIDHOUR   paid by the hour
+union           byte    %8.0g      UNION      union membership
+earnweek        double  %12.0g     EARNWEEK   weekly earnings
+uhrsworkorg     byte    %8.0g                 usual hours worked per week, outgoing
+                                                rotation groups
+female          byte    %9.0g                 female (1=yes, 0=no)
+paidhour_dummy  byte    %9.0g                 paid hourly (1=yes, 0=no)
+race_orig       int     %9.0g                 
+race_recode     byte    %22.0g     race_label
+                                              race - consistent coding across years
+occupation      byte    %32.0g     occupation
+                                              occupation (1-10)
+industry        byte    %41.0g     industry   industry (1-11)
+grade           float   %9.0g                 education (years)
+max_val         float   %9.0g                 
+topcode         byte    %9.0g                 top-coded earnweek (1=yes, 0=no)
+cpi             double  %10.0g                Consumer Price Index (CPI)
+HALF1           double  %10.0g                HALF1
+HALF2           double  %10.0g                HALF2
+rwage           float   %9.0g                 Real weekly wage in November 2024 dollars
+─────────────────────────────────────────────────────────────────────────────────────────
+Sorted by: 
+
+.     summarize
+
+    Variable │        Obs        Mean    Std. dev.       Min        Max
+─────────────┼─────────────────────────────────────────────────────────
+        year │  6,738,088    2002.068    12.10799       1982       2024
+       month │  6,738,088    6.505521    3.450084          1         12
+        mish │  6,738,088    6.003526    1.999997          4          8
+      region │  6,738,088    27.35454    10.74259         11         42
+      cpsidv │  6,738,088    2.00e+14    1.21e+12   1.98e+14   2.02e+14
+─────────────┼─────────────────────────────────────────────────────────
+         age │  6,738,088    39.04488    12.23483         18         64
+         sex │  6,738,088    1.487791    .4998509          1          2
+        race │  6,738,088    142.7038    133.6738        100        830
+     empstat │  6,738,088     10.0833    .3995664         10         12
+     occ1950 │  6,738,088    421.1817    267.7166          0        970
+─────────────┼─────────────────────────────────────────────────────────
+     ind1950 │  6,738,088    676.7314     222.289        105        936
+    classwkr │  6,738,088    22.68014    2.121586         13         28
+   uhrswork1 │  6,738,088    78.16546     189.717          0        997
+        educ │  6,738,088    86.05168    23.06105          2        125
+      earnwt │  6,738,088    8652.169    5093.023      90.01   209103.1
+─────────────┼─────────────────────────────────────────────────────────
+    qearnwee │  4,437,930    1.275338    1.864099          0          4
+    hourwage │  3,942,601    12.85596     8.72543        .01      99.99
+    paidhour │  6,738,088    1.587672    .4922536          1          2
+       union │  6,517,337    1.172239    .4198614          1          3
+    earnweek │  6,701,139    710.0568    5298.886        .01    1000000
+─────────────┼─────────────────────────────────────────────────────────
+ uhrsworkorg │  2,914,349    36.77634    9.983109          1         99
+      female │  6,738,088    .4877906    .4998509          0          1
+paidhour_d~y │  6,738,088    .4123278    .4922536          0          1
+   race_orig │  6,738,088    142.7038    133.6738        100        830
+ race_recode │  6,738,088    1.298572    .8411194          1          6
+─────────────┼─────────────────────────────────────────────────────────
+  occupation │  6,738,088    3.936502     2.59726          1          9
+    industry │  6,738,088    6.976406    2.776901          1         11
+       grade │  6,738,088    13.49376    2.614426          0         18
+     max_val │          1     1000000           .    1000000    1000000
+     topcode │  6,738,088    .0278238    .1644677          0          1
+─────────────┼─────────────────────────────────────────────────────────
+         cpi │  6,738,088    184.1752    56.16483       94.3    315.664
+       HALF1 │  6,406,263    187.4282    53.69151      102.9    312.145
+       HALF2 │  6,301,062    187.7563     52.1793      104.9    306.996
+       rwage │  6,701,139    1173.275    5428.851   .0104871    1039985
+</pre>
+<ul>
+<li>The mean real weekly wage (<code>rwage</code>) is
+<strong>$1,173.28</strong>, reflecting wage levels adjusted for
+inflation.</li>
+<li>The dataset contains <strong>6,738,088 observations</strong>,
+providing a robust sample for analyzing wage trends over time.</li>
+</ul>
+<hr />
+<h3 id="part-d-analyze-wage-percentiles-and-inequality">Part D: Analyze
+Wage Percentiles and Inequality</h3>
+<h4 id="collapse-data-to-annual-statistics">Collapse Data to Annual
+Statistics</h4>
+<p>The dataset is collapsed to annual statistics, calculating the mean,
+10th, 50th, and 90th percentiles of real weekly wages.</p>
+<pre class='stata'>.     collapse (mean) mean = rwage (p10) p10 = rwage (p50) p50 = rwage (p90) p90 = rwage 
+> ///
+>         [weight=earnwt], by(year)
+(analytic weights assumed)
+</pre>
+<ul>
+<li>The collapse operation aggregates data to annual statistics,
+simplifying the analysis of wage trends.</li>
+<li>Weighting by <code>earnwt</code> ensures that the statistics reflect
+the representativeness of the sample.</li>
+</ul>
+<hr />
+<h4 id="create-log-difference-variable">Create Log Difference
+Variable</h4>
+<p>A log difference variable (<code>ldiff</code>) is created to measure
+wage inequality.</p>
+<pre class='stata'>.     generate ldiff = 100 * (log(p90) - log(p10))
+</pre>
+<ul>
+<li>The <code>ldiff</code> variable quantifies wage inequality by
+measuring the percentage difference between the 90th and 10th
+percentiles.</li>
+<li>This metric provides a clear indicator of wage dispersion over
+time.</li>
+</ul>
+<hr />
+<h4 id="save-and-summarize-collapsed-data">Save and Summarize Collapsed
+Data</h4>
+<p>The collapsed dataset is saved and summarized.</p>
+<pre class='stata'>.     save "../Data/CPS-ORG, Wage Percentiles, 1982-2024.dta", replace
+file ../Data/CPS-ORG, Wage Percentiles, 1982-2024.dta saved
+
+.     describe
+
+Contains data from ../Data/CPS-ORG, Wage Percentiles, 1982-2024.dta
+ Observations:            43                  
+    Variables:             6                  11 Jan 2025 17:03
+─────────────────────────────────────────────────────────────────────────────────────────
+Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+─────────────────────────────────────────────────────────────────────────────────────────
+year            int     %8.0g                 survey year
+mean            float   %9.0g                 (mean) rwage
+p10             float   %9.0g                 (p 10) rwage
+p50             float   %9.0g                 (p 50) rwage
+p90             float   %9.0g                 (p 90) rwage
+ldiff           float   %9.0g                 
+─────────────────────────────────────────────────────────────────────────────────────────
+Sorted by: year
+
+.     summarize
+
+    Variable │        Obs        Mean    Std. dev.       Min        Max
+─────────────┼─────────────────────────────────────────────────────────
+        year │         43        2003    12.55654       1982       2024
+        mean │         43    1197.447     285.103   1005.497   2552.402
+         p10 │         43    352.2906    30.33549   315.8152   423.4635
+         p50 │         43    936.0295    54.03644   863.1819   1071.522
+         p90 │         43    2242.487    256.1653   1828.463   2749.459
+─────────────┼─────────────────────────────────────────────────────────
+       ldiff │         43     184.798    7.395727   173.1777   199.8685
+</pre>
+<ul>
+<li>The mean real weekly wage increased from <strong>$1,005.50</strong>
+in 1982 to <strong>$2,552.40</strong> in 2024, reflecting long-term wage
+growth.</li>
+<li>The log difference (<code>ldiff</code>) increased from
+<strong>173.18</strong> in 1982 to <strong>199.87</strong> in 2024,
+indicating rising wage inequality.</li>
+</ul>
+<hr />
+<h4 id="plot-mean-and-percentiles-over-time">Plot Mean and Percentiles
+Over Time</h4>
+<p>A line plot is created to visualize the mean and percentiles of real
+weekly wages over time.</p>
+<pre class='stata'>.     twoway (line mean year, lcolor(blue)) ///
+>            (line p10 year, lcolor(red)) ///
+>            (line p50 year, lcolor(green)) ///
+>            (line p90 year, lcolor(orange)), ///
+>            xtitle(Year) xlabel(1980(10)2020) xtick(1985(5)2015) ///
+>            ytitle("Real Weekly Wage (November 2024 dollars)") ylabel(, noticks) ///
+>            legend(label(1 "Mean") label(2 "10th Percentile") label(3 "50th Percentile")
+>  label(4 "90th Percentile")) ///
+>            scheme(Wide727Scheme) name(g1, replace)
+
+.     graph export "./Results/mean_percentiles.png", width(600) replace
+file ./Results/mean_percentiles.png saved as PNG format
+</pre>
+<ul>
+<li>The plot shows steady growth in real wages across all percentiles,
+with the 90th percentile growing faster than the 10th percentile.</li>
+<li>This visualizes the widening wage gap over the study period.</li>
+</ul>
+<p><strong>Graph: Mean and Percentiles of Real Weekly Wages Over
+Time</strong></p>
+<figure>
+<img src="./Results/mean_percentiles.png" alt="Mean and Percentiles" />
+<figcaption aria-hidden="true">Mean and Percentiles</figcaption>
+</figure>
+<hr />
+<h4 id="plot-log-difference-over-time">Plot Log Difference Over
+Time</h4>
+<p>A line plot is created to visualize the log difference
+(<code>ldiff</code>) over time.</p>
+<pre class='stata'>.     twoway (line ldiff year, lcolor(blue)), ///
+>            xtitle(Year) xlabel(1980(10)2020) xtick(1985(5)2015) ///
+>            ytitle("Log Difference (ldiff)") ylabel(, noticks) ///
+>            scheme(s2color) name(g2, replace)
+
+.     graph export "./Results/ldiff.png", width(600) replace
+file ./Results/ldiff.png saved as PNG format
+</pre>
+<ul>
+<li>The plot highlights the increasing trend in wage inequality, as
+measured by the log difference between the 90th and 10th
+percentiles.</li>
+<li>This trend underscores the growing disparity in wage growth across
+income groups.</li>
+</ul>
+<p><strong>Graph: Log Difference Over Time</strong></p>
+<figure>
+<img src="./Results/ldiff.png" alt="Log Difference" />
+<figcaption aria-hidden="true">Log Difference</figcaption>
+</figure>
+<hr />
+<h3 id="key-findings">Key Findings</h3>
+<ul>
+<li><strong>Real Wages</strong>:
+<ul>
+<li>The mean real weekly wage increased from <strong>$1,005.50</strong>
+in 1982 to <strong>$2,552.40</strong> in 2024, reflecting significant
+wage growth over four decades.<br />
+</li>
+<li>However, the 90th percentile grew faster than the 10th percentile,
+indicating rising wage inequality.</li>
+</ul></li>
+<li><strong>Wage Inequality</strong>:
+<ul>
+<li>The log difference (<code>ldiff</code>) between the 90th and 10th
+percentiles increased from <strong>173.18</strong> in 1982 to
+<strong>199.87</strong> in 2024.<br />
+</li>
+<li>This trend highlights the growing disparity in wage growth, with
+higher earners benefiting more from economic growth.</li>
+</ul></li>
+</ul>
+<hr />
+<h3 id="saving-the-final-dataset">Saving the Final Dataset</h3>
+<pre class='stata'>.     compress
+  (0 bytes saved)
+
+.     save "../Data/CPS-ORG, Wage Percentiles, 1982-2024.dta", replace
+file ../Data/CPS-ORG, Wage Percentiles, 1982-2024.dta saved
+
+.     describe
+
+Contains data from ../Data/CPS-ORG, Wage Percentiles, 1982-2024.dta
+ Observations:            43                  
+    Variables:             6                  11 Jan 2025 17:03
+─────────────────────────────────────────────────────────────────────────────────────────
+Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+─────────────────────────────────────────────────────────────────────────────────────────
+year            int     %8.0g                 survey year
+mean            float   %9.0g                 (mean) rwage
+p10             float   %9.0g                 (p 10) rwage
+p50             float   %9.0g                 (p 50) rwage
+p90             float   %9.0g                 (p 90) rwage
+ldiff           float   %9.0g                 
+─────────────────────────────────────────────────────────────────────────────────────────
+Sorted by: year
+
+.     summarize
+
+    Variable │        Obs        Mean    Std. dev.       Min        Max
+─────────────┼─────────────────────────────────────────────────────────
+        year │         43        2003    12.55654       1982       2024
+        mean │         43    1197.447     285.103   1005.497   2552.402
+         p10 │         43    352.2906    30.33549   315.8152   423.4635
+         p50 │         43    936.0295    54.03644   863.1819   1071.522
+         p90 │         43    2242.487    256.1653   1828.463   2749.459
+─────────────┼─────────────────────────────────────────────────────────
+       ldiff │         43     184.798    7.395727   173.1777   199.8685
+</pre>
+<hr />
+<h3 id="conclusion">Conclusion</h3>
+<p>This analysis merges CPS_ORG and CPI data to examine trends in real
+weekly wages and wage inequality from 1982 to 2024. The results
+highlight significant increases in wage inequality over time, as
+measured by the log difference between the 90th and 10th percentiles.
+The findings underscore the importance of policies addressing wage
+disparities to ensure equitable economic growth.</p>
+</body>
+</html>

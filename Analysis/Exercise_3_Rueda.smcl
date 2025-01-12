@@ -1,9 +1,9 @@
 {smcl}
-{com}{sf}{ul off}{txt}{.-}
+{txt}{sf}{ul off}{.-}
       name:  {res}results
        {txt}log:  {res}C:\Users\melin\OneDrive\ECO 727\Analysis\Exercise_3_Rueda.smcl
   {txt}log type:  {res}smcl
- {txt}opened on:  {res}11 Jan 2025, 16:24:57
+ {txt}opened on:  {res}12 Jan 2025, 12:59:29
 {txt}
 {com}. set scheme s2color
 {txt}
@@ -254,7 +254,7 @@ saved
 
 {txt}Contains data from {res}../Data/CPI_data.dta
 {txt} Observations:{res}         1,344                  
-{txt}    Variables:{res}             3                  11 Jan 2025 16:24
+{txt}    Variables:{res}             3                  12 Jan 2025 12:59
 {txt}{hline}
 Variable      Storage   Display    Value
     name         type    format    label      Variable label
@@ -285,7 +285,7 @@ Sorted by: {res}year  month
 
 {txt}Contains data from {res}../Data/CPS ORGs, 1982-2024, Cleaned.dta
 {txt} Observations:{res}     6,738,088                  
-{txt}    Variables:{res}            30                  11 Jan 2025 16:24
+{txt}    Variables:{res}            30                  12 Jan 2025 12:58
 {txt}{hline}
 Variable      Storage   Display    Value
     name         type    format    label      Variable label
@@ -376,7 +376,7 @@ saved
 
 {txt}Contains data from {res}../Data/CPS-ORG with CPI, 1982-2024.dta
 {txt} Observations:{res}     6,738,088                  
-{txt}    Variables:{res}            32                  11 Jan 2025 16:24
+{txt}    Variables:{res}            32                  12 Jan 2025 12:59
 {txt}{hline}
 Variable      Storage   Display    Value
     name         type    format    label      Variable label
@@ -457,7 +457,7 @@ Sorted by:
 {txt}{space 4}industry {c |}{res}  6,738,088    6.976406    2.776901          1         11
 {txt}{space 7}grade {c |}{res}  6,738,088    13.49376    2.614426          0         18
 {txt}{space 5}max_val {c |}{res}          1     1000000           .    1000000    1000000
-{txt}{space 5}topcode {c |}{res}  6,738,088    .0278238    .1644677          0          1
+{txt}{space 5}topcode {c |}{res}  6,701,139    .0222844     .147607          0          1
 {txt}{hline 13}{c +}{hline 57}
 {space 9}cpi {c |}{res}  6,738,088    184.1752    56.16483       94.3    315.664
 {txt}{space 7}rwage {c |}{res}  6,701,139    1173.275    5428.851   .0104871    1039985
@@ -499,7 +499,7 @@ saved
 
 {txt}Contains data from {res}../Data/CPS-ORG, Wage Percentiles, 1982-2024.dta
 {txt} Observations:{res}            43                  
-{txt}    Variables:{res}             6                  11 Jan 2025 16:25
+{txt}    Variables:{res}             6                  12 Jan 2025 12:59
 {txt}{hline}
 Variable      Storage   Display    Value
     name         type    format    label      Variable label
@@ -573,7 +573,7 @@ format
       {txt}name:  {res}results
        {txt}log:  {res}C:\Users\melin\OneDrive\ECO 727\Analysis\Exercise_3_Rueda.smcl
   {txt}log type:  {res}smcl
- {txt}closed on:  {res}11 Jan 2025, 16:25:04
+ {txt}closed on:  {res}12 Jan 2025, 12:59:38
 {txt}{.-}
 {smcl}
 {txt}{sf}{ul off}

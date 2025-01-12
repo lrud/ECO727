@@ -3,7 +3,7 @@
       name:  {res}<unnamed>
        {txt}log:  {res}C:\Users\melin\OneDrive\ECO 727\Analysis\Exercise_2_Rueda.smcl
   {txt}log type:  {res}smcl
- {txt}opened on:  {res}11 Jan 2025, 16:23:55
+ {txt}opened on:  {res}12 Jan 2025, 12:58:00
 {txt}
 {com}. global ex=2
 {txt}
@@ -686,26 +686,26 @@
 {txt}
 {com}. 
 . * Identify topcoded values by period
-. replace topcode = 1 if earnweek >= 9999.99   // topcode for earnweek
-{txt}(38,148 real changes made)
-
-{com}. replace topcode = 1 if earnweek >= 999 & inrange(year, 1982, 1988) // 1982-1988
+. replace topcode = 1 if earnweek == 999  & inrange(year, 1982, 1988) // 1982-1988
 {txt}(34,917 real changes made)
 
-{com}. replace topcode = 1 if earnweek >= 1923 & inrange(year, 1989, 1997) // 1989-1997
+{com}. replace topcode = 1 if earnweek == 1923 & inrange(year, 1989, 1997) // 1989-1997
 {txt}(14,628 real changes made)
 
-{com}. replace topcode = 1 if earnweek >= 2884.61 & (inrange(year, 1998, 2022) | (year==2023 & month<=3)) // 1998-March 2023
-{txt}(96,492 real changes made)
+{com}. replace topcode = 1 if (earnweek == 2885 | earnweek == 2884.61) & inrange(year, 1998, 2022) // 1998-2022
+{txt}(94,369 real changes made)
 
-{com}. replace topcode = 1 if earnweek >= max_earnweek2 & ((year==2023 & month>=4) | (year==2024 & month<=3)) & mish==4 // April 2023-March 2024, MISH 4
+{com}. replace topcode = 1 if earnweek == 2884.61 & year == 2023 & month <= 3 & mish == 4 // April 2023-March 2024, MISH 4
+{txt}(1,008 real changes made)
+
+{com}. replace topcode = 1 if earnweek == 2884.61 & year == 2023 & mish == 8 // April 2023-March 2024, MISH 8
+{txt}(4,409 real changes made)
+
+{com}. replace topcode = 1 if earnweek == 2884.61 & year == 2024 & month <= 3 & mish == 8 // April 2023-March 2024, MISH 8
 {txt}(0 real changes made)
 
-{com}. replace topcode = 1 if earnweek >= 2884.61 & ((year==2023 & month>=4) | (year==2024 & month<=3)) & mish==8 // April 2023-March 2024, MISH 8
-{txt}(3,294 real changes made)
-
 {com}. replace topcode = 0 if missing(topcode) & !missing(earnweek)
-{txt}(6,550,609 real changes made)
+{txt}(6,551,808 real changes made)
 
 {com}. 
 . * Verify topcoding implementation
@@ -728,13 +728,13 @@
     survey {c |}     (1=yes, 0=no)
       year {c |}         0          1 {c |}     Total
 {hline 11}{c +}{hline 22}{c +}{hline 10}
-      2023 {c |}{res}   109,303      5,681 {txt}{c |}{res}   114,984 
-           {txt}{c |}{res}     59.03      16.22 {txt}{c |}{res}     52.22 
+      2023 {c |}{res}   109,540      5,417 {txt}{c |}{res}   114,957 
+           {txt}{c |}{res}     58.78     100.00 {txt}{c |}{res}     59.94 
 {txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
-      2024 {c |}{res}    75,862     29,339 {txt}{c |}{res}   105,201 
-           {txt}{c |}{res}     40.97      83.78 {txt}{c |}{res}     47.78 
+      2024 {c |}{res}    76,824          0 {txt}{c |}{res}    76,824 
+           {txt}{c |}{res}     41.22       0.00 {txt}{c |}{res}     40.06 
 {txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
-     Total {c |}{res}   185,165     35,020 {txt}{c |}{res}   220,185 
+     Total {c |}{res}   186,364      5,417 {txt}{c |}{res}   191,781 
            {txt}{c |}{res}    100.00     100.00 {txt}{c |}{res}    100.00 
 {txt}
 {com}. tab month topcode if year == 2024, col
@@ -746,45 +746,38 @@
 {c |}{space 1}{it:column percentage}{col 21}{c |}
 {c BLC}{hline 19}{c BRC}
 
-           {c |}  top-coded earnweek
-           {c |}     (1=yes, 0=no)
-     month {c |}         0          1 {c |}     Total
-{hline 11}{c +}{hline 22}{c +}{hline 10}
-   january {c |}{res}         0      9,729 {txt}{c |}{res}     9,729 
-           {txt}{c |}{res}      0.00      33.16 {txt}{c |}{res}      9.25 
-{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
-  february {c |}{res}         0      9,369 {txt}{c |}{res}     9,369 
-           {txt}{c |}{res}      0.00      31.93 {txt}{c |}{res}      8.91 
-{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
-     march {c |}{res}         0      9,279 {txt}{c |}{res}     9,279 
-           {txt}{c |}{res}      0.00      31.63 {txt}{c |}{res}      8.82 
-{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
-     april {c |}{res}     9,511         23 {txt}{c |}{res}     9,534 
-           {txt}{c |}{res}     12.54       0.08 {txt}{c |}{res}      9.06 
-{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
-       may {c |}{res}     9,628          7 {txt}{c |}{res}     9,635 
-           {txt}{c |}{res}     12.69       0.02 {txt}{c |}{res}      9.16 
-{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
-      june {c |}{res}     9,347        295 {txt}{c |}{res}     9,642 
-           {txt}{c |}{res}     12.32       1.01 {txt}{c |}{res}      9.17 
-{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
-      july {c |}{res}     9,467          5 {txt}{c |}{res}     9,472 
-           {txt}{c |}{res}     12.48       0.02 {txt}{c |}{res}      9.00 
-{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
-    august {c |}{res}     9,347        306 {txt}{c |}{res}     9,653 
-           {txt}{c |}{res}     12.32       1.04 {txt}{c |}{res}      9.18 
-{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
- september {c |}{res}     9,301        300 {txt}{c |}{res}     9,601 
-           {txt}{c |}{res}     12.26       1.02 {txt}{c |}{res}      9.13 
-{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
-   october {c |}{res}     9,586         14 {txt}{c |}{res}     9,600 
-           {txt}{c |}{res}     12.64       0.05 {txt}{c |}{res}      9.13 
-{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
-  november {c |}{res}     9,675         12 {txt}{c |}{res}     9,687 
-           {txt}{c |}{res}     12.75       0.04 {txt}{c |}{res}      9.21 
-{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
-     Total {c |}{res}    75,862     29,339 {txt}{c |}{res}   105,201 
-           {txt}{c |}{res}    100.00     100.00 {txt}{c |}{res}    100.00 
+           {c |} top-coded
+           {c |}  earnweek
+           {c |}  (1=yes,
+           {c |}   0=no)
+     month {c |}         0 {c |}     Total
+{hline 11}{c +}{hline 11}{c +}{hline 10}
+     april {c |}{res}     9,534 {txt}{c |}{res}     9,534 
+           {txt}{c |}{res}     12.41 {txt}{c |}{res}     12.41 
+{txt}{hline 11}{c +}{hline 11}{c +}{hline 10}
+       may {c |}{res}     9,635 {txt}{c |}{res}     9,635 
+           {txt}{c |}{res}     12.54 {txt}{c |}{res}     12.54 
+{txt}{hline 11}{c +}{hline 11}{c +}{hline 10}
+      june {c |}{res}     9,642 {txt}{c |}{res}     9,642 
+           {txt}{c |}{res}     12.55 {txt}{c |}{res}     12.55 
+{txt}{hline 11}{c +}{hline 11}{c +}{hline 10}
+      july {c |}{res}     9,472 {txt}{c |}{res}     9,472 
+           {txt}{c |}{res}     12.33 {txt}{c |}{res}     12.33 
+{txt}{hline 11}{c +}{hline 11}{c +}{hline 10}
+    august {c |}{res}     9,653 {txt}{c |}{res}     9,653 
+           {txt}{c |}{res}     12.57 {txt}{c |}{res}     12.57 
+{txt}{hline 11}{c +}{hline 11}{c +}{hline 10}
+ september {c |}{res}     9,601 {txt}{c |}{res}     9,601 
+           {txt}{c |}{res}     12.50 {txt}{c |}{res}     12.50 
+{txt}{hline 11}{c +}{hline 11}{c +}{hline 10}
+   october {c |}{res}     9,600 {txt}{c |}{res}     9,600 
+           {txt}{c |}{res}     12.50 {txt}{c |}{res}     12.50 
+{txt}{hline 11}{c +}{hline 11}{c +}{hline 10}
+  november {c |}{res}     9,687 {txt}{c |}{res}     9,687 
+           {txt}{c |}{res}     12.61 {txt}{c |}{res}     12.61 
+{txt}{hline 11}{c +}{hline 11}{c +}{hline 10}
+     Total {c |}{res}    76,824 {txt}{c |}{res}    76,824 
+           {txt}{c |}{res}    100.00 {txt}{c |}{res}    100.00 
 {txt}
 {com}. tab mish topcode if year == 2024, col
 {txt}
@@ -795,19 +788,20 @@
 {c |}{space 1}{it:column percentage}{col 21}{c |}
 {c BLC}{hline 19}{c BRC}
 
-  month in {c |}
-   sample, {c |}  top-coded earnweek
- household {c |}     (1=yes, 0=no)
-     level {c |}         0          1 {c |}     Total
-{hline 11}{c +}{hline 22}{c +}{hline 10}
-      four {c |}{res}    37,617     15,160 {txt}{c |}{res}    52,777 
-           {txt}{c |}{res}     49.59      51.67 {txt}{c |}{res}     50.17 
-{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
-     eight {c |}{res}    38,245     14,179 {txt}{c |}{res}    52,424 
-           {txt}{c |}{res}     50.41      48.33 {txt}{c |}{res}     49.83 
-{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
-     Total {c |}{res}    75,862     29,339 {txt}{c |}{res}   105,201 
-           {txt}{c |}{res}    100.00     100.00 {txt}{c |}{res}    100.00 
+           {c |} top-coded
+  month in {c |}  earnweek
+   sample, {c |}  (1=yes,
+ household {c |}   0=no)
+     level {c |}         0 {c |}     Total
+{hline 11}{c +}{hline 11}{c +}{hline 10}
+      four {c |}{res}    38,113 {txt}{c |}{res}    38,113 
+           {txt}{c |}{res}     49.61 {txt}{c |}{res}     49.61 
+{txt}{hline 11}{c +}{hline 11}{c +}{hline 10}
+     eight {c |}{res}    38,711 {txt}{c |}{res}    38,711 
+           {txt}{c |}{res}     50.39 {txt}{c |}{res}     50.39 
+{txt}{hline 11}{c +}{hline 11}{c +}{hline 10}
+     Total {c |}{res}    76,824 {txt}{c |}{res}    76,824 
+           {txt}{c |}{res}    100.00 {txt}{c |}{res}    100.00 
 {txt}
 {com}. 
 . * Now safe to drop earnweek2 and hourwage2
@@ -841,7 +835,7 @@ saved
 
 {txt}Contains data from {res}../Data/CPS ORGs, 1982-2024, Cleaned.dta
 {txt} Observations:{res}     6,738,088                  
-{txt}    Variables:{res}            30                  11 Jan 2025 16:24
+{txt}    Variables:{res}            30                  12 Jan 2025 12:58
 {txt}{hline}
 Variable      Storage   Display    Value
     name         type    format    label      Variable label
@@ -920,7 +914,7 @@ Sorted by:
 {txt}{space 4}industry {c |}{res}  6,738,088    6.976406    2.776901          1         11
 {txt}{space 7}grade {c |}{res}  6,738,088    13.49376    2.614426          0         18
 {txt}{space 5}max_val {c |}{res}          1     1000000           .    1000000    1000000
-{txt}{space 5}topcode {c |}{res}  6,738,088    .0278238    .1644677          0          1
+{txt}{space 5}topcode {c |}{res}  6,701,139    .0222844     .147607          0          1
 {txt}
 {com}. 
 . *** End part C
@@ -929,7 +923,7 @@ Sorted by:
       {txt}name:  {res}<unnamed>
        {txt}log:  {res}C:\Users\melin\OneDrive\ECO 727\Analysis\Exercise_2_Rueda.smcl
   {txt}log type:  {res}smcl
- {txt}closed on:  {res}11 Jan 2025, 16:24:20
+ {txt}closed on:  {res}12 Jan 2025, 12:58:25
 {txt}{.-}
 {smcl}
 {txt}{sf}{ul off}

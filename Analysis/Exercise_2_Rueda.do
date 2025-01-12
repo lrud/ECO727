@@ -196,12 +196,12 @@ generate topcode = .
 label variable topcode "top-coded earnweek (1=yes, 0=no)"
 
 * Identify topcoded values by period
-replace topcode = 1 if earnweek >= 9999.99   // topcode for earnweek
-replace topcode = 1 if earnweek >= 999 & inrange(year, 1982, 1988) // 1982-1988
-replace topcode = 1 if earnweek >= 1923 & inrange(year, 1989, 1997) // 1989-1997
-replace topcode = 1 if earnweek >= 2884.61 & (inrange(year, 1998, 2022) | (year==2023 & month<=3)) // 1998-March 2023
-replace topcode = 1 if earnweek >= max_earnweek2 & ((year==2023 & month>=4) | (year==2024 & month<=3)) & mish==4 // April 2023-March 2024, MISH 4
-replace topcode = 1 if earnweek >= 2884.61 & ((year==2023 & month>=4) | (year==2024 & month<=3)) & mish==8 // April 2023-March 2024, MISH 8
+replace topcode = 1 if earnweek == 999  & inrange(year, 1982, 1988) // 1982-1988
+replace topcode = 1 if earnweek == 1923 & inrange(year, 1989, 1997) // 1989-1997
+replace topcode = 1 if (earnweek == 2885 | earnweek == 2884.61) & inrange(year, 1998, 2022) // 1998-2022
+replace topcode = 1 if earnweek == 2884.61 & year == 2023 & month <= 3 & mish == 4 // April 2023-March 2024, MISH 4
+replace topcode = 1 if earnweek == 2884.61 & year == 2023 & mish == 8 // April 2023-March 2024, MISH 8
+replace topcode = 1 if earnweek == 2884.61 & year == 2024 & month <= 3 & mish == 8 // April 2023-March 2024, MISH 8
 replace topcode = 0 if missing(topcode) & !missing(earnweek)
 
 * Verify topcoding implementation

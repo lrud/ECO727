@@ -23,3 +23,14 @@ gen exp2 = (experience)^2
 gen lrwage = log(rwage)
 
 ***end part A
+
+*regression and joint statistical significance
+regress lrwage grade experience exp2
+testparm experience exp2
+
+// Note the concace relatiionship b/t exp2 and lrwage. exp2 coef. is negative. p-value==0 as well
+
+*display to find exp val where f'=0
+display -(_b[experience]) / (2 * _b[exp2])
+
+***end part b

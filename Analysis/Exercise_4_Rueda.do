@@ -31,6 +31,16 @@ testparm experience exp2
 // Note the concace relatiionship b/t exp2 and lrwage. exp2 coef. is negative. p-value==0 as well
 
 *display to find exp val where f'=0
-display -(_b[experience]) / (2 * _b[exp2])
+display -(_b[experience]) / (2 * _b[exp2]) //about 41 years
 
 ***end part b
+
+*secondary regression to include race, region, occupation, industry and year effects and joint s.s test
+regress lrwage grade experience exp2 i.female##c.race i.region##c.year i.occupation##c.industry##c.year
+testparm race
+testparm i.region
+testparm i.occupation
+testparm industry
+testparm year
+
+*** end part c

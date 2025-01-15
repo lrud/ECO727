@@ -1,9 +1,9 @@
 {smcl}
-{com}{sf}{ul off}{txt}{.-}
+{txt}{sf}{ul off}{.-}
       name:  {res}results
        {txt}log:  {res}C:\Users\melin\OneDrive\ECO 727\Analysis\Exercise_4_Rueda.smcl
   {txt}log type:  {res}smcl
- {txt}opened on:  {res}15 Jan 2025, 09:38:41
+ {txt}opened on:  {res}15 Jan 2025, 10:24:41
 {txt}
 {com}. set scheme s2color
 {txt}
@@ -617,12 +617,12 @@ Sorted by:
 {com}. save `temp1', replace
 {txt}{p 0 4 2}
 (file {bf}
-C:\Users\melin\AppData\Local\Temp\ST_8b10_000001.tmp{rm}
+C:\Users\melin\AppData\Local\Temp\ST_84d0_000001.tmp{rm}
 not found)
 {p_end}
 {p 0 4 2}
 file {bf}
-C:\Users\melin\AppData\Local\Temp\ST_8b10_000001.tmp{rm}
+C:\Users\melin\AppData\Local\Temp\ST_84d0_000001.tmp{rm}
 saved
 as .dta format
 {p_end}
@@ -640,12 +640,12 @@ as .dta format
 {com}. save `temp2', replace
 {txt}{p 0 4 2}
 (file {bf}
-C:\Users\melin\AppData\Local\Temp\ST_8b10_000002.tmp{rm}
+C:\Users\melin\AppData\Local\Temp\ST_84d0_000002.tmp{rm}
 not found)
 {p_end}
 {p 0 4 2}
 file {bf}
-C:\Users\melin\AppData\Local\Temp\ST_8b10_000002.tmp{rm}
+C:\Users\melin\AppData\Local\Temp\ST_84d0_000002.tmp{rm}
 saved
 as .dta format
 {p_end}
@@ -673,7 +673,7 @@ saved
 
 {txt}Contains data from {res}../Data/Grade_coef and ldiff, 1982-2024.dta
 {txt} Observations:{res}            43                  
-{txt}    Variables:{res}             4                  15 Jan 2025 09:39
+{txt}    Variables:{res}             4                  15 Jan 2025 10:25
 {txt}{hline}
 Variable      Storage   Display    Value
     name         type    format    label      Variable label
@@ -795,7 +795,7 @@ format
       {txt}name:  {res}results
        {txt}log:  {res}C:\Users\melin\OneDrive\ECO 727\Analysis\Exercise_4_Rueda.smcl
   {txt}log type:  {res}smcl
- {txt}closed on:  {res}15 Jan 2025, 09:39:32
+ {txt}closed on:  {res}15 Jan 2025, 10:25:28
 {txt}{.-}
 {smcl}
 {txt}{sf}{ul off}

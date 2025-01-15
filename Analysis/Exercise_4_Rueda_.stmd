@@ -1,0 +1,166 @@
+## Exercise 4: Factor Variables, CPS-ORG/CPI Data Analysis, 1982-2024
+
+---
+
+### Plan
+
+- **Data Preparation**: Initial setup and variable creation
+- **Basic Wage Analysis**: Returns to education and experience
+- **Extended Analysis**: Categorical variable effects on wages
+- **Grade-Year Interactions**: Time variation in returns to education
+- **Wage Inequality**: Analysis of education returns and wage differentials
+- **Visualization**: Relationship between inequality and education returns
+
+---
+
+### Preliminaries
+
+        cd "~/OneDrive/ECO 727/Analysis"
+        set scheme s2color
+        global ex=4
+        global lname="Rueda"
+        global endyear=2024
+        global startyear=1982
+        global numyear=$endyear-$startyear+1
+
+The preliminary setup establishes the working environment and defines global variables for the analysis period from 1982 to 2024.
+
+---
+
+### Data Preparation and Variable Creation
+
+        use "../Data/CPS-ORG with CPI, 1982-2024.dta", clear
+        keep if !mi(earnweek)
+        
+        gen experience = age - grade + 6
+        drop if experience <=0
+        gen exp2 = (experience)^2
+        gen lrwage = log(rwage)
+
+The initial dataset had 36,949 missing earnings observations that were removed. All individuals in the dataset had valid experience calculations (no negative values), indicating consistent age and education reporting.
+
+---
+
+### Basic Wage Analysis
+
+        regress lrwage grade experience exp2 [pw=earnwt]
+        testparm experience exp2
+        display -(_b[experience]) / (2 * _b[exp2])
+
+Returns to education show approximately 11.1% increase in wages per year of schooling. Experience has a concave relationship with wages, peaking at about 41 years of experience, after which returns begin to decline. The model explains about 23.2% of wage variation.
+
+---
+
+### Extended Analysis with Categorical Variables
+
+        regress lrwage grade experience exp2 i.female i.race i.region ///
+               i.occupation i.industry i.year [pw=earnwt]
+        testparm i.race
+        testparm i.region
+        testparm i.occupation
+        testparm i.industry
+        testparm i.year
+
+Adding demographic and employment characteristics substantially improved model fit, increasing R-squared to 39%. Female workers face a significant wage penalty of approximately 29.1%, while regional variations show workers in Pacific and Middle Atlantic divisions earning premiums compared to other regions.
+
+---
+
+### Industry and Occupation Effects Analysis
+
+The regression results reveal significant variation across industries and occupations:
+
+- **Industry Effects**: Public administration and durable manufacturing show the highest wage premiums (13.6% and 12.5% respectively), while retail trade and education/welfare services show substantial penalties (-28.4% and -30% respectively).
+
+- **Occupation Effects**: Occupation effects reveal managers earning roughly 10% more than professionals, while service workers face the largest wage penalties.
+
+All categorical variables (race, region, occupation, industry, and year) show strong joint statistical significance (p < 0.001).
+
+---
+
+### Grade-Year Interaction Analysis
+
+        regress lrwage year#c.grade experience exp2 i.year i.female i.race ///
+               i.region i.occupation i.industry [pw=earnwt]
+        
+        matrix b = e(b)[1, 1..$numyear]'
+        clear
+        svmat2 b, names(grade_coef) rnames(tag)
+        generate year = real(substr(tag, 1, 4))
+        drop tag
+        order year grade_coef
+        replace grade_coef = grade_coef * 100
+
+The returns to education have increased substantially over time, rising from 5.4% in 1982 to 9.1% in 2024. This trend wasn't linear - there was particularly rapid growth in returns to education during the 1990s, followed by some stabilization in the 2000s.
+
+---
+
+### Merging with Wage Differential Data
+
+        tempfile temp1
+        save `temp1', replace
+        
+        use "../Data/CPS-ORG, Wage Percentiles, 1982-2024.dta", clear
+        keep year ldiff
+        tempfile temp2
+        save `temp2', replace
+        
+        use `temp1', clear
+        merge 1:1 year using `temp2'
+        
+        save "../Data/Grade_coef and ldiff, 1982-2024.dta", replace
+        describe
+        summarize
+        list
+
+The 90-10 wage differential has grown from 173.2% in 1982 to 185.9% in 2024, indicating increasing wage inequality. The correlation between returns to education and wage inequality is positive, suggesting that higher returns to education may be contributing to overall wage dispersion.
+
+---
+
+### Visualization of Results
+
+        line ldiff y, yaxis(1) || line grade_coef y, yaxis(2) ///
+        xtitle("Year") xlabel(1980(10)2025) xtick(1980(5)2015) ///
+        ytitle("90-10 log-Wage Differential (%)", axis(1)) ylabel(150(10)200, noticks axis(1)) ///
+        ytitle("Rate of Return to Schooling (%)", axis(2)) ylabel(5(2)10, noticks axis(2)) ///
+        text(182 1985 "90-10 Differential") text(155 1985 "Return to Schooling") ///
+        scheme(Wide727Scheme) name(g1, replace)
+        graph export results/inequality_schooling_line.png, name (g1) width(600) replace 
+
+        scatter ldiff grade_coef || lfit ldiff grade_coef ||, ///
+        xtitle("Rate of Return to Schooling (%)") xlabel(4(1)10) ///
+        ytitle("90-10 log-Wage Differential (%)") ylabel(160(20)200, noticks) ///
+        scheme(Squarish727Scheme) name(g2, replace)
+        graph export results/inequality_schooling_scatter.png, name (g2) width(450) replace 
+
+Both wage inequality and returns to education show upward trends over the study period, though with different patterns. Returns to education show more short-term volatility, while wage inequality exhibits a more gradual but persistent increase over time.
+
+**Graph: Time Series of Inequality and Returns to Education**
+
+![Inequality and Returns to Education](./results/inequality_schooling_line.png)
+
+**Graph: Relationship between Inequality and Returns to Education**
+
+![Scatter Plot](./results/inequality_schooling_scatter.png)
+
+---
+
+### Key Findings
+
+- **Returns to Education**:
+  - Significant increase in returns to education from 5.4% to 9.1% over the study period
+  - Non-linear pattern with rapid growth in the 1990s and subsequent stabilization
+
+- **Wage Inequality**:
+  - Substantial growth in 90-10 wage differential from 173.2% to 185.9%
+  - Positive correlation with returns to education
+
+- **Labor Market Structure**:
+  - Significant gender wage gap persists (-29.1%)
+  - Large industry and occupation wage differentials
+  - Important regional variation in wage levels
+
+---
+
+### Conclusion
+
+This analysis demonstrates the evolving relationship between education and wage inequality from 1982 to 2024. The findings highlight how increasing returns to education have coincided with growing wage inequality, suggesting that changes in the value of education in the labor market may be an important driver of overall wage dispersion. The results also underscore the persistent role of demographic and structural factors in determining wages.

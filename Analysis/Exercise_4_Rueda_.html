@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Exercise_4_Rueda_</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+<style>
+/* CSS for Markstat 2.0 using Pandoc 2.0 */
+body{padding:14px 28px; max-width:45em;}
+body, table {font-family: Helvetica, Arial, Sans-serif; font-size: 14px;}
+h1, h2, h3, h4 {font-weight: normal; color: #3366cc}
+h1 {font-size: 200%;}
+h2 {font-size: 150%;}
+h3 {font-size: 120%;}
+h4 {font-size: 100%; font-weight:bold}
+img.center {display:block; margin-left:auto; margin-right:auto}
+.small{font-size:8pt;}
+a {color: black;}
+a:visited {color: #808080;}
+a.plain {text-decoration:none;}
+a.plain:hover {text-decoration:underline;}
+.em {font-weight:bold;}
+pre, code {font-family: "lucida console", monospace;}
+pre.stata {font-size:13px; line-height:13px;}
+pre {padding:8px; border:1px solid #c0c0c0; border-radius:8px; background-color:#fdfdfd;}
+code {color:#3366cc; background-color:#fafafa;}
+pre code { color:black; background-color:white}
+/* Added for Pandoc */
+figure > img, div.figure > img {display:block; margin:auto}
+figcaption, p.caption {text-align:center; font-weight:bold; color:#3366cc;}
+h1.title {text-align:center; margin-bottom:0}
+p.author, h2.author {font-style:italic; text-align:center;margin-top:4px;margin-bottom:0}
+p.date, h3.date {text-align:center;margin-top:4px; margin-bottom:0}
+/* Tables*/
+table { margin:auto; border-collapse:collapse; }
+table caption { margin-bottom:1ex;}
+td {padding:0 0 0 0} /* override */
+table:not([class]) th { padding:4px 6px } 
+table:not([class]) td { padding:4px 6px } 
+table:not([class]) thead tr:first-child th {border-top:1px solid black; padding-top:6px}
+table:not([class]) thead tr:last-child  th {padding-bottom:6px}
+table:not([class]) tbody tr:first-child td {border-top:1px solid black; padding-top:6px}
+table:not([class]) tbody tr:last-child  td {padding-bottom:6px;}
+table:not([class]) tbody:last-child tr:last-child td {border-bottom:1px solid black;}
+</style>
+</head>
+<body>
+<h2
+id="exercise-4-factor-variables-cps-orgcpi-data-analysis-1982-2024">Exercise
+4: Factor Variables, CPS-ORG/CPI Data Analysis, 1982-2024</h2>
+<hr />
+<h3 id="plan">Plan</h3>
+<ul>
+<li><strong>Data Preparation</strong>: Initial setup and variable
+creation</li>
+<li><strong>Basic Wage Analysis</strong>: Returns to education and
+experience</li>
+<li><strong>Extended Analysis</strong>: Categorical variable effects on
+wages</li>
+<li><strong>Grade-Year Interactions</strong>: Time variation in returns
+to education</li>
+<li><strong>Wage Inequality</strong>: Analysis of education returns and
+wage differentials</li>
+<li><strong>Visualization</strong>: Relationship between inequality and
+education returns</li>
+</ul>
+<hr />
+<h3 id="preliminaries">Preliminaries</h3>
+<pre class='stata'>.     cd "~/OneDrive/ECO 727/Analysis"
+C:\Users\melin\OneDrive\ECO 727\Analysis
+
+.     set scheme s2color
+
+.     global ex=4
+
+.     global lname="Rueda"
+
+.     global endyear=2024
+
+.     global startyear=1982
+
+.     global numyear=$endyear-$startyear+1
+</pre>
+<p>The preliminary setup establishes the working environment and defines
+global variables for the analysis period from 1982 to 2024.</p>
+<hr />
+<h3 id="data-preparation-and-variable-creation">Data Preparation and
+Variable Creation</h3>
+<pre class='stata'>.     use "../Data/CPS-ORG with CPI, 1982-2024.dta", clear
+
+.     keep if !mi(earnweek)
+(36,949 observations deleted)
+</pre>
+<pre class='stata'>.     gen experience = age - grade + 6
+
+.     drop if experience &lt;=0
+(0 observations deleted)
+
+.     gen exp2 = (experience)^2
+
+.     gen lrwage = log(rwage)
+</pre>
+<p>The initial dataset had 36,949 missing earnings observations that
+were removed. All individuals in the dataset had valid experience
+calculations (no negative values), indicating consistent age and
+education reporting.</p>
+<hr />
+<h3 id="basic-wage-analysis">Basic Wage Analysis</h3>
+<pre class='stata'>.     regress lrwage grade experience exp2 [pw=earnwt]
+(sum of wgt is 57,822,392,748.84)
+
+Linear regression                               Number of obs     =  6,701,139
+                                                F(3, 6701135)     >   99999.00
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.2323
+                                                Root MSE          =     .68641
+
+─────────────┬────────────────────────────────────────────────────────────────
+             │               Robust
+      lrwage │ Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+─────────────┼────────────────────────────────────────────────────────────────
+       grade │   .1114197   .0001278   871.66   0.000     .1111691    .1116702
+  experience │   .0798706   .0001496   533.81   0.000     .0795774    .0801639
+        exp2 │  -.0009798   2.26e-06  -433.58   0.000    -.0009843   -.0009754
+       _cons │   3.902655   .0028062  1390.71   0.000     3.897155    3.908155
+─────────────┴────────────────────────────────────────────────────────────────
+
+.     testparm experience exp2
+
+ ( 1)  experience = 0
+ ( 2)  exp2 = 0
+
+       F(  2,6701135) = 2.8e+05
+            Prob > F =    0.0000
+
+.     display -(_b[experience]) / (2 * _b[exp2])
+40.756651
+</pre>
+<p>Returns to education show approximately 11.1% increase in wages per
+year of schooling. Experience has a concave relationship with wages,
+peaking at about 41 years of experience, after which returns begin to
+decline. The model explains about 23.2% of wage variation.</p>
+<hr />
+<h3 id="extended-analysis-with-categorical-variables">Extended Analysis
+with Categorical Variables</h3>
+<pre class='stata'>.     regress lrwage grade experience exp2 i.female i.race i.region ///
+>            i.occupation i.industry i.year [pw=earnwt]
+(sum of wgt is 57,822,392,748.84)
+
+Linear regression                               Number of obs     =  6,701,139
+                                                F(99, 6701039)    =   30393.95
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.3905
+                                                Root MSE          =     .61162
+
+───────────────────────┬────────────────────────────────────────────────────────────────
+                       │               Robust
+                lrwage │ Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+───────────────────────┼────────────────────────────────────────────────────────────────
+                 grade │   .0799573   .0001499   533.51   0.000     .0796635     .080251
+            experience │   .0625291   .0001356   460.98   0.000     .0622633     .062795
+                  exp2 │  -.0007623   2.02e-06  -377.29   0.000    -.0007663   -.0007584
+              1.female │  -.2910524   .0006542  -444.86   0.000    -.2923347   -.2897701
+                       │
+                  race │
+           200. black  │  -.0679556    .000931   -72.99   0.000    -.0697804   -.0661308
+300. american india..  │  -.0625069   .0033716   -18.54   0.000    -.0691151   -.0558986
+650. asian or pacif..  │  -.0469965   .0025531   -18.41   0.000    -.0520005   -.0419926
+      651. asian only  │   .0130101   .0019456     6.69   0.000     .0091969    .0168234
+652. hawaiian/pacif..  │  -.0259989   .0067166    -3.87   0.000    -.0391631   -.0128346
+700. other (single)..  │  -.0620522   .0031287   -19.83   0.000    -.0681843     -.05592
+     801. white-black  │  -.0302916   .0075117    -4.03   0.000    -.0450143   -.0155689
+802. white-american..  │  -.0506817   .0053423    -9.49   0.000    -.0611524   -.0402111
+     803. white-asian  │   .0121735   .0091151     1.34   0.182    -.0056918    .0300387
+804. white-hawaiian..  │  -.0016672    .016229    -0.10   0.918    -.0334755    .0301412
+805. black-american..  │  -.0938029   .0147372    -6.37   0.000    -.1226873   -.0649184
+     806. black-asian  │   .0346143   .0269073     1.29   0.198    -.0181231    .0873518
+807. black-hawaiian..  │  -.0394979   .0569352    -0.69   0.488    -.1510888     .072093
+808. american india..  │  -.0386702   .0550363    -0.70   0.482    -.1465394     .069199
+809. asian-hawaiian..  │  -.0376902   .0170772    -2.21   0.027     -.071161   -.0042194
+810. white-black-am..  │  -.0646014   .0192228    -3.36   0.001    -.1022774   -.0269254
+811. white-black-as..  │   .0031404    .067837     0.05   0.963    -.1298178    .1360986
+812. white-american..  │  -.0651473   .0657033    -0.99   0.321    -.1939235    .0636289
+813. white-asian-ha..  │  -.0526007   .0165549    -3.18   0.001    -.0850477   -.0201537
+814. white-black-am..  │   .0105223   .0640141     0.16   0.869     -.114943    .1359876
+815. american india..  │  -.2681081    .100592    -2.67   0.008    -.4652649   -.0709513
+816. white-black--h..  │  -.1303696   .1183779    -1.10   0.271    -.3623859    .1016468
+817. white-american..  │  -.0922176    .070006    -1.32   0.188    -.2294268    .0449917
+818. black-american..  │  -.1683233   .1459683    -1.15   0.249     -.454416    .1177694
+819. white-american..  │    .264069    .102422     2.58   0.010     .0633255    .4648125
+820. two or three r..  │  -.0173436   .0447013    -0.39   0.698    -.1049566    .0702694
+830. four or five r..  │   -.038161   .0484374    -0.79   0.431    -.1330967    .0567746
+                       │
+                region │
+middle atlantic div..  │   .0037052   .0012926     2.87   0.004     .0011717    .0062387
+east north central ..  │  -.0490464   .0012371   -39.65   0.000     -.051471   -.0466218
+west north central ..  │  -.0784041   .0013546   -57.88   0.000    -.0810591   -.0757491
+south atlantic divi..  │  -.0332142   .0012254   -27.10   0.000     -.035616   -.0308124
+east south central ..  │  -.1051666   .0014749   -71.30   0.000    -.1080575   -.1022758
+west south central ..  │  -.0487101   .0013449   -36.22   0.000     -.051346   -.0460743
+    mountain division  │  -.0445385   .0013908   -32.02   0.000    -.0472644   -.0418126
+     pacific division  │   .0382837   .0012834    29.83   0.000     .0357683    .0407991
+                       │
+            occupation │
+managers, officials..  │   .0997386   .0010229    97.50   0.000     .0977337    .1017436
+    clerical, kindred  │  -.3325459   .0009907  -335.67   0.000    -.3344876   -.3306042
+                sales  │  -.2138352   .0015488  -138.06   0.000    -.2168708   -.2107995
+            craftsmen  │  -.1619581   .0011928  -135.78   0.000     -.164296   -.1596202
+           operatives  │  -.3477286    .001225  -283.86   0.000    -.3501296   -.3453276
+ service (private hh)  │  -.8202867   .0040197  -204.07   0.000    -.8281651   -.8124083
+      service (other)  │  -.4808805   .0011574  -415.49   0.000    -.4831489   -.4786121
+             laborers  │  -.4691708   .0016462  -285.00   0.000    -.4723974   -.4659442
+                       │
+              industry │
+         construction  │   .0550638   .0022268    24.73   0.000     .0506993    .0594283
+durable manufacturing  │   .1248019   .0021232    58.78   0.000     .1206405    .1289632
+nondurable manufact..  │   .0690275   .0022309    30.94   0.000     .0646551       .0734
+communications, tra..  │   .1247547   .0022498    55.45   0.000     .1203452    .1291643
+      wholesale trade  │   .0467364   .0024459    19.11   0.000     .0419426    .0515302
+         retail trade  │  -.2842677   .0021415  -132.74   0.000     -.288465   -.2800704
+professional servic..  │   .0075811   .0021476     3.53   0.000      .003372    .0117903
+education, welfare ..  │  -.3003735   .0022831  -131.57   0.000    -.3048482   -.2958987
+public administration  │   .1360024    .002294    59.29   0.000     .1315063    .1404986
+       other services  │  -.0903802   .0022104   -40.89   0.000    -.0947126   -.0860478
+                       │
+                  year │
+                 1983  │   -.003701   .0021285    -1.74   0.082    -.0078728    .0004708
+                 1984  │  -.0002415    .002116    -0.11   0.909    -.0043887    .0039057
+                 1985  │  -.0002673   .0021041    -0.13   0.899    -.0043914    .0038567
+                 1986  │   .0109947   .0021052     5.22   0.000     .0068686    .0151209
+                 1987  │   .0088311   .0021093     4.19   0.000     .0046969    .0129652
+                 1988  │    .000017    .002165     0.01   0.994    -.0042263    .0042602
+                 1989  │   .0034682   .0021593     1.61   0.108     -.000764    .0077005
+                 1990  │  -.0056801   .0020985    -2.71   0.007    -.0097932    -.001567
+                 1991  │    -.02339   .0021233   -11.02   0.000    -.0275516   -.0192284
+                 1992  │  -.0292635   .0021328   -13.72   0.000    -.0334438   -.0250832
+                 1993  │  -.0332694   .0021478   -15.49   0.000     -.037479   -.0290598
+                 1994  │   -.050491   .0022322   -22.62   0.000    -.0548661    -.046116
+                 1995  │  -.0587822   .0022455   -26.18   0.000    -.0631834    -.054381
+                 1996  │  -.0625177   .0022915   -27.28   0.000     -.067009   -.0580263
+                 1997  │  -.0492832    .002254   -21.87   0.000    -.0537009   -.0448656
+                 1998  │  -.0172879   .0022859    -7.56   0.000    -.0217682   -.0128076
+                 1999  │   .0023167   .0022542     1.03   0.304    -.0021014    .0067348
+                 2000  │    .016745   .0022495     7.44   0.000      .012336     .021154
+                 2001  │   .0192511   .0022698     8.48   0.000     .0148024    .0236998
+                 2002  │   .0216081   .0022498     9.60   0.000     .0171985    .0260178
+                 2003  │    .020854    .002344     8.90   0.000     .0162599    .0254481
+                 2004  │   .0217256   .0023074     9.42   0.000     .0172031     .026248
+                 2005  │   .0132463   .0022882     5.79   0.000     .0087616    .0177311
+                 2006  │   .0176108    .002259     7.80   0.000     .0131832    .0220384
+                 2007  │   .0146316   .0023152     6.32   0.000      .010094    .0191692
+                 2008  │   .0039653   .0023395     1.69   0.090    -.0006201    .0085507
+                 2009  │  -.0014615   .0023845    -0.61   0.540     -.006135     .003212
+                 2010  │  -.0124796   .0023976    -5.21   0.000    -.0171788   -.0077804
+                 2011  │  -.0321543   .0023833   -13.49   0.000    -.0368256   -.0274831
+                 2012  │   -.037968   .0024037   -15.80   0.000    -.0426792   -.0332569
+                 2013  │  -.0335531   .0023848   -14.07   0.000    -.0382272   -.0288791
+                 2014  │  -.0320223   .0023623   -13.56   0.000    -.0366524   -.0273922
+                 2015  │  -.0080478   .0023914    -3.37   0.001    -.0127349   -.0033608
+                 2016  │   .0072976   .0023769     3.07   0.002     .0026389    .0119563
+                 2017  │   .0193011   .0023967     8.05   0.000     .0146036    .0239986
+                 2018  │   .0249395   .0024149    10.33   0.000     .0202065    .0296726
+                 2019  │   .0468072   .0024498    19.11   0.000     .0420056    .0516088
+                 2020  │   .0733847   .0025884    28.35   0.000     .0683116    .0784578
+                 2021  │   .0707344   .0025084    28.20   0.000     .0658181    .0756508
+                 2022  │   .0502116   .0025335    19.82   0.000      .045246    .0551772
+                 2023  │   .0731941   .0026818    27.29   0.000      .067938    .0784503
+                 2024  │    .105967    .003309    32.02   0.000     .0994814    .1124526
+                       │
+                 _cons │   5.056874   .0041077  1231.08   0.000     5.048823    5.064925
+───────────────────────┴────────────────────────────────────────────────────────────────
+
+.     testparm i.race
+
+ ( 1)  200.race = 0
+ ( 2)  300.race = 0
+ ( 3)  650.race = 0
+ ( 4)  651.race = 0
+ ( 5)  652.race = 0
+ ( 6)  700.race = 0
+ ( 7)  801.race = 0
+ ( 8)  802.race = 0
+ ( 9)  803.race = 0
+ (10)  804.race = 0
+ (11)  805.race = 0
+ (12)  806.race = 0
+ (13)  807.race = 0
+ (14)  808.race = 0
+ (15)  809.race = 0
+ (16)  810.race = 0
+ (17)  811.race = 0
+ (18)  812.race = 0
+ (19)  813.race = 0
+ (20)  814.race = 0
+ (21)  815.race = 0
+ (22)  816.race = 0
+ (23)  817.race = 0
+ (24)  818.race = 0
+ (25)  819.race = 0
+ (26)  820.race = 0
+ (27)  830.race = 0
+
+       F( 27,6701039) =  238.20
+            Prob > F =    0.0000
+
+.     testparm i.region
+
+ ( 1)  12.region = 0
+ ( 2)  21.region = 0
+ ( 3)  22.region = 0
+ ( 4)  31.region = 0
+ ( 5)  32.region = 0
+ ( 6)  33.region = 0
+ ( 7)  41.region = 0
+ ( 8)  42.region = 0
+
+       F(  8,6701039) = 2493.06
+            Prob > F =    0.0000
+
+.     testparm i.occupation
+
+ ( 1)  2.occupation = 0
+ ( 2)  3.occupation = 0
+ ( 3)  4.occupation = 0
+ ( 4)  5.occupation = 0
+ ( 5)  6.occupation = 0
+ ( 6)  7.occupation = 0
+ ( 7)  8.occupation = 0
+ ( 8)  9.occupation = 0
+
+       F(  8,6701039) =49139.86
+            Prob > F =    0.0000
+
+.     testparm i.industry
+
+ ( 1)  2.industry = 0
+ ( 2)  3.industry = 0
+ ( 3)  4.industry = 0
+ ( 4)  5.industry = 0
+ ( 5)  6.industry = 0
+ ( 6)  7.industry = 0
+ ( 7)  8.industry = 0
+ ( 8)  9.industry = 0
+ ( 9)  10.industry = 0
+ (10)  11.industry = 0
+
+       F( 10,6701039) =29220.72
+            Prob > F =    0.0000
+
+.     testparm i.year
+
+ ( 1)  1983.year = 0
+ ( 2)  1984.year = 0
+ ( 3)  1985.year = 0
+ ( 4)  1986.year = 0
+ ( 5)  1987.year = 0
+ ( 6)  1988.year = 0
+ ( 7)  1989.year = 0
+ ( 8)  1990.year = 0
+ ( 9)  1991.year = 0
+ (10)  1992.year = 0
+ (11)  1993.year = 0
+ (12)  1994.year = 0
+ (13)  1995.year = 0
+ (14)  1996.year = 0
+ (15)  1997.year = 0
+ (16)  1998.year = 0
+ (17)  1999.year = 0
+ (18)  2000.year = 0
+ (19)  2001.year = 0
+ (20)  2002.year = 0
+ (21)  2003.year = 0
+ (22)  2004.year = 0
+ (23)  2005.year = 0
+ (24)  2006.year = 0
+ (25)  2007.year = 0
+ (26)  2008.year = 0
+ (27)  2009.year = 0
+ (28)  2010.year = 0
+ (29)  2011.year = 0
+ (30)  2012.year = 0
+ (31)  2013.year = 0
+ (32)  2014.year = 0
+ (33)  2015.year = 0
+ (34)  2016.year = 0
+ (35)  2017.year = 0
+ (36)  2018.year = 0
+ (37)  2019.year = 0
+ (38)  2020.year = 0
+ (39)  2021.year = 0
+ (40)  2022.year = 0
+ (41)  2023.year = 0
+ (42)  2024.year = 0
+
+       F( 42,6701039) =  334.75
+            Prob > F =    0.0000
+</pre>
+<p>Adding demographic and employment characteristics substantially
+improved model fit, increasing R-squared to 39%. Female workers face a
+significant wage penalty of approximately 29.1%, while regional
+variations show workers in Pacific and Middle Atlantic divisions earning
+premiums compared to other regions.</p>
+<hr />
+<h3 id="industry-and-occupation-effects-analysis">Industry and
+Occupation Effects Analysis</h3>
+<p>The regression results reveal significant variation across industries
+and occupations:</p>
+<ul>
+<li><p><strong>Industry Effects</strong>: Public administration and
+durable manufacturing show the highest wage premiums (13.6% and 12.5%
+respectively), while retail trade and education/welfare services show
+substantial penalties (-28.4% and -30% respectively).</p></li>
+<li><p><strong>Occupation Effects</strong>: Occupation effects reveal
+managers earning roughly 10% more than professionals, while service
+workers face the largest wage penalties.</p></li>
+</ul>
+<p>All categorical variables (race, region, occupation, industry, and
+year) show strong joint statistical significance (p &lt; 0.001).</p>
+<hr />
+<h3 id="grade-year-interaction-analysis">Grade-Year Interaction
+Analysis</h3>
+<pre class='stata'>.     regress lrwage year#c.grade experience exp2 i.year i.female i.race ///
+>            i.region i.occupation i.industry [pw=earnwt]
+(sum of wgt is 57,822,392,748.84)
+
+Linear regression                               Number of obs     =  6,701,139
+                                                F(141, 6700997)   =   21787.24
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.3912
+                                                Root MSE          =     .61124
+
+───────────────────────┬────────────────────────────────────────────────────────────────
+                       │               Robust
+                lrwage │ Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+───────────────────────┼────────────────────────────────────────────────────────────────
+          year#c.grade │
+                 1982  │   .0540075   .0005876    91.91   0.000     .0528558    .0551592
+                 1983  │   .0573594   .0006034    95.07   0.000     .0561768    .0585419
+                 1984  │   .0601585   .0006076    99.00   0.000     .0589676    .0613495
+                 1985  │   .0623461   .0006096   102.27   0.000     .0611513     .063541
+                 1986  │   .0658227   .0006156   106.93   0.000     .0646162    .0670292
+                 1987  │   .0677575   .0006212   109.07   0.000     .0665399    .0689751
+                 1988  │   .0663698   .0006558   101.21   0.000     .0650846    .0676551
+                 1989  │   .0728991   .0007019   103.86   0.000     .0715233    .0742748
+                 1990  │   .0739098   .0006369   116.05   0.000     .0726616     .075158
+                 1991  │    .073983   .0006289   117.65   0.000     .0727505    .0752156
+                 1992  │   .0791989    .000666   118.91   0.000     .0778935    .0805042
+                 1993  │   .0810902   .0006942   116.81   0.000     .0797296    .0824508
+                 1994  │   .0845855   .0007167   118.02   0.000     .0831808    .0859902
+                 1995  │   .0833785   .0007197   115.85   0.000     .0819679    .0847891
+                 1996  │   .0821579     .00076   108.10   0.000     .0806683    .0836475
+                 1997  │   .0811896   .0007299   111.23   0.000      .079759    .0826203
+                 1998  │   .0837288   .0007275   115.10   0.000      .082303    .0851546
+                 1999  │   .0841275   .0006934   121.32   0.000     .0827685    .0854866
+                 2000  │   .0827589   .0006972   118.70   0.000     .0813924    .0841254
+                 2001  │   .0839577   .0007223   116.23   0.000      .082542    .0853734
+                 2002  │   .0838785   .0006758   124.13   0.000      .082554    .0852029
+                 2003  │   .0805367   .0007411   108.67   0.000     .0790841    .0819893
+                 2004  │   .0808281   .0007132   113.34   0.000     .0794304    .0822259
+                 2005  │   .0823374   .0006906   119.22   0.000     .0809838    .0836911
+                 2006  │   .0814081   .0006827   119.25   0.000     .0800701    .0827461
+                 2007  │   .0827895    .000716   115.63   0.000     .0813862    .0841928
+                 2008  │   .0847264   .0007373   114.92   0.000     .0832814    .0861714
+                 2009  │     .08676   .0007551   114.91   0.000     .0852801    .0882399
+                 2010  │   .0889685   .0007654   116.24   0.000     .0874683    .0904687
+                 2011  │   .0886514   .0007598   116.68   0.000     .0871623    .0901406
+                 2012  │   .0888762   .0007817   113.70   0.000     .0873441    .0904083
+                 2013  │   .0897974   .0007583   118.43   0.000     .0883113    .0912836
+                 2014  │   .0873634   .0007283   119.95   0.000      .085936    .0887909
+                 2015  │   .0859831   .0007576   113.49   0.000     .0844982    .0874681
+                 2016  │   .0863203   .0007492   115.22   0.000     .0848519    .0877887
+                 2017  │   .0837947    .000751   111.58   0.000     .0823228    .0852667
+                 2018  │   .0815242   .0007616   107.05   0.000     .0800315    .0830168
+                 2019  │   .0817342   .0007797   104.83   0.000     .0802061    .0832623
+                 2020  │   .0806633    .000862    93.57   0.000     .0789737    .0823529
+                 2021  │   .0785744    .000821    95.71   0.000     .0769653    .0801835
+                 2022  │   .0775568   .0008417    92.14   0.000      .075907    .0792066
+                 2023  │   .0808328   .0008931    90.51   0.000     .0790823    .0825833
+                 2024  │   .0905608   .0011794    76.79   0.000     .0882493    .0928724
+                       │
+            experience │   .0625107   .0001356   460.88   0.000     .0622449    .0627766
+                  exp2 │  -.0007631   2.02e-06  -377.51   0.000    -.0007671   -.0007592
+                       │
+                  year │
+                 1983  │   -.044809    .010891    -4.11   0.000    -.0661549    -.023463
+                 1984  │  -.0766547   .0109638    -6.99   0.000    -.0981433   -.0551662
+                 1985  │  -.1044074   .0110179    -9.48   0.000    -.1260021   -.0828127
+                 1986  │  -.1374323   .0110888   -12.39   0.000     -.159166   -.1156986
+                 1987  │  -.1643518   .0111603   -14.73   0.000    -.1862255   -.1424781
+                 1988  │  -.1546917   .0115158   -13.43   0.000    -.1772623   -.1321211
+                 1989  │  -.2358716   .0119704   -19.70   0.000    -.2593331     -.21241
+                 1990  │  -.2581948   .0113154   -22.82   0.000    -.2803725   -.2360171
+                 1991  │  -.2765381   .0112609   -24.56   0.000    -.2986092   -.2544671
+                 1992  │  -.3508328   .0116224   -30.19   0.000    -.3736123   -.3280534
+                 1993  │  -.3796895   .0119375   -31.81   0.000    -.4030865   -.3562924
+                 1994  │  -.4431537   .0122091   -36.30   0.000    -.4670832   -.4192243
+                 1995  │  -.4356123   .0122259   -35.63   0.000    -.4595746   -.4116499
+                 1996  │  -.4231052   .0126229   -33.52   0.000    -.4478456   -.3983647
+                 1997  │  -.3970073   .0123122   -32.25   0.000    -.4211387   -.3728759
+                 1998  │  -.3987742   .0123278   -32.35   0.000    -.4229363   -.3746121
+                 1999  │  -.3846352   .0119535   -32.18   0.000    -.4080636   -.3612067
+                 2000  │   -.351928   .0120102   -29.30   0.000    -.3754676   -.3283883
+                 2001  │  -.3655394   .0122899   -29.74   0.000    -.3896272   -.3414516
+                 2002  │  -.3622332   .0118489   -30.57   0.000    -.3854566   -.3390099
+                 2003  │  -.3181722   .0125272   -25.40   0.000     -.342725   -.2936194
+                 2004  │  -.3212289   .0121897   -26.35   0.000    -.3451204   -.2973375
+                 2005  │  -.3499988   .0120041   -29.16   0.000    -.3735265   -.3264712
+                 2006  │  -.3331613   .0119098   -27.97   0.000    -.3565041   -.3098184
+                 2007  │  -.3548715   .0122869   -28.88   0.000    -.3789533   -.3307896
+                 2008  │   -.392068   .0125491   -31.24   0.000    -.4166639   -.3674722
+                 2009  │  -.4254474   .0127945   -33.25   0.000    -.4505241   -.4003707
+                 2010  │  -.4668625   .0128913   -36.22   0.000    -.4921291   -.4415959
+                 2011  │  -.4824124   .0129077   -37.37   0.000    -.5077111   -.4571137
+                 2012  │   -.491573   .0132081   -37.22   0.000    -.5174605   -.4656855
+                 2013  │  -.5002529   .0129688   -38.57   0.000    -.5256713   -.4748345
+                 2014  │  -.4653029   .0126228   -36.86   0.000    -.4900432   -.4405626
+                 2015  │  -.4225269   .0129741   -32.57   0.000    -.4479558   -.3970981
+                 2016  │  -.4120714   .0129001   -31.94   0.000    -.4373552   -.3867875
+                 2017  │  -.3651709   .0129213   -28.26   0.000    -.3904962   -.3398457
+                 2018  │  -.3279823   .0130398   -25.15   0.000    -.3535398   -.3024247
+                 2019  │  -.3090856   .0133018   -23.24   0.000    -.3351567   -.2830146
+                 2020  │  -.2676102   .0142718   -18.75   0.000    -.2955824   -.2396379
+                 2021  │  -.2407648   .0139475   -17.26   0.000    -.2681014   -.2134282
+                 2022  │  -.2468822   .0141928   -17.39   0.000    -.2746995   -.2190649
+                 2023  │  -.2701799   .0147838   -18.28   0.000    -.2991557   -.2412042
+                 2024  │  -.3752193   .0181965   -20.62   0.000    -.4108839   -.3395548
+                       │
+              1.female │  -.2922999   .0006543  -446.73   0.000    -.2935824   -.2910175
+                       │
+                  race │
+           200. black  │  -.0686415   .0009306   -73.76   0.000    -.0704655   -.0668175
+300. american india..  │  -.0598656   .0033758   -17.73   0.000    -.0664819   -.0532492
+650. asian or pacif..  │  -.0485385   .0025558   -18.99   0.000    -.0535478   -.0435291
+      651. asian only  │   .0084234   .0019517     4.32   0.000     .0045981    .0122486
+652. hawaiian/pacif..  │  -.0252371   .0067157    -3.76   0.000    -.0383997   -.0120746
+700. other (single)..  │  -.0541337   .0031132   -17.39   0.000    -.0602354    -.048032
+     801. white-black  │  -.0291788   .0075091    -3.89   0.000    -.0438964   -.0144612
+802. white-american..  │  -.0490416   .0053475    -9.17   0.000    -.0595226   -.0385606
+     803. white-asian  │   .0086869   .0091046     0.95   0.340    -.0091578    .0265316
+804. white-hawaiian..  │   -.002276   .0161762    -0.14   0.888    -.0339807    .0294287
+805. black-american..  │  -.0935276   .0147484    -6.34   0.000    -.1224339   -.0646213
+     806. black-asian  │   .0318263   .0268577     1.18   0.236    -.0208138    .0844664
+807. black-hawaiian..  │  -.0381892   .0571145    -0.67   0.504    -.1501315    .0737532
+808. american india..  │  -.0400125   .0548526    -0.73   0.466    -.1475217    .0674967
+809. asian-hawaiian..  │  -.0387825   .0170616    -2.27   0.023    -.0722225   -.0053424
+810. white-black-am..  │   -.064193   .0192482    -3.34   0.001    -.1019188   -.0264671
+811. white-black-as..  │   .0003727   .0678026     0.01   0.996    -.1325179    .1332634
+812. white-american..  │    -.06554   .0658422    -1.00   0.320    -.1945885    .0635084
+813. white-asian-ha..  │  -.0528795   .0165649    -3.19   0.001    -.0853462   -.0204129
+814. white-black-am..  │   .0096871   .0636553     0.15   0.879     -.115075    .1344493
+815. american india..  │   -.268576   .1004877    -2.67   0.008    -.4655284   -.0716237
+816. white-black--h..  │  -.1316006   .1183404    -1.11   0.266    -.3635436    .1003424
+817. white-american..  │  -.0886633   .0700809    -1.27   0.206    -.2260194    .0486927
+818. black-american..  │  -.1699235   .1453531    -1.17   0.242    -.4548104    .1149634
+819. white-american..  │   .2620891   .1019015     2.57   0.010     .0623659    .4618124
+820. two or three r..  │  -.0178392    .044777    -0.40   0.690    -.1056006    .0699221
+830. four or five r..  │  -.0353939    .048645    -0.73   0.467    -.1307364    .0599485
+                       │
+                region │
+middle atlantic div..  │   .0040378   .0012914     3.13   0.002     .0015067    .0065688
+east north central ..  │  -.0485335    .001236   -39.27   0.000    -.0509559    -.046111
+west north central ..  │  -.0780484   .0013536   -57.66   0.000    -.0807014   -.0753954
+south atlantic divi..  │  -.0333557   .0012244   -27.24   0.000    -.0357554   -.0309559
+east south central ..  │  -.1054848   .0014741   -71.56   0.000     -.108374   -.1025957
+west south central ..  │  -.0478624   .0013442   -35.61   0.000     -.050497   -.0452279
+    mountain division  │  -.0436024     .00139   -31.37   0.000    -.0463268   -.0408781
+     pacific division  │   .0396882   .0012824    30.95   0.000     .0371747    .0422017
+                       │
+            occupation │
+managers, officials..  │   .1001946   .0010219    98.05   0.000     .0981918    .1021974
+    clerical, kindred  │  -.3307224   .0009915  -333.56   0.000    -.3326656   -.3287791
+                sales  │  -.2123244   .0015485  -137.11   0.000    -.2153594   -.2092894
+            craftsmen  │  -.1619938   .0011927  -135.82   0.000    -.1643314   -.1596562
+           operatives  │   -.348232   .0012247  -284.34   0.000    -.3506324   -.3458316
+ service (private hh)  │  -.8156434   .0040438  -201.70   0.000    -.8235691   -.8077176
+      service (other)  │  -.4792818   .0011579  -413.92   0.000    -.4815513   -.4770123
+             laborers  │  -.4692539   .0016466  -284.98   0.000    -.4724813   -.4660266
+                       │
+              industry │
+         construction  │   .0552622   .0022291    24.79   0.000     .0508932    .0596312
+durable manufacturing  │   .1227307    .002125    57.75   0.000     .1185657    .1268957
+nondurable manufact..  │   .0667502   .0022329    29.89   0.000     .0623738    .0711266
+communications, tra..  │   .1239371   .0022513    55.05   0.000     .1195247    .1283496
+      wholesale trade  │   .0458961   .0024474    18.75   0.000     .0410994    .0506929
+         retail trade  │  -.2848876   .0021435  -132.91   0.000    -.2890889   -.2806863
+professional servic..  │   .0055892   .0021497     2.60   0.009     .0013758    .0098026
+education, welfare ..  │  -.3012608   .0022847  -131.86   0.000    -.3057387   -.2967829
+public administration  │    .134469   .0022959    58.57   0.000     .1299691     .138969
+       other services  │  -.0923227   .0022126   -41.73   0.000    -.0966593   -.0879862
+                       │
+                 _cons │   5.390634   .0083357   646.69   0.000     5.374296    5.406972
+───────────────────────┴────────────────────────────────────────────────────────────────
+</pre>
+<pre class='stata'>.     matrix b = e(b)[1, 1..$numyear]'
+
+.     clear
+
+.     svmat2 b, names(grade_coef) rnames(tag)
+number of observations will be reset to 43
+Press any key to continue, or Break to abort
+Number of observations (_N) was 0, now 43.
+
+.     generate year = real(substr(tag, 1, 4))
+
+.     drop tag
+
+.     order year grade_coef
+
+.     replace grade_coef = grade_coef * 100
+(43 real changes made)
+</pre>
+<p>The returns to education have increased substantially over time,
+rising from 5.4% in 1982 to 9.1% in 2024. This trend wasn’t linear -
+there was particularly rapid growth in returns to education during the
+1990s, followed by some stabilization in the 2000s.</p>
+<hr />
+<h3 id="merging-with-wage-differential-data">Merging with Wage
+Differential Data</h3>
+<pre class='stata'>.     tempfile temp1
+
+.     save `temp1', replace
+(file C:\Users\melin\AppData\Local\Temp\ST_7bcc_000001.tmp not found)
+file C:\Users\melin\AppData\Local\Temp\ST_7bcc_000001.tmp saved as .dta format
+</pre>
+<pre class='stata'>.     use "../Data/CPS-ORG, Wage Percentiles, 1982-2024.dta", clear
+
+.     keep year ldiff
+
+.     tempfile temp2
+
+.     save `temp2', replace
+(file C:\Users\melin\AppData\Local\Temp\ST_7bcc_000002.tmp not found)
+file C:\Users\melin\AppData\Local\Temp\ST_7bcc_000002.tmp saved as .dta format
+</pre>
+<pre class='stata'>.     use `temp1', clear
+
+.     merge 1:1 year using `temp2'
+
+    Result                      Number of obs
+    ─────────────────────────────────────────
+    Not matched                             0
+    Matched                                43  (_merge==3)
+    ─────────────────────────────────────────
+</pre>
+<pre class='stata'>.     save "../Data/Grade_coef and ldiff, 1982-2024.dta", replace
+file ../Data/Grade_coef and ldiff, 1982-2024.dta saved
+
+.     describe
+
+Contains data from ../Data/Grade_coef and ldiff, 1982-2024.dta
+ Observations:            43                  
+    Variables:             4                  15 Jan 2025 10:13
+─────────────────────────────────────────────────────────────────────────────────────────
+Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+─────────────────────────────────────────────────────────────────────────────────────────
+year            float   %9.0g                 
+grade_coef      float   %9.0g                 
+ldiff           float   %9.0g                 
+_merge          byte    %23.0g     _merge     Matching result from merge
+─────────────────────────────────────────────────────────────────────────────────────────
+Sorted by: year
+
+.     summarize
+
+    Variable │        Obs        Mean    Std. dev.       Min        Max
+─────────────┼─────────────────────────────────────────────────────────
+        year │         43        2003    12.55654       1982       2024
+  grade_coef │         43     7.94245    .8909521   5.400752    9.05608
+       ldiff │         43     184.798    7.395727   173.1777   199.8685
+      _merge │         43           3           0          3          3
+
+.     list
+
+     ┌──────────────────────────────────────────┐
+     │ year   grade_~f      ldiff        _merge │
+     ├──────────────────────────────────────────┤
+  1. │ 1982   5.400752   173.1777   Matched (3) │
+  2. │ 1983   5.735937   178.0788   Matched (3) │
+  3. │ 1984   6.015852   176.4329   Matched (3) │
+  4. │ 1985   6.234613   178.2298   Matched (3) │
+  5. │ 1986   6.582271   179.2468   Matched (3) │
+     ├──────────────────────────────────────────┤
+  6. │ 1987   6.775749   178.4061   Matched (3) │
+  7. │ 1988   6.636982   179.6006   Matched (3) │
+  8. │ 1989   7.289907   177.4786   Matched (3) │
+  9. │ 1990   7.390976   174.2969   Matched (3) │
+ 10. │ 1991   7.398305   174.3758   Matched (3) │
+     ├──────────────────────────────────────────┤
+ 11. │ 1992   7.919886   177.3575   Matched (3) │
+ 12. │ 1993   8.109019   179.2313   Matched (3) │
+ 13. │ 1994    8.45855   184.3866   Matched (3) │
+ 14. │ 1995   8.337849   183.5753   Matched (3) │
+ 15. │ 1996    8.21579   183.0031   Matched (3) │
+     ├──────────────────────────────────────────┤
+ 16. │ 1997   8.118965   180.4789   Matched (3) │
+ 17. │ 1998   8.372883   180.5366   Matched (3) │
+ 18. │ 1999   8.412754   177.4518   Matched (3) │
+ 19. │ 2000   8.275892   178.5683   Matched (3) │
+ 20. │ 2001   8.395767   180.6786   Matched (3) │
+     ├──────────────────────────────────────────┤
+ 21. │ 2002   8.387846   183.4861   Matched (3) │
+ 22. │ 2003   8.053668   185.4095   Matched (3) │
+ 23. │ 2004   8.082814    187.092   Matched (3) │
+ 24. │ 2005   8.233744    184.554   Matched (3) │
+ 25. │ 2006   8.140809   183.2616   Matched (3) │
+     ├──────────────────────────────────────────┤
+ 26. │ 2007   8.278952     184.36   Matched (3) │
+ 27. │ 2008   8.472644   186.2347   Matched (3) │
+ 28. │ 2009   8.676001   194.4965   Matched (3) │
+ 29. │ 2010   8.896851   195.6431   Matched (3) │
+ 30. │ 2011   8.865144   196.8138   Matched (3) │
+     ├──────────────────────────────────────────┤
+ 31. │ 2012   8.887622   199.8685   Matched (3) │
+ 32. │ 2013   8.979741   197.3916   Matched (3) │
+ 33. │ 2014   8.736344   196.5087   Matched (3) │
+ 34. │ 2015   8.598314   199.6724   Matched (3) │
+ 35. │ 2016    8.63203   196.4776   Matched (3) │
+     ├──────────────────────────────────────────┤
+ 36. │ 2017   8.379475    191.215   Matched (3) │
+ 37. │ 2018   8.152418   190.0748   Matched (3) │
+ 38. │ 2019   8.173421   192.6524   Matched (3) │
+ 39. │ 2020   8.066329   187.9643   Matched (3) │
+ 40. │ 2021   7.857437   185.3099   Matched (3) │
+     ├──────────────────────────────────────────┤
+ 41. │ 2022    7.75568   182.7319   Matched (3) │
+ 42. │ 2023   8.083282     184.65   Matched (3) │
+ 43. │ 2024    9.05608   185.8541   Matched (3) │
+     └──────────────────────────────────────────┘
+</pre>
+<p>The 90-10 wage differential has grown from 173.2% in 1982 to 185.9%
+in 2024, indicating increasing wage inequality. The correlation between
+returns to education and wage inequality is positive, suggesting that
+higher returns to education may be contributing to overall wage
+dispersion.</p>
+<hr />
+<h3 id="visualization-of-results">Visualization of Results</h3>
+<pre class='stata'>.     line ldiff y, yaxis(1) || line grade_coef y, yaxis(2) ///
+>     xtitle("Year") xlabel(1980(10)2025) xtick(1980(5)2015) ///
+>     ytitle("90-10 log-Wage Differential (%)", axis(1)) ylabel(150(10)200, noticks axis(
+> 1)) ///
+>     ytitle("Rate of Return to Schooling (%)", axis(2)) ylabel(5(2)10, noticks axis(2)) 
+> ///
+>     text(182 1985 "90-10 Differential") text(155 1985 "Return to Schooling") ///
+>     scheme(Wide727Scheme) name(g1, replace)
+
+.     graph export results/inequality_schooling_line.png, name (g1) width(600) replace 
+file results/inequality_schooling_line.png saved as PNG format
+</pre>
+<pre class='stata'>.     scatter ldiff grade_coef || lfit ldiff grade_coef ||, ///
+>     xtitle("Rate of Return to Schooling (%)") xlabel(4(1)10) ///
+>     ytitle("90-10 log-Wage Differential (%)") ylabel(160(20)200, noticks) ///
+>     scheme(Squarish727Scheme) name(g2, replace)
+
+.     graph export results/inequality_schooling_scatter.png, name (g2) width(450) replace
+>  
+file results/inequality_schooling_scatter.png saved as PNG format
+</pre>
+<p>Both wage inequality and returns to education show upward trends over
+the study period, though with different patterns. Returns to education
+show more short-term volatility, while wage inequality exhibits a more
+gradual but persistent increase over time.</p>
+<p><strong>Graph: Time Series of Inequality and Returns to
+Education</strong></p>
+<figure>
+<img src="./results/inequality_schooling_line.png"
+alt="Inequality and Returns to Education" />
+<figcaption aria-hidden="true">Inequality and Returns to
+Education</figcaption>
+</figure>
+<p><strong>Graph: Relationship between Inequality and Returns to
+Education</strong></p>
+<figure>
+<img src="./results/inequality_schooling_scatter.png"
+alt="Scatter Plot" />
+<figcaption aria-hidden="true">Scatter Plot</figcaption>
+</figure>
+<hr />
+<h3 id="key-findings">Key Findings</h3>
+<ul>
+<li><strong>Returns to Education</strong>:
+<ul>
+<li>Significant increase in returns to education from 5.4% to 9.1% over
+the study period</li>
+<li>Non-linear pattern with rapid growth in the 1990s and subsequent
+stabilization</li>
+</ul></li>
+<li><strong>Wage Inequality</strong>:
+<ul>
+<li>Substantial growth in 90-10 wage differential from 173.2% to
+185.9%</li>
+<li>Positive correlation with returns to education</li>
+</ul></li>
+<li><strong>Labor Market Structure</strong>:
+<ul>
+<li>Significant gender wage gap persists (-29.1%)</li>
+<li>Large industry and occupation wage differentials</li>
+<li>Important regional variation in wage levels</li>
+</ul></li>
+</ul>
+<hr />
+<h3 id="conclusion">Conclusion</h3>
+<p>This analysis demonstrates the evolving relationship between
+education and wage inequality from 1982 to 2024. The findings highlight
+how increasing returns to education have coincided with growing wage
+inequality, suggesting that changes in the value of education in the
+labor market may be an important driver of overall wage dispersion. The
+results also underscore the persistent role of demographic and
+structural factors in determining wages.</p>
+</body>
+</html>

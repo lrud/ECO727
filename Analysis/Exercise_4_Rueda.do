@@ -12,8 +12,6 @@ global endyear=2024
 global startyear=1982
 global numyear=$endyear-$startyear+1
 
-
-
 *import CPS & CPI Data, keep earnweek 
 use "../Data/CPS-ORG with CPI, 1982-2024.dta", clear
 run data_check
@@ -25,7 +23,7 @@ drop if experience <=0 // experience < 0 not possible
 gen exp2 = (experience)^2
 gen lrwage = log(rwage)
 
-***end part A
+***end part a
 
 *regression and joint statistical significance
 regress lrwage grade experience exp2 [pw=earnwt]

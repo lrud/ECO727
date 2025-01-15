@@ -1,9 +1,9 @@
 {smcl}
-{txt}{sf}{ul off}{.-}
+{com}{sf}{ul off}{txt}{.-}
       name:  {res}results
        {txt}log:  {res}C:\Users\melin\OneDrive\ECO 727\Analysis\Exercise_4_Rueda.smcl
   {txt}log type:  {res}smcl
- {txt}opened on:  {res}14 Jan 2025, 21:16:37
+ {txt}opened on:  {res}15 Jan 2025, 09:38:41
 {txt}
 {com}. set scheme s2color
 {txt}
@@ -18,8 +18,6 @@
 {com}. global numyear=$endyear-$startyear+1
 {txt}
 {com}. 
-. 
-. 
 . *import CPS & CPI Data, keep earnweek 
 . use "../Data/CPS-ORG with CPI, 1982-2024.dta", clear
 {txt}
@@ -40,7 +38,7 @@
 {com}. gen lrwage = log(rwage)
 {txt}
 {com}. 
-. ***end part A
+. ***end part a
 . 
 . *regression and joint statistical significance
 . regress lrwage grade experience exp2 [pw=earnwt]
@@ -619,12 +617,12 @@ Sorted by:
 {com}. save `temp1', replace
 {txt}{p 0 4 2}
 (file {bf}
-C:\Users\melin\AppData\Local\Temp\ST_d0f0_000001.tmp{rm}
+C:\Users\melin\AppData\Local\Temp\ST_8b10_000001.tmp{rm}
 not found)
 {p_end}
 {p 0 4 2}
 file {bf}
-C:\Users\melin\AppData\Local\Temp\ST_d0f0_000001.tmp{rm}
+C:\Users\melin\AppData\Local\Temp\ST_8b10_000001.tmp{rm}
 saved
 as .dta format
 {p_end}
@@ -632,7 +630,7 @@ as .dta format
 {com}. 
 . *** end part d
 . 
-. *imporing wage differential data
+. *importing wage differential data
 . use "../Data/CPS-ORG, Wage Percentiles, 1982-2024.dta", clear
 {txt}
 {com}. keep year ldiff
@@ -642,12 +640,12 @@ as .dta format
 {com}. save `temp2', replace
 {txt}{p 0 4 2}
 (file {bf}
-C:\Users\melin\AppData\Local\Temp\ST_d0f0_000002.tmp{rm}
+C:\Users\melin\AppData\Local\Temp\ST_8b10_000002.tmp{rm}
 not found)
 {p_end}
 {p 0 4 2}
 file {bf}
-C:\Users\melin\AppData\Local\Temp\ST_d0f0_000002.tmp{rm}
+C:\Users\melin\AppData\Local\Temp\ST_8b10_000002.tmp{rm}
 saved
 as .dta format
 {p_end}
@@ -675,7 +673,7 @@ saved
 
 {txt}Contains data from {res}../Data/Grade_coef and ldiff, 1982-2024.dta
 {txt} Observations:{res}            43                  
-{txt}    Variables:{res}             4                  14 Jan 2025 21:17
+{txt}    Variables:{res}             4                  15 Jan 2025 09:39
 {txt}{hline}
 Variable      Storage   Display    Value
     name         type    format    label      Variable label
@@ -797,7 +795,7 @@ format
       {txt}name:  {res}results
        {txt}log:  {res}C:\Users\melin\OneDrive\ECO 727\Analysis\Exercise_4_Rueda.smcl
   {txt}log type:  {res}smcl
- {txt}closed on:  {res}14 Jan 2025, 21:17:21
+ {txt}closed on:  {res}15 Jan 2025, 09:39:32
 {txt}{.-}
 {smcl}
 {txt}{sf}{ul off}

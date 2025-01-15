@@ -48,7 +48,7 @@ testparm i.year
 *** end part c
 
 // update previous regression to include interaction term b/t grade and year
-regress lrwage experience exp2 i.year i.female i.race i.region i.occupation i.industry year#c.grade [pw=earnwt]
+regress lrwage year#c.grade experience exp2 i.year i.female i.race i.region i.occupation i.industry [pw=earnwt]
 
 // Save the coefficients to a dataset using matrix and svmat2 commands
 matrix b = e(b)[1, 1..$numyear]'
@@ -56,14 +56,36 @@ clear
 svmat2 b, names(grade_coef) rnames(tag)
 list, noobs
 
-//extract yeer from tag and rename
-generate y = real(substr(tag, 1, 4))
+* extract year from tag and rename
+generate year = real(substr(tag, 1, 4))
 drop tag
-order y grade_coef
+order year grade_coef
 replace grade_coef = grade_coef * 100
 
-// Describe and summarize the data
+* Describe and summarize the data
 describe
 summarize
+tempfile temp1
+save `temp1', replace
 
 *** end part d
+
+* imporing wage differential data
+use "../Data/CPS-ORG, Wage Percentiles, 1982-2024.dta", clear
+keep year ldiff
+tempfile temp2
+save `temp2', replace
+use `temp1', clear
+merge 1:1 year using `temp2'
+
+*saving
+save "../Data/Grade_coef and ldiff, 1982-2024.dta", replace
+describe
+summarize
+list
+
+*** end part e
+
+
+
+

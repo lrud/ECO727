@@ -77,3 +77,52 @@ forvalues i = 1/8 {
 }
 
 *** end part c
+
+* Part D: Compare the Estimates
+
+* 1. Compare the Wald estimate from Part B with Angrist and Krueger’s Table 3
+esttab wald, se // Display the Wald estimate from Part B
+
+* 2. Compare the 2SLS estimates with three birth-quarter instruments (Part B) and 29 interactions (Part C)
+esttab qob_iv column_2 column_5 column_6 column_7 column_8, se
+
+foreach model in qob_iv column_2 column_5 column_6 column_7 column_8 {
+    est restore `model'
+    estat firststage
+}
+
+* For the models with 29 birth-quarter × birth-year interactions (Part C)
+foreach model in column_2 column_5 column_6 column_7 column_8 {
+    est restore `model'
+    estat overid // Test overidentifying restrictions (Sargan and Basmann tests)
+}
+
+*** end part d
+
+*** Part E: Display and Export Regression Results
+*** Display a directory of the 11 saved regressions
+eststo dir
+
+*** Write the estimates from the three regressions in Part B to the log file
+esttab ols wald qob_iv, b(3) se(3) stats(r2 N, fmt(%4.3f %9.0fc) labels("R2" "N")) ///
+    nodepvars nostar obslast noomitted nobaselevels varwidth(24) alignment(r) ///
+    title("Least-Squares Estimates of the log-Wage Regression") ///
+    mtitles("OLS" "Wald" "2SLS") ///
+    coeflabels(_cons Constant  educ "Years of Education") ///
+    indicate("Birth-Year Dummies = *.yob", labels("\checkmark" "")) ///
+    nonotes addnotes("Standard errors in parentheses." "Source:~Angrist and Krueger (1991).")
+
+*** Write the estimates to the file Exercise_5_table_a_Rueda.tex
+esttab ols wald qob_iv using results/Exercise_5_table_a_Rueda.tex, ///
+    b(3) se(3) stats(r2 N, fmt(%4.3f %9.0fc) labels("\$R^2\$" "\$N\$")) ///
+    nodepvars nostar obslast noomitted nobaselevels varwidth(24) alignment(D{.}{.}{-1}) replace booktabs ///
+    title("Least-Squares Estimates of the log-Wage Regression") ///
+    mtitles("OLS" "Wald" "2SLS") ///
+    coeflabels(_cons Constant  educ "Years of Education") ///
+    indicate("Birth-Year Dummies = *.yob", labels("\checkmark" "")) ///
+    nonotes addnotes("Standard errors in parentheses." "Source:~Angrist and Krueger (1991).")
+
+    *** end part e
+
+    // still needs constant to be first using order 
+    // use four decimal points se(4) and b(4)

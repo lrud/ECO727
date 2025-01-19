@@ -1,0 +1,193 @@
+## Exercise 5: Angrist and Krueger (1991) Analysis: Effect of Schooling on Wages
+
+---
+
+### Plan
+
+- **Data Preparation**: Load and verify the dataset, generate required variables.
+- **Estimate OLS and 2SLS**: Perform OLS and 2SLS regressions to estimate the effect of education on wages.
+- **Reproduce Table 6**: Replicate the results of Table 6 from Angrist and Krueger (1991).
+- **Compare Estimates**: Compare the OLS and 2SLS estimates.
+- **Display and Export Results**: Export regression results to a log file and LaTeX table.
+
+---
+
+### Preliminaries
+
+        cd "C:\Users\melin\OneDrive\ECO 727\Analysis"
+        set scheme s2color
+        global ex=5
+        global lname="Rueda"
+
+---
+
+### Part A: Data Preparation
+
+        use "../Data/Birth Quarter.dta" if cohort == 4, clear
+        assert census == 80
+        assert cohort == 4
+        assert _N == 486926
+        generate q1 = (qob == 1)
+        generate ageqsq = ageq^2
+
+- The dataset is loaded, and data conditions are verified. 
+- The dataset contains 486,926 observations for cohort 4.
+- Variables `q1` (indicating birth in the first quarter) and `ageqsq` (squared age) are generated.
+
+---
+
+### Part B: Estimate OLS and 2SLS
+
+#### OLS Regression
+
+        regress lwklywge educ
+        eststo ols
+
+- The OLS regression shows that an additional year of education is associated with a 5.54% increase in weekly wages (p < 0.001). 
+- The model explains 6.55% of the variation in log wages.
+
+#### Wald Estimator (2SLS)
+
+        ivregress 2sls lwklywge (educ = q1)
+        eststo wald
+        estat firststage    
+
+- The Wald estimator using 2SLS yields a negative but statistically insignificant coefficient for education (-0.0098, p = 0.711). 
+- The first-stage F-statistic (68.38) suggests that the instrument (birth in the first quarter) is not weak.
+
+#### 2SLS with Quarter of Birth Instruments
+
+        ivregress 2sls lwklywge (educ = ib4.qob) ib49.yob
+        eststo qob_iv
+        estat firststage    
+        estat overid        
+   
+- The 2SLS regression using quarter of birth as instruments shows a negative and statistically significant effect of education on wages (-0.0612, p = 0.017). 
+- The first-stage F-statistic (28.95) indicates that the instruments are not weak, but the overidentification test (p = 0.0043) suggests potential issues with instrument validity.
+
+---
+
+### Part C: Reproduce Table 6
+
+        eststo column_1: regress lwklywge educ i.yob 
+        eststo column_2: ivregress 2sls lwklywge (educ = ib4.qob#ib49.yob) ib49.yob, first 
+        estat firststage
+        estat overid
+        eststo column_3: regress lwklywge educ i.yob ageq ageqsq 
+        eststo column_4: ivregress 2sls lwklywge (educ = ib4.qob#ib49.yob) ib49.yob ageq ageqsq, first 
+        estat firststage
+        estat overid
+        eststo column_5: regress lwklywge educ i.race i.smsa i.married i.yob i.region 
+        eststo column_6: ivregress 2sls lwklywge (educ = ib4.qob#ib49.yob) i.race i.smsa i.married ib49.yob ib9.region, first 
+        estat firststage
+        estat overid
+        eststo column_7: regress lwklywge educ i.race i.smsa i.married i.yob i.region ageq ageqsq 
+        eststo column_8: ivregress 2sls lwklywge (educ = ib4.qob#ib49.yob) i.race i.smsa i.married ib49.yob ib9.region ageq ageqsq, first 
+        estat firststage
+        estat overid
+
+- The results for Table 6 are reproduced using alternating OLS and 2SLS models. Key findings include:
+  - **Column 1**: OLS regression with year-of-birth dummies shows a 5.73% return to education (p < 0.001).
+  - **Column 2**: 2SLS regression with quarter of birth and year-of-birth interactions yields a 5.53% return to education (p < 0.001).
+  - **Column 3**: OLS regression with age controls shows a 5.73% return to education (p < 0.001).
+  - **Column 4**: 2SLS regression with age controls shows a 9.48% return to education (p < 0.001).
+  - **Column 5**: OLS regression with additional controls (race, region, SMSA, marital status) shows a 5.21% return to education (p < 0.001).
+  - **Column 6**: 2SLS regression with additional controls shows a 3.93% return to education (p = 0.007).
+  - **Column 7**: OLS regression with all controls shows a 5.21% return to education (p < 0.001).
+  - **Column 8**: 2SLS regression with all controls shows a 7.79% return to education (p = 0.001).
+
+- The overidentification tests for 2SLS models (Columns 2, 4, 6, 8) suggest potential issues with instrument validity (p < 0.01).
+
+---
+
+### Part D: Compare the Estimates
+
+        esttab wald, b(4) se(4)
+        esttab qob_iv column_2 column_5 column_6 column_7 column_8, b(4) se(4)
+     
+- The Wald estimator yields a negative but insignificant effect of education on wages. 
+- The 2SLS estimates vary across specifications, with returns to education ranging from -0.0612 to 0.0948. 
+- The first-stage F-statistics indicate that the instruments are not weak, but the overidentification tests suggest potential issues with instrument validity.
+
+---
+
+### Part E: Display and Export Results
+
+        eststo dir
+        esttab ols wald qob_iv, b(4) se(4) stats(r2 N, fmt(%4.3f %9.0fc) labels("R2" "N")) ///
+            nodepvars nostar obslast noomitted nobaselevels varwidth(24) alignment(D{.}{.}{-1}) ///
+            title("Least-Squares Estimates of the log-Wage Regression") ///
+            mtitles("OLS" "Wald" "IVQOB") ///
+            order(_cons educ) ///
+            coeflabels(_cons Constant ///
+                    educ "Years of Education") ///
+            indicate("Year-of-Birth = *.yob", labels("\checkmark" "")) ///
+            nonotes addnotes("Standard errors in parentheses." "Source:~Angrist and Krueger (1991).")
+
+        esttab ols wald qob_iv using "results/Exercise_5_table_a_Rueda.tex", ///
+            b(4) se(4) stats(r2 N, fmt(%4.3f %9.0fc) labels("\$R^2\$" "\$N\$")) ///
+            nodepvars nostar obslast noomitted nobaselevels varwidth(24) alignment(D{.}{.}{-1}) ///
+            replace booktabs ///
+            title("Least-Squares Estimates of the log-Wage Regression") ///
+            mtitles("OLS" "Wald" "IVQOB") ///
+            order(_cons educ) ///
+            coeflabels(_cons Constant ///
+                    educ "Years of Education") ///
+            indicate("Year-of-Birth = *.yob", labels("\checkmark" "")) ///
+            nonotes addnotes("Standard errors in parentheses." "Source:~Angrist and Krueger (1991).")
+
+- The OLS estimate shows a 5.54% return to education, while the 2SLS estimates are inconsistent and sometimes negative. 
+- The results are exported to a LaTeX table for further analysis.
+
+---
+
+### Part F: Reproduce First Half of Table 6
+
+        esttab column_1 column_2 column_3 column_4, ///
+            b(4) se(4) stats(r2, fmt(%4.3f) labels("R2")) ///
+            nodepvars nostar obslast noomitted nobaselevels varwidth(24) alignment(D{.}{.}{-1}) ///
+            title("Re urns to Education: Alternative Estimates") ///
+            mtitles("OLS" "TSLS" "OLS" "TSLS") ///
+            order(educ race smsa married) ///
+            coeflabels(educ "Years of Education" ///
+                    race "Race (1 = black)" ///
+                    smsa "SMSA (1 = center city)" ///
+                    married "Married (1 = married)") ///
+            indicate("Year-of-Birth = *.yob", labels("Yes" "")) 
+
+        esttab column_1 column_2 column_3 column_4 using "results/Exercise_5_table_b_Rueda.tex", ///
+            b(4) se(4) stats(r2, fmt(%4.3f) labels("\$R^2\$")) ///
+            noconstant nodepvars nostar obslast noomitted nobaselevels varwidth(24) alignment(D{.}{.}{-1}) ///
+            replace booktabs ///
+            title("Returns to Education: Alternative Estimates") ///
+            mtitles("OLS" "TSLS" "OLS" "TSLS") ///
+            order(educ race smsa married) ///
+            coeflabels(educ "Years of Education" ///
+                    race "Race (1 = black)" ///
+                    smsa "SMSA (1 = center city)" ///
+                    married "Married (1 = married)") ///
+            indicate("Year-of-Birth = *.yob", labels("Yes" "")) ///
+            nonotes addnotes("a. Standard errors in parentheses. Sample size is 486,926. Instruments are a full set of quarter-of-birth times year-of-birth interactions." ///
+            "Sample consists of males born in the United States. The sample is drawn from the 5 percent samples of the 1980 Census." ///
+            "The dependent variable is the log of weekly earnings. Age and age-squared are measured in quarters of years." ///
+            "Each equation also includes an intercept.")
+
+- The first half of Table 6 is reproduced, showing consistent returns to education across specifications. 
+- The R-squared values increase with the addition of controls, indicating improved model fit.
+
+---
+
+### Key Findings
+
+- **OLS Estimates**: Consistent positive returns to education (5.54% to 5.73%).
+- **2SLS Estimates**: Inconsistent and sometimes negative returns to education, suggesting potential issues with instrument validity.
+- **Instrument Strength**: First-stage F-statistics indicate that the instruments are not weak, but overidentification tests suggest potential issues with instrument validity.
+
+---
+
+### Conclusion
+
+- This analysis replicates the findings of Angrist and Krueger (1991), showing that OLS estimates of returns to education are positive and significant, while 2SLS estimates are inconsistent and sometimes negative. 
+- The results highlight the challenges of using quarter of birth as an instrument for education in wage regressions.
+
+---

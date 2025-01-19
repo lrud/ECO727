@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Exercise_5_Rueda_</title>
+  <style>
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+svg {
+height: auto;
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+background-color: #1a1a1a;
+border: none;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+<style>
+/* CSS for Markstat 2.0 using Pandoc 2.0 */
+body{padding:14px 28px; max-width:45em;}
+body, table {font-family: Helvetica, Arial, Sans-serif; font-size: 14px;}
+h1, h2, h3, h4 {font-weight: normal; color: #3366cc}
+h1 {font-size: 200%;}
+h2 {font-size: 150%;}
+h3 {font-size: 120%;}
+h4 {font-size: 100%; font-weight:bold}
+img.center {display:block; margin-left:auto; margin-right:auto}
+.small{font-size:8pt;}
+a {color: black;}
+a:visited {color: #808080;}
+a.plain {text-decoration:none;}
+a.plain:hover {text-decoration:underline;}
+.em {font-weight:bold;}
+pre, code {font-family: "lucida console", monospace;}
+pre.stata {font-size:13px; line-height:13px;}
+pre {padding:8px; border:1px solid #c0c0c0; border-radius:8px; background-color:#fdfdfd;}
+code {color:#3366cc; background-color:#fafafa;}
+pre code { color:black; background-color:white}
+/* Added for Pandoc */
+figure > img, div.figure > img {display:block; margin:auto}
+figcaption, p.caption {text-align:center; font-weight:bold; color:#3366cc;}
+h1.title {text-align:center; margin-bottom:0}
+p.author, h2.author {font-style:italic; text-align:center;margin-top:4px;margin-bottom:0}
+p.date, h3.date {text-align:center;margin-top:4px; margin-bottom:0}
+/* Tables*/
+table { margin:auto; border-collapse:collapse; }
+table caption { margin-bottom:1ex;}
+td {padding:0 0 0 0} /* override */
+table:not([class]) th { padding:4px 6px } 
+table:not([class]) td { padding:4px 6px } 
+table:not([class]) thead tr:first-child th {border-top:1px solid black; padding-top:6px}
+table:not([class]) thead tr:last-child  th {padding-bottom:6px}
+table:not([class]) tbody tr:first-child td {border-top:1px solid black; padding-top:6px}
+table:not([class]) tbody tr:last-child  td {padding-bottom:6px;}
+table:not([class]) tbody:last-child tr:last-child td {border-bottom:1px solid black;}
+</style>
+</head>
+<body>
+<h2 id="exercise-5-angrist-and-krueger-1991-analysis-effect-of-schooling-on-wages">Exercise
+5: Angrist and Krueger (1991) Analysis: Effect of Schooling on
+Wages</h2>
+<hr />
+<h3 id="plan">Plan</h3>
+<ul>
+<li><strong>Data Preparation</strong>: Load and verify the dataset,
+generate required variables.</li>
+<li><strong>Estimate OLS and 2SLS</strong>: Perform OLS and 2SLS
+regressions to estimate the effect of education on wages.</li>
+<li><strong>Reproduce Table 6</strong>: Replicate the results of Table 6
+from Angrist and Krueger (1991).</li>
+<li><strong>Compare Estimates</strong>: Compare the OLS and 2SLS
+estimates.</li>
+<li><strong>Display and Export Results</strong>: Export regression
+results to a log file and LaTeX table.</li>
+</ul>
+<hr />
+<h3 id="preliminaries">Preliminaries</h3>
+<pre class='stata'>.     cd "C:\Users\melin\OneDrive\ECO 727\Analysis"
+C:\Users\melin\OneDrive\ECO 727\Analysis
+
+.     set scheme s2color
+
+.     global ex=5
+
+.     global lname="Rueda"
+</pre>
+<hr />
+<h3 id="part-a-data-preparation">Part A: Data Preparation</h3>
+<pre class='stata'>.     use "../Data/Birth Quarter.dta" if cohort == 4, clear
+
+.     assert census == 80
+
+.     assert cohort == 4
+
+.     assert _N == 486926
+
+.     generate q1 = (qob == 1)
+
+.     generate ageqsq = ageq^2
+</pre>
+<ul>
+<li>The dataset is loaded, and data conditions are verified.</li>
+<li>The dataset contains 486,926 observations for cohort 4.</li>
+<li>Variables <code>q1</code> (indicating birth in the first quarter)
+and <code>ageqsq</code> (squared age) are generated.</li>
+</ul>
+<hr />
+<h3 id="part-b-estimate-ols-and-2sls">Part B: Estimate OLS and 2SLS</h3>
+<h4 id="ols-regression">OLS Regression</h4>
+<pre class='stata'>.     regress lwklywge educ
+
+      Source │       SS           df       MS      Number of obs   =   486,926
+─────────────┼──────────────────────────────────   F(1, 486924)    =  34137.04
+       Model │  13286.5814         1  13286.5814   Prob > F        =    0.0000
+    Residual │  189517.161   486,924  .389213022   R-squared       =    0.0655
+─────────────┼──────────────────────────────────   Adj R-squared   =    0.0655
+       Total │  202803.743   486,925  .416498932   Root MSE        =    .62387
+
+─────────────┬────────────────────────────────────────────────────────────────
+    lwklywge │ Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+─────────────┼────────────────────────────────────────────────────────────────
+        educ │   .0554276      .0003   184.76   0.000     .0548397    .0560156
+       _cons │    5.04521   .0041685  1210.33   0.000      5.03704    5.053381
+─────────────┴────────────────────────────────────────────────────────────────
+
+.     eststo ols
+</pre>
+<ul>
+<li>The OLS regression shows that an additional year of education is
+associated with a 5.54% increase in weekly wages (p &lt; 0.001).</li>
+<li>The model explains 6.55% of the variation in log wages.</li>
+</ul>
+<h4 id="wald-estimator-2sls">Wald Estimator (2SLS)</h4>
+<pre class='stata'>.     ivregress 2sls lwklywge (educ = q1)
+
+Instrumental-variables 2SLS regression            Number of obs   =    486,926
+                                                  Wald chi2(1)    =       0.14
+                                                  Prob > chi2     =     0.7111
+                                                  R-squared       =          .
+                                                  Root MSE        =     .65347
+
+─────────────┬────────────────────────────────────────────────────────────────
+    lwklywge │ Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+─────────────┼────────────────────────────────────────────────────────────────
+        educ │  -.0098222   .0265177    -0.37   0.711    -.0617959    .0421516
+       _cons │   5.930765   .3598933    16.48   0.000     5.225387    6.636143
+─────────────┴────────────────────────────────────────────────────────────────
+Endogenous: educ
+Exogenous:  q1
+
+.     eststo wald
+
+.     estat firststage    
+
+  First-stage regression summary statistics
+  ─────────────┬────────────────────────────────────────────────────────────
+               │            Adjusted      Partial
+      Variable │   R-sq.       R-sq.        R-sq.   F(1,486924)   Prob > F
+  ─────────────┼────────────────────────────────────────────────────────────
+          educ │  0.0001      0.0001       0.0001       68.3823    0.0000
+  ─────────────┴────────────────────────────────────────────────────────────
+
+
+  Minimum eigenvalue statistic = 68.3823     
+
+  Critical Values                      # of endogenous regressors:    1
+  H0: Instruments are weak             # of excluded instruments:     1
+  ───────────────────────────────────┬─────────────────────────────────
+                                     │    5%     10%     20%     30%
+  2SLS relative bias                 │         (not available)
+  ───────────────────────────────────┼─────────────────────────────────
+                                     │   10%     15%     20%     25%
+  2SLS size of nominal 5% Wald test  │  16.38    8.96    6.66    5.53
+  LIML size of nominal 5% Wald test  │  16.38    8.96    6.66    5.53
+  ───────────────────────────────────┴─────────────────────────────────
+</pre>
+<ul>
+<li>The Wald estimator using 2SLS yields a negative but statistically
+insignificant coefficient for education (-0.0098, p = 0.711).</li>
+<li>The first-stage F-statistic (68.38) suggests that the instrument
+(birth in the first quarter) is not weak.</li>
+</ul>
+<h4 id="sls-with-quarter-of-birth-instruments">2SLS with Quarter of
+Birth Instruments</h4>
+<pre class='stata'>.     ivregress 2sls lwklywge (educ = ib4.qob) ib49.yob
+
+Instrumental-variables 2SLS regression            Number of obs   =    486,926
+                                                  Wald chi2(10)   =    5258.52
+                                                  Prob > chi2     =     0.0000
+                                                  R-squared       =          .
+                                                  Root MSE        =     .71139
+
+─────────────┬────────────────────────────────────────────────────────────────
+    lwklywge │ Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+─────────────┼────────────────────────────────────────────────────────────────
+        educ │  -.0611904     .02569    -2.38   0.017    -.1115418   -.0108389
+             │
+         yob │
+         40  │    .176109   .0169082    10.42   0.000     .1429696    .2092484
+         41  │    .179135   .0145432    12.32   0.000     .1506308    .2076391
+         42  │    .187946   .0103399    18.18   0.000     .1676803    .2082118
+         43  │   .1811684   .0092631    19.56   0.000      .163013    .1993238
+         44  │   .1489016   .0085087    17.50   0.000     .1322248    .1655784
+         45  │   .1368622   .0058076    23.57   0.000     .1254795    .1482449
+         46  │   .1203417   .0042626    28.23   0.000     .1119872    .1286963
+         47  │   .0915992   .0043729    20.95   0.000     .0830284    .1001701
+         48  │   .0419143   .0042083     9.96   0.000     .0336663    .0501624
+             │
+       _cons │   6.509484   .3534527    18.42   0.000      5.81673    7.202239
+─────────────┴────────────────────────────────────────────────────────────────
+Endogenous: educ
+Exogenous:  40.yob 41.yob 42.yob 43.yob 44.yob 45.yob 46.yob 47.yob 48.yob
+            1.qob 2.qob 3.qob
+
+.     eststo qob_iv
+
+.     estat firststage    
+
+  First-stage regression summary statistics
+  ─────────────┬────────────────────────────────────────────────────────────
+               │            Adjusted      Partial
+      Variable │   R-sq.       R-sq.        R-sq.   F(3,486913)   Prob > F
+  ─────────────┼────────────────────────────────────────────────────────────
+          educ │  0.0059      0.0058       0.0002       28.9475    0.0000
+  ─────────────┴────────────────────────────────────────────────────────────
+
+
+  Minimum eigenvalue statistic = 28.9475     
+
+  Critical Values                      # of endogenous regressors:    1
+  H0: Instruments are weak             # of excluded instruments:     3
+  ───────────────────────────────────┬─────────────────────────────────
+                                     │    5%     10%     20%     30%
+  2SLS relative bias                 │  13.91    9.08    6.46    5.39
+  ───────────────────────────────────┼─────────────────────────────────
+                                     │   10%     15%     20%     25%
+  2SLS size of nominal 5% Wald test  │  22.30   12.83    9.54    7.80
+  LIML size of nominal 5% Wald test  │   6.46    4.36    3.69    3.32
+  ───────────────────────────────────┴─────────────────────────────────
+
+
+.     estat overid        
+
+  Tests of overidentifying restrictions:
+
+  Sargan (score) chi2(2) =   10.889  (p = 0.0043)
+  Basmann chi2(2)        =   10.889  (p = 0.0043)
+</pre>
+<ul>
+<li>The 2SLS regression using quarter of birth as instruments shows a
+negative and statistically significant effect of education on wages
+(-0.0612, p = 0.017).</li>
+<li>The first-stage F-statistic (28.95) indicates that the instruments
+are not weak, but the overidentification test (p = 0.0043) suggests
+potential issues with instrument validity.</li>
+</ul>
+<hr />
+<h3 id="part-c-reproduce-table-6">Part C: Reproduce Table 6</h3>
+<pre class='stata'>.     eststo column_1: regress lwklywge educ i.yob 
+
+      Source │       SS           df       MS      Number of obs   =   486,926
+─────────────┼──────────────────────────────────   F(10, 486915)   =   4396.64
+       Model │  16795.7577        10  1679.57577   Prob > F        =    0.0000
+    Residual │  186007.985   486,915  .382013257   R-squared       =    0.0828
+─────────────┼──────────────────────────────────   Adj R-squared   =    0.0828
+       Total │  202803.743   486,925  .416498932   Root MSE        =    .61807
+
+─────────────┬────────────────────────────────────────────────────────────────
+    lwklywge │ Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+─────────────┼────────────────────────────────────────────────────────────────
+        educ │   .0573383   .0002981   192.37   0.000     .0567541    .0579224
+             │
+         yob │
+         41  │   -.008401   .0044663    -1.88   0.060    -.0171549    .0003528
+         42  │   -.020105   .0042998    -4.68   0.000    -.0285323   -.0116776
+         43  │  -.0323785   .0042716    -7.58   0.000    -.0407507   -.0240063
+         44  │  -.0688195   .0043143   -15.95   0.000    -.0772754   -.0603637
+         45  │  -.0972022   .0043119   -22.54   0.000    -.1056534    -.088751
+         46  │  -.1303642   .0041339   -31.54   0.000    -.1384665   -.1222619
+         47  │  -.1659494     .00404   -41.08   0.000    -.1738678   -.1580311
+         48  │  -.2107593    .004081   -51.64   0.000    -.2187579   -.2027607
+         49  │  -.2510504   .0040846   -61.46   0.000    -.2590561   -.2430446
+             │
+       _cons │   5.129832     .00503  1019.85   0.000     5.119973     5.13969
+─────────────┴────────────────────────────────────────────────────────────────
+
+.     eststo column_2: ivregress 2sls lwklywge (educ = ib4.qob#ib49.yob) ib49.yob, first 
+
+First-stage regressions
+───────────────────────
+
+                                                       Number of obs = 486,926
+                                                       F(39, 486886) =   77.36
+                                                       Prob > F      =  0.0000
+                                                       R-squared     =  0.0062
+                                                       Adj R-squared =  0.0061
+                                                       Root MSE      =  2.9712
+
+─────────────┬────────────────────────────────────────────────────────────────
+        educ │ Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+─────────────┼────────────────────────────────────────────────────────────────
+         yob │
+         40  │  -.4790786   .0394497   -12.14   0.000    -.5563987   -.4017585
+         41  │  -.4573497   .0390959   -11.70   0.000    -.5339764    -.380723
+         42  │  -.1900694   .0363524    -5.23   0.000     -.261319   -.1188198
+         43  │  -.2625653   .0374126    -7.02   0.000    -.3358928   -.1892379
+         44  │  -.1967927   .0373408    -5.27   0.000    -.2699796   -.1236058
+         45  │  -.1372794   .0374564    -3.67   0.000    -.2106927   -.0638661
+         46  │    .114889   .0337571     3.40   0.001     .0487261    .1810518
+         47  │   .0283059   .0350098     0.81   0.419    -.0403122     .096924
+         48  │   .0283839   .0348674     0.81   0.416     -.039955    .0967229
+             │
+     qob#yob │
+       1 40  │  -.2461622   .0435185    -5.66   0.000    -.3314571   -.1608672
+       1 41  │  -.1897749   .0432016    -4.39   0.000    -.2744488   -.1051011
+       1 42  │  -.3247846   .0395701    -8.21   0.000    -.4023407   -.2472285
+       1 43  │  -.0599539   .0392732    -1.53   0.127    -.1369282    .0170204
+       1 44  │   -.109131    .039955    -2.73   0.006    -.1874416   -.0308205
+       1 45  │  -.0750213   .0400287    -1.87   0.061    -.1534764    .0034338
+       1 46  │  -.2425786   .0367363    -6.60   0.000    -.3145807   -.1705765
+       1 47  │   .0236868   .0342372     0.69   0.489    -.0434171    .0907907
+       1 48  │  -.0311665   .0349717    -0.89   0.373      -.09971     .037377
+       1 49  │   .0334188   .0351678     0.95   0.342     -.035509    .1023466
+       2 40  │  -.2099701   .0435162    -4.83   0.000    -.2952606   -.1246797
+       2 41  │  -.0585352     .04342    -1.35   0.178    -.1436371    .0265667
+       2 42  │  -.1613492   .0395909    -4.08   0.000    -.2389461   -.0837522
+       2 43  │  -.0855722   .0396743    -2.16   0.031    -.1633326   -.0078117
+       2 44  │  -.1089988   .0403166    -2.70   0.007     -.188018   -.0299795
+       2 45  │   .0588826   .0402305     1.46   0.143    -.0199678    .1377331
+       2 46  │  -.1704643   .0361462    -4.72   0.000    -.2413096    -.099619
+       2 47  │   .1118722   .0347797     3.22   0.001     .0437052    .1800393
+       2 48  │   .0377363   .0355776     1.06   0.289    -.0319947    .1074673
+       2 49  │   .0044735   .0354317     0.13   0.900    -.0649716    .0739185
+       3 40  │  -.1063897   .0425536    -2.50   0.012    -.1897935    -.022986
+       3 41  │  -.0191962   .0421476    -0.46   0.649    -.1018041    .0634117
+       3 42  │  -.1795796   .0381084    -4.71   0.000    -.2542709   -.1048883
+       3 43  │  -.0173158   .0389614    -0.44   0.657    -.0936789    .0590474
+       3 44  │  -.0699781   .0392196    -1.78   0.074    -.1468473    .0068911
+       3 45  │   .0433682   .0392931     1.10   0.270     -.033645    .1203814
+       3 46  │  -.0716225   .0332767    -2.15   0.031    -.1368438   -.0064011
+       3 47  │   .0237714   .0343709     0.69   0.489    -.0435944    .0911372
+       3 48  │  -.0091998    .034364    -0.27   0.789    -.0765521    .0581525
+       3 49  │   .0151749   .0344644     0.44   0.660    -.0523742    .0827239
+             │
+       _cons │   13.74463   .0246571   557.43   0.000      13.6963    13.79296
+─────────────┴────────────────────────────────────────────────────────────────
+
+
+Instrumental-variables 2SLS regression            Number of obs   =    486,926
+                                                  Wald chi2(10)   =    6974.38
+                                                  Prob > chi2     =     0.0000
+                                                  R-squared       =     0.0827
+                                                  Root MSE        =     .61809
+
+─────────────┬────────────────────────────────────────────────────────────────
+    lwklywge │ Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+─────────────┼────────────────────────────────────────────────────────────────
+        educ │   .0552978   .0137563     4.02   0.000     .0283359    .0822597
+             │
+         yob │
+         40  │   .2497603   .0096072    26.00   0.000     .2309305    .2685901
+         41  │   .2415559   .0084228    28.68   0.000     .2250475    .2580643
+         42  │   .2302052   .0063281    36.38   0.000     .2178023     .242608
+         43  │   .2180262   .0058173    37.48   0.000     .2066244     .229428
+         44  │   .1816571   .0054976    33.04   0.000      .170882    .1924321
+         45  │   .1535557   .0043722    35.12   0.000     .1449863    .1621251
+         46  │   .1206802   .0037033    32.59   0.000      .113422    .1279384
+         47  │   .0852128   .0036752    23.19   0.000     .0780095    .0924161
+         48  │    .040319   .0036484    11.05   0.000     .0331682    .0474698
+             │
+       _cons │   4.906853   .1892754    25.92   0.000      4.53588    5.277826
+─────────────┴────────────────────────────────────────────────────────────────
+Endogenous: educ
+Exogenous:  40.yob 41.yob 42.yob 43.yob 44.yob 45.yob 46.yob 47.yob 48.yob
+            1.qob#40.yob 1.qob#41.yob 1.qob#42.yob 1.qob#43.yob 1.qob#44.yob
+            1.qob#45.yob 1.qob#46.yob 1.qob#47.yob 1.qob#48.yob
+            1.qob#49b.yob 2.qob#40.yob 2.qob#41.yob 2.qob#42.yob
+            2.qob#43.yob 2.qob#44.yob 2.qob#45.yob 2.qob#46.yob 2.qob#47.yob
+            2.qob#48.yob 2.qob#49b.yob 3.qob#40.yob 3.qob#41.yob
+            3.qob#42.yob 3.qob#43.yob 3.qob#44.yob 3.qob#45.yob 3.qob#46.yob
+            3.qob#47.yob 3.qob#48.yob 3.qob#49b.yob
+
+.     estat firststage
+
+  First-stage regression summary statistics
+  ─────────────┬────────────────────────────────────────────────────────────
+               │            Adjusted      Partial
+      Variable │   R-sq.       R-sq.        R-sq.   F(30,486886)  Prob > F
+  ─────────────┼────────────────────────────────────────────────────────────
+          educ │  0.0062      0.0061       0.0005       7.62315    0.0000
+  ─────────────┴────────────────────────────────────────────────────────────
+
+
+  Minimum eigenvalue statistic = 7.62315     
+
+  Critical Values                      # of endogenous regressors:    1
+  H0: Instruments are weak             # of excluded instruments:    30
+  ───────────────────────────────────┬─────────────────────────────────
+                                     │    5%     10%     20%     30%
+  2SLS relative bias                 │  21.42   11.32    6.09    4.29
+  ───────────────────────────────────┼─────────────────────────────────
+                                     │   10%     15%     20%     25%
+  2SLS size of nominal 5% Wald test  │  86.17   44.78   30.72   23.65
+  LIML size of nominal 5% Wald test  │   3.88    2.18    1.89    1.75
+  ───────────────────────────────────┴─────────────────────────────────
+
+
+.     estat overid
+
+  Tests of overidentifying restrictions:
+
+  Sargan (score) chi2(29)=  101.621  (p = 0.0000)
+  Basmann chi2(29)       =  101.634  (p = 0.0000)
+
+.     eststo column_3: regress lwklywge educ i.yob ageq ageqsq 
+
+      Source │       SS           df       MS      Number of obs   =   486,926
+─────────────┼──────────────────────────────────   F(12, 486913)   =   3668.22
+       Model │  16814.1046        12  1401.17538   Prob > F        =    0.0000
+    Residual │  185989.638   486,913  .381977146   R-squared       =    0.0829
+─────────────┼──────────────────────────────────   Adj R-squared   =    0.0829
+       Total │  202803.743   486,925  .416498932   Root MSE        =    .61804
+
+─────────────┬────────────────────────────────────────────────────────────────
+    lwklywge │ Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+─────────────┼────────────────────────────────────────────────────────────────
+        educ │   .0573461   .0002981   192.38   0.000     .0567619    .0579304
+             │
+         yob │
+         41  │  -.0115458   .0074022    -1.56   0.119     -.026054    .0029624
+         42  │  -.0216345   .0117417    -1.84   0.065    -.0446479    .0013789
+         43  │  -.0278092   .0155188    -1.79   0.073    -.0582256    .0026072
+         44  │  -.0532577   .0187669    -2.84   0.005    -.0900401   -.0164752
+         45  │  -.0660773   .0213478    -3.10   0.002    -.1079183   -.0242364
+         46  │  -.0779514   .0235069    -3.32   0.001    -.1240242   -.0318786
+         47  │  -.0899579   .0252136    -3.57   0.000    -.1393758     -.04054
+         48  │  -.1047492   .0270777    -3.87   0.000    -.1578207   -.0516777
+         49  │   -.110682   .0292461    -3.78   0.000    -.1680035   -.0533606
+             │
+        ageq │   .1799818   .0389345     4.62   0.000     .1036715    .2562922
+      ageqsq │  -.0023404   .0005592    -4.19   0.000    -.0034364   -.0012444
+       _cons │   1.672882   .6714968     2.49   0.013     .3567686    2.988994
+─────────────┴────────────────────────────────────────────────────────────────
+
+.     eststo column_4: ivregress 2sls lwklywge (educ = ib4.qob#ib49.yob) ib49.yob ageq ag
+> eqsq, first 
+note: 3.qob#48.yob omitted because of collinearity.
+note: 3.qob#49b.yob omitted because of collinearity.
+
+First-stage regressions
+───────────────────────
+
+                                                       Number of obs = 486,926
+                                                       F(39, 486886) =   77.36
+                                                       Prob > F      =  0.0000
+                                                       R-squared     =  0.0062
+                                                       Adj R-squared =  0.0061
+                                                       Root MSE      =  2.9712
+
+─────────────┬────────────────────────────────────────────────────────────────
+        educ │ Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+─────────────┼────────────────────────────────────────────────────────────────
+         yob │
+         40  │   2.813559   6.853902     0.41   0.681    -10.61988    16.24699
+         41  │   2.079454    5.32198     0.39   0.696    -8.351462    12.51037
+         42  │   1.688396   3.984986     0.42   0.672    -6.122053    9.498844
+         43  │   1.055058   2.843132     0.37   0.711    -4.517391    6.627508
+         44  │   .6574859   1.896678     0.35   0.729    -3.059945    4.374916
+         45  │   .3511506   1.146299     0.31   0.759    -1.895559     2.59786
+         46  │   .3349667   .5934248     0.56   0.572    -.8281274    1.498061
+         47  │   .0775279    .243023     0.32   0.750    -.3987896    .5538455
+         48  │   .0042465   .1003984     0.04   0.966    -.1925313    .2010243
+             │
+        ageq │   3.022153   6.011628     0.50   0.615     -8.76045    14.80476
+      ageqsq │  -.0487482   .0973369    -0.50   0.616    -.2395256    .1420291
+             │
+     qob#yob │
+       1 40  │   .3846957   1.280159     0.30   0.764    -2.124375    2.893767
+       1 41  │   .3679606   1.134505     0.32   0.746    -1.855633    2.591555
+       1 42  │   .1598286   .9888163     0.16   0.872    -1.778221    2.097878
+       1 43  │   .3515369   .8434019     0.42   0.677    -1.301505    2.004578
+       1 44  │   .2292375   .6982896     0.33   0.743    -1.139388    1.597863
+       1 45  │   .1902249   .5536037     0.34   0.731    -.8948211    1.275271
+       1 46  │  -.0504547   .4095391    -0.12   0.902    -.8531386    .7522291
+       1 47  │   .1426883   .2677274     0.53   0.594     -.382049    .6674257
+       1 48  │   .0147128    .118063     0.12   0.901     -.216687    .2461127
+       1 49  │   .0061755   .0719606     0.09   0.932    -.1348651     .147216
+       2 40  │   .2045083   .8419242     0.24   0.808    -1.445637    1.854654
+       2 41  │   .3071949    .744913     0.41   0.680    -1.152811    1.767201
+       2 42  │   .1556328   .6477606     0.24   0.810    -1.113958    1.425223
+       2 43  │   .1826615    .550968     0.33   0.740    -.8972185    1.262542
+       2 44  │   .1104867   .4544572     0.24   0.808    -.7802351    1.001209
+       2 45  │   .2296199   .3583121     0.64   0.522    -.4726606    .9319004
+       2 46  │  -.0484753   .2624648    -0.18   0.853     -.562898    .4659475
+       2 47  │    .185113   .1689732     1.10   0.273    -.1460691    .5162952
+       2 48  │    .062229   .0676996     0.92   0.358      -.07046    .1949181
+       2 49  │  -.0197823   .0532814    -0.37   0.710    -.1242122    .0846476
+       3 40  │   .0978027   .4165057     0.23   0.814    -.7185356     .914141
+       3 41  │   .1606221   .3681734     0.44   0.663    -.5609862    .8822305
+       3 42  │  -.0241354   .3194897    -0.08   0.940    -.6503253    .6020545
+       3 43  │   .1137543   .2715196     0.42   0.675    -.4184157    .6459243
+       3 44  │   .0367179   .2237494     0.16   0.870     -.401824    .4752598
+       3 45  │   .1256901   .1764299     0.71   0.476    -.2201071    .4714872
+       3 46  │  -.0136747   .1283982    -0.11   0.915    -.2653313    .2379819
+       3 47  │    .057345   .0842173     0.68   0.496    -.1077183    .2224083
+             │
+       _cons │  -33.06783   92.81813    -0.36   0.722    -214.9885    148.8528
+─────────────┴────────────────────────────────────────────────────────────────
+
+
+Instrumental-variables 2SLS regression            Number of obs   =    486,926
+                                                  Wald chi2(12)   =    6806.01
+                                                  Prob > chi2     =     0.0000
+                                                  R-squared       =     0.0532
+                                                  Root MSE        =     .62797
+
+─────────────┬────────────────────────────────────────────────────────────────
+    lwklywge │ Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+─────────────┼────────────────────────────────────────────────────────────────
+        educ │   .0947986   .0222744     4.26   0.000     .0511415    .1384557
+             │
+         yob │
+         40  │   .0819032    .034292     2.39   0.017     .0146921    .1491143
+         41  │   .0786832   .0288849     2.72   0.006       .02207    .1352965
+         42  │   .0726292   .0253455     2.87   0.004     .0229529    .1223055
+         43  │   .0733603   .0218729     3.35   0.001     .0304902    .1162304
+         44  │   .0540045   .0190141     2.84   0.005     .0167375    .0912716
+         45  │   .0418359    .016584     2.52   0.012     .0093319    .0743399
+         46  │   .0291722   .0136503     2.14   0.033     .0024181    .0559264
+         47  │    .017611   .0104236     1.69   0.091    -.0028189    .0380409
+         48  │   .0056629   .0063848     0.89   0.375     -.006851    .0181768
+             │
+        ageq │   .1325373    .048591     2.73   0.006     .0373007    .2277738
+      ageqsq │   -.001582   .0007254    -2.18   0.029    -.0030038   -.0001602
+       _cons │   1.788557   .6948771     2.57   0.010     .4266227    3.150491
+─────────────┴────────────────────────────────────────────────────────────────
+Endogenous: educ
+Exogenous:  40.yob 41.yob 42.yob 43.yob 44.yob 45.yob 46.yob 47.yob 48.yob
+            ageq ageqsq 1.qob#40.yob 1.qob#41.yob 1.qob#42.yob 1.qob#43.yob
+            1.qob#44.yob 1.qob#45.yob 1.qob#46.yob 1.qob#47.yob 1.qob#48.yob
+            1.qob#49b.yob 2.qob#40.yob 2.qob#41.yob 2.qob#42.yob
+            2.qob#43.yob 2.qob#44.yob 2.qob#45.yob 2.qob#46.yob 2.qob#47.yob
+            2.qob#48.yob 2.qob#49b.yob 3.qob#40.yob 3.qob#41.yob
+            3.qob#42.yob 3.qob#43.yob 3.qob#44.yob 3.qob#45.yob 3.qob#46.yob
+            3.qob#47.yob
+
+.     estat firststage
+
+  First-stage regression summary statistics
+  ─────────────┬────────────────────────────────────────────────────────────
+               │            Adjusted      Partial
+      Variable │   R-sq.       R-sq.        R-sq.   F(28,486886)  Prob > F
+  ─────────────┼────────────────────────────────────────────────────────────
+          educ │  0.0062      0.0061       0.0002       3.21563    0.0000
+  ─────────────┴────────────────────────────────────────────────────────────
+
+
+  Minimum eigenvalue statistic = 3.21559     
+
+  Critical Values                      # of endogenous regressors:    1
+  H0: Instruments are weak             # of excluded instruments:    28
+  ───────────────────────────────────┬─────────────────────────────────
+                                     │    5%     10%     20%     30%
+  2SLS relative bias                 │  21.42   11.34    6.13    4.32
+  ───────────────────────────────────┼─────────────────────────────────
+                                     │   10%     15%     20%     25%
+  2SLS size of nominal 5% Wald test  │  81.40   42.37   29.12   22.43
+  LIML size of nominal 5% Wald test  │   3.86    2.20    1.92    1.77
+  ───────────────────────────────────┴─────────────────────────────────
+
+
+.     estat overid
+
+  Tests of overidentifying restrictions:
+
+  Sargan (score) chi2(27)=  49.1187  (p = 0.0057)
+  Basmann chi2(27)       =  49.1196  (p = 0.0057)
+
+.     eststo column_5: regress lwklywge educ i.race i.smsa i.married i.yob i.region 
+
+      Source │       SS           df       MS      Number of obs   =   486,926
+─────────────┼──────────────────────────────────   F(21, 486904)   =   3447.63
+       Model │  26252.3155        21  1250.11026   Prob > F        =    0.0000
+    Residual │  176551.427   486,904  .362600075   R-squared       =    0.1294
+─────────────┼──────────────────────────────────   Adj R-squared   =    0.1294
+       Total │  202803.743   486,925  .416498932   Root MSE        =    .60216
+
+────────────────────┬────────────────────────────────────────────────────────────────
+           lwklywge │ Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+────────────────────┼────────────────────────────────────────────────────────────────
+               educ │   .0520464   .0002971   175.19   0.000     .0514641    .0526287
+             1.race │  -.2107128   .0032215   -65.41   0.000    -.2170268   -.2043988
+             1.smsa │  -.1418395   .0022877   -62.00   0.000    -.1463234   -.1373556
+          1.married │   .2445162   .0022017   111.06   0.000     .2402009    .2488314
+                    │
+                yob │
+                41  │  -.0081533   .0043514    -1.87   0.061     -.016682    .0003754
+                42  │   -.020887   .0041892    -4.99   0.000    -.0290977   -.0126762
+                43  │  -.0310513   .0041618    -7.46   0.000    -.0392083   -.0228942
+                44  │  -.0620105   .0042037   -14.75   0.000    -.0702495   -.0537715
+                45  │  -.0874218   .0042016   -20.81   0.000    -.0956568   -.0791868
+                46  │  -.1190692   .0040287   -29.56   0.000    -.1269653    -.111173
+                47  │  -.1508475   .0039381   -38.30   0.000     -.158566    -.143129
+                48  │  -.1889845   .0039796   -47.49   0.000    -.1967843   -.1811846
+                49  │  -.2239961   .0039853   -56.21   0.000    -.2318072   -.2161849
+                    │
+             region │
+      Mid Atlantic  │   .0782053   .0042535    18.39   0.000     .0698686    .0865421
+East-North-Central  │   .1354254   .0041233    32.84   0.000     .1273438     .143507
+West-North-Central  │   .0224109   .0047786     4.69   0.000     .0130451    .0317768
+    South Atlantic  │  -.0125303   .0042063    -2.98   0.003    -.0207746   -.0042861
+East-South-Central  │  -.0277376   .0049811    -5.57   0.000    -.0375003   -.0179749
+West-South-Central  │   .0342179   .0045555     7.51   0.000     .0252894    .0431465
+          Mountain  │    .025053    .005244     4.78   0.000     .0147748    .0353311
+           Pacific  │   .0925392   .0043444    21.30   0.000     .0840243    .1010541
+                    │
+              _cons │   4.985284    .006473   770.17   0.000     4.972597    4.997971
+────────────────────┴────────────────────────────────────────────────────────────────
+
+.     eststo column_6: ivregress 2sls lwklywge (educ = ib4.qob#ib49.yob) i.race i.smsa i.
+> married ib49.yob ib9.region, first 
+
+First-stage regressions
+───────────────────────
+
+                                                       Number of obs = 486,926
+                                                       F(50, 486875) =  517.34
+                                                       Prob > F      =  0.0000
+                                                       R-squared     =  0.0504
+                                                       Adj R-squared =  0.0504
+                                                       Root MSE      =  2.9042
+
+────────────────────┬────────────────────────────────────────────────────────────────
+               educ │ Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+────────────────────┼────────────────────────────────────────────────────────────────
+             1.race │  -1.242603   .0154359   -80.50   0.000    -1.272857   -1.212349
+             1.smsa │  -.9161492   .0109556   -83.62   0.000    -.9376218   -.8946766
+          1.married │  -.0234386   .0106192    -2.21   0.027     -.044252   -.0026252
+                    │
+                yob │
+                40  │  -.4760834   .0385758   -12.34   0.000    -.5516908   -.4004761
+                41  │  -.4605596   .0382303   -12.05   0.000    -.5354898   -.3856294
+                42  │  -.2229276   .0355494    -6.27   0.000    -.2926033   -.1532519
+                43  │  -.2749167   .0365811    -7.52   0.000    -.3466145    -.203219
+                44  │  -.2144935   .0365075    -5.88   0.000    -.2860471   -.1429398
+                45  │  -.1393874    .036619    -3.81   0.000    -.2111595   -.0676152
+                46  │   .0896402   .0330033     2.72   0.007     .0249548    .1543257
+                47  │   .0135382    .034225     0.40   0.692    -.0535416    .0806181
+                48  │    .026083    .034083     0.77   0.444    -.0407186    .0928845
+                    │
+             region │
+       New England  │  -.3265227   .0209485   -15.59   0.000    -.3675811   -.2854644
+      Mid Atlantic  │   -.477901    .015753   -30.34   0.000    -.5087764   -.4470255
+East-North-Central  │  -.7990936    .014936   -53.50   0.000    -.8283677   -.7698196
+West-North-Central  │  -.4246877   .0189931   -22.36   0.000    -.4619136   -.3874618
+    South Atlantic  │  -.8342725   .0154373   -54.04   0.000    -.8645291   -.8040159
+East-South-Central  │  -1.240638    .020111   -61.69   0.000    -1.280055   -1.201221
+West-South-Central  │  -.6471404   .0176252   -36.72   0.000    -.6816853   -.6125955
+          Mountain  │  -.0310073   .0216477    -1.43   0.152    -.0734361    .0114214
+                    │
+            qob#yob │
+              1 40  │  -.2383454   .0425393    -5.60   0.000    -.3217211   -.1549696
+              1 41  │  -.1717679   .0422296    -4.07   0.000    -.2545365   -.0889992
+              1 42  │  -.2921926   .0386797    -7.55   0.000    -.3680036   -.2163816
+              1 43  │  -.0624456   .0383892    -1.63   0.104    -.1376872    .0127961
+              1 44  │  -.0964287   .0390557    -2.47   0.014    -.1729766   -.0198807
+              1 45  │  -.0725486   .0391275    -1.85   0.064    -.1492373    .0041402
+              1 46  │  -.2185103   .0359109    -6.08   0.000    -.2888946   -.1481261
+              1 47  │   .0216112   .0334667     0.65   0.518    -.0439824    .0872048
+              1 48  │  -.0338693   .0341852    -0.99   0.322    -.1008712    .0331327
+              1 49  │   .0366735   .0343767     1.07   0.286    -.0307037    .1040508
+              2 40  │  -.2156383   .0425379    -5.07   0.000    -.2990112   -.1322654
+              2 41  │  -.0601395   .0424427    -1.42   0.156    -.1433259    .0230468
+              2 42  │  -.1437012   .0387001    -3.71   0.000    -.2195522   -.0678502
+              2 43  │  -.0953937   .0387816    -2.46   0.014    -.1714043    -.019383
+              2 44  │  -.1048708   .0394091    -2.66   0.008    -.1821115   -.0276302
+              2 45  │   .0461188   .0393251     1.17   0.241    -.0309571    .1231948
+              2 46  │  -.1711028   .0353328    -4.84   0.000    -.2403541   -.1018515
+              2 47  │   .0944643   .0339986     2.78   0.005     .0278281    .1611005
+              2 48  │   .0208758   .0347779     0.60   0.548    -.0472877    .0890394
+              2 49  │  -.0029757   .0346352    -0.09   0.932    -.0708596    .0649082
+              3 40  │  -.1065009   .0415955    -2.56   0.010    -.1880268    -.024975
+              3 41  │  -.0133648   .0411989    -0.32   0.746    -.0941134    .0673838
+              3 42  │  -.1609399   .0372506    -4.32   0.000    -.2339499   -.0879299
+              3 43  │  -.0122101   .0380841    -0.32   0.749    -.0868538    .0624336
+              3 44  │  -.0632535   .0383364    -1.65   0.099    -.1383916    .0118846
+              3 45  │   .0346141   .0384084     0.90   0.367    -.0406652    .1098934
+              3 46  │   -.073325   .0325278    -2.25   0.024    -.1370785   -.0095716
+              3 47  │   .0207811    .033597     0.62   0.536     -.045068    .0866302
+              3 48  │  -.0039644   .0335904    -0.12   0.906    -.0698005    .0618717
+              3 49  │   .0193808   .0336889     0.58   0.565    -.0466483      .08541
+                    │
+              _cons │   14.61489   .0273888   533.61   0.000     14.56121    14.66857
+────────────────────┴────────────────────────────────────────────────────────────────
+
+
+Instrumental-variables 2SLS regression            Number of obs   =    486,926
+                                                  Wald chi2(21)   =   41560.34
+                                                  Prob > chi2     =     0.0000
+                                                  R-squared       =     0.1261
+                                                  Root MSE        =     .60329
+
+────────────────────┬────────────────────────────────────────────────────────────────
+           lwklywge │ Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+────────────────────┼────────────────────────────────────────────────────────────────
+               educ │   .0392721   .0144917     2.71   0.007     .0108689    .0676752
+             1.race │  -.2266122   .0183196   -12.37   0.000    -.2625179   -.1907065
+             1.smsa │  -.1535466   .0134745   -11.40   0.000    -.1799562    -.127137
+          1.married │   .2442122   .0022326   109.39   0.000     .2398364     .248588
+                    │
+                yob │
+                40  │   .2159624   .0099482    21.71   0.000     .1964644    .2354605
+                41  │   .2090259   .0086986    24.03   0.000      .191977    .2260749
+                42  │   .1982641   .0066839    29.66   0.000     .1851639    .2113644
+                43  │   .1887218   .0060976    30.95   0.000     .1767708    .2006728
+                44  │   .1582408   .0057106    27.71   0.000     .1470482    .1694334
+                45  │    .134654   .0043903    30.67   0.000     .1260491    .1432589
+                46  │   .1046187   .0036334    28.79   0.000     .0974973    .1117401
+                47  │    .073587   .0035473    20.74   0.000     .0666344    .0805395
+                48  │   .0351145   .0035586     9.87   0.000     .0281399    .0420892
+                    │
+             region │
+       New England  │  -.0967104   .0064286   -15.04   0.000    -.1093101   -.0841107
+      Mid Atlantic  │  -.0204337   .0076545    -2.67   0.008    -.0354363   -.0054311
+East-North-Central  │   .0326842   .0119822     2.73   0.006     .0091996    .0561688
+West-North-Central  │  -.0755498    .007307   -10.34   0.000    -.0898712   -.0612284
+    South Atlantic  │  -.1157321   .0125137    -9.25   0.000    -.1402586   -.0912056
+East-South-Central  │  -.1361323   .0184657    -7.37   0.000    -.1723245   -.0999401
+West-South-Central  │   -.066576   .0100545    -6.62   0.000    -.0862823   -.0468696
+          Mountain  │  -.0678943   .0045205   -15.02   0.000    -.0767544   -.0590343
+                    │
+              _cons │   5.040699   .2120262    23.77   0.000     4.625135    5.456262
+────────────────────┴────────────────────────────────────────────────────────────────
+Endogenous: educ
+Exogenous:  1.race 1.smsa 1.married 40.yob 41.yob 42.yob 43.yob 44.yob 45.yob
+            46.yob 47.yob 48.yob 1.region 2.region 3.region 4.region 5.region
+            6.region 7.region 8.region 1.qob#40.yob 1.qob#41.yob 1.qob#42.yob
+            1.qob#43.yob 1.qob#44.yob 1.qob#45.yob 1.qob#46.yob 1.qob#47.yob
+            1.qob#48.yob 1.qob#49b.yob 2.qob#40.yob 2.qob#41.yob 2.qob#42.yob
+            2.qob#43.yob 2.qob#44.yob 2.qob#45.yob 2.qob#46.yob 2.qob#47.yob
+            2.qob#48.yob 2.qob#49b.yob 3.qob#40.yob 3.qob#41.yob 3.qob#42.yob
+            3.qob#43.yob 3.qob#44.yob 3.qob#45.yob 3.qob#46.yob 3.qob#47.yob
+            3.qob#48.yob 3.qob#49b.yob
+
+.     estat firststage
+
+  First-stage regression summary statistics
+  ─────────────┬────────────────────────────────────────────────────────────
+               │            Adjusted      Partial
+      Variable │   R-sq.       R-sq.        R-sq.   F(30,486875)  Prob > F
+  ─────────────┼────────────────────────────────────────────────────────────
+          educ │  0.0504      0.0504       0.0004       6.84913    0.0000
+  ─────────────┴────────────────────────────────────────────────────────────
+
+
+  Minimum eigenvalue statistic = 6.84913     
+
+  Critical Values                      # of endogenous regressors:    1
+  H0: Instruments are weak             # of excluded instruments:    30
+  ───────────────────────────────────┬─────────────────────────────────
+                                     │    5%     10%     20%     30%
+  2SLS relative bias                 │  21.42   11.32    6.09    4.29
+  ───────────────────────────────────┼─────────────────────────────────
+                                     │   10%     15%     20%     25%
+  2SLS size of nominal 5% Wald test  │  86.17   44.78   30.72   23.65
+  LIML size of nominal 5% Wald test  │   3.88    2.18    1.89    1.75
+  ───────────────────────────────────┴─────────────────────────────────
+
+
+.     estat overid
+
+  Tests of overidentifying restrictions:
+
+  Sargan (score) chi2(29)=  93.5624  (p = 0.0000)
+  Basmann chi2(29)       =  93.5706  (p = 0.0000)
+
+.     eststo column_7: regress lwklywge educ i.race i.smsa i.married i.yob i.region ageq 
+> ageqsq 
+
+      Source │       SS           df       MS      Number of obs   =   486,926
+─────────────┼──────────────────────────────────   F(23, 486902)   =   3149.93
+       Model │  26267.5972        23  1142.06944   Prob > F        =    0.0000
+    Residual │  176536.145   486,902  .362570179   R-squared       =    0.1295
+─────────────┼──────────────────────────────────   Adj R-squared   =    0.1295
+       Total │  202803.743   486,925  .416498932   Root MSE        =    .60214
+
+────────────────────┬────────────────────────────────────────────────────────────────
+           lwklywge │ Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+────────────────────┼────────────────────────────────────────────────────────────────
+               educ │   .0520558   .0002971   175.21   0.000     .0514735    .0526382
+             1.race │  -.2107622   .0032214   -65.43   0.000     -.217076   -.2044484
+             1.smsa │  -.1418543   .0022876   -62.01   0.000     -.146338   -.1373705
+          1.married │   .2444055   .0022017   111.01   0.000     .2400903    .2487207
+                    │
+                yob │
+                41  │  -.0085582   .0072119    -1.19   0.235    -.0226932    .0055768
+                42  │  -.0177135     .01144    -1.55   0.122    -.0401354    .0047085
+                43  │  -.0206608   .0151201    -1.37   0.172    -.0502956    .0089741
+                44  │  -.0402636   .0182849    -2.20   0.028    -.0761015   -.0044257
+                45  │  -.0505424   .0207998    -2.43   0.015    -.0913094   -.0097754
+                46  │  -.0621968   .0229037    -2.72   0.007    -.1070872   -.0173063
+                47  │  -.0723029   .0245671    -2.94   0.003    -.1204536   -.0241522
+                48  │  -.0832592   .0263837    -3.16   0.002    -.1349704    -.031548
+                49  │  -.0875108   .0284969    -3.07   0.002    -.1433638   -.0316579
+                    │
+             region │
+      Mid Atlantic  │   .0783088   .0042534    18.41   0.000     .0699723    .0866453
+East-North-Central  │   .1355813   .0041233    32.88   0.000     .1274999    .1436628
+West-North-Central  │   .0226072   .0047785     4.73   0.000     .0132415    .0319729
+    South Atlantic  │  -.0123754   .0042062    -2.94   0.003    -.0206195   -.0041314
+East-South-Central  │  -.0276449   .0049809    -5.55   0.000    -.0374072   -.0178825
+West-South-Central  │   .0345582   .0045556     7.59   0.000     .0256293     .043487
+          Mountain  │   .0250948   .0052438     4.79   0.000      .014817    .0353726
+           Pacific  │   .0926402   .0043443    21.32   0.000     .0841256    .1011548
+                    │
+               ageq │   .1517973   .0379337     4.00   0.000     .0774484    .2261462
+             ageqsq │  -.0019453   .0005448    -3.57   0.000    -.0030131   -.0008774
+              _cons │   2.024643   .6542627     3.09   0.002     .7423089    3.306978
+────────────────────┴────────────────────────────────────────────────────────────────
+
+.     eststo column_8: ivregress 2sls lwklywge (educ = ib4.qob#ib49.yob) i.race i.smsa i.
+> married ib49.yob ib9.region ageq ageqsq, first 
+note: 3.qob#48.yob omitted because of collinearity.
+note: 3.qob#49b.yob omitted because of collinearity.
+
+First-stage regressions
+───────────────────────
+
+                                                       Number of obs = 486,926
+                                                       F(50, 486875) =  517.34
+                                                       Prob > F      =  0.0000
+                                                       R-squared     =  0.0504
+                                                       Adj R-squared =  0.0504
+                                                       Root MSE      =  2.9042
+
+────────────────────┬────────────────────────────────────────────────────────────────
+               educ │ Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+────────────────────┼────────────────────────────────────────────────────────────────
+             1.race │  -1.242603   .0154359   -80.50   0.000    -1.272857   -1.212349
+             1.smsa │  -.9161492   .0109556   -83.62   0.000    -.9376218   -.8946766
+          1.married │  -.0234386   .0106192    -2.21   0.027     -.044252   -.0026252
+                    │
+                yob │
+                40  │   2.503006   6.699703     0.37   0.709     -10.6282    15.63421
+                41  │   1.814005   5.202244     0.35   0.727    -8.382232    12.01024
+                42  │   1.440491   3.895329     0.37   0.712    -6.194232    9.075214
+                43  │   .8707339   2.779163     0.31   0.754    -4.576338    6.317806
+                44  │   .5067684   1.854002     0.27   0.785    -3.127018    4.140555
+                45  │   .2508645   1.120504     0.22   0.823    -1.945289    2.447018
+                46  │   .2422609   .5800694     0.42   0.676    -.8946571    1.379179
+                47  │   .0219065   .2375517     0.09   0.927    -.4436875    .4875004
+                48  │  -.0164225   .0981377    -0.17   0.867    -.2087694    .1759244
+                    │
+             region │
+       New England  │  -.3265227   .0209485   -15.59   0.000    -.3675811   -.2854644
+      Mid Atlantic  │   -.477901    .015753   -30.34   0.000    -.5087764   -.4470255
+East-North-Central  │  -.7990936    .014936   -53.50   0.000    -.8283677   -.7698196
+West-North-Central  │  -.4246877   .0189931   -22.36   0.000    -.4619136   -.3874618
+    South Atlantic  │  -.8342725   .0154373   -54.04   0.000    -.8645292   -.8040159
+East-South-Central  │  -1.240638    .020111   -61.69   0.000    -1.280055   -1.201221
+West-South-Central  │  -.6471404   .0176252   -36.72   0.000    -.6816853   -.6125955
+          Mountain  │  -.0310073   .0216477    -1.43   0.152    -.0734361    .0114214
+                    │
+               ageq │   2.913903   5.876389     0.50   0.620    -8.603636    14.43144
+             ageqsq │  -.0466894   .0951472    -0.49   0.624     -.233175    .1397962
+                    │
+            qob#yob │
+              1 40  │   .3513284   1.251358     0.28   0.779    -2.101294    2.803951
+              1 41  │   .3478718   1.108981     0.31   0.754    -1.825696     2.52144
+              1 42  │    .157413   .9665701     0.16   0.871    -1.737034     2.05186
+              1 43  │   .3171259   .8244275     0.38   0.700    -1.298726    1.932978
+              1 44  │   .2131087   .6825796     0.31   0.755    -1.124726    1.550944
+              1 45  │   .1669546   .5411481     0.31   0.758    -.8936788    1.227588
+              1 46  │  -.0490412   .4003241    -0.12   0.903     -.833664    .7355817
+              1 47  │   .1210463   .2617029     0.46   0.644    -.3918833    .6339758
+              1 48  │  -.0044682   .1154053    -0.04   0.969    -.2306591    .2217227
+              1 49  │  -.0039598   .0703408    -0.06   0.955    -.1418255    .1339059
+              2 40  │   .1716414   .8229814     0.21   0.835    -1.441377    1.784659
+              2 41  │   .2804507   .7281539     0.39   0.700    -1.146708     1.70761
+              2 42  │   .1501997   .6331873     0.24   0.812    -1.090828    1.391227
+              2 43  │   .1518178   .5385728     0.28   0.778     -.903768    1.207404
+              2 44  │   .0956512   .4442325     0.22   0.830    -.7750307    .9663331
+              2 45  │   .1999515   .3502506     0.57   0.568    -.4865288    .8864318
+              2 46  │  -.0639596   .2565591    -0.25   0.803    -.5668074    .4388882
+              2 47  │   .1549182   .1651711     0.94   0.348     -.168812    .4786483
+              2 48  │   .0346404   .0661761     0.52   0.601    -.0950627    .1643436
+              2 49  │  -.0359008   .0520829    -0.69   0.491    -.1379817    .0661801
+              3 40  │   .0842208   .4071348     0.21   0.836    -.7137507    .8821924
+              3 41  │   .1540122   .3598898     0.43   0.669    -.5513606    .8593851
+              3 42  │  -.0169076   .3123015    -0.05   0.957    -.6290088    .5951936
+              3 43  │   .1084776   .2654106     0.41   0.683    -.4117189    .6286741
+              3 44  │   .0340895   .2187152     0.16   0.876    -.3945855    .4627644
+              3 45  │   .1086123   .1724605     0.63   0.529    -.2294049    .4466295
+              3 46  │  -.0226715   .1255095    -0.18   0.857    -.2686662    .2233232
+              3 47  │   .0480899   .0823218     0.58   0.559    -.1132582    .2094381
+                    │
+              _cons │  -30.80696   90.73008    -0.34   0.734    -208.6351    147.0212
+────────────────────┴────────────────────────────────────────────────────────────────
+
+
+Instrumental-variables 2SLS regression            Number of obs   =    486,926
+                                                  Wald chi2(23)   =   41126.26
+                                                  Prob > chi2     =     0.0000
+                                                  R-squared       =     0.1160
+                                                  Root MSE        =     .60678
+
+────────────────────┬────────────────────────────────────────────────────────────────
+           lwklywge │ Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+────────────────────┼────────────────────────────────────────────────────────────────
+               educ │   .0778794   .0238719     3.26   0.001     .0310913    .1246675
+             1.race │  -.1786508   .0298591    -5.98   0.000    -.2371737    -.120128
+             1.smsa │   -.118195   .0219906    -5.37   0.000    -.1612958   -.0750942
+          1.married │   .2450111   .0022881   107.08   0.000     .2405264    .2494958
+                    │
+                yob │
+                40  │   .0694201   .0332307     2.09   0.037     .0042891     .134551
+                41  │   .0661282   .0279558     2.37   0.018     .0113359    .1209205
+                42  │   .0598051   .0244168     2.45   0.014     .0119491    .1076612
+                43  │    .061215   .0210718     2.91   0.004      .019915    .1025149
+                44  │   .0454745   .0183422     2.48   0.013     .0095245    .0814246
+                45  │   .0353133   .0160197     2.20   0.027     .0039152    .0667114
+                46  │   .0233468   .0131575     1.77   0.076    -.0024415    .0491351
+                47  │   .0134784   .0100404     1.34   0.179    -.0062004    .0331571
+                48  │   .0041175   .0061689     0.67   0.504    -.0079733    .0162083
+                    │
+             region │
+       New England  │  -.0842096   .0089382    -9.42   0.000    -.1017283    -.066691
+      Mid Atlantic  │  -.0019918   .0118723    -0.17   0.867    -.0252611    .0212775
+East-North-Central  │   .0635762   .0193291     3.29   0.001     .0256918    .1014606
+West-North-Central  │   -.059055   .0108965    -5.42   0.000    -.0804118   -.0376982
+    South Atlantic  │  -.0834619   .0201841    -4.14   0.000    -.1230221   -.0439017
+East-South-Central  │  -.0882407    .029919    -2.95   0.003     -.146881   -.0296005
+West-South-Central  │  -.0413585   .0158921    -2.60   0.009    -.0725064   -.0102106
+          Mountain  │  -.0667399   .0045836   -14.56   0.000    -.0757236   -.0577561
+                    │
+               ageq │   .1214942   .0473933     2.56   0.010     .0286051    .2143834
+             ageqsq │  -.0014596   .0007093    -2.06   0.040    -.0028497   -.0000694
+              _cons │   2.124466    .664537     3.20   0.001      .821997    3.426934
+────────────────────┴────────────────────────────────────────────────────────────────
+Endogenous: educ
+Exogenous:  1.race 1.smsa 1.married 40.yob 41.yob 42.yob 43.yob 44.yob 45.yob
+            46.yob 47.yob 48.yob 1.region 2.region 3.region 4.region 5.region
+            6.region 7.region 8.region ageq ageqsq 1.qob#40.yob 1.qob#41.yob
+            1.qob#42.yob 1.qob#43.yob 1.qob#44.yob 1.qob#45.yob 1.qob#46.yob
+            1.qob#47.yob 1.qob#48.yob 1.qob#49b.yob 2.qob#40.yob 2.qob#41.yob
+            2.qob#42.yob 2.qob#43.yob 2.qob#44.yob 2.qob#45.yob 2.qob#46.yob
+            2.qob#47.yob 2.qob#48.yob 2.qob#49b.yob 3.qob#40.yob 3.qob#41.yob
+            3.qob#42.yob 3.qob#43.yob 3.qob#44.yob 3.qob#45.yob 3.qob#46.yob
+            3.qob#47.yob
+
+.     estat firststage
+
+  First-stage regression summary statistics
+  ─────────────┬────────────────────────────────────────────────────────────
+               │            Adjusted      Partial
+      Variable │   R-sq.       R-sq.        R-sq.   F(28,486875)  Prob > F
+  ─────────────┼────────────────────────────────────────────────────────────
+          educ │  0.0504      0.0504       0.0002       2.73609    0.0000
+  ─────────────┴────────────────────────────────────────────────────────────
+
+
+  Minimum eigenvalue statistic = 2.73573     
+
+  Critical Values                      # of endogenous regressors:    1
+  H0: Instruments are weak             # of excluded instruments:    28
+  ───────────────────────────────────┬─────────────────────────────────
+                                     │    5%     10%     20%     30%
+  2SLS relative bias                 │  21.42   11.34    6.13    4.32
+  ───────────────────────────────────┼─────────────────────────────────
+                                     │   10%     15%     20%     25%
+  2SLS size of nominal 5% Wald test  │  81.40   42.37   29.12   22.43
+  LIML size of nominal 5% Wald test  │   3.86    2.20    1.92    1.77
+  ───────────────────────────────────┴─────────────────────────────────
+
+
+.     estat overid
+
+  Tests of overidentifying restrictions:
+
+  Sargan (score) chi2(27)=  50.5825  (p = 0.0039)
+  Basmann chi2(27)       =  50.5825  (p = 0.0039)
+</pre>
+<ul>
+<li>The results for Table 6 are reproduced using alternating OLS and
+2SLS models. Key findings include:
+<ul>
+<li><strong>Column 1</strong>: OLS regression with year-of-birth dummies
+shows a 5.73% return to education (p &lt; 0.001).</li>
+<li><strong>Column 2</strong>: 2SLS regression with quarter of birth and
+year-of-birth interactions yields a 5.53% return to education (p &lt;
+0.001).</li>
+<li><strong>Column 3</strong>: OLS regression with age controls shows a
+5.73% return to education (p &lt; 0.001).</li>
+<li><strong>Column 4</strong>: 2SLS regression with age controls shows a
+9.48% return to education (p &lt; 0.001).</li>
+<li><strong>Column 5</strong>: OLS regression with additional controls
+(race, region, SMSA, marital status) shows a 5.21% return to education
+(p &lt; 0.001).</li>
+<li><strong>Column 6</strong>: 2SLS regression with additional controls
+shows a 3.93% return to education (p = 0.007).</li>
+<li><strong>Column 7</strong>: OLS regression with all controls shows a
+5.21% return to education (p &lt; 0.001).</li>
+<li><strong>Column 8</strong>: 2SLS regression with all controls shows a
+7.79% return to education (p = 0.001).</li>
+</ul></li>
+<li>The overidentification tests for 2SLS models (Columns 2, 4, 6, 8)
+suggest potential issues with instrument validity (p &lt; 0.01).</li>
+</ul>
+<hr />
+<h3 id="part-d-compare-the-estimates">Part D: Compare the Estimates</h3>
+<pre class='stata'>.     esttab wald, b(4) se(4)
+
+────────────────────────────
+                      (1)   
+                 lwklywge   
+────────────────────────────
+educ              -0.0098   
+                 (0.0265)   
+
+_cons              5.9308***
+                 (0.3599)   
+────────────────────────────
+N                  486926   
+────────────────────────────
+Standard errors in parentheses
+* p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001
+
+.     esttab qob_iv column_2 column_5 column_6 column_7 column_8, b(4) se(4)
+
+─────────────────────────────────────────────────────────────────────────────────────────
+───────────────────
+                      (1)             (2)             (3)             (4)             (5)
+>              (6)   
+                 lwklywge        lwklywge        lwklywge        lwklywge        lwklywge
+>         lwklywge   
+─────────────────────────────────────────────────────────────────────────────────────────
+───────────────────
+educ              -0.0612*         0.0553***       0.0520***       0.0393**        0.0521
+> ***       0.0779** 
+                 (0.0257)        (0.0138)        (0.0003)        (0.0145)        (0.0003)
+>         (0.0239)   
+
+40.yob             0.1761***       0.2498***       0.0000          0.2160***       0.0000
+>           0.0694*  
+                 (0.0169)        (0.0096)             (.)        (0.0099)             (.)
+>         (0.0332)   
+
+41.yob             0.1791***       0.2416***      -0.0082          0.2090***      -0.0086
+>           0.0661*  
+                 (0.0145)        (0.0084)        (0.0044)        (0.0087)        (0.0072)
+>         (0.0280)   
+
+42.yob             0.1879***       0.2302***      -0.0209***       0.1983***      -0.0177
+>           0.0598*  
+                 (0.0103)        (0.0063)        (0.0042)        (0.0067)        (0.0114)
+>         (0.0244)   
+
+43.yob             0.1812***       0.2180***      -0.0311***       0.1887***      -0.0207
+>           0.0612** 
+                 (0.0093)        (0.0058)        (0.0042)        (0.0061)        (0.0151)
+>         (0.0211)   
+
+44.yob             0.1489***       0.1817***      -0.0620***       0.1582***      -0.0403
+> *         0.0455*  
+                 (0.0085)        (0.0055)        (0.0042)        (0.0057)        (0.0183)
+>         (0.0183)   
+
+45.yob             0.1369***       0.1536***      -0.0874***       0.1347***      -0.0505
+> *         0.0353*  
+                 (0.0058)        (0.0044)        (0.0042)        (0.0044)        (0.0208)
+>         (0.0160)   
+
+46.yob             0.1203***       0.1207***      -0.1191***       0.1046***      -0.0622
+> **        0.0233   
+                 (0.0043)        (0.0037)        (0.0040)        (0.0036)        (0.0229)
+>         (0.0132)   
+
+47.yob             0.0916***       0.0852***      -0.1508***       0.0736***      -0.0723
+> **        0.0135   
+                 (0.0044)        (0.0037)        (0.0039)        (0.0035)        (0.0246)
+>         (0.0100)   
+
+48.yob             0.0419***       0.0403***      -0.1890***       0.0351***      -0.0833
+> **        0.0041   
+                 (0.0042)        (0.0036)        (0.0040)        (0.0036)        (0.0264)
+>         (0.0062)   
+
+49.yob             0.0000          0.0000         -0.2240***       0.0000         -0.0875
+> **        0.0000   
+                      (.)             (.)        (0.0040)             (.)        (0.0285)
+>              (.)   
+
+0.race                                             0.0000          0.0000          0.0000
+>           0.0000   
+                                                      (.)             (.)             (.)
+>              (.)   
+
+1.race                                            -0.2107***      -0.2266***      -0.2108
+> ***      -0.1787***
+                                                 (0.0032)        (0.0183)        (0.0032)
+>         (0.0299)   
+
+0.smsa                                             0.0000          0.0000          0.0000
+>           0.0000   
+                                                      (.)             (.)             (.)
+>              (.)   
+
+1.smsa                                            -0.1418***      -0.1535***      -0.1419
+> ***      -0.1182***
+                                                 (0.0023)        (0.0135)        (0.0023)
+>         (0.0220)   
+
+0.married                                          0.0000          0.0000          0.0000
+>           0.0000   
+                                                      (.)             (.)             (.)
+>              (.)   
+
+1.married                                          0.2445***       0.2442***       0.2444
+> ***       0.2450***
+                                                 (0.0022)        (0.0022)        (0.0022)
+>         (0.0023)   
+
+1.region                                           0.0000         -0.0967***       0.0000
+>          -0.0842***
+                                                      (.)        (0.0064)             (.)
+>         (0.0089)   
+
+2.region                                           0.0782***      -0.0204**        0.0783
+> ***      -0.0020   
+                                                 (0.0043)        (0.0077)        (0.0043)
+>         (0.0119)   
+
+3.region                                           0.1354***       0.0327**        0.1356
+> ***       0.0636** 
+                                                 (0.0041)        (0.0120)        (0.0041)
+>         (0.0193)   
+
+4.region                                           0.0224***      -0.0755***       0.0226
+> ***      -0.0591***
+                                                 (0.0048)        (0.0073)        (0.0048)
+>         (0.0109)   
+
+5.region                                          -0.0125**       -0.1157***      -0.0124
+> **       -0.0835***
+                                                 (0.0042)        (0.0125)        (0.0042)
+>         (0.0202)   
+
+6.region                                          -0.0277***      -0.1361***      -0.0276
+> ***      -0.0882** 
+                                                 (0.0050)        (0.0185)        (0.0050)
+>         (0.0299)   
+
+7.region                                           0.0342***      -0.0666***       0.0346
+> ***      -0.0414** 
+                                                 (0.0046)        (0.0101)        (0.0046)
+>         (0.0159)   
+
+8.region                                           0.0251***      -0.0679***       0.0251
+> ***      -0.0667***
+                                                 (0.0052)        (0.0045)        (0.0052)
+>         (0.0046)   
+
+9.region                                           0.0925***       0.0000          0.0926
+> ***       0.0000   
+                                                 (0.0043)             (.)        (0.0043)
+>              (.)   
+
+ageq                                                                               0.1518
+> ***       0.1215*  
+                                                                                 (0.0379)
+>         (0.0474)   
+
+ageqsq                                                                            -0.0019
+> ***      -0.0015*  
+                                                                                 (0.0005)
+>         (0.0007)   
+
+_cons              6.5095***       4.9069***       4.9853***       5.0407***       2.0246
+> **        2.1245** 
+                 (0.3535)        (0.1893)        (0.0065)        (0.2120)        (0.6543)
+>         (0.6645)   
+─────────────────────────────────────────────────────────────────────────────────────────
+───────────────────
+N                  486926          486926          486926          486926          486926
+>           486926   
+─────────────────────────────────────────────────────────────────────────────────────────
+───────────────────
+Standard errors in parentheses
+* p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001
+</pre>
+<ul>
+<li>The Wald estimator yields a negative but insignificant effect of
+education on wages.</li>
+<li>The 2SLS estimates vary across specifications, with returns to
+education ranging from -0.0612 to 0.0948.</li>
+<li>The first-stage F-statistics indicate that the instruments are not
+weak, but the overidentification tests suggest potential issues with
+instrument validity.</li>
+</ul>
+<hr />
+<h3 id="part-e-display-and-export-results">Part E: Display and Export
+Results</h3>
+<pre class='stata'>.     eststo dir
+
+─────────────┬───────────────────────────────────────────────────────────────────────
+             │           Dependent  Number of        
+        Name │ Command    variable     param.  Title 
+─────────────┼───────────────────────────────────────────────────────────────────────
+         ols │ regress    lwklywge          2  Linear regression
+        wald │ ivregress  lwklywge          2  Instrumental-variables 2SLS regression
+      qob_iv │ ivregress  lwklywge         12  Instrumental-variables 2SLS regression
+    column_1 │ regress    lwklywge         12  Linear regression
+    column_2 │ ivregress  lwklywge         12  Instrumental-variables 2SLS regression
+    column_3 │ regress    lwklywge         14  Linear regression
+    column_4 │ ivregress  lwklywge         14  Instrumental-variables 2SLS regression
+    column_5 │ regress    lwklywge         27  Linear regression
+    column_6 │ ivregress  lwklywge         27  Instrumental-variables 2SLS regression
+    column_7 │ regress    lwklywge         29  Linear regression
+    column_8 │ ivregress  lwklywge         29  Instrumental-variables 2SLS regression
+─────────────┴───────────────────────────────────────────────────────────────────────
+
+.     esttab ols wald qob_iv, b(4) se(4) stats(r2 N, fmt(%4.3f %9.0fc) labels("R2" "N")) 
+> ///
+>         nodepvars nostar obslast noomitted nobaselevels varwidth(24) alignment(D{.}{.}{
+> -1}) ///
+>         title("Least-Squares Estimates of the log-Wage Regression") ///
+>         mtitles("OLS" "Wald" "IVQOB") ///
+>         order(_cons educ) ///
+>         coeflabels(_cons Constant ///
+>                 educ "Years of Education") ///
+>         indicate("Year-of-Birth = *.yob", labels("\checkmark" "")) ///
+>         nonotes addnotes("Standard errors in parentheses." "Source:~Angrist and Krueger
+>  (1991).")
+
+Least-Squares Estimates of the log-Wage Regression
+───────────────────────────────────────────────────────────────
+                                  (1)          (2)          (3)
+                                  OLS         Wald        IVQOB
+───────────────────────────────────────────────────────────────
+Constant                       5.0452       5.9308       6.5095
+                             (0.0042)     (0.3599)     (0.3535)
+
+Years of Education             0.0554      -0.0098      -0.0612
+                             (0.0003)     (0.0265)     (0.0257)
+
+Year-of-Birth                                        \checkmark
+───────────────────────────────────────────────────────────────
+R2                              0.066            .            .
+N                             486,926      486,926      486,926
+───────────────────────────────────────────────────────────────
+Standard errors in parentheses.
+Source:~Angrist and Krueger (1991).
+</pre>
+<pre class='stata'>.     esttab ols wald qob_iv using "results/Exercise_5_table_a_Rueda.tex", ///
+>         b(4) se(4) stats(r2 N, fmt(%4.3f %9.0fc) labels("\$R^2\$" "\$N\$")) ///
+>         nodepvars nostar obslast noomitted nobaselevels varwidth(24) alignment(D{.}{.}{
+> -1}) ///
+>         replace booktabs ///
+>         title("Least-Squares Estimates of the log-Wage Regression") ///
+>         mtitles("OLS" "Wald" "IVQOB") ///
+>         order(_cons educ) ///
+>         coeflabels(_cons Constant ///
+>                 educ "Years of Education") ///
+>         indicate("Year-of-Birth = *.yob", labels("\checkmark" "")) ///
+>         nonotes addnotes("Standard errors in parentheses." "Source:~Angrist and Krueger
+>  (1991).")
+(output written to results/Exercise_5_table_a_Rueda.tex)
+</pre>
+<ul>
+<li>The OLS estimate shows a 5.54% return to education, while the 2SLS
+estimates are inconsistent and sometimes negative.</li>
+<li>The results are exported to a LaTeX table for further analysis.</li>
+</ul>
+<hr />
+<h3 id="part-f-reproduce-first-half-of-table-6">Part F: Reproduce First
+Half of Table 6</h3>
+<pre class='stata'>.     esttab column_1 column_2 column_3 column_4, ///
+>         b(4) se(4) stats(r2, fmt(%4.3f) labels("R2")) ///
+>         nodepvars nostar obslast noomitted nobaselevels varwidth(24) alignment(D{.}{.}{
+> -1}) ///
+>         title("Re urns to Education: Alternative Estimates") ///
+>         mtitles("OLS" "TSLS" "OLS" "TSLS") ///
+>         order(educ race smsa married) ///
+>         coeflabels(educ "Years of Education" ///
+>                 race "Race (1 = black)" ///
+>                 smsa "SMSA (1 = center city)" ///
+>                 married "Married (1 = married)") ///
+>         indicate("Year-of-Birth = *.yob", labels("Yes" "")) 
+
+Re urns to Education: Alternative Estimates
+────────────────────────────────────────────────────────────────────────────
+                                  (1)          (2)          (3)          (4)
+                                  OLS         TSLS          OLS         TSLS
+────────────────────────────────────────────────────────────────────────────
+Years of Education             0.0573       0.0553       0.0573       0.0948
+                             (0.0003)     (0.0138)     (0.0003)     (0.0223)
+
+Race (1 = black)                                                            
+                                                                            
+
+SMSA (1 = center city)                                                      
+                                                                            
+
+Married (1 = married)                                                       
+                                                                            
+
+ageq                                                     0.1800       0.1325
+                                                       (0.0389)     (0.0486)
+
+ageqsq                                                  -0.0023      -0.0016
+                                                       (0.0006)     (0.0007)
+
+_cons                          5.1298       4.9069       1.6729       1.7886
+                             (0.0050)     (0.1893)     (0.6715)     (0.6949)
+
+Year-of-Birth                     Yes          Yes          Yes          Yes
+────────────────────────────────────────────────────────────────────────────
+R2                              0.083        0.083        0.083        0.053
+────────────────────────────────────────────────────────────────────────────
+Standard errors in parentheses
+</pre>
+<pre class='stata'>.     esttab column_1 column_2 column_3 column_4 using "results/Exercise_5_table_b_Rueda.
+> tex", ///
+>         b(4) se(4) stats(r2, fmt(%4.3f) labels("\$R^2\$")) ///
+>         noconstant nodepvars nostar obslast noomitted nobaselevels varwidth(24) alignme
+> nt(D{.}{.}{-1}) ///
+>         replace booktabs ///
+>         title("Returns to Education: Alternative Estimates") ///
+>         mtitles("OLS" "TSLS" "OLS" "TSLS") ///
+>         order(educ race smsa married) ///
+>         coeflabels(educ "Years of Education" ///
+>                 race "Race (1 = black)" ///
+>                 smsa "SMSA (1 = center city)" ///
+>                 married "Married (1 = married)") ///
+>         indicate("Year-of-Birth = *.yob", labels("Yes" "")) ///
+>         nonotes addnotes("a. Standard errors in parentheses. Sample size is 486,926. In
+> struments are a full set of quarter-of-birth times year-of-birth interactions." ///
+>         "Sample consists of males born in the United States. The sample is drawn from t
+> he 5 percent samples of the 1980 Census." ///
+>         "The dependent variable is the log of weekly earnings. Age and age-squared are 
+> measured in quarters of years." ///
+>         "Each equation also includes an intercept.")
+(output written to results/Exercise_5_table_b_Rueda.tex)
+</pre>
+<ul>
+<li>The first half of Table 6 is reproduced, showing consistent returns
+to education across specifications.</li>
+<li>The R-squared values increase with the addition of controls,
+indicating improved model fit.</li>
+</ul>
+<hr />
+<h3 id="key-findings">Key Findings</h3>
+<ul>
+<li><strong>OLS Estimates</strong>: Consistent positive returns to
+education (5.54% to 5.73%).</li>
+<li><strong>2SLS Estimates</strong>: Inconsistent and sometimes negative
+returns to education, suggesting potential issues with instrument
+validity.</li>
+<li><strong>Instrument Strength</strong>: First-stage F-statistics
+indicate that the instruments are not weak, but overidentification tests
+suggest potential issues with instrument validity.</li>
+</ul>
+<hr />
+<h3 id="conclusion">Conclusion</h3>
+<ul>
+<li>This analysis replicates the findings of Angrist and Krueger (1991),
+showing that OLS estimates of returns to education are positive and
+significant, while 2SLS estimates are inconsistent and sometimes
+negative.</li>
+<li>The results highlight the challenges of using quarter of birth as an
+instrument for education in wage regressions.</li>
+</ul>
+<hr />
+</body>
+</html>

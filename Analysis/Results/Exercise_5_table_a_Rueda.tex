@@ -3,15 +3,15 @@
 \begin{tabular}{l*{3}{D{.}{.}{-1}}}
 \toprule
                         &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}\\
-                        &\multicolumn{1}{c}{OLS}&\multicolumn{1}{c}{Wald}&\multicolumn{1}{c}{2SLS}\\
+                        &\multicolumn{1}{c}{OLS}&\multicolumn{1}{c}{Wald}&\multicolumn{1}{c}{IVQOB}\\
 \midrule
-Years of Education      &       0.055&      -0.010&      -0.061\\
-                        &     (0.000)&     (0.027)&     (0.026)\\
+Constant                &      5.0452&      5.9308&      6.5095\\
+                        &    (0.0042)&    (0.3599)&    (0.3535)\\
 \addlinespace
-Constant                &       5.045&       5.931&       6.509\\
-                        &     (0.004)&     (0.360)&     (0.353)\\
+Years of Education      &      0.0554&     -0.0098&     -0.0612\\
+                        &    (0.0003)&    (0.0265)&    (0.0257)\\
 \addlinespace
-Birth-Year Dummies      &            &            &  \checkmark\\
+Year-of-Birth           &            &            &  \checkmark\\
 \midrule
 $R^2$                   &       0.066&           .&           .\\
 $N$                     &     486,926&     486,926&     486,926\\

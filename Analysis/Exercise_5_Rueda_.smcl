@@ -1,0 +1,1101 @@
+{smcl}
+{txt}{sf}{ul off}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}C:\Users\melin\OneDrive\ECO 727\Analysis\Exercise_5_Rueda_.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}19 Jan 2025, 18:44:58
+{txt}
+{com}. //_1
+.     cd "C:\Users\melin\OneDrive\ECO 727\Analysis"
+{res}C:\Users\melin\OneDrive\ECO 727\Analysis
+{txt}
+{com}.     set scheme s2color
+{txt}
+{com}.     global ex=5
+{txt}
+{com}.     global lname="Rueda"
+{txt}
+{com}. //_2
+.     use "../Data/Birth Quarter.dta" if cohort == 4, clear
+{txt}
+{com}.     assert census == 80
+{txt}
+{com}.     assert cohort == 4
+{txt}
+{com}.     assert _N == 486926
+{txt}
+{com}.     generate q1 = (qob == 1)
+{txt}
+{com}.     generate ageqsq = ageq^2
+{txt}
+{com}. //_3
+.     regress lwklywge educ
+
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}   486,926
+{txt}{hline 13}{c +}{hline 34}   F(1, 486924)    = {res} 34137.04
+{txt}       Model {c |} {res} 13286.5814         1  13286.5814   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res} 189517.161   486,924  .389213022   {txt}R-squared       ={res}    0.0655
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.0655
+{txt}       Total {c |} {res} 202803.743   486,925  .416498932   {txt}Root MSE        =   {res} .62387
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}    lwklywge{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 8}educ {c |}{col 14}{res}{space 2} .0554276{col 26}{space 2}    .0003{col 37}{space 1}  184.76{col 46}{space 3}0.000{col 54}{space 4} .0548397{col 67}{space 3} .0560156
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}  5.04521{col 26}{space 2} .0041685{col 37}{space 1} 1210.33{col 46}{space 3}0.000{col 54}{space 4}  5.03704{col 67}{space 3} 5.053381
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}.     eststo ols
+{txt}
+{com}. //_4
+.     ivregress 2sls lwklywge (educ = q1)
+{res}
+{txt}{col 1}Instrumental-variables 2SLS regression{col 51}Number of obs{col 67}= {res}   486,926
+{txt}{col 1}{col 51}Wald chi2({res}1{txt}){col 67}= {res}      0.14
+{txt}{col 1}{col 51}Prob > chi2{col 67}= {res}    0.7111
+{txt}{col 1}{col 51}R-squared{col 67}= {res}         .
+{txt}{col 51}Root MSE{col 67}=    {res} .65347
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}    lwklywge{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 8}educ {c |}{col 14}{res}{space 2}-.0098222{col 26}{space 2} .0265177{col 37}{space 1}   -0.37{col 46}{space 3}0.711{col 54}{space 4}-.0617959{col 67}{space 3} .0421516
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} 5.930765{col 26}{space 2} .3598933{col 37}{space 1}   16.48{col 46}{space 3}0.000{col 54}{space 4} 5.225387{col 67}{space 3} 6.636143
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{p 0 12 13}Endogenous: {res:educ}{p_end}
+{p 0 12 13}Exogenous:{space 1} {res:q1}{p_end}
+
+{com}.     eststo wald
+{txt}
+{com}.     estat firststage    
+{res}
+{txt}{col 3}First-stage regression summary statistics
+{res}{col 3}{text}{hline 13}{c TT}{hline 12}{hline 12}{hline 12}{hline 12}{hline 12}
+{col 16}{c |}{col 29}Adjusted{col 43}Partial
+{col 3}{text}    Variable{col 16}{c |}   R-sq.{col 29}   R-sq.{col 41}    R-sq.{col 53}F(1,486924){col 65}  Prob > F
+{res}{col 3}{text}{hline 13}{c +}{hline 12}{hline 12}{hline 12}{hline 12}{hline 12}
+{col 3}{text}        educ{col 16}{c |}{result}{space 2}0.0001{col 29}{space 2}0.0001{col 41}{space 3}0.0001{col 53}{space 3} 68.3823{col 65}{space 3}0.0000
+{col 3}{text}{hline 13}{c BT}{hline 12}{hline 12}{hline 12}{hline 12}{hline 12}
+
+
+{col 3}Minimum eigenvalue statistic = {res}68.3823     
+
+{txt}{col 3}Critical Values{col 40}# of endogenous regressors:{res}    1
+{txt}{col 3}H0: Instruments are weak{col 40}# of excluded instruments: {res}    1
+{txt}{col 3}{hline 35}{c TT}{hline 33}
+{col 38}{c |}{col 43}5%     10%     20%     30%
+{col 3}2SLS relative bias{col 38}{c |}{col 48}(not available)
+{col 3}{hline 35}{c +}{hline 33}
+{col 38}{c |}{col 42}10%     15%     20%     25%
+{col 3}2SLS size of nominal 5% Wald test{col 38}{c |}{res}{col 41}16.38{col 49} 8.96{col 57} 6.66{col 65} 5.53
+{txt}{col 3}LIML size of nominal 5% Wald test{col 38}{c |}{res}{col 41}16.38{col 49} 8.96{col 57} 6.66{col 65} 5.53
+{txt}{col 3}{hline 35}{c BT}{hline 33}
+
+{res}{txt}
+{com}. //_5
+.     ivregress 2sls lwklywge (educ = ib4.qob) ib49.yob
+{res}
+{txt}{col 1}Instrumental-variables 2SLS regression{col 51}Number of obs{col 67}= {res}   486,926
+{txt}{col 1}{col 51}Wald chi2({res}10{txt}){col 67}= {res}   5258.52
+{txt}{col 1}{col 51}Prob > chi2{col 67}= {res}    0.0000
+{txt}{col 1}{col 51}R-squared{col 67}= {res}         .
+{txt}{col 51}Root MSE{col 67}=    {res} .71139
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}    lwklywge{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 8}educ {c |}{col 14}{res}{space 2}-.0611904{col 26}{space 2}   .02569{col 37}{space 1}   -2.38{col 46}{space 3}0.017{col 54}{space 4}-.1115418{col 67}{space 3}-.0108389
+{txt}{space 12} {c |}
+{space 9}yob {c |}
+{space 9}40  {c |}{col 14}{res}{space 2}  .176109{col 26}{space 2} .0169082{col 37}{space 1}   10.42{col 46}{space 3}0.000{col 54}{space 4} .1429696{col 67}{space 3} .2092484
+{txt}{space 9}41  {c |}{col 14}{res}{space 2}  .179135{col 26}{space 2} .0145432{col 37}{space 1}   12.32{col 46}{space 3}0.000{col 54}{space 4} .1506308{col 67}{space 3} .2076391
+{txt}{space 9}42  {c |}{col 14}{res}{space 2}  .187946{col 26}{space 2} .0103399{col 37}{space 1}   18.18{col 46}{space 3}0.000{col 54}{space 4} .1676803{col 67}{space 3} .2082118
+{txt}{space 9}43  {c |}{col 14}{res}{space 2} .1811684{col 26}{space 2} .0092631{col 37}{space 1}   19.56{col 46}{space 3}0.000{col 54}{space 4}  .163013{col 67}{space 3} .1993238
+{txt}{space 9}44  {c |}{col 14}{res}{space 2} .1489016{col 26}{space 2} .0085087{col 37}{space 1}   17.50{col 46}{space 3}0.000{col 54}{space 4} .1322248{col 67}{space 3} .1655784
+{txt}{space 9}45  {c |}{col 14}{res}{space 2} .1368622{col 26}{space 2} .0058076{col 37}{space 1}   23.57{col 46}{space 3}0.000{col 54}{space 4} .1254795{col 67}{space 3} .1482449
+{txt}{space 9}46  {c |}{col 14}{res}{space 2} .1203417{col 26}{space 2} .0042626{col 37}{space 1}   28.23{col 46}{space 3}0.000{col 54}{space 4} .1119872{col 67}{space 3} .1286963
+{txt}{space 9}47  {c |}{col 14}{res}{space 2} .0915992{col 26}{space 2} .0043729{col 37}{space 1}   20.95{col 46}{space 3}0.000{col 54}{space 4} .0830284{col 67}{space 3} .1001701
+{txt}{space 9}48  {c |}{col 14}{res}{space 2} .0419143{col 26}{space 2} .0042083{col 37}{space 1}    9.96{col 46}{space 3}0.000{col 54}{space 4} .0336663{col 67}{space 3} .0501624
+{txt}{space 12} {c |}
+{space 7}_cons {c |}{col 14}{res}{space 2} 6.509484{col 26}{space 2} .3534527{col 37}{space 1}   18.42{col 46}{space 3}0.000{col 54}{space 4}  5.81673{col 67}{space 3} 7.202239
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{p 0 12 13}Endogenous: {res:educ}{p_end}
+{p 0 12 13}Exogenous:{space 1} {res:40.yob 41.yob 42.yob 43.yob 44.yob 45.yob 46.yob 47.yob 48.yob 1.qob 2.qob 3.qob}{p_end}
+
+{com}.     eststo qob_iv
+{txt}
+{com}.     estat firststage    
+{res}
+{txt}{col 3}First-stage regression summary statistics
+{res}{col 3}{text}{hline 13}{c TT}{hline 12}{hline 12}{hline 12}{hline 12}{hline 12}
+{col 16}{c |}{col 29}Adjusted{col 43}Partial
+{col 3}{text}    Variable{col 16}{c |}   R-sq.{col 29}   R-sq.{col 41}    R-sq.{col 53}F(3,486913){col 65}  Prob > F
+{res}{col 3}{text}{hline 13}{c +}{hline 12}{hline 12}{hline 12}{hline 12}{hline 12}
+{col 3}{text}        educ{col 16}{c |}{result}{space 2}0.0059{col 29}{space 2}0.0058{col 41}{space 3}0.0002{col 53}{space 3} 28.9475{col 65}{space 3}0.0000
+{col 3}{text}{hline 13}{c BT}{hline 12}{hline 12}{hline 12}{hline 12}{hline 12}
+
+
+{col 3}Minimum eigenvalue statistic = {res}28.9475     
+
+{txt}{col 3}Critical Values{col 40}# of endogenous regressors:{res}    1
+{txt}{col 3}H0: Instruments are weak{col 40}# of excluded instruments: {res}    3
+{txt}{col 3}{hline 35}{c TT}{hline 33}
+{col 38}{c |}{col 43}5%     10%     20%     30%
+{col 3}2SLS relative bias{col 38}{c |}{res}{col 41}13.91{col 49} 9.08{col 57} 6.46{col 65} 5.39
+{txt}{col 3}{hline 35}{c +}{hline 33}
+{col 38}{c |}{col 42}10%     15%     20%     25%
+{col 3}2SLS size of nominal 5% Wald test{col 38}{c |}{res}{col 41}22.30{col 49}12.83{col 57} 9.54{col 65} 7.80
+{txt}{col 3}LIML size of nominal 5% Wald test{col 38}{c |}{res}{col 41} 6.46{col 49} 4.36{col 57} 3.69{col 65} 3.32
+{txt}{col 3}{hline 35}{c BT}{hline 33}
+
+{res}{txt}
+{com}.     estat overid        
+
+{txt}{col 3}Tests of overidentifying restrictions:
+
+{col 3}Sargan (score) chi2({res}2{txt}){col 26}={res}{col 28}  10.889{txt}{col 38}(p = {res}0.0043{txt})
+{col 3}Basmann chi2({res}2{txt}){col 26}={res}{col 28}  10.889{txt}{col 38}(p = {res}0.0043{txt})
+
+{com}. //_6
+.     eststo column_1: regress lwklywge educ i.yob 
+
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}   486,926
+{txt}{hline 13}{c +}{hline 34}   F(10, 486915)   = {res}  4396.64
+{txt}       Model {c |} {res} 16795.7577        10  1679.57577   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res} 186007.985   486,915  .382013257   {txt}R-squared       ={res}    0.0828
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.0828
+{txt}       Total {c |} {res} 202803.743   486,925  .416498932   {txt}Root MSE        =   {res} .61807
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}    lwklywge{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 8}educ {c |}{col 14}{res}{space 2} .0573383{col 26}{space 2} .0002981{col 37}{space 1}  192.37{col 46}{space 3}0.000{col 54}{space 4} .0567541{col 67}{space 3} .0579224
+{txt}{space 12} {c |}
+{space 9}yob {c |}
+{space 9}41  {c |}{col 14}{res}{space 2} -.008401{col 26}{space 2} .0044663{col 37}{space 1}   -1.88{col 46}{space 3}0.060{col 54}{space 4}-.0171549{col 67}{space 3} .0003528
+{txt}{space 9}42  {c |}{col 14}{res}{space 2} -.020105{col 26}{space 2} .0042998{col 37}{space 1}   -4.68{col 46}{space 3}0.000{col 54}{space 4}-.0285323{col 67}{space 3}-.0116776
+{txt}{space 9}43  {c |}{col 14}{res}{space 2}-.0323785{col 26}{space 2} .0042716{col 37}{space 1}   -7.58{col 46}{space 3}0.000{col 54}{space 4}-.0407507{col 67}{space 3}-.0240063
+{txt}{space 9}44  {c |}{col 14}{res}{space 2}-.0688195{col 26}{space 2} .0043143{col 37}{space 1}  -15.95{col 46}{space 3}0.000{col 54}{space 4}-.0772754{col 67}{space 3}-.0603637
+{txt}{space 9}45  {c |}{col 14}{res}{space 2}-.0972022{col 26}{space 2} .0043119{col 37}{space 1}  -22.54{col 46}{space 3}0.000{col 54}{space 4}-.1056534{col 67}{space 3} -.088751
+{txt}{space 9}46  {c |}{col 14}{res}{space 2}-.1303642{col 26}{space 2} .0041339{col 37}{space 1}  -31.54{col 46}{space 3}0.000{col 54}{space 4}-.1384665{col 67}{space 3}-.1222619
+{txt}{space 9}47  {c |}{col 14}{res}{space 2}-.1659494{col 26}{space 2}   .00404{col 37}{space 1}  -41.08{col 46}{space 3}0.000{col 54}{space 4}-.1738678{col 67}{space 3}-.1580311
+{txt}{space 9}48  {c |}{col 14}{res}{space 2}-.2107593{col 26}{space 2}  .004081{col 37}{space 1}  -51.64{col 46}{space 3}0.000{col 54}{space 4}-.2187579{col 67}{space 3}-.2027607
+{txt}{space 9}49  {c |}{col 14}{res}{space 2}-.2510504{col 26}{space 2} .0040846{col 37}{space 1}  -61.46{col 46}{space 3}0.000{col 54}{space 4}-.2590561{col 67}{space 3}-.2430446
+{txt}{space 12} {c |}
+{space 7}_cons {c |}{col 14}{res}{space 2} 5.129832{col 26}{space 2}   .00503{col 37}{space 1} 1019.85{col 46}{space 3}0.000{col 54}{space 4} 5.119973{col 67}{space 3}  5.13969
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}.     eststo column_2: ivregress 2sls lwklywge (educ = ib4.qob#ib49.yob) ib49.yob, first 
+{res}
+{txt}First-stage regressions
+{hline 23}
+
+{col 56}{lalign 13:Number of obs}{col 69} = {res}{ralign 7:486,926}
+{txt}{col 56}{lalign 13:F({res:39}, {res:486886})}{col 69} = {res}{ralign 7:77.36}
+{txt}{col 56}{lalign 13:Prob > F}{col 69} = {res}{ralign 7:0.0000}
+{txt}{col 56}{lalign 13:R-squared}{col 69} = {res}{ralign 7:0.0062}
+{txt}{col 56}{lalign 13:Adj R-squared}{col 69} = {res}{ralign 7:0.0061}
+{txt}{col 56}{lalign 13:Root MSE}{col 69} = {res}{ralign 7:2.9712}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}        educ{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 9}yob {c |}
+{space 9}40  {c |}{col 14}{res}{space 2}-.4790786{col 26}{space 2} .0394497{col 37}{space 1}  -12.14{col 46}{space 3}0.000{col 54}{space 4}-.5563987{col 67}{space 3}-.4017585
+{txt}{space 9}41  {c |}{col 14}{res}{space 2}-.4573497{col 26}{space 2} .0390959{col 37}{space 1}  -11.70{col 46}{space 3}0.000{col 54}{space 4}-.5339764{col 67}{space 3} -.380723
+{txt}{space 9}42  {c |}{col 14}{res}{space 2}-.1900694{col 26}{space 2} .0363524{col 37}{space 1}   -5.23{col 46}{space 3}0.000{col 54}{space 4} -.261319{col 67}{space 3}-.1188198
+{txt}{space 9}43  {c |}{col 14}{res}{space 2}-.2625653{col 26}{space 2} .0374126{col 37}{space 1}   -7.02{col 46}{space 3}0.000{col 54}{space 4}-.3358928{col 67}{space 3}-.1892379
+{txt}{space 9}44  {c |}{col 14}{res}{space 2}-.1967927{col 26}{space 2} .0373408{col 37}{space 1}   -5.27{col 46}{space 3}0.000{col 54}{space 4}-.2699796{col 67}{space 3}-.1236058
+{txt}{space 9}45  {c |}{col 14}{res}{space 2}-.1372794{col 26}{space 2} .0374564{col 37}{space 1}   -3.67{col 46}{space 3}0.000{col 54}{space 4}-.2106927{col 67}{space 3}-.0638661
+{txt}{space 9}46  {c |}{col 14}{res}{space 2}  .114889{col 26}{space 2} .0337571{col 37}{space 1}    3.40{col 46}{space 3}0.001{col 54}{space 4} .0487261{col 67}{space 3} .1810518
+{txt}{space 9}47  {c |}{col 14}{res}{space 2} .0283059{col 26}{space 2} .0350098{col 37}{space 1}    0.81{col 46}{space 3}0.419{col 54}{space 4}-.0403122{col 67}{space 3}  .096924
+{txt}{space 9}48  {c |}{col 14}{res}{space 2} .0283839{col 26}{space 2} .0348674{col 37}{space 1}    0.81{col 46}{space 3}0.416{col 54}{space 4} -.039955{col 67}{space 3} .0967229
+{txt}{space 12} {c |}
+{space 5}qob#yob {c |}
+{space 7}1 40  {c |}{col 14}{res}{space 2}-.2461622{col 26}{space 2} .0435185{col 37}{space 1}   -5.66{col 46}{space 3}0.000{col 54}{space 4}-.3314571{col 67}{space 3}-.1608672
+{txt}{space 7}1 41  {c |}{col 14}{res}{space 2}-.1897749{col 26}{space 2} .0432016{col 37}{space 1}   -4.39{col 46}{space 3}0.000{col 54}{space 4}-.2744488{col 67}{space 3}-.1051011
+{txt}{space 7}1 42  {c |}{col 14}{res}{space 2}-.3247846{col 26}{space 2} .0395701{col 37}{space 1}   -8.21{col 46}{space 3}0.000{col 54}{space 4}-.4023407{col 67}{space 3}-.2472285
+{txt}{space 7}1 43  {c |}{col 14}{res}{space 2}-.0599539{col 26}{space 2} .0392732{col 37}{space 1}   -1.53{col 46}{space 3}0.127{col 54}{space 4}-.1369282{col 67}{space 3} .0170204
+{txt}{space 7}1 44  {c |}{col 14}{res}{space 2} -.109131{col 26}{space 2}  .039955{col 37}{space 1}   -2.73{col 46}{space 3}0.006{col 54}{space 4}-.1874416{col 67}{space 3}-.0308205
+{txt}{space 7}1 45  {c |}{col 14}{res}{space 2}-.0750213{col 26}{space 2} .0400287{col 37}{space 1}   -1.87{col 46}{space 3}0.061{col 54}{space 4}-.1534764{col 67}{space 3} .0034338
+{txt}{space 7}1 46  {c |}{col 14}{res}{space 2}-.2425786{col 26}{space 2} .0367363{col 37}{space 1}   -6.60{col 46}{space 3}0.000{col 54}{space 4}-.3145807{col 67}{space 3}-.1705765
+{txt}{space 7}1 47  {c |}{col 14}{res}{space 2} .0236868{col 26}{space 2} .0342372{col 37}{space 1}    0.69{col 46}{space 3}0.489{col 54}{space 4}-.0434171{col 67}{space 3} .0907907
+{txt}{space 7}1 48  {c |}{col 14}{res}{space 2}-.0311665{col 26}{space 2} .0349717{col 37}{space 1}   -0.89{col 46}{space 3}0.373{col 54}{space 4}  -.09971{col 67}{space 3}  .037377
+{txt}{space 7}1 49  {c |}{col 14}{res}{space 2} .0334188{col 26}{space 2} .0351678{col 37}{space 1}    0.95{col 46}{space 3}0.342{col 54}{space 4} -.035509{col 67}{space 3} .1023466
+{txt}{space 7}2 40  {c |}{col 14}{res}{space 2}-.2099701{col 26}{space 2} .0435162{col 37}{space 1}   -4.83{col 46}{space 3}0.000{col 54}{space 4}-.2952606{col 67}{space 3}-.1246797
+{txt}{space 7}2 41  {c |}{col 14}{res}{space 2}-.0585352{col 26}{space 2}   .04342{col 37}{space 1}   -1.35{col 46}{space 3}0.178{col 54}{space 4}-.1436371{col 67}{space 3} .0265667
+{txt}{space 7}2 42  {c |}{col 14}{res}{space 2}-.1613492{col 26}{space 2} .0395909{col 37}{space 1}   -4.08{col 46}{space 3}0.000{col 54}{space 4}-.2389461{col 67}{space 3}-.0837522
+{txt}{space 7}2 43  {c |}{col 14}{res}{space 2}-.0855722{col 26}{space 2} .0396743{col 37}{space 1}   -2.16{col 46}{space 3}0.031{col 54}{space 4}-.1633326{col 67}{space 3}-.0078117
+{txt}{space 7}2 44  {c |}{col 14}{res}{space 2}-.1089988{col 26}{space 2} .0403166{col 37}{space 1}   -2.70{col 46}{space 3}0.007{col 54}{space 4} -.188018{col 67}{space 3}-.0299795
+{txt}{space 7}2 45  {c |}{col 14}{res}{space 2} .0588826{col 26}{space 2} .0402305{col 37}{space 1}    1.46{col 46}{space 3}0.143{col 54}{space 4}-.0199678{col 67}{space 3} .1377331
+{txt}{space 7}2 46  {c |}{col 14}{res}{space 2}-.1704643{col 26}{space 2} .0361462{col 37}{space 1}   -4.72{col 46}{space 3}0.000{col 54}{space 4}-.2413096{col 67}{space 3} -.099619
+{txt}{space 7}2 47  {c |}{col 14}{res}{space 2} .1118722{col 26}{space 2} .0347797{col 37}{space 1}    3.22{col 46}{space 3}0.001{col 54}{space 4} .0437052{col 67}{space 3} .1800393
+{txt}{space 7}2 48  {c |}{col 14}{res}{space 2} .0377363{col 26}{space 2} .0355776{col 37}{space 1}    1.06{col 46}{space 3}0.289{col 54}{space 4}-.0319947{col 67}{space 3} .1074673
+{txt}{space 7}2 49  {c |}{col 14}{res}{space 2} .0044735{col 26}{space 2} .0354317{col 37}{space 1}    0.13{col 46}{space 3}0.900{col 54}{space 4}-.0649716{col 67}{space 3} .0739185
+{txt}{space 7}3 40  {c |}{col 14}{res}{space 2}-.1063897{col 26}{space 2} .0425536{col 37}{space 1}   -2.50{col 46}{space 3}0.012{col 54}{space 4}-.1897935{col 67}{space 3} -.022986
+{txt}{space 7}3 41  {c |}{col 14}{res}{space 2}-.0191962{col 26}{space 2} .0421476{col 37}{space 1}   -0.46{col 46}{space 3}0.649{col 54}{space 4}-.1018041{col 67}{space 3} .0634117
+{txt}{space 7}3 42  {c |}{col 14}{res}{space 2}-.1795796{col 26}{space 2} .0381084{col 37}{space 1}   -4.71{col 46}{space 3}0.000{col 54}{space 4}-.2542709{col 67}{space 3}-.1048883
+{txt}{space 7}3 43  {c |}{col 14}{res}{space 2}-.0173158{col 26}{space 2} .0389614{col 37}{space 1}   -0.44{col 46}{space 3}0.657{col 54}{space 4}-.0936789{col 67}{space 3} .0590474
+{txt}{space 7}3 44  {c |}{col 14}{res}{space 2}-.0699781{col 26}{space 2} .0392196{col 37}{space 1}   -1.78{col 46}{space 3}0.074{col 54}{space 4}-.1468473{col 67}{space 3} .0068911
+{txt}{space 7}3 45  {c |}{col 14}{res}{space 2} .0433682{col 26}{space 2} .0392931{col 37}{space 1}    1.10{col 46}{space 3}0.270{col 54}{space 4} -.033645{col 67}{space 3} .1203814
+{txt}{space 7}3 46  {c |}{col 14}{res}{space 2}-.0716225{col 26}{space 2} .0332767{col 37}{space 1}   -2.15{col 46}{space 3}0.031{col 54}{space 4}-.1368438{col 67}{space 3}-.0064011
+{txt}{space 7}3 47  {c |}{col 14}{res}{space 2} .0237714{col 26}{space 2} .0343709{col 37}{space 1}    0.69{col 46}{space 3}0.489{col 54}{space 4}-.0435944{col 67}{space 3} .0911372
+{txt}{space 7}3 48  {c |}{col 14}{res}{space 2}-.0091998{col 26}{space 2}  .034364{col 37}{space 1}   -0.27{col 46}{space 3}0.789{col 54}{space 4}-.0765521{col 67}{space 3} .0581525
+{txt}{space 7}3 49  {c |}{col 14}{res}{space 2} .0151749{col 26}{space 2} .0344644{col 37}{space 1}    0.44{col 46}{space 3}0.660{col 54}{space 4}-.0523742{col 67}{space 3} .0827239
+{txt}{space 12} {c |}
+{space 7}_cons {c |}{col 14}{res}{space 2} 13.74463{col 26}{space 2} .0246571{col 37}{space 1}  557.43{col 46}{space 3}0.000{col 54}{space 4}  13.6963{col 67}{space 3} 13.79296
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{res}
+{txt}{col 1}Instrumental-variables 2SLS regression{col 51}Number of obs{col 67}= {res}   486,926
+{txt}{col 1}{col 51}Wald chi2({res}10{txt}){col 67}= {res}   6974.38
+{txt}{col 1}{col 51}Prob > chi2{col 67}= {res}    0.0000
+{txt}{col 1}{col 51}R-squared{col 67}= {res}    0.0827
+{txt}{col 51}Root MSE{col 67}=    {res} .61809
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}    lwklywge{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 8}educ {c |}{col 14}{res}{space 2} .0552978{col 26}{space 2} .0137563{col 37}{space 1}    4.02{col 46}{space 3}0.000{col 54}{space 4} .0283359{col 67}{space 3} .0822597
+{txt}{space 12} {c |}
+{space 9}yob {c |}
+{space 9}40  {c |}{col 14}{res}{space 2} .2497603{col 26}{space 2} .0096072{col 37}{space 1}   26.00{col 46}{space 3}0.000{col 54}{space 4} .2309305{col 67}{space 3} .2685901
+{txt}{space 9}41  {c |}{col 14}{res}{space 2} .2415559{col 26}{space 2} .0084228{col 37}{space 1}   28.68{col 46}{space 3}0.000{col 54}{space 4} .2250475{col 67}{space 3} .2580643
+{txt}{space 9}42  {c |}{col 14}{res}{space 2} .2302052{col 26}{space 2} .0063281{col 37}{space 1}   36.38{col 46}{space 3}0.000{col 54}{space 4} .2178023{col 67}{space 3}  .242608
+{txt}{space 9}43  {c |}{col 14}{res}{space 2} .2180262{col 26}{space 2} .0058173{col 37}{space 1}   37.48{col 46}{space 3}0.000{col 54}{space 4} .2066244{col 67}{space 3}  .229428
+{txt}{space 9}44  {c |}{col 14}{res}{space 2} .1816571{col 26}{space 2} .0054976{col 37}{space 1}   33.04{col 46}{space 3}0.000{col 54}{space 4}  .170882{col 67}{space 3} .1924321
+{txt}{space 9}45  {c |}{col 14}{res}{space 2} .1535557{col 26}{space 2} .0043722{col 37}{space 1}   35.12{col 46}{space 3}0.000{col 54}{space 4} .1449863{col 67}{space 3} .1621251
+{txt}{space 9}46  {c |}{col 14}{res}{space 2} .1206802{col 26}{space 2} .0037033{col 37}{space 1}   32.59{col 46}{space 3}0.000{col 54}{space 4}  .113422{col 67}{space 3} .1279384
+{txt}{space 9}47  {c |}{col 14}{res}{space 2} .0852128{col 26}{space 2} .0036752{col 37}{space 1}   23.19{col 46}{space 3}0.000{col 54}{space 4} .0780095{col 67}{space 3} .0924161
+{txt}{space 9}48  {c |}{col 14}{res}{space 2}  .040319{col 26}{space 2} .0036484{col 37}{space 1}   11.05{col 46}{space 3}0.000{col 54}{space 4} .0331682{col 67}{space 3} .0474698
+{txt}{space 12} {c |}
+{space 7}_cons {c |}{col 14}{res}{space 2} 4.906853{col 26}{space 2} .1892754{col 37}{space 1}   25.92{col 46}{space 3}0.000{col 54}{space 4}  4.53588{col 67}{space 3} 5.277826
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{p 0 12 13}Endogenous: {res:educ}{p_end}
+{p 0 12 13}Exogenous:{space 1} {res:40.yob 41.yob 42.yob 43.yob 44.yob 45.yob 46.yob 47.yob 48.yob 1.qob#40.yob 1.qob#41.yob 1.qob#42.yob 1.qob#43.yob 1.qob#44.yob 1.qob#45.yob 1.qob#46.yob 1.qob#47.yob 1.qob#48.yob 1.qob#49b.yob 2.qob#40.yob 2.qob#41.yob 2.qob#42.yob 2.qob#43.yob 2.qob#44.yob 2.qob#45.yob 2.qob#46.yob 2.qob#47.yob 2.qob#48.yob 2.qob#49b.yob 3.qob#40.yob 3.qob#41.yob 3.qob#42.yob 3.qob#43.yob 3.qob#44.yob 3.qob#45.yob 3.qob#46.yob 3.qob#47.yob 3.qob#48.yob 3.qob#49b.yob}{p_end}
+
+{com}.     estat firststage
+{res}
+{txt}{col 3}First-stage regression summary statistics
+{res}{col 3}{text}{hline 13}{c TT}{hline 12}{hline 12}{hline 12}{hline 12}{hline 12}
+{col 16}{c |}{col 29}Adjusted{col 43}Partial
+{col 3}{text}    Variable{col 16}{c |}   R-sq.{col 29}   R-sq.{col 41}    R-sq.{col 53}F(30,486886){col 65}  Prob > F
+{res}{col 3}{text}{hline 13}{c +}{hline 12}{hline 12}{hline 12}{hline 12}{hline 12}
+{col 3}{text}        educ{col 16}{c |}{result}{space 2}0.0062{col 29}{space 2}0.0061{col 41}{space 3}0.0005{col 53}{space 3} 7.62315{col 65}{space 3}0.0000
+{col 3}{text}{hline 13}{c BT}{hline 12}{hline 12}{hline 12}{hline 12}{hline 12}
+
+
+{col 3}Minimum eigenvalue statistic = {res}7.62315     
+
+{txt}{col 3}Critical Values{col 40}# of endogenous regressors:{res}    1
+{txt}{col 3}H0: Instruments are weak{col 40}# of excluded instruments: {res}   30
+{txt}{col 3}{hline 35}{c TT}{hline 33}
+{col 38}{c |}{col 43}5%     10%     20%     30%
+{col 3}2SLS relative bias{col 38}{c |}{res}{col 41}21.42{col 49}11.32{col 57} 6.09{col 65} 4.29
+{txt}{col 3}{hline 35}{c +}{hline 33}
+{col 38}{c |}{col 42}10%     15%     20%     25%
+{col 3}2SLS size of nominal 5% Wald test{col 38}{c |}{res}{col 41}86.17{col 49}44.78{col 57}30.72{col 65}23.65
+{txt}{col 3}LIML size of nominal 5% Wald test{col 38}{c |}{res}{col 41} 3.88{col 49} 2.18{col 57} 1.89{col 65} 1.75
+{txt}{col 3}{hline 35}{c BT}{hline 33}
+
+{res}{txt}
+{com}.     estat overid
+
+{txt}{col 3}Tests of overidentifying restrictions:
+
+{col 3}Sargan (score) chi2({res}29{txt}){col 26}={res}{col 28} 101.621{txt}{col 38}(p = {res}0.0000{txt})
+{col 3}Basmann chi2({res}29{txt}){col 26}={res}{col 28} 101.634{txt}{col 38}(p = {res}0.0000{txt})
+
+{com}.     eststo column_3: regress lwklywge educ i.yob ageq ageqsq 
+
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}   486,926
+{txt}{hline 13}{c +}{hline 34}   F(12, 486913)   = {res}  3668.22
+{txt}       Model {c |} {res} 16814.1046        12  1401.17538   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res} 185989.638   486,913  .381977146   {txt}R-squared       ={res}    0.0829
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.0829
+{txt}       Total {c |} {res} 202803.743   486,925  .416498932   {txt}Root MSE        =   {res} .61804
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}    lwklywge{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 8}educ {c |}{col 14}{res}{space 2} .0573461{col 26}{space 2} .0002981{col 37}{space 1}  192.38{col 46}{space 3}0.000{col 54}{space 4} .0567619{col 67}{space 3} .0579304
+{txt}{space 12} {c |}
+{space 9}yob {c |}
+{space 9}41  {c |}{col 14}{res}{space 2}-.0115458{col 26}{space 2} .0074022{col 37}{space 1}   -1.56{col 46}{space 3}0.119{col 54}{space 4} -.026054{col 67}{space 3} .0029624
+{txt}{space 9}42  {c |}{col 14}{res}{space 2}-.0216345{col 26}{space 2} .0117417{col 37}{space 1}   -1.84{col 46}{space 3}0.065{col 54}{space 4}-.0446479{col 67}{space 3} .0013789
+{txt}{space 9}43  {c |}{col 14}{res}{space 2}-.0278092{col 26}{space 2} .0155188{col 37}{space 1}   -1.79{col 46}{space 3}0.073{col 54}{space 4}-.0582256{col 67}{space 3} .0026072
+{txt}{space 9}44  {c |}{col 14}{res}{space 2}-.0532577{col 26}{space 2} .0187669{col 37}{space 1}   -2.84{col 46}{space 3}0.005{col 54}{space 4}-.0900401{col 67}{space 3}-.0164752
+{txt}{space 9}45  {c |}{col 14}{res}{space 2}-.0660773{col 26}{space 2} .0213478{col 37}{space 1}   -3.10{col 46}{space 3}0.002{col 54}{space 4}-.1079183{col 67}{space 3}-.0242364
+{txt}{space 9}46  {c |}{col 14}{res}{space 2}-.0779514{col 26}{space 2} .0235069{col 37}{space 1}   -3.32{col 46}{space 3}0.001{col 54}{space 4}-.1240242{col 67}{space 3}-.0318786
+{txt}{space 9}47  {c |}{col 14}{res}{space 2}-.0899579{col 26}{space 2} .0252136{col 37}{space 1}   -3.57{col 46}{space 3}0.000{col 54}{space 4}-.1393758{col 67}{space 3}  -.04054
+{txt}{space 9}48  {c |}{col 14}{res}{space 2}-.1047492{col 26}{space 2} .0270777{col 37}{space 1}   -3.87{col 46}{space 3}0.000{col 54}{space 4}-.1578207{col 67}{space 3}-.0516777
+{txt}{space 9}49  {c |}{col 14}{res}{space 2} -.110682{col 26}{space 2} .0292461{col 37}{space 1}   -3.78{col 46}{space 3}0.000{col 54}{space 4}-.1680035{col 67}{space 3}-.0533606
+{txt}{space 12} {c |}
+{space 8}ageq {c |}{col 14}{res}{space 2} .1799818{col 26}{space 2} .0389345{col 37}{space 1}    4.62{col 46}{space 3}0.000{col 54}{space 4} .1036715{col 67}{space 3} .2562922
+{txt}{space 6}ageqsq {c |}{col 14}{res}{space 2}-.0023404{col 26}{space 2} .0005592{col 37}{space 1}   -4.19{col 46}{space 3}0.000{col 54}{space 4}-.0034364{col 67}{space 3}-.0012444
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} 1.672882{col 26}{space 2} .6714968{col 37}{space 1}    2.49{col 46}{space 3}0.013{col 54}{space 4} .3567686{col 67}{space 3} 2.988994
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}.     eststo column_4: ivregress 2sls lwklywge (educ = ib4.qob#ib49.yob) ib49.yob ageq ageqsq, first 
+{res}{txt}note: 3.qob#48.yob omitted because of collinearity.
+{txt}note: 3.qob#49b.yob omitted because of collinearity.
+
+First-stage regressions
+{hline 23}
+
+{col 56}{lalign 13:Number of obs}{col 69} = {res}{ralign 7:486,926}
+{txt}{col 56}{lalign 13:F({res:39}, {res:486886})}{col 69} = {res}{ralign 7:77.36}
+{txt}{col 56}{lalign 13:Prob > F}{col 69} = {res}{ralign 7:0.0000}
+{txt}{col 56}{lalign 13:R-squared}{col 69} = {res}{ralign 7:0.0062}
+{txt}{col 56}{lalign 13:Adj R-squared}{col 69} = {res}{ralign 7:0.0061}
+{txt}{col 56}{lalign 13:Root MSE}{col 69} = {res}{ralign 7:2.9712}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}        educ{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 9}yob {c |}
+{space 9}40  {c |}{col 14}{res}{space 2} 2.813559{col 26}{space 2} 6.853902{col 37}{space 1}    0.41{col 46}{space 3}0.681{col 54}{space 4}-10.61988{col 67}{space 3} 16.24699
+{txt}{space 9}41  {c |}{col 14}{res}{space 2} 2.079454{col 26}{space 2}  5.32198{col 37}{space 1}    0.39{col 46}{space 3}0.696{col 54}{space 4}-8.351462{col 67}{space 3} 12.51037
+{txt}{space 9}42  {c |}{col 14}{res}{space 2} 1.688396{col 26}{space 2} 3.984986{col 37}{space 1}    0.42{col 46}{space 3}0.672{col 54}{space 4}-6.122053{col 67}{space 3} 9.498844
+{txt}{space 9}43  {c |}{col 14}{res}{space 2} 1.055058{col 26}{space 2} 2.843132{col 37}{space 1}    0.37{col 46}{space 3}0.711{col 54}{space 4}-4.517391{col 67}{space 3} 6.627508
+{txt}{space 9}44  {c |}{col 14}{res}{space 2} .6574859{col 26}{space 2} 1.896678{col 37}{space 1}    0.35{col 46}{space 3}0.729{col 54}{space 4}-3.059945{col 67}{space 3} 4.374916
+{txt}{space 9}45  {c |}{col 14}{res}{space 2} .3511506{col 26}{space 2} 1.146299{col 37}{space 1}    0.31{col 46}{space 3}0.759{col 54}{space 4}-1.895559{col 67}{space 3}  2.59786
+{txt}{space 9}46  {c |}{col 14}{res}{space 2} .3349667{col 26}{space 2} .5934248{col 37}{space 1}    0.56{col 46}{space 3}0.572{col 54}{space 4}-.8281274{col 67}{space 3} 1.498061
+{txt}{space 9}47  {c |}{col 14}{res}{space 2} .0775279{col 26}{space 2}  .243023{col 37}{space 1}    0.32{col 46}{space 3}0.750{col 54}{space 4}-.3987896{col 67}{space 3} .5538455
+{txt}{space 9}48  {c |}{col 14}{res}{space 2} .0042465{col 26}{space 2} .1003984{col 37}{space 1}    0.04{col 46}{space 3}0.966{col 54}{space 4}-.1925313{col 67}{space 3} .2010243
+{txt}{space 12} {c |}
+{space 8}ageq {c |}{col 14}{res}{space 2} 3.022153{col 26}{space 2} 6.011628{col 37}{space 1}    0.50{col 46}{space 3}0.615{col 54}{space 4} -8.76045{col 67}{space 3} 14.80476
+{txt}{space 6}ageqsq {c |}{col 14}{res}{space 2}-.0487482{col 26}{space 2} .0973369{col 37}{space 1}   -0.50{col 46}{space 3}0.616{col 54}{space 4}-.2395256{col 67}{space 3} .1420291
+{txt}{space 12} {c |}
+{space 5}qob#yob {c |}
+{space 7}1 40  {c |}{col 14}{res}{space 2} .3846957{col 26}{space 2} 1.280159{col 37}{space 1}    0.30{col 46}{space 3}0.764{col 54}{space 4}-2.124375{col 67}{space 3} 2.893767
+{txt}{space 7}1 41  {c |}{col 14}{res}{space 2} .3679606{col 26}{space 2} 1.134505{col 37}{space 1}    0.32{col 46}{space 3}0.746{col 54}{space 4}-1.855633{col 67}{space 3} 2.591555
+{txt}{space 7}1 42  {c |}{col 14}{res}{space 2} .1598286{col 26}{space 2} .9888163{col 37}{space 1}    0.16{col 46}{space 3}0.872{col 54}{space 4}-1.778221{col 67}{space 3} 2.097878
+{txt}{space 7}1 43  {c |}{col 14}{res}{space 2} .3515369{col 26}{space 2} .8434019{col 37}{space 1}    0.42{col 46}{space 3}0.677{col 54}{space 4}-1.301505{col 67}{space 3} 2.004578
+{txt}{space 7}1 44  {c |}{col 14}{res}{space 2} .2292375{col 26}{space 2} .6982896{col 37}{space 1}    0.33{col 46}{space 3}0.743{col 54}{space 4}-1.139388{col 67}{space 3} 1.597863
+{txt}{space 7}1 45  {c |}{col 14}{res}{space 2} .1902249{col 26}{space 2} .5536037{col 37}{space 1}    0.34{col 46}{space 3}0.731{col 54}{space 4}-.8948211{col 67}{space 3} 1.275271
+{txt}{space 7}1 46  {c |}{col 14}{res}{space 2}-.0504547{col 26}{space 2} .4095391{col 37}{space 1}   -0.12{col 46}{space 3}0.902{col 54}{space 4}-.8531386{col 67}{space 3} .7522291
+{txt}{space 7}1 47  {c |}{col 14}{res}{space 2} .1426883{col 26}{space 2} .2677274{col 37}{space 1}    0.53{col 46}{space 3}0.594{col 54}{space 4} -.382049{col 67}{space 3} .6674257
+{txt}{space 7}1 48  {c |}{col 14}{res}{space 2} .0147128{col 26}{space 2}  .118063{col 37}{space 1}    0.12{col 46}{space 3}0.901{col 54}{space 4} -.216687{col 67}{space 3} .2461127
+{txt}{space 7}1 49  {c |}{col 14}{res}{space 2} .0061755{col 26}{space 2} .0719606{col 37}{space 1}    0.09{col 46}{space 3}0.932{col 54}{space 4}-.1348651{col 67}{space 3}  .147216
+{txt}{space 7}2 40  {c |}{col 14}{res}{space 2} .2045083{col 26}{space 2} .8419242{col 37}{space 1}    0.24{col 46}{space 3}0.808{col 54}{space 4}-1.445637{col 67}{space 3} 1.854654
+{txt}{space 7}2 41  {c |}{col 14}{res}{space 2} .3071949{col 26}{space 2}  .744913{col 37}{space 1}    0.41{col 46}{space 3}0.680{col 54}{space 4}-1.152811{col 67}{space 3} 1.767201
+{txt}{space 7}2 42  {c |}{col 14}{res}{space 2} .1556328{col 26}{space 2} .6477606{col 37}{space 1}    0.24{col 46}{space 3}0.810{col 54}{space 4}-1.113958{col 67}{space 3} 1.425223
+{txt}{space 7}2 43  {c |}{col 14}{res}{space 2} .1826615{col 26}{space 2}  .550968{col 37}{space 1}    0.33{col 46}{space 3}0.740{col 54}{space 4}-.8972185{col 67}{space 3} 1.262542
+{txt}{space 7}2 44  {c |}{col 14}{res}{space 2} .1104867{col 26}{space 2} .4544572{col 37}{space 1}    0.24{col 46}{space 3}0.808{col 54}{space 4}-.7802351{col 67}{space 3} 1.001209
+{txt}{space 7}2 45  {c |}{col 14}{res}{space 2} .2296199{col 26}{space 2} .3583121{col 37}{space 1}    0.64{col 46}{space 3}0.522{col 54}{space 4}-.4726606{col 67}{space 3} .9319004
+{txt}{space 7}2 46  {c |}{col 14}{res}{space 2}-.0484753{col 26}{space 2} .2624648{col 37}{space 1}   -0.18{col 46}{space 3}0.853{col 54}{space 4} -.562898{col 67}{space 3} .4659475
+{txt}{space 7}2 47  {c |}{col 14}{res}{space 2}  .185113{col 26}{space 2} .1689732{col 37}{space 1}    1.10{col 46}{space 3}0.273{col 54}{space 4}-.1460691{col 67}{space 3} .5162952
+{txt}{space 7}2 48  {c |}{col 14}{res}{space 2}  .062229{col 26}{space 2} .0676996{col 37}{space 1}    0.92{col 46}{space 3}0.358{col 54}{space 4}  -.07046{col 67}{space 3} .1949181
+{txt}{space 7}2 49  {c |}{col 14}{res}{space 2}-.0197823{col 26}{space 2} .0532814{col 37}{space 1}   -0.37{col 46}{space 3}0.710{col 54}{space 4}-.1242122{col 67}{space 3} .0846476
+{txt}{space 7}3 40  {c |}{col 14}{res}{space 2} .0978027{col 26}{space 2} .4165057{col 37}{space 1}    0.23{col 46}{space 3}0.814{col 54}{space 4}-.7185356{col 67}{space 3}  .914141
+{txt}{space 7}3 41  {c |}{col 14}{res}{space 2} .1606221{col 26}{space 2} .3681734{col 37}{space 1}    0.44{col 46}{space 3}0.663{col 54}{space 4}-.5609862{col 67}{space 3} .8822305
+{txt}{space 7}3 42  {c |}{col 14}{res}{space 2}-.0241354{col 26}{space 2} .3194897{col 37}{space 1}   -0.08{col 46}{space 3}0.940{col 54}{space 4}-.6503253{col 67}{space 3} .6020545
+{txt}{space 7}3 43  {c |}{col 14}{res}{space 2} .1137543{col 26}{space 2} .2715196{col 37}{space 1}    0.42{col 46}{space 3}0.675{col 54}{space 4}-.4184157{col 67}{space 3} .6459243
+{txt}{space 7}3 44  {c |}{col 14}{res}{space 2} .0367179{col 26}{space 2} .2237494{col 37}{space 1}    0.16{col 46}{space 3}0.870{col 54}{space 4} -.401824{col 67}{space 3} .4752598
+{txt}{space 7}3 45  {c |}{col 14}{res}{space 2} .1256901{col 26}{space 2} .1764299{col 37}{space 1}    0.71{col 46}{space 3}0.476{col 54}{space 4}-.2201071{col 67}{space 3} .4714872
+{txt}{space 7}3 46  {c |}{col 14}{res}{space 2}-.0136747{col 26}{space 2} .1283982{col 37}{space 1}   -0.11{col 46}{space 3}0.915{col 54}{space 4}-.2653313{col 67}{space 3} .2379819
+{txt}{space 7}3 47  {c |}{col 14}{res}{space 2}  .057345{col 26}{space 2} .0842173{col 37}{space 1}    0.68{col 46}{space 3}0.496{col 54}{space 4}-.1077183{col 67}{space 3} .2224083
+{txt}{space 12} {c |}
+{space 7}_cons {c |}{col 14}{res}{space 2}-33.06783{col 26}{space 2} 92.81813{col 37}{space 1}   -0.36{col 46}{space 3}0.722{col 54}{space 4}-214.9885{col 67}{space 3} 148.8528
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{res}
+{txt}{col 1}Instrumental-variables 2SLS regression{col 51}Number of obs{col 67}= {res}   486,926
+{txt}{col 1}{col 51}Wald chi2({res}12{txt}){col 67}= {res}   6806.01
+{txt}{col 1}{col 51}Prob > chi2{col 67}= {res}    0.0000
+{txt}{col 1}{col 51}R-squared{col 67}= {res}    0.0532
+{txt}{col 51}Root MSE{col 67}=    {res} .62797
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}    lwklywge{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 8}educ {c |}{col 14}{res}{space 2} .0947986{col 26}{space 2} .0222744{col 37}{space 1}    4.26{col 46}{space 3}0.000{col 54}{space 4} .0511415{col 67}{space 3} .1384557
+{txt}{space 12} {c |}
+{space 9}yob {c |}
+{space 9}40  {c |}{col 14}{res}{space 2} .0819032{col 26}{space 2}  .034292{col 37}{space 1}    2.39{col 46}{space 3}0.017{col 54}{space 4} .0146921{col 67}{space 3} .1491143
+{txt}{space 9}41  {c |}{col 14}{res}{space 2} .0786832{col 26}{space 2} .0288849{col 37}{space 1}    2.72{col 46}{space 3}0.006{col 54}{space 4}   .02207{col 67}{space 3} .1352965
+{txt}{space 9}42  {c |}{col 14}{res}{space 2} .0726292{col 26}{space 2} .0253455{col 37}{space 1}    2.87{col 46}{space 3}0.004{col 54}{space 4} .0229529{col 67}{space 3} .1223055
+{txt}{space 9}43  {c |}{col 14}{res}{space 2} .0733603{col 26}{space 2} .0218729{col 37}{space 1}    3.35{col 46}{space 3}0.001{col 54}{space 4} .0304902{col 67}{space 3} .1162304
+{txt}{space 9}44  {c |}{col 14}{res}{space 2} .0540045{col 26}{space 2} .0190141{col 37}{space 1}    2.84{col 46}{space 3}0.005{col 54}{space 4} .0167375{col 67}{space 3} .0912716
+{txt}{space 9}45  {c |}{col 14}{res}{space 2} .0418359{col 26}{space 2}  .016584{col 37}{space 1}    2.52{col 46}{space 3}0.012{col 54}{space 4} .0093319{col 67}{space 3} .0743399
+{txt}{space 9}46  {c |}{col 14}{res}{space 2} .0291722{col 26}{space 2} .0136503{col 37}{space 1}    2.14{col 46}{space 3}0.033{col 54}{space 4} .0024181{col 67}{space 3} .0559264
+{txt}{space 9}47  {c |}{col 14}{res}{space 2}  .017611{col 26}{space 2} .0104236{col 37}{space 1}    1.69{col 46}{space 3}0.091{col 54}{space 4}-.0028189{col 67}{space 3} .0380409
+{txt}{space 9}48  {c |}{col 14}{res}{space 2} .0056629{col 26}{space 2} .0063848{col 37}{space 1}    0.89{col 46}{space 3}0.375{col 54}{space 4} -.006851{col 67}{space 3} .0181768
+{txt}{space 12} {c |}
+{space 8}ageq {c |}{col 14}{res}{space 2} .1325373{col 26}{space 2}  .048591{col 37}{space 1}    2.73{col 46}{space 3}0.006{col 54}{space 4} .0373007{col 67}{space 3} .2277738
+{txt}{space 6}ageqsq {c |}{col 14}{res}{space 2} -.001582{col 26}{space 2} .0007254{col 37}{space 1}   -2.18{col 46}{space 3}0.029{col 54}{space 4}-.0030038{col 67}{space 3}-.0001602
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} 1.788557{col 26}{space 2} .6948771{col 37}{space 1}    2.57{col 46}{space 3}0.010{col 54}{space 4} .4266227{col 67}{space 3} 3.150491
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{p 0 12 13}Endogenous: {res:educ}{p_end}
+{p 0 12 13}Exogenous:{space 1} {res:40.yob 41.yob 42.yob 43.yob 44.yob 45.yob 46.yob 47.yob 48.yob ageq ageqsq 1.qob#40.yob 1.qob#41.yob 1.qob#42.yob 1.qob#43.yob 1.qob#44.yob 1.qob#45.yob 1.qob#46.yob 1.qob#47.yob 1.qob#48.yob 1.qob#49b.yob 2.qob#40.yob 2.qob#41.yob 2.qob#42.yob 2.qob#43.yob 2.qob#44.yob 2.qob#45.yob 2.qob#46.yob 2.qob#47.yob 2.qob#48.yob 2.qob#49b.yob 3.qob#40.yob 3.qob#41.yob 3.qob#42.yob 3.qob#43.yob 3.qob#44.yob 3.qob#45.yob 3.qob#46.yob 3.qob#47.yob}{p_end}
+
+{com}.     estat firststage
+{res}
+{txt}{col 3}First-stage regression summary statistics
+{res}{col 3}{text}{hline 13}{c TT}{hline 12}{hline 12}{hline 12}{hline 12}{hline 12}
+{col 16}{c |}{col 29}Adjusted{col 43}Partial
+{col 3}{text}    Variable{col 16}{c |}   R-sq.{col 29}   R-sq.{col 41}    R-sq.{col 53}F(28,486886){col 65}  Prob > F
+{res}{col 3}{text}{hline 13}{c +}{hline 12}{hline 12}{hline 12}{hline 12}{hline 12}
+{col 3}{text}        educ{col 16}{c |}{result}{space 2}0.0062{col 29}{space 2}0.0061{col 41}{space 3}0.0002{col 53}{space 3} 3.21563{col 65}{space 3}0.0000
+{col 3}{text}{hline 13}{c BT}{hline 12}{hline 12}{hline 12}{hline 12}{hline 12}
+
+
+{col 3}Minimum eigenvalue statistic = {res}3.21559     
+
+{txt}{col 3}Critical Values{col 40}# of endogenous regressors:{res}    1
+{txt}{col 3}H0: Instruments are weak{col 40}# of excluded instruments: {res}   28
+{txt}{col 3}{hline 35}{c TT}{hline 33}
+{col 38}{c |}{col 43}5%     10%     20%     30%
+{col 3}2SLS relative bias{col 38}{c |}{res}{col 41}21.42{col 49}11.34{col 57} 6.13{col 65} 4.32
+{txt}{col 3}{hline 35}{c +}{hline 33}
+{col 38}{c |}{col 42}10%     15%     20%     25%
+{col 3}2SLS size of nominal 5% Wald test{col 38}{c |}{res}{col 41}81.40{col 49}42.37{col 57}29.12{col 65}22.43
+{txt}{col 3}LIML size of nominal 5% Wald test{col 38}{c |}{res}{col 41} 3.86{col 49} 2.20{col 57} 1.92{col 65} 1.77
+{txt}{col 3}{hline 35}{c BT}{hline 33}
+
+{res}{txt}
+{com}.     estat overid
+
+{txt}{col 3}Tests of overidentifying restrictions:
+
+{col 3}Sargan (score) chi2({res}27{txt}){col 26}={res}{col 28} 49.1187{txt}{col 38}(p = {res}0.0057{txt})
+{col 3}Basmann chi2({res}27{txt}){col 26}={res}{col 28} 49.1196{txt}{col 38}(p = {res}0.0057{txt})
+
+{com}.     eststo column_5: regress lwklywge educ i.race i.smsa i.married i.yob i.region 
+
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}   486,926
+{txt}{hline 13}{c +}{hline 34}   F(21, 486904)   = {res}  3447.63
+{txt}       Model {c |} {res} 26252.3155        21  1250.11026   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res} 176551.427   486,904  .362600075   {txt}R-squared       ={res}    0.1294
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.1294
+{txt}       Total {c |} {res} 202803.743   486,925  .416498932   {txt}Root MSE        =   {res} .60216
+
+{txt}{hline 20}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}           lwklywge{col 21}{c |} Coefficient{col 33}  Std. err.{col 45}      t{col 53}   P>|t|{col 61}     [95% con{col 74}f. interval]
+{hline 20}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 15}educ {c |}{col 21}{res}{space 2} .0520464{col 33}{space 2} .0002971{col 44}{space 1}  175.19{col 53}{space 3}0.000{col 61}{space 4} .0514641{col 74}{space 3} .0526287
+{txt}{space 13}1.race {c |}{col 21}{res}{space 2}-.2107128{col 33}{space 2} .0032215{col 44}{space 1}  -65.41{col 53}{space 3}0.000{col 61}{space 4}-.2170268{col 74}{space 3}-.2043988
+{txt}{space 13}1.smsa {c |}{col 21}{res}{space 2}-.1418395{col 33}{space 2} .0022877{col 44}{space 1}  -62.00{col 53}{space 3}0.000{col 61}{space 4}-.1463234{col 74}{space 3}-.1373556
+{txt}{space 10}1.married {c |}{col 21}{res}{space 2} .2445162{col 33}{space 2} .0022017{col 44}{space 1}  111.06{col 53}{space 3}0.000{col 61}{space 4} .2402009{col 74}{space 3} .2488314
+{txt}{space 19} {c |}
+{space 16}yob {c |}
+{space 16}41  {c |}{col 21}{res}{space 2}-.0081533{col 33}{space 2} .0043514{col 44}{space 1}   -1.87{col 53}{space 3}0.061{col 61}{space 4} -.016682{col 74}{space 3} .0003754
+{txt}{space 16}42  {c |}{col 21}{res}{space 2} -.020887{col 33}{space 2} .0041892{col 44}{space 1}   -4.99{col 53}{space 3}0.000{col 61}{space 4}-.0290977{col 74}{space 3}-.0126762
+{txt}{space 16}43  {c |}{col 21}{res}{space 2}-.0310513{col 33}{space 2} .0041618{col 44}{space 1}   -7.46{col 53}{space 3}0.000{col 61}{space 4}-.0392083{col 74}{space 3}-.0228942
+{txt}{space 16}44  {c |}{col 21}{res}{space 2}-.0620105{col 33}{space 2} .0042037{col 44}{space 1}  -14.75{col 53}{space 3}0.000{col 61}{space 4}-.0702495{col 74}{space 3}-.0537715
+{txt}{space 16}45  {c |}{col 21}{res}{space 2}-.0874218{col 33}{space 2} .0042016{col 44}{space 1}  -20.81{col 53}{space 3}0.000{col 61}{space 4}-.0956568{col 74}{space 3}-.0791868
+{txt}{space 16}46  {c |}{col 21}{res}{space 2}-.1190692{col 33}{space 2} .0040287{col 44}{space 1}  -29.56{col 53}{space 3}0.000{col 61}{space 4}-.1269653{col 74}{space 3} -.111173
+{txt}{space 16}47  {c |}{col 21}{res}{space 2}-.1508475{col 33}{space 2} .0039381{col 44}{space 1}  -38.30{col 53}{space 3}0.000{col 61}{space 4} -.158566{col 74}{space 3} -.143129
+{txt}{space 16}48  {c |}{col 21}{res}{space 2}-.1889845{col 33}{space 2} .0039796{col 44}{space 1}  -47.49{col 53}{space 3}0.000{col 61}{space 4}-.1967843{col 74}{space 3}-.1811846
+{txt}{space 16}49  {c |}{col 21}{res}{space 2}-.2239961{col 33}{space 2} .0039853{col 44}{space 1}  -56.21{col 53}{space 3}0.000{col 61}{space 4}-.2318072{col 74}{space 3}-.2161849
+{txt}{space 19} {c |}
+{space 13}region {c |}
+{space 6}Mid Atlantic  {c |}{col 21}{res}{space 2} .0782053{col 33}{space 2} .0042535{col 44}{space 1}   18.39{col 53}{space 3}0.000{col 61}{space 4} .0698686{col 74}{space 3} .0865421
+{txt}East-North-Central  {c |}{col 21}{res}{space 2} .1354254{col 33}{space 2} .0041233{col 44}{space 1}   32.84{col 53}{space 3}0.000{col 61}{space 4} .1273438{col 74}{space 3}  .143507
+{txt}West-North-Central  {c |}{col 21}{res}{space 2} .0224109{col 33}{space 2} .0047786{col 44}{space 1}    4.69{col 53}{space 3}0.000{col 61}{space 4} .0130451{col 74}{space 3} .0317768
+{txt}{space 4}South Atlantic  {c |}{col 21}{res}{space 2}-.0125303{col 33}{space 2} .0042063{col 44}{space 1}   -2.98{col 53}{space 3}0.003{col 61}{space 4}-.0207746{col 74}{space 3}-.0042861
+{txt}East-South-Central  {c |}{col 21}{res}{space 2}-.0277376{col 33}{space 2} .0049811{col 44}{space 1}   -5.57{col 53}{space 3}0.000{col 61}{space 4}-.0375003{col 74}{space 3}-.0179749
+{txt}West-South-Central  {c |}{col 21}{res}{space 2} .0342179{col 33}{space 2} .0045555{col 44}{space 1}    7.51{col 53}{space 3}0.000{col 61}{space 4} .0252894{col 74}{space 3} .0431465
+{txt}{space 10}Mountain  {c |}{col 21}{res}{space 2}  .025053{col 33}{space 2}  .005244{col 44}{space 1}    4.78{col 53}{space 3}0.000{col 61}{space 4} .0147748{col 74}{space 3} .0353311
+{txt}{space 11}Pacific  {c |}{col 21}{res}{space 2} .0925392{col 33}{space 2} .0043444{col 44}{space 1}   21.30{col 53}{space 3}0.000{col 61}{space 4} .0840243{col 74}{space 3} .1010541
+{txt}{space 19} {c |}
+{space 14}_cons {c |}{col 21}{res}{space 2} 4.985284{col 33}{space 2}  .006473{col 44}{space 1}  770.17{col 53}{space 3}0.000{col 61}{space 4} 4.972597{col 74}{space 3} 4.997971
+{txt}{hline 20}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}.     eststo column_6: ivregress 2sls lwklywge (educ = ib4.qob#ib49.yob) i.race i.smsa i.married ib49.yob ib9.region, first 
+{res}
+{txt}First-stage regressions
+{hline 23}
+
+{col 56}{lalign 13:Number of obs}{col 69} = {res}{ralign 7:486,926}
+{txt}{col 56}{lalign 13:F({res:50}, {res:486875})}{col 69} = {res}{ralign 7:517.34}
+{txt}{col 56}{lalign 13:Prob > F}{col 69} = {res}{ralign 7:0.0000}
+{txt}{col 56}{lalign 13:R-squared}{col 69} = {res}{ralign 7:0.0504}
+{txt}{col 56}{lalign 13:Adj R-squared}{col 69} = {res}{ralign 7:0.0504}
+{txt}{col 56}{lalign 13:Root MSE}{col 69} = {res}{ralign 7:2.9042}
+
+{txt}{hline 20}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}               educ{col 21}{c |} Coefficient{col 33}  Std. err.{col 45}      t{col 53}   P>|t|{col 61}     [95% con{col 74}f. interval]
+{hline 20}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 13}1.race {c |}{col 21}{res}{space 2}-1.242603{col 33}{space 2} .0154359{col 44}{space 1}  -80.50{col 53}{space 3}0.000{col 61}{space 4}-1.272857{col 74}{space 3}-1.212349
+{txt}{space 13}1.smsa {c |}{col 21}{res}{space 2}-.9161492{col 33}{space 2} .0109556{col 44}{space 1}  -83.62{col 53}{space 3}0.000{col 61}{space 4}-.9376218{col 74}{space 3}-.8946766
+{txt}{space 10}1.married {c |}{col 21}{res}{space 2}-.0234386{col 33}{space 2} .0106192{col 44}{space 1}   -2.21{col 53}{space 3}0.027{col 61}{space 4} -.044252{col 74}{space 3}-.0026252
+{txt}{space 19} {c |}
+{space 16}yob {c |}
+{space 16}40  {c |}{col 21}{res}{space 2}-.4760834{col 33}{space 2} .0385758{col 44}{space 1}  -12.34{col 53}{space 3}0.000{col 61}{space 4}-.5516908{col 74}{space 3}-.4004761
+{txt}{space 16}41  {c |}{col 21}{res}{space 2}-.4605596{col 33}{space 2} .0382303{col 44}{space 1}  -12.05{col 53}{space 3}0.000{col 61}{space 4}-.5354898{col 74}{space 3}-.3856294
+{txt}{space 16}42  {c |}{col 21}{res}{space 2}-.2229276{col 33}{space 2} .0355494{col 44}{space 1}   -6.27{col 53}{space 3}0.000{col 61}{space 4}-.2926033{col 74}{space 3}-.1532519
+{txt}{space 16}43  {c |}{col 21}{res}{space 2}-.2749167{col 33}{space 2} .0365811{col 44}{space 1}   -7.52{col 53}{space 3}0.000{col 61}{space 4}-.3466145{col 74}{space 3} -.203219
+{txt}{space 16}44  {c |}{col 21}{res}{space 2}-.2144935{col 33}{space 2} .0365075{col 44}{space 1}   -5.88{col 53}{space 3}0.000{col 61}{space 4}-.2860471{col 74}{space 3}-.1429398
+{txt}{space 16}45  {c |}{col 21}{res}{space 2}-.1393874{col 33}{space 2}  .036619{col 44}{space 1}   -3.81{col 53}{space 3}0.000{col 61}{space 4}-.2111595{col 74}{space 3}-.0676152
+{txt}{space 16}46  {c |}{col 21}{res}{space 2} .0896402{col 33}{space 2} .0330033{col 44}{space 1}    2.72{col 53}{space 3}0.007{col 61}{space 4} .0249548{col 74}{space 3} .1543257
+{txt}{space 16}47  {c |}{col 21}{res}{space 2} .0135382{col 33}{space 2}  .034225{col 44}{space 1}    0.40{col 53}{space 3}0.692{col 61}{space 4}-.0535416{col 74}{space 3} .0806181
+{txt}{space 16}48  {c |}{col 21}{res}{space 2}  .026083{col 33}{space 2}  .034083{col 44}{space 1}    0.77{col 53}{space 3}0.444{col 61}{space 4}-.0407186{col 74}{space 3} .0928845
+{txt}{space 19} {c |}
+{space 13}region {c |}
+{space 7}New England  {c |}{col 21}{res}{space 2}-.3265227{col 33}{space 2} .0209485{col 44}{space 1}  -15.59{col 53}{space 3}0.000{col 61}{space 4}-.3675811{col 74}{space 3}-.2854644
+{txt}{space 6}Mid Atlantic  {c |}{col 21}{res}{space 2} -.477901{col 33}{space 2}  .015753{col 44}{space 1}  -30.34{col 53}{space 3}0.000{col 61}{space 4}-.5087764{col 74}{space 3}-.4470255
+{txt}East-North-Central  {c |}{col 21}{res}{space 2}-.7990936{col 33}{space 2}  .014936{col 44}{space 1}  -53.50{col 53}{space 3}0.000{col 61}{space 4}-.8283677{col 74}{space 3}-.7698196
+{txt}West-North-Central  {c |}{col 21}{res}{space 2}-.4246877{col 33}{space 2} .0189931{col 44}{space 1}  -22.36{col 53}{space 3}0.000{col 61}{space 4}-.4619136{col 74}{space 3}-.3874618
+{txt}{space 4}South Atlantic  {c |}{col 21}{res}{space 2}-.8342725{col 33}{space 2} .0154373{col 44}{space 1}  -54.04{col 53}{space 3}0.000{col 61}{space 4}-.8645291{col 74}{space 3}-.8040159
+{txt}East-South-Central  {c |}{col 21}{res}{space 2}-1.240638{col 33}{space 2}  .020111{col 44}{space 1}  -61.69{col 53}{space 3}0.000{col 61}{space 4}-1.280055{col 74}{space 3}-1.201221
+{txt}West-South-Central  {c |}{col 21}{res}{space 2}-.6471404{col 33}{space 2} .0176252{col 44}{space 1}  -36.72{col 53}{space 3}0.000{col 61}{space 4}-.6816853{col 74}{space 3}-.6125955
+{txt}{space 10}Mountain  {c |}{col 21}{res}{space 2}-.0310073{col 33}{space 2} .0216477{col 44}{space 1}   -1.43{col 53}{space 3}0.152{col 61}{space 4}-.0734361{col 74}{space 3} .0114214
+{txt}{space 19} {c |}
+{space 12}qob#yob {c |}
+{space 14}1 40  {c |}{col 21}{res}{space 2}-.2383454{col 33}{space 2} .0425393{col 44}{space 1}   -5.60{col 53}{space 3}0.000{col 61}{space 4}-.3217211{col 74}{space 3}-.1549696
+{txt}{space 14}1 41  {c |}{col 21}{res}{space 2}-.1717679{col 33}{space 2} .0422296{col 44}{space 1}   -4.07{col 53}{space 3}0.000{col 61}{space 4}-.2545365{col 74}{space 3}-.0889992
+{txt}{space 14}1 42  {c |}{col 21}{res}{space 2}-.2921926{col 33}{space 2} .0386797{col 44}{space 1}   -7.55{col 53}{space 3}0.000{col 61}{space 4}-.3680036{col 74}{space 3}-.2163816
+{txt}{space 14}1 43  {c |}{col 21}{res}{space 2}-.0624456{col 33}{space 2} .0383892{col 44}{space 1}   -1.63{col 53}{space 3}0.104{col 61}{space 4}-.1376872{col 74}{space 3} .0127961
+{txt}{space 14}1 44  {c |}{col 21}{res}{space 2}-.0964287{col 33}{space 2} .0390557{col 44}{space 1}   -2.47{col 53}{space 3}0.014{col 61}{space 4}-.1729766{col 74}{space 3}-.0198807
+{txt}{space 14}1 45  {c |}{col 21}{res}{space 2}-.0725486{col 33}{space 2} .0391275{col 44}{space 1}   -1.85{col 53}{space 3}0.064{col 61}{space 4}-.1492373{col 74}{space 3} .0041402
+{txt}{space 14}1 46  {c |}{col 21}{res}{space 2}-.2185103{col 33}{space 2} .0359109{col 44}{space 1}   -6.08{col 53}{space 3}0.000{col 61}{space 4}-.2888946{col 74}{space 3}-.1481261
+{txt}{space 14}1 47  {c |}{col 21}{res}{space 2} .0216112{col 33}{space 2} .0334667{col 44}{space 1}    0.65{col 53}{space 3}0.518{col 61}{space 4}-.0439824{col 74}{space 3} .0872048
+{txt}{space 14}1 48  {c |}{col 21}{res}{space 2}-.0338693{col 33}{space 2} .0341852{col 44}{space 1}   -0.99{col 53}{space 3}0.322{col 61}{space 4}-.1008712{col 74}{space 3} .0331327
+{txt}{space 14}1 49  {c |}{col 21}{res}{space 2} .0366735{col 33}{space 2} .0343767{col 44}{space 1}    1.07{col 53}{space 3}0.286{col 61}{space 4}-.0307037{col 74}{space 3} .1040508
+{txt}{space 14}2 40  {c |}{col 21}{res}{space 2}-.2156383{col 33}{space 2} .0425379{col 44}{space 1}   -5.07{col 53}{space 3}0.000{col 61}{space 4}-.2990112{col 74}{space 3}-.1322654
+{txt}{space 14}2 41  {c |}{col 21}{res}{space 2}-.0601395{col 33}{space 2} .0424427{col 44}{space 1}   -1.42{col 53}{space 3}0.156{col 61}{space 4}-.1433259{col 74}{space 3} .0230468
+{txt}{space 14}2 42  {c |}{col 21}{res}{space 2}-.1437012{col 33}{space 2} .0387001{col 44}{space 1}   -3.71{col 53}{space 3}0.000{col 61}{space 4}-.2195522{col 74}{space 3}-.0678502
+{txt}{space 14}2 43  {c |}{col 21}{res}{space 2}-.0953937{col 33}{space 2} .0387816{col 44}{space 1}   -2.46{col 53}{space 3}0.014{col 61}{space 4}-.1714043{col 74}{space 3} -.019383
+{txt}{space 14}2 44  {c |}{col 21}{res}{space 2}-.1048708{col 33}{space 2} .0394091{col 44}{space 1}   -2.66{col 53}{space 3}0.008{col 61}{space 4}-.1821115{col 74}{space 3}-.0276302
+{txt}{space 14}2 45  {c |}{col 21}{res}{space 2} .0461188{col 33}{space 2} .0393251{col 44}{space 1}    1.17{col 53}{space 3}0.241{col 61}{space 4}-.0309571{col 74}{space 3} .1231948
+{txt}{space 14}2 46  {c |}{col 21}{res}{space 2}-.1711028{col 33}{space 2} .0353328{col 44}{space 1}   -4.84{col 53}{space 3}0.000{col 61}{space 4}-.2403541{col 74}{space 3}-.1018515
+{txt}{space 14}2 47  {c |}{col 21}{res}{space 2} .0944643{col 33}{space 2} .0339986{col 44}{space 1}    2.78{col 53}{space 3}0.005{col 61}{space 4} .0278281{col 74}{space 3} .1611005
+{txt}{space 14}2 48  {c |}{col 21}{res}{space 2} .0208758{col 33}{space 2} .0347779{col 44}{space 1}    0.60{col 53}{space 3}0.548{col 61}{space 4}-.0472877{col 74}{space 3} .0890394
+{txt}{space 14}2 49  {c |}{col 21}{res}{space 2}-.0029757{col 33}{space 2} .0346352{col 44}{space 1}   -0.09{col 53}{space 3}0.932{col 61}{space 4}-.0708596{col 74}{space 3} .0649082
+{txt}{space 14}3 40  {c |}{col 21}{res}{space 2}-.1065009{col 33}{space 2} .0415955{col 44}{space 1}   -2.56{col 53}{space 3}0.010{col 61}{space 4}-.1880268{col 74}{space 3} -.024975
+{txt}{space 14}3 41  {c |}{col 21}{res}{space 2}-.0133648{col 33}{space 2} .0411989{col 44}{space 1}   -0.32{col 53}{space 3}0.746{col 61}{space 4}-.0941134{col 74}{space 3} .0673838
+{txt}{space 14}3 42  {c |}{col 21}{res}{space 2}-.1609399{col 33}{space 2} .0372506{col 44}{space 1}   -4.32{col 53}{space 3}0.000{col 61}{space 4}-.2339499{col 74}{space 3}-.0879299
+{txt}{space 14}3 43  {c |}{col 21}{res}{space 2}-.0122101{col 33}{space 2} .0380841{col 44}{space 1}   -0.32{col 53}{space 3}0.749{col 61}{space 4}-.0868538{col 74}{space 3} .0624336
+{txt}{space 14}3 44  {c |}{col 21}{res}{space 2}-.0632535{col 33}{space 2} .0383364{col 44}{space 1}   -1.65{col 53}{space 3}0.099{col 61}{space 4}-.1383916{col 74}{space 3} .0118846
+{txt}{space 14}3 45  {c |}{col 21}{res}{space 2} .0346141{col 33}{space 2} .0384084{col 44}{space 1}    0.90{col 53}{space 3}0.367{col 61}{space 4}-.0406652{col 74}{space 3} .1098934
+{txt}{space 14}3 46  {c |}{col 21}{res}{space 2} -.073325{col 33}{space 2} .0325278{col 44}{space 1}   -2.25{col 53}{space 3}0.024{col 61}{space 4}-.1370785{col 74}{space 3}-.0095716
+{txt}{space 14}3 47  {c |}{col 21}{res}{space 2} .0207811{col 33}{space 2}  .033597{col 44}{space 1}    0.62{col 53}{space 3}0.536{col 61}{space 4} -.045068{col 74}{space 3} .0866302
+{txt}{space 14}3 48  {c |}{col 21}{res}{space 2}-.0039644{col 33}{space 2} .0335904{col 44}{space 1}   -0.12{col 53}{space 3}0.906{col 61}{space 4}-.0698005{col 74}{space 3} .0618717
+{txt}{space 14}3 49  {c |}{col 21}{res}{space 2} .0193808{col 33}{space 2} .0336889{col 44}{space 1}    0.58{col 53}{space 3}0.565{col 61}{space 4}-.0466483{col 74}{space 3}   .08541
+{txt}{space 19} {c |}
+{space 14}_cons {c |}{col 21}{res}{space 2} 14.61489{col 33}{space 2} .0273888{col 44}{space 1}  533.61{col 53}{space 3}0.000{col 61}{space 4} 14.56121{col 74}{space 3} 14.66857
+{txt}{hline 20}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{res}
+{txt}{col 1}Instrumental-variables 2SLS regression{col 51}Number of obs{col 67}= {res}   486,926
+{txt}{col 1}{col 51}Wald chi2({res}21{txt}){col 67}= {res}  41560.34
+{txt}{col 1}{col 51}Prob > chi2{col 67}= {res}    0.0000
+{txt}{col 1}{col 51}R-squared{col 67}= {res}    0.1261
+{txt}{col 51}Root MSE{col 67}=    {res} .60329
+
+{txt}{hline 20}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}           lwklywge{col 21}{c |} Coefficient{col 33}  Std. err.{col 45}      z{col 53}   P>|z|{col 61}     [95% con{col 74}f. interval]
+{hline 20}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 15}educ {c |}{col 21}{res}{space 2} .0392721{col 33}{space 2} .0144917{col 44}{space 1}    2.71{col 53}{space 3}0.007{col 61}{space 4} .0108689{col 74}{space 3} .0676752
+{txt}{space 13}1.race {c |}{col 21}{res}{space 2}-.2266122{col 33}{space 2} .0183196{col 44}{space 1}  -12.37{col 53}{space 3}0.000{col 61}{space 4}-.2625179{col 74}{space 3}-.1907065
+{txt}{space 13}1.smsa {c |}{col 21}{res}{space 2}-.1535466{col 33}{space 2} .0134745{col 44}{space 1}  -11.40{col 53}{space 3}0.000{col 61}{space 4}-.1799562{col 74}{space 3} -.127137
+{txt}{space 10}1.married {c |}{col 21}{res}{space 2} .2442122{col 33}{space 2} .0022326{col 44}{space 1}  109.39{col 53}{space 3}0.000{col 61}{space 4} .2398364{col 74}{space 3}  .248588
+{txt}{space 19} {c |}
+{space 16}yob {c |}
+{space 16}40  {c |}{col 21}{res}{space 2} .2159624{col 33}{space 2} .0099482{col 44}{space 1}   21.71{col 53}{space 3}0.000{col 61}{space 4} .1964644{col 74}{space 3} .2354605
+{txt}{space 16}41  {c |}{col 21}{res}{space 2} .2090259{col 33}{space 2} .0086986{col 44}{space 1}   24.03{col 53}{space 3}0.000{col 61}{space 4}  .191977{col 74}{space 3} .2260749
+{txt}{space 16}42  {c |}{col 21}{res}{space 2} .1982641{col 33}{space 2} .0066839{col 44}{space 1}   29.66{col 53}{space 3}0.000{col 61}{space 4} .1851639{col 74}{space 3} .2113644
+{txt}{space 16}43  {c |}{col 21}{res}{space 2} .1887218{col 33}{space 2} .0060976{col 44}{space 1}   30.95{col 53}{space 3}0.000{col 61}{space 4} .1767708{col 74}{space 3} .2006728
+{txt}{space 16}44  {c |}{col 21}{res}{space 2} .1582408{col 33}{space 2} .0057106{col 44}{space 1}   27.71{col 53}{space 3}0.000{col 61}{space 4} .1470482{col 74}{space 3} .1694334
+{txt}{space 16}45  {c |}{col 21}{res}{space 2}  .134654{col 33}{space 2} .0043903{col 44}{space 1}   30.67{col 53}{space 3}0.000{col 61}{space 4} .1260491{col 74}{space 3} .1432589
+{txt}{space 16}46  {c |}{col 21}{res}{space 2} .1046187{col 33}{space 2} .0036334{col 44}{space 1}   28.79{col 53}{space 3}0.000{col 61}{space 4} .0974973{col 74}{space 3} .1117401
+{txt}{space 16}47  {c |}{col 21}{res}{space 2}  .073587{col 33}{space 2} .0035473{col 44}{space 1}   20.74{col 53}{space 3}0.000{col 61}{space 4} .0666344{col 74}{space 3} .0805395
+{txt}{space 16}48  {c |}{col 21}{res}{space 2} .0351145{col 33}{space 2} .0035586{col 44}{space 1}    9.87{col 53}{space 3}0.000{col 61}{space 4} .0281399{col 74}{space 3} .0420892
+{txt}{space 19} {c |}
+{space 13}region {c |}
+{space 7}New England  {c |}{col 21}{res}{space 2}-.0967104{col 33}{space 2} .0064286{col 44}{space 1}  -15.04{col 53}{space 3}0.000{col 61}{space 4}-.1093101{col 74}{space 3}-.0841107
+{txt}{space 6}Mid Atlantic  {c |}{col 21}{res}{space 2}-.0204337{col 33}{space 2} .0076545{col 44}{space 1}   -2.67{col 53}{space 3}0.008{col 61}{space 4}-.0354363{col 74}{space 3}-.0054311
+{txt}East-North-Central  {c |}{col 21}{res}{space 2} .0326842{col 33}{space 2} .0119822{col 44}{space 1}    2.73{col 53}{space 3}0.006{col 61}{space 4} .0091996{col 74}{space 3} .0561688
+{txt}West-North-Central  {c |}{col 21}{res}{space 2}-.0755498{col 33}{space 2}  .007307{col 44}{space 1}  -10.34{col 53}{space 3}0.000{col 61}{space 4}-.0898712{col 74}{space 3}-.0612284
+{txt}{space 4}South Atlantic  {c |}{col 21}{res}{space 2}-.1157321{col 33}{space 2} .0125137{col 44}{space 1}   -9.25{col 53}{space 3}0.000{col 61}{space 4}-.1402586{col 74}{space 3}-.0912056
+{txt}East-South-Central  {c |}{col 21}{res}{space 2}-.1361323{col 33}{space 2} .0184657{col 44}{space 1}   -7.37{col 53}{space 3}0.000{col 61}{space 4}-.1723245{col 74}{space 3}-.0999401
+{txt}West-South-Central  {c |}{col 21}{res}{space 2} -.066576{col 33}{space 2} .0100545{col 44}{space 1}   -6.62{col 53}{space 3}0.000{col 61}{space 4}-.0862823{col 74}{space 3}-.0468696
+{txt}{space 10}Mountain  {c |}{col 21}{res}{space 2}-.0678943{col 33}{space 2} .0045205{col 44}{space 1}  -15.02{col 53}{space 3}0.000{col 61}{space 4}-.0767544{col 74}{space 3}-.0590343
+{txt}{space 19} {c |}
+{space 14}_cons {c |}{col 21}{res}{space 2} 5.040699{col 33}{space 2} .2120262{col 44}{space 1}   23.77{col 53}{space 3}0.000{col 61}{space 4} 4.625135{col 74}{space 3} 5.456262
+{txt}{hline 20}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{p 0 12 6}Endogenous: {res:educ}{p_end}
+{p 0 12 6}Exogenous:{space 1} {res:1.race 1.smsa 1.married 40.yob 41.yob 42.yob 43.yob 44.yob 45.yob 46.yob 47.yob 48.yob 1.region 2.region 3.region 4.region 5.region 6.region 7.region 8.region 1.qob#40.yob 1.qob#41.yob 1.qob#42.yob 1.qob#43.yob 1.qob#44.yob 1.qob#45.yob 1.qob#46.yob 1.qob#47.yob 1.qob#48.yob 1.qob#49b.yob 2.qob#40.yob 2.qob#41.yob 2.qob#42.yob 2.qob#43.yob 2.qob#44.yob 2.qob#45.yob 2.qob#46.yob 2.qob#47.yob 2.qob#48.yob 2.qob#49b.yob 3.qob#40.yob 3.qob#41.yob 3.qob#42.yob 3.qob#43.yob 3.qob#44.yob 3.qob#45.yob 3.qob#46.yob 3.qob#47.yob 3.qob#48.yob 3.qob#49b.yob}{p_end}
+
+{com}.     estat firststage
+{res}
+{txt}{col 3}First-stage regression summary statistics
+{res}{col 3}{text}{hline 13}{c TT}{hline 12}{hline 12}{hline 12}{hline 12}{hline 12}
+{col 16}{c |}{col 29}Adjusted{col 43}Partial
+{col 3}{text}    Variable{col 16}{c |}   R-sq.{col 29}   R-sq.{col 41}    R-sq.{col 53}F(30,486875){col 65}  Prob > F
+{res}{col 3}{text}{hline 13}{c +}{hline 12}{hline 12}{hline 12}{hline 12}{hline 12}
+{col 3}{text}        educ{col 16}{c |}{result}{space 2}0.0504{col 29}{space 2}0.0504{col 41}{space 3}0.0004{col 53}{space 3} 6.84913{col 65}{space 3}0.0000
+{col 3}{text}{hline 13}{c BT}{hline 12}{hline 12}{hline 12}{hline 12}{hline 12}
+
+
+{col 3}Minimum eigenvalue statistic = {res}6.84913     
+
+{txt}{col 3}Critical Values{col 40}# of endogenous regressors:{res}    1
+{txt}{col 3}H0: Instruments are weak{col 40}# of excluded instruments: {res}   30
+{txt}{col 3}{hline 35}{c TT}{hline 33}
+{col 38}{c |}{col 43}5%     10%     20%     30%
+{col 3}2SLS relative bias{col 38}{c |}{res}{col 41}21.42{col 49}11.32{col 57} 6.09{col 65} 4.29
+{txt}{col 3}{hline 35}{c +}{hline 33}
+{col 38}{c |}{col 42}10%     15%     20%     25%
+{col 3}2SLS size of nominal 5% Wald test{col 38}{c |}{res}{col 41}86.17{col 49}44.78{col 57}30.72{col 65}23.65
+{txt}{col 3}LIML size of nominal 5% Wald test{col 38}{c |}{res}{col 41} 3.88{col 49} 2.18{col 57} 1.89{col 65} 1.75
+{txt}{col 3}{hline 35}{c BT}{hline 33}
+
+{res}{txt}
+{com}.     estat overid
+
+{txt}{col 3}Tests of overidentifying restrictions:
+
+{col 3}Sargan (score) chi2({res}29{txt}){col 26}={res}{col 28} 93.5624{txt}{col 38}(p = {res}0.0000{txt})
+{col 3}Basmann chi2({res}29{txt}){col 26}={res}{col 28} 93.5706{txt}{col 38}(p = {res}0.0000{txt})
+
+{com}.     eststo column_7: regress lwklywge educ i.race i.smsa i.married i.yob i.region ageq ageqsq 
+
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}   486,926
+{txt}{hline 13}{c +}{hline 34}   F(23, 486902)   = {res}  3149.93
+{txt}       Model {c |} {res} 26267.5972        23  1142.06944   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res} 176536.145   486,902  .362570179   {txt}R-squared       ={res}    0.1295
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.1295
+{txt}       Total {c |} {res} 202803.743   486,925  .416498932   {txt}Root MSE        =   {res} .60214
+
+{txt}{hline 20}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}           lwklywge{col 21}{c |} Coefficient{col 33}  Std. err.{col 45}      t{col 53}   P>|t|{col 61}     [95% con{col 74}f. interval]
+{hline 20}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 15}educ {c |}{col 21}{res}{space 2} .0520558{col 33}{space 2} .0002971{col 44}{space 1}  175.21{col 53}{space 3}0.000{col 61}{space 4} .0514735{col 74}{space 3} .0526382
+{txt}{space 13}1.race {c |}{col 21}{res}{space 2}-.2107622{col 33}{space 2} .0032214{col 44}{space 1}  -65.43{col 53}{space 3}0.000{col 61}{space 4} -.217076{col 74}{space 3}-.2044484
+{txt}{space 13}1.smsa {c |}{col 21}{res}{space 2}-.1418543{col 33}{space 2} .0022876{col 44}{space 1}  -62.01{col 53}{space 3}0.000{col 61}{space 4} -.146338{col 74}{space 3}-.1373705
+{txt}{space 10}1.married {c |}{col 21}{res}{space 2} .2444055{col 33}{space 2} .0022017{col 44}{space 1}  111.01{col 53}{space 3}0.000{col 61}{space 4} .2400903{col 74}{space 3} .2487207
+{txt}{space 19} {c |}
+{space 16}yob {c |}
+{space 16}41  {c |}{col 21}{res}{space 2}-.0085582{col 33}{space 2} .0072119{col 44}{space 1}   -1.19{col 53}{space 3}0.235{col 61}{space 4}-.0226932{col 74}{space 3} .0055768
+{txt}{space 16}42  {c |}{col 21}{res}{space 2}-.0177135{col 33}{space 2}   .01144{col 44}{space 1}   -1.55{col 53}{space 3}0.122{col 61}{space 4}-.0401354{col 74}{space 3} .0047085
+{txt}{space 16}43  {c |}{col 21}{res}{space 2}-.0206608{col 33}{space 2} .0151201{col 44}{space 1}   -1.37{col 53}{space 3}0.172{col 61}{space 4}-.0502956{col 74}{space 3} .0089741
+{txt}{space 16}44  {c |}{col 21}{res}{space 2}-.0402636{col 33}{space 2} .0182849{col 44}{space 1}   -2.20{col 53}{space 3}0.028{col 61}{space 4}-.0761015{col 74}{space 3}-.0044257
+{txt}{space 16}45  {c |}{col 21}{res}{space 2}-.0505424{col 33}{space 2} .0207998{col 44}{space 1}   -2.43{col 53}{space 3}0.015{col 61}{space 4}-.0913094{col 74}{space 3}-.0097754
+{txt}{space 16}46  {c |}{col 21}{res}{space 2}-.0621968{col 33}{space 2} .0229037{col 44}{space 1}   -2.72{col 53}{space 3}0.007{col 61}{space 4}-.1070872{col 74}{space 3}-.0173063
+{txt}{space 16}47  {c |}{col 21}{res}{space 2}-.0723029{col 33}{space 2} .0245671{col 44}{space 1}   -2.94{col 53}{space 3}0.003{col 61}{space 4}-.1204536{col 74}{space 3}-.0241522
+{txt}{space 16}48  {c |}{col 21}{res}{space 2}-.0832592{col 33}{space 2} .0263837{col 44}{space 1}   -3.16{col 53}{space 3}0.002{col 61}{space 4}-.1349704{col 74}{space 3} -.031548
+{txt}{space 16}49  {c |}{col 21}{res}{space 2}-.0875108{col 33}{space 2} .0284969{col 44}{space 1}   -3.07{col 53}{space 3}0.002{col 61}{space 4}-.1433638{col 74}{space 3}-.0316579
+{txt}{space 19} {c |}
+{space 13}region {c |}
+{space 6}Mid Atlantic  {c |}{col 21}{res}{space 2} .0783088{col 33}{space 2} .0042534{col 44}{space 1}   18.41{col 53}{space 3}0.000{col 61}{space 4} .0699723{col 74}{space 3} .0866453
+{txt}East-North-Central  {c |}{col 21}{res}{space 2} .1355813{col 33}{space 2} .0041233{col 44}{space 1}   32.88{col 53}{space 3}0.000{col 61}{space 4} .1274999{col 74}{space 3} .1436628
+{txt}West-North-Central  {c |}{col 21}{res}{space 2} .0226072{col 33}{space 2} .0047785{col 44}{space 1}    4.73{col 53}{space 3}0.000{col 61}{space 4} .0132415{col 74}{space 3} .0319729
+{txt}{space 4}South Atlantic  {c |}{col 21}{res}{space 2}-.0123754{col 33}{space 2} .0042062{col 44}{space 1}   -2.94{col 53}{space 3}0.003{col 61}{space 4}-.0206195{col 74}{space 3}-.0041314
+{txt}East-South-Central  {c |}{col 21}{res}{space 2}-.0276449{col 33}{space 2} .0049809{col 44}{space 1}   -5.55{col 53}{space 3}0.000{col 61}{space 4}-.0374072{col 74}{space 3}-.0178825
+{txt}West-South-Central  {c |}{col 21}{res}{space 2} .0345582{col 33}{space 2} .0045556{col 44}{space 1}    7.59{col 53}{space 3}0.000{col 61}{space 4} .0256293{col 74}{space 3}  .043487
+{txt}{space 10}Mountain  {c |}{col 21}{res}{space 2} .0250948{col 33}{space 2} .0052438{col 44}{space 1}    4.79{col 53}{space 3}0.000{col 61}{space 4}  .014817{col 74}{space 3} .0353726
+{txt}{space 11}Pacific  {c |}{col 21}{res}{space 2} .0926402{col 33}{space 2} .0043443{col 44}{space 1}   21.32{col 53}{space 3}0.000{col 61}{space 4} .0841256{col 74}{space 3} .1011548
+{txt}{space 19} {c |}
+{space 15}ageq {c |}{col 21}{res}{space 2} .1517973{col 33}{space 2} .0379337{col 44}{space 1}    4.00{col 53}{space 3}0.000{col 61}{space 4} .0774484{col 74}{space 3} .2261462
+{txt}{space 13}ageqsq {c |}{col 21}{res}{space 2}-.0019453{col 33}{space 2} .0005448{col 44}{space 1}   -3.57{col 53}{space 3}0.000{col 61}{space 4}-.0030131{col 74}{space 3}-.0008774
+{txt}{space 14}_cons {c |}{col 21}{res}{space 2} 2.024643{col 33}{space 2} .6542627{col 44}{space 1}    3.09{col 53}{space 3}0.002{col 61}{space 4} .7423089{col 74}{space 3} 3.306978
+{txt}{hline 20}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}.     eststo column_8: ivregress 2sls lwklywge (educ = ib4.qob#ib49.yob) i.race i.smsa i.married ib49.yob ib9.region ageq ageqsq, first 
+{res}{txt}note: 3.qob#48.yob omitted because of collinearity.
+{txt}note: 3.qob#49b.yob omitted because of collinearity.
+
+First-stage regressions
+{hline 23}
+
+{col 56}{lalign 13:Number of obs}{col 69} = {res}{ralign 7:486,926}
+{txt}{col 56}{lalign 13:F({res:50}, {res:486875})}{col 69} = {res}{ralign 7:517.34}
+{txt}{col 56}{lalign 13:Prob > F}{col 69} = {res}{ralign 7:0.0000}
+{txt}{col 56}{lalign 13:R-squared}{col 69} = {res}{ralign 7:0.0504}
+{txt}{col 56}{lalign 13:Adj R-squared}{col 69} = {res}{ralign 7:0.0504}
+{txt}{col 56}{lalign 13:Root MSE}{col 69} = {res}{ralign 7:2.9042}
+
+{txt}{hline 20}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}               educ{col 21}{c |} Coefficient{col 33}  Std. err.{col 45}      t{col 53}   P>|t|{col 61}     [95% con{col 74}f. interval]
+{hline 20}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 13}1.race {c |}{col 21}{res}{space 2}-1.242603{col 33}{space 2} .0154359{col 44}{space 1}  -80.50{col 53}{space 3}0.000{col 61}{space 4}-1.272857{col 74}{space 3}-1.212349
+{txt}{space 13}1.smsa {c |}{col 21}{res}{space 2}-.9161492{col 33}{space 2} .0109556{col 44}{space 1}  -83.62{col 53}{space 3}0.000{col 61}{space 4}-.9376218{col 74}{space 3}-.8946766
+{txt}{space 10}1.married {c |}{col 21}{res}{space 2}-.0234386{col 33}{space 2} .0106192{col 44}{space 1}   -2.21{col 53}{space 3}0.027{col 61}{space 4} -.044252{col 74}{space 3}-.0026252
+{txt}{space 19} {c |}
+{space 16}yob {c |}
+{space 16}40  {c |}{col 21}{res}{space 2} 2.503006{col 33}{space 2} 6.699703{col 44}{space 1}    0.37{col 53}{space 3}0.709{col 61}{space 4} -10.6282{col 74}{space 3} 15.63421
+{txt}{space 16}41  {c |}{col 21}{res}{space 2} 1.814005{col 33}{space 2} 5.202244{col 44}{space 1}    0.35{col 53}{space 3}0.727{col 61}{space 4}-8.382232{col 74}{space 3} 12.01024
+{txt}{space 16}42  {c |}{col 21}{res}{space 2} 1.440491{col 33}{space 2} 3.895329{col 44}{space 1}    0.37{col 53}{space 3}0.712{col 61}{space 4}-6.194232{col 74}{space 3} 9.075214
+{txt}{space 16}43  {c |}{col 21}{res}{space 2} .8707339{col 33}{space 2} 2.779163{col 44}{space 1}    0.31{col 53}{space 3}0.754{col 61}{space 4}-4.576338{col 74}{space 3} 6.317806
+{txt}{space 16}44  {c |}{col 21}{res}{space 2} .5067684{col 33}{space 2} 1.854002{col 44}{space 1}    0.27{col 53}{space 3}0.785{col 61}{space 4}-3.127018{col 74}{space 3} 4.140555
+{txt}{space 16}45  {c |}{col 21}{res}{space 2} .2508645{col 33}{space 2} 1.120504{col 44}{space 1}    0.22{col 53}{space 3}0.823{col 61}{space 4}-1.945289{col 74}{space 3} 2.447018
+{txt}{space 16}46  {c |}{col 21}{res}{space 2} .2422609{col 33}{space 2} .5800694{col 44}{space 1}    0.42{col 53}{space 3}0.676{col 61}{space 4}-.8946571{col 74}{space 3} 1.379179
+{txt}{space 16}47  {c |}{col 21}{res}{space 2} .0219065{col 33}{space 2} .2375517{col 44}{space 1}    0.09{col 53}{space 3}0.927{col 61}{space 4}-.4436875{col 74}{space 3} .4875004
+{txt}{space 16}48  {c |}{col 21}{res}{space 2}-.0164225{col 33}{space 2} .0981377{col 44}{space 1}   -0.17{col 53}{space 3}0.867{col 61}{space 4}-.2087694{col 74}{space 3} .1759244
+{txt}{space 19} {c |}
+{space 13}region {c |}
+{space 7}New England  {c |}{col 21}{res}{space 2}-.3265227{col 33}{space 2} .0209485{col 44}{space 1}  -15.59{col 53}{space 3}0.000{col 61}{space 4}-.3675811{col 74}{space 3}-.2854644
+{txt}{space 6}Mid Atlantic  {c |}{col 21}{res}{space 2} -.477901{col 33}{space 2}  .015753{col 44}{space 1}  -30.34{col 53}{space 3}0.000{col 61}{space 4}-.5087764{col 74}{space 3}-.4470255
+{txt}East-North-Central  {c |}{col 21}{res}{space 2}-.7990936{col 33}{space 2}  .014936{col 44}{space 1}  -53.50{col 53}{space 3}0.000{col 61}{space 4}-.8283677{col 74}{space 3}-.7698196
+{txt}West-North-Central  {c |}{col 21}{res}{space 2}-.4246877{col 33}{space 2} .0189931{col 44}{space 1}  -22.36{col 53}{space 3}0.000{col 61}{space 4}-.4619136{col 74}{space 3}-.3874618
+{txt}{space 4}South Atlantic  {c |}{col 21}{res}{space 2}-.8342725{col 33}{space 2} .0154373{col 44}{space 1}  -54.04{col 53}{space 3}0.000{col 61}{space 4}-.8645292{col 74}{space 3}-.8040159
+{txt}East-South-Central  {c |}{col 21}{res}{space 2}-1.240638{col 33}{space 2}  .020111{col 44}{space 1}  -61.69{col 53}{space 3}0.000{col 61}{space 4}-1.280055{col 74}{space 3}-1.201221
+{txt}West-South-Central  {c |}{col 21}{res}{space 2}-.6471404{col 33}{space 2} .0176252{col 44}{space 1}  -36.72{col 53}{space 3}0.000{col 61}{space 4}-.6816853{col 74}{space 3}-.6125955
+{txt}{space 10}Mountain  {c |}{col 21}{res}{space 2}-.0310073{col 33}{space 2} .0216477{col 44}{space 1}   -1.43{col 53}{space 3}0.152{col 61}{space 4}-.0734361{col 74}{space 3} .0114214
+{txt}{space 19} {c |}
+{space 15}ageq {c |}{col 21}{res}{space 2} 2.913903{col 33}{space 2} 5.876389{col 44}{space 1}    0.50{col 53}{space 3}0.620{col 61}{space 4}-8.603636{col 74}{space 3} 14.43144
+{txt}{space 13}ageqsq {c |}{col 21}{res}{space 2}-.0466894{col 33}{space 2} .0951472{col 44}{space 1}   -0.49{col 53}{space 3}0.624{col 61}{space 4} -.233175{col 74}{space 3} .1397962
+{txt}{space 19} {c |}
+{space 12}qob#yob {c |}
+{space 14}1 40  {c |}{col 21}{res}{space 2} .3513284{col 33}{space 2} 1.251358{col 44}{space 1}    0.28{col 53}{space 3}0.779{col 61}{space 4}-2.101294{col 74}{space 3} 2.803951
+{txt}{space 14}1 41  {c |}{col 21}{res}{space 2} .3478718{col 33}{space 2} 1.108981{col 44}{space 1}    0.31{col 53}{space 3}0.754{col 61}{space 4}-1.825696{col 74}{space 3}  2.52144
+{txt}{space 14}1 42  {c |}{col 21}{res}{space 2}  .157413{col 33}{space 2} .9665701{col 44}{space 1}    0.16{col 53}{space 3}0.871{col 61}{space 4}-1.737034{col 74}{space 3}  2.05186
+{txt}{space 14}1 43  {c |}{col 21}{res}{space 2} .3171259{col 33}{space 2} .8244275{col 44}{space 1}    0.38{col 53}{space 3}0.700{col 61}{space 4}-1.298726{col 74}{space 3} 1.932978
+{txt}{space 14}1 44  {c |}{col 21}{res}{space 2} .2131087{col 33}{space 2} .6825796{col 44}{space 1}    0.31{col 53}{space 3}0.755{col 61}{space 4}-1.124726{col 74}{space 3} 1.550944
+{txt}{space 14}1 45  {c |}{col 21}{res}{space 2} .1669546{col 33}{space 2} .5411481{col 44}{space 1}    0.31{col 53}{space 3}0.758{col 61}{space 4}-.8936788{col 74}{space 3} 1.227588
+{txt}{space 14}1 46  {c |}{col 21}{res}{space 2}-.0490412{col 33}{space 2} .4003241{col 44}{space 1}   -0.12{col 53}{space 3}0.903{col 61}{space 4} -.833664{col 74}{space 3} .7355817
+{txt}{space 14}1 47  {c |}{col 21}{res}{space 2} .1210463{col 33}{space 2} .2617029{col 44}{space 1}    0.46{col 53}{space 3}0.644{col 61}{space 4}-.3918833{col 74}{space 3} .6339758
+{txt}{space 14}1 48  {c |}{col 21}{res}{space 2}-.0044682{col 33}{space 2} .1154053{col 44}{space 1}   -0.04{col 53}{space 3}0.969{col 61}{space 4}-.2306591{col 74}{space 3} .2217227
+{txt}{space 14}1 49  {c |}{col 21}{res}{space 2}-.0039598{col 33}{space 2} .0703408{col 44}{space 1}   -0.06{col 53}{space 3}0.955{col 61}{space 4}-.1418255{col 74}{space 3} .1339059
+{txt}{space 14}2 40  {c |}{col 21}{res}{space 2} .1716414{col 33}{space 2} .8229814{col 44}{space 1}    0.21{col 53}{space 3}0.835{col 61}{space 4}-1.441377{col 74}{space 3} 1.784659
+{txt}{space 14}2 41  {c |}{col 21}{res}{space 2} .2804507{col 33}{space 2} .7281539{col 44}{space 1}    0.39{col 53}{space 3}0.700{col 61}{space 4}-1.146708{col 74}{space 3}  1.70761
+{txt}{space 14}2 42  {c |}{col 21}{res}{space 2} .1501997{col 33}{space 2} .6331873{col 44}{space 1}    0.24{col 53}{space 3}0.812{col 61}{space 4}-1.090828{col 74}{space 3} 1.391227
+{txt}{space 14}2 43  {c |}{col 21}{res}{space 2} .1518178{col 33}{space 2} .5385728{col 44}{space 1}    0.28{col 53}{space 3}0.778{col 61}{space 4} -.903768{col 74}{space 3} 1.207404
+{txt}{space 14}2 44  {c |}{col 21}{res}{space 2} .0956512{col 33}{space 2} .4442325{col 44}{space 1}    0.22{col 53}{space 3}0.830{col 61}{space 4}-.7750307{col 74}{space 3} .9663331
+{txt}{space 14}2 45  {c |}{col 21}{res}{space 2} .1999515{col 33}{space 2} .3502506{col 44}{space 1}    0.57{col 53}{space 3}0.568{col 61}{space 4}-.4865288{col 74}{space 3} .8864318
+{txt}{space 14}2 46  {c |}{col 21}{res}{space 2}-.0639596{col 33}{space 2} .2565591{col 44}{space 1}   -0.25{col 53}{space 3}0.803{col 61}{space 4}-.5668074{col 74}{space 3} .4388882
+{txt}{space 14}2 47  {c |}{col 21}{res}{space 2} .1549182{col 33}{space 2} .1651711{col 44}{space 1}    0.94{col 53}{space 3}0.348{col 61}{space 4} -.168812{col 74}{space 3} .4786483
+{txt}{space 14}2 48  {c |}{col 21}{res}{space 2} .0346404{col 33}{space 2} .0661761{col 44}{space 1}    0.52{col 53}{space 3}0.601{col 61}{space 4}-.0950627{col 74}{space 3} .1643436
+{txt}{space 14}2 49  {c |}{col 21}{res}{space 2}-.0359008{col 33}{space 2} .0520829{col 44}{space 1}   -0.69{col 53}{space 3}0.491{col 61}{space 4}-.1379817{col 74}{space 3} .0661801
+{txt}{space 14}3 40  {c |}{col 21}{res}{space 2} .0842208{col 33}{space 2} .4071348{col 44}{space 1}    0.21{col 53}{space 3}0.836{col 61}{space 4}-.7137507{col 74}{space 3} .8821924
+{txt}{space 14}3 41  {c |}{col 21}{res}{space 2} .1540122{col 33}{space 2} .3598898{col 44}{space 1}    0.43{col 53}{space 3}0.669{col 61}{space 4}-.5513606{col 74}{space 3} .8593851
+{txt}{space 14}3 42  {c |}{col 21}{res}{space 2}-.0169076{col 33}{space 2} .3123015{col 44}{space 1}   -0.05{col 53}{space 3}0.957{col 61}{space 4}-.6290088{col 74}{space 3} .5951936
+{txt}{space 14}3 43  {c |}{col 21}{res}{space 2} .1084776{col 33}{space 2} .2654106{col 44}{space 1}    0.41{col 53}{space 3}0.683{col 61}{space 4}-.4117189{col 74}{space 3} .6286741
+{txt}{space 14}3 44  {c |}{col 21}{res}{space 2} .0340895{col 33}{space 2} .2187152{col 44}{space 1}    0.16{col 53}{space 3}0.876{col 61}{space 4}-.3945855{col 74}{space 3} .4627644
+{txt}{space 14}3 45  {c |}{col 21}{res}{space 2} .1086123{col 33}{space 2} .1724605{col 44}{space 1}    0.63{col 53}{space 3}0.529{col 61}{space 4}-.2294049{col 74}{space 3} .4466295
+{txt}{space 14}3 46  {c |}{col 21}{res}{space 2}-.0226715{col 33}{space 2} .1255095{col 44}{space 1}   -0.18{col 53}{space 3}0.857{col 61}{space 4}-.2686662{col 74}{space 3} .2233232
+{txt}{space 14}3 47  {c |}{col 21}{res}{space 2} .0480899{col 33}{space 2} .0823218{col 44}{space 1}    0.58{col 53}{space 3}0.559{col 61}{space 4}-.1132582{col 74}{space 3} .2094381
+{txt}{space 19} {c |}
+{space 14}_cons {c |}{col 21}{res}{space 2}-30.80696{col 33}{space 2} 90.73008{col 44}{space 1}   -0.34{col 53}{space 3}0.734{col 61}{space 4}-208.6351{col 74}{space 3} 147.0212
+{txt}{hline 20}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{res}
+{txt}{col 1}Instrumental-variables 2SLS regression{col 51}Number of obs{col 67}= {res}   486,926
+{txt}{col 1}{col 51}Wald chi2({res}23{txt}){col 67}= {res}  41126.26
+{txt}{col 1}{col 51}Prob > chi2{col 67}= {res}    0.0000
+{txt}{col 1}{col 51}R-squared{col 67}= {res}    0.1160
+{txt}{col 51}Root MSE{col 67}=    {res} .60678
+
+{txt}{hline 20}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}           lwklywge{col 21}{c |} Coefficient{col 33}  Std. err.{col 45}      z{col 53}   P>|z|{col 61}     [95% con{col 74}f. interval]
+{hline 20}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 15}educ {c |}{col 21}{res}{space 2} .0778794{col 33}{space 2} .0238719{col 44}{space 1}    3.26{col 53}{space 3}0.001{col 61}{space 4} .0310913{col 74}{space 3} .1246675
+{txt}{space 13}1.race {c |}{col 21}{res}{space 2}-.1786508{col 33}{space 2} .0298591{col 44}{space 1}   -5.98{col 53}{space 3}0.000{col 61}{space 4}-.2371737{col 74}{space 3} -.120128
+{txt}{space 13}1.smsa {c |}{col 21}{res}{space 2} -.118195{col 33}{space 2} .0219906{col 44}{space 1}   -5.37{col 53}{space 3}0.000{col 61}{space 4}-.1612958{col 74}{space 3}-.0750942
+{txt}{space 10}1.married {c |}{col 21}{res}{space 2} .2450111{col 33}{space 2} .0022881{col 44}{space 1}  107.08{col 53}{space 3}0.000{col 61}{space 4} .2405264{col 74}{space 3} .2494958
+{txt}{space 19} {c |}
+{space 16}yob {c |}
+{space 16}40  {c |}{col 21}{res}{space 2} .0694201{col 33}{space 2} .0332307{col 44}{space 1}    2.09{col 53}{space 3}0.037{col 61}{space 4} .0042891{col 74}{space 3}  .134551
+{txt}{space 16}41  {c |}{col 21}{res}{space 2} .0661282{col 33}{space 2} .0279558{col 44}{space 1}    2.37{col 53}{space 3}0.018{col 61}{space 4} .0113359{col 74}{space 3} .1209205
+{txt}{space 16}42  {c |}{col 21}{res}{space 2} .0598051{col 33}{space 2} .0244168{col 44}{space 1}    2.45{col 53}{space 3}0.014{col 61}{space 4} .0119491{col 74}{space 3} .1076612
+{txt}{space 16}43  {c |}{col 21}{res}{space 2}  .061215{col 33}{space 2} .0210718{col 44}{space 1}    2.91{col 53}{space 3}0.004{col 61}{space 4}  .019915{col 74}{space 3} .1025149
+{txt}{space 16}44  {c |}{col 21}{res}{space 2} .0454745{col 33}{space 2} .0183422{col 44}{space 1}    2.48{col 53}{space 3}0.013{col 61}{space 4} .0095245{col 74}{space 3} .0814246
+{txt}{space 16}45  {c |}{col 21}{res}{space 2} .0353133{col 33}{space 2} .0160197{col 44}{space 1}    2.20{col 53}{space 3}0.027{col 61}{space 4} .0039152{col 74}{space 3} .0667114
+{txt}{space 16}46  {c |}{col 21}{res}{space 2} .0233468{col 33}{space 2} .0131575{col 44}{space 1}    1.77{col 53}{space 3}0.076{col 61}{space 4}-.0024415{col 74}{space 3} .0491351
+{txt}{space 16}47  {c |}{col 21}{res}{space 2} .0134784{col 33}{space 2} .0100404{col 44}{space 1}    1.34{col 53}{space 3}0.179{col 61}{space 4}-.0062004{col 74}{space 3} .0331571
+{txt}{space 16}48  {c |}{col 21}{res}{space 2} .0041175{col 33}{space 2} .0061689{col 44}{space 1}    0.67{col 53}{space 3}0.504{col 61}{space 4}-.0079733{col 74}{space 3} .0162083
+{txt}{space 19} {c |}
+{space 13}region {c |}
+{space 7}New England  {c |}{col 21}{res}{space 2}-.0842096{col 33}{space 2} .0089382{col 44}{space 1}   -9.42{col 53}{space 3}0.000{col 61}{space 4}-.1017283{col 74}{space 3} -.066691
+{txt}{space 6}Mid Atlantic  {c |}{col 21}{res}{space 2}-.0019918{col 33}{space 2} .0118723{col 44}{space 1}   -0.17{col 53}{space 3}0.867{col 61}{space 4}-.0252611{col 74}{space 3} .0212775
+{txt}East-North-Central  {c |}{col 21}{res}{space 2} .0635762{col 33}{space 2} .0193291{col 44}{space 1}    3.29{col 53}{space 3}0.001{col 61}{space 4} .0256918{col 74}{space 3} .1014606
+{txt}West-North-Central  {c |}{col 21}{res}{space 2} -.059055{col 33}{space 2} .0108965{col 44}{space 1}   -5.42{col 53}{space 3}0.000{col 61}{space 4}-.0804118{col 74}{space 3}-.0376982
+{txt}{space 4}South Atlantic  {c |}{col 21}{res}{space 2}-.0834619{col 33}{space 2} .0201841{col 44}{space 1}   -4.14{col 53}{space 3}0.000{col 61}{space 4}-.1230221{col 74}{space 3}-.0439017
+{txt}East-South-Central  {c |}{col 21}{res}{space 2}-.0882407{col 33}{space 2}  .029919{col 44}{space 1}   -2.95{col 53}{space 3}0.003{col 61}{space 4} -.146881{col 74}{space 3}-.0296005
+{txt}West-South-Central  {c |}{col 21}{res}{space 2}-.0413585{col 33}{space 2} .0158921{col 44}{space 1}   -2.60{col 53}{space 3}0.009{col 61}{space 4}-.0725064{col 74}{space 3}-.0102106
+{txt}{space 10}Mountain  {c |}{col 21}{res}{space 2}-.0667399{col 33}{space 2} .0045836{col 44}{space 1}  -14.56{col 53}{space 3}0.000{col 61}{space 4}-.0757236{col 74}{space 3}-.0577561
+{txt}{space 19} {c |}
+{space 15}ageq {c |}{col 21}{res}{space 2} .1214942{col 33}{space 2} .0473933{col 44}{space 1}    2.56{col 53}{space 3}0.010{col 61}{space 4} .0286051{col 74}{space 3} .2143834
+{txt}{space 13}ageqsq {c |}{col 21}{res}{space 2}-.0014596{col 33}{space 2} .0007093{col 44}{space 1}   -2.06{col 53}{space 3}0.040{col 61}{space 4}-.0028497{col 74}{space 3}-.0000694
+{txt}{space 14}_cons {c |}{col 21}{res}{space 2} 2.124466{col 33}{space 2}  .664537{col 44}{space 1}    3.20{col 53}{space 3}0.001{col 61}{space 4}  .821997{col 74}{space 3} 3.426934
+{txt}{hline 20}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{p 0 12 6}Endogenous: {res:educ}{p_end}
+{p 0 12 6}Exogenous:{space 1} {res:1.race 1.smsa 1.married 40.yob 41.yob 42.yob 43.yob 44.yob 45.yob 46.yob 47.yob 48.yob 1.region 2.region 3.region 4.region 5.region 6.region 7.region 8.region ageq ageqsq 1.qob#40.yob 1.qob#41.yob 1.qob#42.yob 1.qob#43.yob 1.qob#44.yob 1.qob#45.yob 1.qob#46.yob 1.qob#47.yob 1.qob#48.yob 1.qob#49b.yob 2.qob#40.yob 2.qob#41.yob 2.qob#42.yob 2.qob#43.yob 2.qob#44.yob 2.qob#45.yob 2.qob#46.yob 2.qob#47.yob 2.qob#48.yob 2.qob#49b.yob 3.qob#40.yob 3.qob#41.yob 3.qob#42.yob 3.qob#43.yob 3.qob#44.yob 3.qob#45.yob 3.qob#46.yob 3.qob#47.yob}{p_end}
+
+{com}.     estat firststage
+{res}
+{txt}{col 3}First-stage regression summary statistics
+{res}{col 3}{text}{hline 13}{c TT}{hline 12}{hline 12}{hline 12}{hline 12}{hline 12}
+{col 16}{c |}{col 29}Adjusted{col 43}Partial
+{col 3}{text}    Variable{col 16}{c |}   R-sq.{col 29}   R-sq.{col 41}    R-sq.{col 53}F(28,486875){col 65}  Prob > F
+{res}{col 3}{text}{hline 13}{c +}{hline 12}{hline 12}{hline 12}{hline 12}{hline 12}
+{col 3}{text}        educ{col 16}{c |}{result}{space 2}0.0504{col 29}{space 2}0.0504{col 41}{space 3}0.0002{col 53}{space 3} 2.73609{col 65}{space 3}0.0000
+{col 3}{text}{hline 13}{c BT}{hline 12}{hline 12}{hline 12}{hline 12}{hline 12}
+
+
+{col 3}Minimum eigenvalue statistic = {res}2.73573     
+
+{txt}{col 3}Critical Values{col 40}# of endogenous regressors:{res}    1
+{txt}{col 3}H0: Instruments are weak{col 40}# of excluded instruments: {res}   28
+{txt}{col 3}{hline 35}{c TT}{hline 33}
+{col 38}{c |}{col 43}5%     10%     20%     30%
+{col 3}2SLS relative bias{col 38}{c |}{res}{col 41}21.42{col 49}11.34{col 57} 6.13{col 65} 4.32
+{txt}{col 3}{hline 35}{c +}{hline 33}
+{col 38}{c |}{col 42}10%     15%     20%     25%
+{col 3}2SLS size of nominal 5% Wald test{col 38}{c |}{res}{col 41}81.40{col 49}42.37{col 57}29.12{col 65}22.43
+{txt}{col 3}LIML size of nominal 5% Wald test{col 38}{c |}{res}{col 41} 3.86{col 49} 2.20{col 57} 1.92{col 65} 1.77
+{txt}{col 3}{hline 35}{c BT}{hline 33}
+
+{res}{txt}
+{com}.     estat overid
+
+{txt}{col 3}Tests of overidentifying restrictions:
+
+{col 3}Sargan (score) chi2({res}27{txt}){col 26}={res}{col 28} 50.5825{txt}{col 38}(p = {res}0.0039{txt})
+{col 3}Basmann chi2({res}27{txt}){col 26}={res}{col 28} 50.5825{txt}{col 38}(p = {res}0.0039{txt})
+
+{com}. //_7
+.     esttab wald, b(4) se(4)
+{res}
+{txt}{hline 28}
+{txt}                      (1)   
+{txt}                 lwklywge   
+{txt}{hline 28}
+{txt}educ        {res}      -0.0098   {txt}
+            {res} {ralign 12:{txt:(}0.0265{txt:)}}   {txt}
+
+{txt}_cons       {res}       5.9308***{txt}
+            {res} {ralign 12:{txt:(}0.3599{txt:)}}   {txt}
+{txt}{hline 28}
+{txt}N           {res}       486926   {txt}
+{txt}{hline 28}
+{txt}Standard errors in parentheses
+{txt}* p<0.05, ** p<0.01, *** p<0.001
+
+{com}.     esttab qob_iv column_2 column_5 column_6 column_7 column_8, b(4) se(4)
+{res}
+{txt}{hline 108}
+{txt}                      (1)             (2)             (3)             (4)             (5)             (6)   
+{txt}                 lwklywge        lwklywge        lwklywge        lwklywge        lwklywge        lwklywge   
+{txt}{hline 108}
+{txt}educ        {res}      -0.0612*         0.0553***       0.0520***       0.0393**        0.0521***       0.0779** {txt}
+            {res} {ralign 12:{txt:(}0.0257{txt:)}}    {ralign 12:{txt:(}0.0138{txt:)}}    {ralign 12:{txt:(}0.0003{txt:)}}    {ralign 12:{txt:(}0.0145{txt:)}}    {ralign 12:{txt:(}0.0003{txt:)}}    {ralign 12:{txt:(}0.0239{txt:)}}   {txt}
+
+{txt}40.yob      {res}       0.1761***       0.2498***       0.0000          0.2160***       0.0000          0.0694*  {txt}
+            {res} {ralign 12:{txt:(}0.0169{txt:)}}    {ralign 12:{txt:(}0.0096{txt:)}}    {ralign 12:{txt:(}.{txt:)}}    {ralign 12:{txt:(}0.0099{txt:)}}    {ralign 12:{txt:(}.{txt:)}}    {ralign 12:{txt:(}0.0332{txt:)}}   {txt}
+
+{txt}41.yob      {res}       0.1791***       0.2416***      -0.0082          0.2090***      -0.0086          0.0661*  {txt}
+            {res} {ralign 12:{txt:(}0.0145{txt:)}}    {ralign 12:{txt:(}0.0084{txt:)}}    {ralign 12:{txt:(}0.0044{txt:)}}    {ralign 12:{txt:(}0.0087{txt:)}}    {ralign 12:{txt:(}0.0072{txt:)}}    {ralign 12:{txt:(}0.0280{txt:)}}   {txt}
+
+{txt}42.yob      {res}       0.1879***       0.2302***      -0.0209***       0.1983***      -0.0177          0.0598*  {txt}
+            {res} {ralign 12:{txt:(}0.0103{txt:)}}    {ralign 12:{txt:(}0.0063{txt:)}}    {ralign 12:{txt:(}0.0042{txt:)}}    {ralign 12:{txt:(}0.0067{txt:)}}    {ralign 12:{txt:(}0.0114{txt:)}}    {ralign 12:{txt:(}0.0244{txt:)}}   {txt}
+
+{txt}43.yob      {res}       0.1812***       0.2180***      -0.0311***       0.1887***      -0.0207          0.0612** {txt}
+            {res} {ralign 12:{txt:(}0.0093{txt:)}}    {ralign 12:{txt:(}0.0058{txt:)}}    {ralign 12:{txt:(}0.0042{txt:)}}    {ralign 12:{txt:(}0.0061{txt:)}}    {ralign 12:{txt:(}0.0151{txt:)}}    {ralign 12:{txt:(}0.0211{txt:)}}   {txt}
+
+{txt}44.yob      {res}       0.1489***       0.1817***      -0.0620***       0.1582***      -0.0403*         0.0455*  {txt}
+            {res} {ralign 12:{txt:(}0.0085{txt:)}}    {ralign 12:{txt:(}0.0055{txt:)}}    {ralign 12:{txt:(}0.0042{txt:)}}    {ralign 12:{txt:(}0.0057{txt:)}}    {ralign 12:{txt:(}0.0183{txt:)}}    {ralign 12:{txt:(}0.0183{txt:)}}   {txt}
+
+{txt}45.yob      {res}       0.1369***       0.1536***      -0.0874***       0.1347***      -0.0505*         0.0353*  {txt}
+            {res} {ralign 12:{txt:(}0.0058{txt:)}}    {ralign 12:{txt:(}0.0044{txt:)}}    {ralign 12:{txt:(}0.0042{txt:)}}    {ralign 12:{txt:(}0.0044{txt:)}}    {ralign 12:{txt:(}0.0208{txt:)}}    {ralign 12:{txt:(}0.0160{txt:)}}   {txt}
+
+{txt}46.yob      {res}       0.1203***       0.1207***      -0.1191***       0.1046***      -0.0622**        0.0233   {txt}
+            {res} {ralign 12:{txt:(}0.0043{txt:)}}    {ralign 12:{txt:(}0.0037{txt:)}}    {ralign 12:{txt:(}0.0040{txt:)}}    {ralign 12:{txt:(}0.0036{txt:)}}    {ralign 12:{txt:(}0.0229{txt:)}}    {ralign 12:{txt:(}0.0132{txt:)}}   {txt}
+
+{txt}47.yob      {res}       0.0916***       0.0852***      -0.1508***       0.0736***      -0.0723**        0.0135   {txt}
+            {res} {ralign 12:{txt:(}0.0044{txt:)}}    {ralign 12:{txt:(}0.0037{txt:)}}    {ralign 12:{txt:(}0.0039{txt:)}}    {ralign 12:{txt:(}0.0035{txt:)}}    {ralign 12:{txt:(}0.0246{txt:)}}    {ralign 12:{txt:(}0.0100{txt:)}}   {txt}
+
+{txt}48.yob      {res}       0.0419***       0.0403***      -0.1890***       0.0351***      -0.0833**        0.0041   {txt}
+            {res} {ralign 12:{txt:(}0.0042{txt:)}}    {ralign 12:{txt:(}0.0036{txt:)}}    {ralign 12:{txt:(}0.0040{txt:)}}    {ralign 12:{txt:(}0.0036{txt:)}}    {ralign 12:{txt:(}0.0264{txt:)}}    {ralign 12:{txt:(}0.0062{txt:)}}   {txt}
+
+{txt}49.yob      {res}       0.0000          0.0000         -0.2240***       0.0000         -0.0875**        0.0000   {txt}
+            {res} {ralign 12:{txt:(}.{txt:)}}    {ralign 12:{txt:(}.{txt:)}}    {ralign 12:{txt:(}0.0040{txt:)}}    {ralign 12:{txt:(}.{txt:)}}    {ralign 12:{txt:(}0.0285{txt:)}}    {ralign 12:{txt:(}.{txt:)}}   {txt}
+
+{txt}0.race      {res}                                       0.0000          0.0000          0.0000          0.0000   {txt}
+            {res}                                 {ralign 12:{txt:(}.{txt:)}}    {ralign 12:{txt:(}.{txt:)}}    {ralign 12:{txt:(}.{txt:)}}    {ralign 12:{txt:(}.{txt:)}}   {txt}
+
+{txt}1.race      {res}                                      -0.2107***      -0.2266***      -0.2108***      -0.1787***{txt}
+            {res}                                 {ralign 12:{txt:(}0.0032{txt:)}}    {ralign 12:{txt:(}0.0183{txt:)}}    {ralign 12:{txt:(}0.0032{txt:)}}    {ralign 12:{txt:(}0.0299{txt:)}}   {txt}
+
+{txt}0.smsa      {res}                                       0.0000          0.0000          0.0000          0.0000   {txt}
+            {res}                                 {ralign 12:{txt:(}.{txt:)}}    {ralign 12:{txt:(}.{txt:)}}    {ralign 12:{txt:(}.{txt:)}}    {ralign 12:{txt:(}.{txt:)}}   {txt}
+
+{txt}1.smsa      {res}                                      -0.1418***      -0.1535***      -0.1419***      -0.1182***{txt}
+            {res}                                 {ralign 12:{txt:(}0.0023{txt:)}}    {ralign 12:{txt:(}0.0135{txt:)}}    {ralign 12:{txt:(}0.0023{txt:)}}    {ralign 12:{txt:(}0.0220{txt:)}}   {txt}
+
+{txt}0.married   {res}                                       0.0000          0.0000          0.0000          0.0000   {txt}
+            {res}                                 {ralign 12:{txt:(}.{txt:)}}    {ralign 12:{txt:(}.{txt:)}}    {ralign 12:{txt:(}.{txt:)}}    {ralign 12:{txt:(}.{txt:)}}   {txt}
+
+{txt}1.married   {res}                                       0.2445***       0.2442***       0.2444***       0.2450***{txt}
+            {res}                                 {ralign 12:{txt:(}0.0022{txt:)}}    {ralign 12:{txt:(}0.0022{txt:)}}    {ralign 12:{txt:(}0.0022{txt:)}}    {ralign 12:{txt:(}0.0023{txt:)}}   {txt}
+
+{txt}1.region    {res}                                       0.0000         -0.0967***       0.0000         -0.0842***{txt}
+            {res}                                 {ralign 12:{txt:(}.{txt:)}}    {ralign 12:{txt:(}0.0064{txt:)}}    {ralign 12:{txt:(}.{txt:)}}    {ralign 12:{txt:(}0.0089{txt:)}}   {txt}
+
+{txt}2.region    {res}                                       0.0782***      -0.0204**        0.0783***      -0.0020   {txt}
+            {res}                                 {ralign 12:{txt:(}0.0043{txt:)}}    {ralign 12:{txt:(}0.0077{txt:)}}    {ralign 12:{txt:(}0.0043{txt:)}}    {ralign 12:{txt:(}0.0119{txt:)}}   {txt}
+
+{txt}3.region    {res}                                       0.1354***       0.0327**        0.1356***       0.0636** {txt}
+            {res}                                 {ralign 12:{txt:(}0.0041{txt:)}}    {ralign 12:{txt:(}0.0120{txt:)}}    {ralign 12:{txt:(}0.0041{txt:)}}    {ralign 12:{txt:(}0.0193{txt:)}}   {txt}
+
+{txt}4.region    {res}                                       0.0224***      -0.0755***       0.0226***      -0.0591***{txt}
+            {res}                                 {ralign 12:{txt:(}0.0048{txt:)}}    {ralign 12:{txt:(}0.0073{txt:)}}    {ralign 12:{txt:(}0.0048{txt:)}}    {ralign 12:{txt:(}0.0109{txt:)}}   {txt}
+
+{txt}5.region    {res}                                      -0.0125**       -0.1157***      -0.0124**       -0.0835***{txt}
+            {res}                                 {ralign 12:{txt:(}0.0042{txt:)}}    {ralign 12:{txt:(}0.0125{txt:)}}    {ralign 12:{txt:(}0.0042{txt:)}}    {ralign 12:{txt:(}0.0202{txt:)}}   {txt}
+
+{txt}6.region    {res}                                      -0.0277***      -0.1361***      -0.0276***      -0.0882** {txt}
+            {res}                                 {ralign 12:{txt:(}0.0050{txt:)}}    {ralign 12:{txt:(}0.0185{txt:)}}    {ralign 12:{txt:(}0.0050{txt:)}}    {ralign 12:{txt:(}0.0299{txt:)}}   {txt}
+
+{txt}7.region    {res}                                       0.0342***      -0.0666***       0.0346***      -0.0414** {txt}
+            {res}                                 {ralign 12:{txt:(}0.0046{txt:)}}    {ralign 12:{txt:(}0.0101{txt:)}}    {ralign 12:{txt:(}0.0046{txt:)}}    {ralign 12:{txt:(}0.0159{txt:)}}   {txt}
+
+{txt}8.region    {res}                                       0.0251***      -0.0679***       0.0251***      -0.0667***{txt}
+            {res}                                 {ralign 12:{txt:(}0.0052{txt:)}}    {ralign 12:{txt:(}0.0045{txt:)}}    {ralign 12:{txt:(}0.0052{txt:)}}    {ralign 12:{txt:(}0.0046{txt:)}}   {txt}
+
+{txt}9.region    {res}                                       0.0925***       0.0000          0.0926***       0.0000   {txt}
+            {res}                                 {ralign 12:{txt:(}0.0043{txt:)}}    {ralign 12:{txt:(}.{txt:)}}    {ralign 12:{txt:(}0.0043{txt:)}}    {ralign 12:{txt:(}.{txt:)}}   {txt}
+
+{txt}ageq        {res}                                                                       0.1518***       0.1215*  {txt}
+            {res}                                                                 {ralign 12:{txt:(}0.0379{txt:)}}    {ralign 12:{txt:(}0.0474{txt:)}}   {txt}
+
+{txt}ageqsq      {res}                                                                      -0.0019***      -0.0015*  {txt}
+            {res}                                                                 {ralign 12:{txt:(}0.0005{txt:)}}    {ralign 12:{txt:(}0.0007{txt:)}}   {txt}
+
+{txt}_cons       {res}       6.5095***       4.9069***       4.9853***       5.0407***       2.0246**        2.1245** {txt}
+            {res} {ralign 12:{txt:(}0.3535{txt:)}}    {ralign 12:{txt:(}0.1893{txt:)}}    {ralign 12:{txt:(}0.0065{txt:)}}    {ralign 12:{txt:(}0.2120{txt:)}}    {ralign 12:{txt:(}0.6543{txt:)}}    {ralign 12:{txt:(}0.6645{txt:)}}   {txt}
+{txt}{hline 108}
+{txt}N           {res}       486926          486926          486926          486926          486926          486926   {txt}
+{txt}{hline 108}
+{txt}Standard errors in parentheses
+{txt}* p<0.05, ** p<0.01, *** p<0.001
+
+{com}. //_8
+.     eststo dir
+
+{txt}{hline 13}{c TT}{hline 71}
+             {c |}           Dependent  Number of        
+        Name {c |} Command    variable     param.  Title 
+{hline 13}{c +}{hline 71}
+{ralign 12:{stata estimates replay ols:ols}}{col 14}{txt:{c |}}{res}{col 16}{lalign 10:regress}{col 26}{ralign 9:lwklywge}{col 42}   2{col 48}{it:Linear regression}
+{txt}{ralign 12:{stata estimates replay wald:wald}}{col 14}{txt:{c |}}{res}{col 16}{lalign 10:ivregress}{col 26}{ralign 9:lwklywge}{col 42}   2{col 48}{it:Instrumental-variables 2SLS regression}
+{txt}{ralign 12:{stata estimates replay qob_iv:qob_iv}}{col 14}{txt:{c |}}{res}{col 16}{lalign 10:ivregress}{col 26}{ralign 9:lwklywge}{col 42}  12{col 48}{it:Instrumental-variables 2SLS regression}
+{txt}{ralign 12:{stata estimates replay column_1:column_1}}{col 14}{txt:{c |}}{res}{col 16}{lalign 10:regress}{col 26}{ralign 9:lwklywge}{col 42}  12{col 48}{it:Linear regression}
+{txt}{ralign 12:{stata estimates replay column_2:column_2}}{col 14}{txt:{c |}}{res}{col 16}{lalign 10:ivregress}{col 26}{ralign 9:lwklywge}{col 42}  12{col 48}{it:Instrumental-variables 2SLS regression}
+{txt}{ralign 12:{stata estimates replay column_3:column_3}}{col 14}{txt:{c |}}{res}{col 16}{lalign 10:regress}{col 26}{ralign 9:lwklywge}{col 42}  14{col 48}{it:Linear regression}
+{txt}{ralign 12:{stata estimates replay column_4:column_4}}{col 14}{txt:{c |}}{res}{col 16}{lalign 10:ivregress}{col 26}{ralign 9:lwklywge}{col 42}  14{col 48}{it:Instrumental-variables 2SLS regression}
+{txt}{ralign 12:{stata estimates replay column_5:column_5}}{col 14}{txt:{c |}}{res}{col 16}{lalign 10:regress}{col 26}{ralign 9:lwklywge}{col 42}  27{col 48}{it:Linear regression}
+{txt}{ralign 12:{stata estimates replay column_6:column_6}}{col 14}{txt:{c |}}{res}{col 16}{lalign 10:ivregress}{col 26}{ralign 9:lwklywge}{col 42}  27{col 48}{it:Instrumental-variables 2SLS regression}
+{txt}{ralign 12:{stata estimates replay column_7:column_7}}{col 14}{txt:{c |}}{res}{col 16}{lalign 10:regress}{col 26}{ralign 9:lwklywge}{col 42}  29{col 48}{it:Linear regression}
+{txt}{ralign 12:{stata estimates replay column_8:column_8}}{col 14}{txt:{c |}}{res}{col 16}{lalign 10:ivregress}{col 26}{ralign 9:lwklywge}{col 42}  29{col 48}{it:Instrumental-variables 2SLS regression}
+{txt}{hline 13}{c BT}{hline 71}
+
+{com}.     esttab ols wald qob_iv, b(4) se(4) stats(r2 N, fmt(%4.3f %9.0fc) labels("R2" "N")) ///
+>         nodepvars nostar obslast noomitted nobaselevels varwidth(24) alignment(D{c -(}.{c )-}{c -(}.{c )-}{c -(}-1{c )-}) ///
+>         title("Least-Squares Estimates of the log-Wage Regression") ///
+>         mtitles("OLS" "Wald" "IVQOB") ///
+>         order(_cons educ) ///
+>         coeflabels(_cons Constant ///
+>                 educ "Years of Education") ///
+>         indicate("Year-of-Birth = *.yob", labels("\checkmark" "")) ///
+>         nonotes addnotes("Standard errors in parentheses." "Source:~Angrist and Krueger (1991).")
+{res}
+{txt}Least-Squares Estimates of the log-Wage Regression
+{txt}{hline 63}
+{txt}                                  (1)          (2)          (3)
+{txt}                                  OLS         Wald        IVQOB
+{txt}{hline 63}
+{txt}Constant                {res}       5.0452       5.9308       6.5095{txt}
+                        {res} {ralign 12:{txt:(}0.0042{txt:)}} {ralign 12:{txt:(}0.3599{txt:)}} {ralign 12:{txt:(}0.3535{txt:)}}{txt}
+
+{txt}Years of Education      {res}       0.0554      -0.0098      -0.0612{txt}
+                        {res} {ralign 12:{txt:(}0.0003{txt:)}} {ralign 12:{txt:(}0.0265{txt:)}} {ralign 12:{txt:(}0.0257{txt:)}}{txt}
+
+{txt}Year-of-Birth           {res}                             \checkmark{txt}
+{txt}{hline 63}
+{txt}R2                      {res}        0.066            .            .{txt}
+{txt}N                       {res}      486,926      486,926      486,926{txt}
+{txt}{hline 63}
+{txt}Standard errors in parentheses.
+{txt}Source:~Angrist and Krueger (1991).
+
+{com}. //_9
+.     esttab ols wald qob_iv using "results/Exercise_5_table_a_Rueda.tex", ///
+>         b(4) se(4) stats(r2 N, fmt(%4.3f %9.0fc) labels("\$R^2\$" "\$N\$")) ///
+>         nodepvars nostar obslast noomitted nobaselevels varwidth(24) alignment(D{c -(}.{c )-}{c -(}.{c )-}{c -(}-1{c )-}) ///
+>         replace booktabs ///
+>         title("Least-Squares Estimates of the log-Wage Regression") ///
+>         mtitles("OLS" "Wald" "IVQOB") ///
+>         order(_cons educ) ///
+>         coeflabels(_cons Constant ///
+>                 educ "Years of Education") ///
+>         indicate("Year-of-Birth = *.yob", labels("\checkmark" "")) ///
+>         nonotes addnotes("Standard errors in parentheses." "Source:~Angrist and Krueger (1991).")
+{res}{txt}(output written to {browse  `"results/Exercise_5_table_a_Rueda.tex"'})
+
+{com}. //_10
+.     esttab column_1 column_2 column_3 column_4, ///
+>         b(4) se(4) stats(r2, fmt(%4.3f) labels("R2")) ///
+>         nodepvars nostar obslast noomitted nobaselevels varwidth(24) alignment(D{c -(}.{c )-}{c -(}.{c )-}{c -(}-1{c )-}) ///
+>         title("Re urns to Education: Alternative Estimates") ///
+>         mtitles("OLS" "TSLS" "OLS" "TSLS") ///
+>         order(educ race smsa married) ///
+>         coeflabels(educ "Years of Education" ///
+>                 race "Race (1 = black)" ///
+>                 smsa "SMSA (1 = center city)" ///
+>                 married "Married (1 = married)") ///
+>         indicate("Year-of-Birth = *.yob", labels("Yes" "")) 
+{res}
+{txt}Re urns to Education: Alternative Estimates
+{txt}{hline 76}
+{txt}                                  (1)          (2)          (3)          (4)
+{txt}                                  OLS         TSLS          OLS         TSLS
+{txt}{hline 76}
+{txt}Years of Education      {res}       0.0573       0.0553       0.0573       0.0948{txt}
+                        {res} {ralign 12:{txt:(}0.0003{txt:)}} {ralign 12:{txt:(}0.0138{txt:)}} {ralign 12:{txt:(}0.0003{txt:)}} {ralign 12:{txt:(}0.0223{txt:)}}{txt}
+
+{txt}Race (1 = black)        {res}                                                    {txt}
+                        {res}                                                    {txt}
+
+{txt}SMSA (1 = center city)  {res}                                                    {txt}
+                        {res}                                                    {txt}
+
+{txt}Married (1 = married)   {res}                                                    {txt}
+                        {res}                                                    {txt}
+
+{txt}ageq                    {res}                                 0.1800       0.1325{txt}
+                        {res}                           {ralign 12:{txt:(}0.0389{txt:)}} {ralign 12:{txt:(}0.0486{txt:)}}{txt}
+
+{txt}ageqsq                  {res}                                -0.0023      -0.0016{txt}
+                        {res}                           {ralign 12:{txt:(}0.0006{txt:)}} {ralign 12:{txt:(}0.0007{txt:)}}{txt}
+
+{txt}_cons                   {res}       5.1298       4.9069       1.6729       1.7886{txt}
+                        {res} {ralign 12:{txt:(}0.0050{txt:)}} {ralign 12:{txt:(}0.1893{txt:)}} {ralign 12:{txt:(}0.6715{txt:)}} {ralign 12:{txt:(}0.6949{txt:)}}{txt}
+
+{txt}Year-of-Birth           {res}          Yes          Yes          Yes          Yes{txt}
+{txt}{hline 76}
+{txt}R2                      {res}        0.083        0.083        0.083        0.053{txt}
+{txt}{hline 76}
+{txt}Standard errors in parentheses
+
+{com}. //_11
+.     esttab column_1 column_2 column_3 column_4 using "results/Exercise_5_table_b_Rueda.tex", ///
+>         b(4) se(4) stats(r2, fmt(%4.3f) labels("\$R^2\$")) ///
+>         noconstant nodepvars nostar obslast noomitted nobaselevels varwidth(24) alignment(D{c -(}.{c )-}{c -(}.{c )-}{c -(}-1{c )-}) ///
+>         replace booktabs ///
+>         title("Returns to Education: Alternative Estimates") ///
+>         mtitles("OLS" "TSLS" "OLS" "TSLS") ///
+>         order(educ race smsa married) ///
+>         coeflabels(educ "Years of Education" ///
+>                 race "Race (1 = black)" ///
+>                 smsa "SMSA (1 = center city)" ///
+>                 married "Married (1 = married)") ///
+>         indicate("Year-of-Birth = *.yob", labels("Yes" "")) ///
+>         nonotes addnotes("a. Standard errors in parentheses. Sample size is 486,926. Instruments are a full set of quarter-of-birth times year-of-birth interactions." ///
+>         "Sample consists of males born in the United States. The sample is drawn from the 5 percent samples of the 1980 Census." ///
+>         "The dependent variable is the log of weekly earnings. Age and age-squared are measured in quarters of years." ///
+>         "Each equation also includes an intercept.")
+{res}{txt}(output written to {browse  `"results/Exercise_5_table_b_Rueda.tex"'})
+
+{com}. //_^
+. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}C:\Users\melin\OneDrive\ECO 727\Analysis\Exercise_5_Rueda_.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res}19 Jan 2025, 18:46:44
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}

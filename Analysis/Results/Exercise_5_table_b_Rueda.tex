@@ -1,0 +1,35 @@
+\begin{table}[htbp]\centering
+\caption{Returns to Education: Alternative Estimates}
+\begin{tabular}{l*{4}{D{.}{.}{-1}}}
+\toprule
+                        &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}\\
+                        &\multicolumn{1}{c}{OLS}&\multicolumn{1}{c}{TSLS}&\multicolumn{1}{c}{OLS}&\multicolumn{1}{c}{TSLS}\\
+\midrule
+Years of Education      &      0.0573&      0.0553&      0.0573&      0.0948\\
+                        &    (0.0003)&    (0.0138)&    (0.0003)&    (0.0223)\\
+\addlinespace
+Race (1 = black)        &            &            &            &            \\
+                        &            &            &            &            \\
+\addlinespace
+SMSA (1 = center city)  &            &            &            &            \\
+                        &            &            &            &            \\
+\addlinespace
+Married (1 = married)   &            &            &            &            \\
+                        &            &            &            &            \\
+\addlinespace
+ageq                    &            &            &      0.1800&      0.1325\\
+                        &            &            &    (0.0389)&    (0.0486)\\
+\addlinespace
+ageqsq                  &            &            &     -0.0023&     -0.0016\\
+                        &            &            &    (0.0006)&    (0.0007)\\
+\addlinespace
+Year-of-Birth           &         Yes&         Yes&         Yes&         Yes\\
+\midrule
+$R^2$                   &       0.083&       0.083&       0.083&       0.053\\
+\bottomrule
+\multicolumn{5}{l}{\footnotesize a. Standard errors in parentheses. Sample size is 486,926. Instruments are a full set of quarter-of-birth times year-of-birth interactions.}\\
+\multicolumn{5}{l}{\footnotesize Sample consists of males born in the United States. The sample is drawn from the 5 percent samples of the 1980 Census.}\\
+\multicolumn{5}{l}{\footnotesize The dependent variable is the log of weekly earnings. Age and age-squared are measured in quarters of years.}\\
+\multicolumn{5}{l}{\footnotesize Each equation also includes an intercept.}\\
+\end{tabular}
+\end{table}

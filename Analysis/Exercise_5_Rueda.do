@@ -1,128 +1,189 @@
 ***** Exercise_5_Rueda.do
 ***** Angrist and Krueger (1991) Analysis: Effect of Schooling on Wages
-***** 
 
 * Preliminary instructions
 cd "C:\Users\melin\OneDrive\ECO 727\Analysis"
-//log using "Exercise_5_Rueda.smcl", name(results) replace
+log using "Exercise_5_Rueda.smcl", name(results) replace
 set scheme s2color
 global ex=5
 global lname="Rueda"
 
 * Part A: Data Preparation
 use "../Data/Birth Quarter.dta" if cohort == 4, clear
-//run data_check
+run data_check
 
-* Ensure the data is from the 1980 Census and the 1940s cohort
-assert census == 80 // Check that the data is from the 1980 Census
-assert cohort == 4    // Check that the data is for the 1940s cohort
-assert _N == 486926   // Correct sample size for 1940s cohort in 1980 Census
+* Verify data conditions
+assert census == 80 
+assert cohort == 4  
+assert _N == 486926 
 
-generate q1 = (qob == 1) // Dummy for birth in the first quarter
-generate ageqsq = ageq^2 // Squared term for age
+* Generate required variables
+generate q1 = (qob == 1)   
+generate ageqsq = ageq^2   
 
 ***end part a
 
 * Part B: Estimate OLS and 2SLS
-* OLS regression of lwklywge on educ
+* OLS regression
 regress lwklywge educ
 eststo ols
 
-* Wald estimator using 2SLS (q1 as instrument)
+* Wald estimator using 2SLS
 ivregress 2sls lwklywge (educ = q1)
 eststo wald
-estat firststage // Check for weak instruments
+estat firststage    
 
-* 2SLS regression of lwklywge on educ, using qob as instrument and controlling for yob
+* 2SLS with quarter of birth instruments
 ivregress 2sls lwklywge (educ = ib4.qob) ib49.yob
 eststo qob_iv
-estat firststage // Check for weak instruments
+estat firststage    
+estat overid        
+
+testparm i.yob
 
 *** end part b
 
 * Part C: Reproduce Table 6
-* Loop to estimate models for columns 1-8
 forvalues i = 1/8 {
     if `i' == 1 {
-        regress lwklywge educ ib49.yob // Column 1: OLS with year-of-birth dummies
+        regress lwklywge educ ib49.yob 
+        eststo column_`i'
+        testparm i.yob
     }
     else if `i' == 2 {
-        ivregress 2sls lwklywge (educ = ib4.qob#ib49.yob) ib49.yob // Column 2: TSLS with qob#yob interactions
+        ivregress 2sls lwklywge (educ = ib4.qob#ib49.yob) ib49.yob 
+        eststo column_`i'
+        estat firststage
+        estat overid
+        estadd scalar overid = r(p)
+        testparm i.yob
     }
     else if `i' == 3 {
-        regress lwklywge educ ageq ageqsq ib49.yob // Column 3: OLS with age, age-squared, and year-of-birth dummies
+        regress lwklywge educ ageq ageqsq ib49.yob 
+        eststo column_`i'
+        testparm ageq ageqsq
+        testparm i.yob
     }
     else if `i' == 4 {
-        regress lwklywge educ ageq ageqsq ib49.yob i.race i.region i.smsa i.married // Column 4: OLS with additional controls
+        regress lwklywge educ ageq ageqsq ib49.yob i.race i.region i.smsa i.married 
+        eststo column_`i'
+        testparm ageq ageqsq
+        testparm i.yob
+        testparm i.race
+        testparm i.region
     }
     else if `i' == 5 {
-        ivregress 2sls lwklywge (educ = ib4.qob#ib49.yob) ib49.yob // Column 5: TSLS with qob#yob interactions
+        ivregress 2sls lwklywge (educ = ib4.qob#ib49.yob) ib49.yob 
+        eststo column_`i'
+        estat firststage
+        estat overid
+        estadd scalar overid = r(p)
+        testparm i.yob
     }
     else if `i' == 6 {
-        ivregress 2sls lwklywge (educ = ib4.qob#ib49.yob) ageq ageqsq ib49.yob // Column 6: TSLS with qob#yob interactions
+        ivregress 2sls lwklywge (educ = ib4.qob#ib49.yob) ageq ageqsq ib49.yob 
+        eststo column_`i'
+        estat firststage
+        estat overid
+        estadd scalar overid = r(p)
+        testparm i.yob
     }
     else if `i' == 7 {
-        ivregress 2sls lwklywge (educ = ib4.qob#ib49.yob) ageq ageqsq ib49.yob i.race i.region i.smsa i.married // Column 7: TSLS with qob#yob interactions
+        ivregress 2sls lwklywge (educ = ib4.qob#ib49.yob) ageq ageqsq ib49.yob i.race i.region i.smsa i.married 
+        eststo column_`i'
+        estat firststage
+        estat overid
+        estadd scalar overid = r(p)
+        testparm i.yob
     }
     else if `i' == 8 {
-        ivregress 2sls lwklywge (educ = ib4.qob#ib49.yob) ib49.yob // Column 8: TSLS with qob#yob interactions
-    }
-    eststo column_`i'
-    
-    * Call estat firststage only for 2SLS models (columns 2, 5, 6, 7, and 8)
-    if inlist(`i', 2, 5, 6, 7, 8) {
-        estat firststage // Check for weak instruments in TSLS models
-        estat overid     // Test overidentifying restrictions
+        ivregress 2sls lwklywge (educ = ib4.qob#ib49.yob) ib49.yob 
+        eststo column_`i'
+        estat firststage
+        estat overid
+        estadd scalar overid = r(p)
+        testparm i.yob
     }
 }
 
 *** end part c
 
 * Part D: Compare the Estimates
+esttab wald, b(4) se(4)
 
-* 1. Compare the Wald estimate from Part B with Angrist and Krueger’s Table 3
-esttab wald, se // Display the Wald estimate from Part B
-
-* 2. Compare the 2SLS estimates with three birth-quarter instruments (Part B) and 29 interactions (Part C)
-esttab qob_iv column_2 column_5 column_6 column_7 column_8, se
+* Compare 2SLS estimates
+esttab qob_iv column_2 column_5 column_6 column_7 column_8, b(4) se(4)
 
 foreach model in qob_iv column_2 column_5 column_6 column_7 column_8 {
     est restore `model'
     estat firststage
-}
-
-* For the models with 29 birth-quarter × birth-year interactions (Part C)
-foreach model in column_2 column_5 column_6 column_7 column_8 {
-    est restore `model'
-    estat overid // Test overidentifying restrictions (Sargan and Basmann tests)
+    estat overid
 }
 
 *** end part d
 
-*** Part E: Display and Export Regression Results
-*** Display a directory of the 11 saved regressions
+* Part E: Display and Export Results
 eststo dir
 
-*** Write the estimates from the three regressions in Part B to the log file
-esttab ols wald qob_iv, b(3) se(3) stats(r2 N, fmt(%4.3f %9.0fc) labels("R2" "N")) ///
+* Write estimates to log file
+esttab ols wald qob_iv, b(4) se(4) stats(r2 N, fmt(%4.3f %9.0fc) labels("R2" "N")) ///
     nodepvars nostar obslast noomitted nobaselevels varwidth(24) alignment(r) ///
     title("Least-Squares Estimates of the log-Wage Regression") ///
     mtitles("OLS" "Wald" "2SLS") ///
-    coeflabels(_cons Constant  educ "Years of Education") ///
+    order(_cons educ) ///
+    coeflabels(_cons Constant educ "Years of Education") ///
     indicate("Birth-Year Dummies = *.yob", labels("\checkmark" "")) ///
     nonotes addnotes("Standard errors in parentheses." "Source:~Angrist and Krueger (1991).")
 
-*** Write the estimates to the file Exercise_5_table_a_Rueda.tex
-esttab ols wald qob_iv using results/Exercise_5_table_a_Rueda.tex, ///
-    b(3) se(3) stats(r2 N, fmt(%4.3f %9.0fc) labels("\$R^2\$" "\$N\$")) ///
-    nodepvars nostar obslast noomitted nobaselevels varwidth(24) alignment(D{.}{.}{-1}) replace booktabs ///
+* Write to tex file
+esttab ols wald qob_iv using "results/Exercise_5_table_a_Rueda.tex", ///
+    b(4) se(4) stats(r2 N, fmt(%4.3f %9.0fc) labels("\$R^2\$" "\$N\$")) ///
+    nodepvars nostar obslast noomitted nobaselevels varwidth(24) alignment(D{.}{.}{-1}) ///
+    replace booktabs ///
     title("Least-Squares Estimates of the log-Wage Regression") ///
     mtitles("OLS" "Wald" "2SLS") ///
-    coeflabels(_cons Constant  educ "Years of Education") ///
+    order(_cons educ) ///
+    coeflabels(_cons Constant educ "Years of Education") ///
     indicate("Birth-Year Dummies = *.yob", labels("\checkmark" "")) ///
     nonotes addnotes("Standard errors in parentheses." "Source:~Angrist and Krueger (1991).")
 
-    *** end part e
+*** end part e
 
-    // still needs constant to be first using order 
-    // use four decimal points se(4) and b(4)
+* Part F: Reproduce First Half of Table 6
+esttab column_1 column_2 column_3 column_4, ///
+    b(4) se(4) stats(r2 N, fmt(%4.3f %9.0fc) labels("R2" "N")) ///
+    nodepvars nostar obslast noomitted nobaselevels varwidth(24) alignment(r) ///
+    title("Returns to Education: Alternative Estimates") ///
+    mtitles("(1)" "(2)" "(3)" "(4)") ///
+    order(_cons educ race smsa married) ///
+    coeflabels(_cons Constant ///
+               educ "Years of Education" ///
+               race "Race (1 = black)" ///
+               smsa "SMSA (1 = center city)" ///
+               married "Married (1 = married)") ///
+    indicate("Year-of-Birth = *.yob" "Age Controls = ageq ageqsq" ///
+            "Additional Controls = *.race *.region *.smsa *.married", ///
+    labels("Yes" "No")) ///
+    nonotes addnotes("Standard errors in parentheses") 
+
+* Write to tex file
+esttab column_1 column_2 column_3 column_4 using "results/Exercise_5_table_b_Rueda.tex", ///
+    b(4) se(4) stats(r2 N, fmt(%4.3f %9.0fc) labels("\$R^2\$" "\$N\$")) ///
+    nodepvars nostar obslast noomitted nobaselevels varwidth(24) alignment(D{.}{.}{-1}) ///
+    replace booktabs ///
+    title("Returns to Education: Alternative Estimates") ///
+    mtitles("(1)" "(2)" "(3)" "(4)") ///
+    order(_cons educ race smsa married) ///
+    coeflabels(_cons Constant ///
+               educ "Years of Education" ///
+               race "Race (1 = black)" ///
+               smsa "SMSA (1 = center city)" ///
+               married "Married (1 = married)") ///
+    indicate("Year-of-Birth = *.yob" "Age Controls = ageq ageqsq" ///
+            "Additional Controls = *.race *.region *.smsa *.married", ///
+    labels("Yes" "No")) ///
+    nonotes addnotes("Standard errors in parentheses")
+
+*** end part f
+
+log close results
